@@ -1,7 +1,7 @@
 {
   "name": "__MSG_title__",
-  "version": "1.0.4",
-  "version_name": "1.0.4",
+  "version": "1.1.0",
+  "version_name": "1.1.0",
   "description": "__MSG_titleDesc__",
   "default_locale": "en",
   "icons": { 
@@ -9,7 +9,7 @@
   },
   "background": {
     "persistent": false,
-    "scripts": ["suncalc.js", "holydays.js", "shared.js", "startup.js"]
+    "scripts": ["suncalc.js", "holydays.js", "moment.js", "shared.js", "startup.js"]
   },
   "permissions": ["alarms", "geolocation", "clipboardWrite", 
       "http://maps.googleapis.com/"],

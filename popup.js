@@ -5,8 +5,13 @@ var samplesDiv = $('#samples');
 samplesDiv.on('click', 'button', copySample);
 $('.btnChangeDay').on('click', changeDay);
 $('#btnEveOrDay').on('click', toggleEveOrDay);
+$('#datePicker').on('change', jumpToDate);
 
+$('#datePicker').on('keydown', function(ev){
+  ev.stopPropagation();
+});
 $(document).on('keydown', keyPressed);
+
 $('.iconArea a').click(function(){
   chrome.tabs.create({active: true, url: this.href });
 });
@@ -95,15 +100,13 @@ function showInfo(){
   $('#explain').html(explain1);
   $('#explain2').html(explain2);
   
-  $('#gDate').html('{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear} ({^currentRelationToSunset})'.filledWith(di));
+  $('#gDate').html('{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear}'.filledWith(di));
+  $('#gDateDesc').html('({^currentRelationToSunset})'.filledWith(di));
+
+  $('#datePicker').val(di.currentDateString);
+
+  showUpcoming();
      
-  var special = $('#special');
-  if(localStorage.popup_special) {
-    special.html(localStorage.popup_special);
-  }else{
-    special.hide();
-  }
-  
   clearSamples();
   for (var i = 0; i < samples.length; i++) {
     var sample = samples[i];
@@ -114,6 +117,53 @@ function showInfo(){
   samplesDiv.find('#sampleList').append('<div id=sampleFootnote>{0}</div>'.filledWith(getMessage('currentTimeSample')));
 }
 
+function showUpcoming(){
+  var dayInfos = holyDays.getUpcoming(di, 3);
+  var today = moment(di.frag2);
+  today.hour(0);
+  $('#special').html('').hide();
+  
+  $.each(dayInfos, function(i, dayInfo){
+    var targetDi = getDateInfo(dayInfo.GDate)
+    
+    if(dayInfo.Type === 'M'){
+      dayInfo.A = 'Feast of ' + targetDi.bMonthMeaning;
+    }else 
+    if(dayInfo.Type.slice(0,1)==='H'){
+      dayInfo.A = dayInfo.NameEn;
+    }
+    if(dayInfo.Special && dayInfo.Special.slice(0,5)==='AYYAM'){
+      dayInfo.A = dayInfo.NameEn;
+    }
+    dayInfo.date = targetDi.bMonthNameAr + ' ' + targetDi.bDay
+         + ' - ' + targetDi.gCombinedMD;
+
+    var sameDay = di.gCombinedMD == targetDi.gCombinedMD;
+    var targetMoment = moment(dayInfo.GDate);
+    dayInfo.away = determineDaysAway(today, targetMoment, sameDay);
+
+    if(sameDay){
+      $('#special').html(dayInfo.A).show();
+    }
+  });
+  
+  $('#upcoming').html('<tr class={Type}><td>{away}</td><td>{^A}</td><td>{date}</td></tr>'.filledWithEach(dayInfos))
+}
+
+function determineDaysAway(moment1, moment2, sameDay){
+  var days = moment2.diff(moment1, 'days');
+  if(days===1 && !di.bNow.eve){
+    return 'Tonight';
+  }
+  if(days===-1){
+    return 'Ended';
+  }
+  if(days===0){
+    return 'Now';
+  }
+  return (days===1 ? 'in {0} day' : 'in {0} days').filledWith(days);
+}
+
 function keyPressed(ev){
   var key = String.fromCharCode(ev.which) || '';
   switch(ev.which){
@@ -122,20 +172,32 @@ function keyPressed(ev){
       
     case 37:
       changeDay(null, -1);
+      ev.preventDefault();
       return;
     case 39:
       changeDay(null, 1);
+      ev.preventDefault();
       return;
       
     case 38:
       toggleEveOrDay(false);
+      ev.preventDefault();
       return;
     case 40:
       toggleEveOrDay(true);
+      ev.preventDefault();
       return;
       
     default:
-      $('#key' + key).trigger('click'); // effective if a used letter is typed
+      try{
+        var sample = $('#key' + key);
+        if(sample.length){
+          sample.trigger('click'); // effective if a used letter is typed
+          ev.preventDefault();
+        }
+      }catch(ex){
+        // ignore jquery error
+      }
       return;
   }
 }
@@ -193,29 +255,44 @@ function toggleEveOrDay(toEve){
   showInfo();
 }
 
+function jumpToDate(ev){
+  var date = moment($(ev.target).val()).toDate();
+  if(!isNaN(date)){
+    _targetDate = date;
+    
+    refreshDateInfo();
+    showInfo();
+  }
+}
+
 function changeDay(ev, delta){
   delta = ev ? +$(ev.target).data('delta') : +delta;
   if (delta === 0) {
     _targetDate = null;
  } else{
     _targetDate = getCurrentTime();
-console.log(delta + ' ' + di.bNow.eve);  
-    if(delta == 1){
-      if(!di.bNow.eve){
-        toggleEveOrDay(true);
-        return;
-      }
-      _targetDate.setDate(_targetDate.getDate() + delta);   
-      toggleEveOrDay(false);
-    }
-    if(delta == -1){
-      if(di.bNow.eve){
-        toggleEveOrDay(false);
-        return;
-      }
-      _targetDate.setDate(_targetDate.getDate() + delta);   
-      toggleEveOrDay(true);
-    } 
+    // console.log(delta + ' ' + di.bNow.eve);  
+
+    _targetDate.setDate(_targetDate.getDate() + delta);   
+
+//    if(delta == 1){
+//      if(!di.bNow.eve){
+//        toggleEveOrDay(true);
+//        return;
+//      }
+//      _targetDate.setDate(_targetDate.getDate() + delta);   
+//      toggleEveOrDay(false);
+//    }
+//
+//
+//    if(delta == -1){
+//      if(di.bNow.eve){
+//        toggleEveOrDay(false);
+//        return;
+//      }
+//      _targetDate.setDate(_targetDate.getDate() + delta);   
+//      toggleEveOrDay(true);
+//    } 
   }
   
   _targetDate = getCurrentTime();

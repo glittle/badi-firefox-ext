@@ -2,10 +2,12 @@ var HolyDays = function () {
 //  var _now = new Date();
 
   var _dateInfos = null;
+  var _dateInfosForYear = 0;
   var _msInDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
   function prepareDateInfos(bYear) {
     _dateInfos = dateInfosRaw();
+    _dateInfosForYear = bYear;
 
     // add fast times
     for (var d = 1; d <= 19; d++) {
@@ -175,6 +177,50 @@ var HolyDays = function () {
       }
       return 0;
     });
+  }
+
+  function getUpcoming(di, numToAdd){
+    var targetDate = moment(moment(di.currentTime).format('YYYY-MM-DD')).toDate();//clone and lose timezone
+    if(_dateInfosForYear != di.bYear){
+      prepareDateInfos(di.bYear)
+    }
+    var added = 0;
+    var upcoming = [];
+    var dateInfoLength = _dateInfos.length;
+    var targetDateInfoNum = 0;
+    var abort = 0;
+    while(added < numToAdd  || abort > 365){
+      abort++;
+      
+      if(targetDateInfoNum >= dateInfoLength){
+        prepareDateInfos(di.bYear + 1);
+        dateInfoLength = _dateInfos.length;
+        if(dateInfoLength===0){
+          break; // didn't get any!
+        }
+        targetDateInfoNum = 0;
+      }
+      
+      var dateInfo = _dateInfos[targetDateInfoNum];
+     
+      if(moment(dateInfo.GDate).format('YYYY-MM-DD') < moment(targetDate).format('YYYY-MM-DD')){
+        // move on
+      }
+      else{
+        if(dateInfo.Type==='M' 
+        || dateInfo.Type.slice(0,1)==='H' 
+        || dateInfo.Type === 'OtherRange' && dateInfo.Special && dateInfo.Special.slice(0,5) === 'AYYAM'
+        ){
+          upcoming.push(dateInfo);
+          //console.log(dateInfo);
+          added++;
+          targetDate.setDate(1 + targetDate.getDate());
+        }
+      }
+      targetDateInfoNum++;
+    }
+    
+    return upcoming;
   }
 
   function showDatesInYear(host, bYear) {
@@ -731,6 +777,7 @@ var HolyDays = function () {
   return {
     getNawRuz: getNawRuz,
     dateInfos: _dateInfos,
+    getUpcoming: getUpcoming,
     getGDate: getGDateYMD,
     getBDate: getBDate,
 	  showDay: ShortBadi,

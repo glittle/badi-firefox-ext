@@ -36,8 +36,8 @@
   
   , "pressToCopy": { "message": "Press key to copy formatted date to the clipboard:", "description": "Can click button with mouse, or press matching key on keyboard" }
 
-  , "afterSunset": { "message": "evening, <strong>after</strong> sunset at {0}", "description": "" }
-  , "beforeSunset": { "message": "day, <strong>before</strong> sunset at {0}", "description": "" }
+  , "afterSunset": { "message": "evening, <strong>after</strong> sunset", "description": "" }
+  , "beforeSunset": { "message": "day, <strong>before</strong> sunset", "description": "" }
 
   , "dayStartedFuture": { "message": "starts", "description": "" }
   , "dayStartedPast": { "message": "started", "description": "" }

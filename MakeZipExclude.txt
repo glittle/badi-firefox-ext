@@ -1,3 +1,6 @@
 *.zip
 *.cmd
 MakeZip*
+.git
+.settings
+Readme.md

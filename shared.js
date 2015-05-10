@@ -1,3 +1,5 @@
+/* global HolyDays */
+/* global moment */
 var _locationLat = localStorage.lat;
 var _locationLong = localStorage.long;
 var _targetDate = null;
@@ -23,7 +25,10 @@ var ordinalNames = getMessage('ordinalNames').split(',');
 
 
 function refreshDateInfo(){
-  var currentTime = getCurrentTime();
+  di = getDateInfo(getCurrentTime());
+}
+
+function getDateInfo(currentTime){
   var bNow = holyDays.getBDate(currentTime);
   
   // split the Baha'i day to be "Eve" - sunset to midnight; 
@@ -40,7 +45,7 @@ function refreshDateInfo(){
   var frag1SunTimes = SunCalc.getTimes(frag1Noon, _locationLat, _locationLong);
   var frag2SunTimes = SunCalc.getTimes(frag2Noon, _locationLat, _locationLong);
 
-  di = { // date info
+  var di = { // date info
     frag1: frag1Noon,
     frag1Year: frag1Noon.getFullYear(),
     frag1Month: frag1Noon.getMonth(),
@@ -115,9 +120,9 @@ function refreshDateInfo(){
   di.currentMonthShort = gMonthShort[di.currentMonth];
   di.currentWeekdayLong = gWeekdayLong[di.currentWeekday];
   di.currentWeekdayShort = gWeekdayShort[di.currentWeekday];
-
+  di.currentDateString = moment(di.currentTime).format('YYYY-MM-DD');
   
-  di.currentRelationToSunset = getMessage(bNow.eve ? 'afterSunset' : 'beforeSunset').filledWith(bNow.eve ? di.startingSunsetDesc : di.endingSunsetDesc);
+  di.currentRelationToSunset = getMessage(bNow.eve ? 'afterSunset' : 'beforeSunset');
   var thisMoment = new Date().getTime();
   di.dayStarted = getMessage(thisMoment > di.frag1SunTimes.sunset.getTime() ? 'dayStartedPast' : 'dayStartedFuture'); 
   di.dayEnded = getMessage(thisMoment > di.frag2SunTimes.sunset.getTime() ? 'dayEndedPast' : 'dayEndedFuture'); 
@@ -127,17 +132,21 @@ function refreshDateInfo(){
   if (di.frag1Year != di.frag2Year) {
     // Jul 31/Aug 1
     di.gCombined = '{frag1MonthShort} {frag1Day}, {frag1Year}/{frag2MonthShort} {frag2Day}, {frag2Year}'.filledWith(di);
+    di.gCombinedMD = '{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}'.filledWith(di);
   } else if (di.frag1Month != di.frag2Month) {
     // Jul 31/Aug 1
     di.gCombined = '{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}, {frag2Year}'.filledWith(di);
+    di.gCombinedMD = '{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}'.filledWith(di);
   } else {
     // Jul 12/13
     di.gCombined = '{frag2MonthShort} {frag1Day}/{frag2Day}, {frag2Year}'.filledWith(di);
+    di.gCombinedMD = '{frag1MonthShort} {frag1Day}/{frag2Day}'.filledWith(di);
   }
   di.nearestSunset = bNow.eve 
       ? "Day {dayStarted} with sunset at {startingSunsetDesc}".filledWith(di)
       : "Day {dayEnded} with sunset at {endingSunsetDesc}".filledWith(di);
   
+  return di;
 }
 
 
