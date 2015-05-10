@@ -1,0 +1,50 @@
+{
+    "title": { "message": "Badí' Calendar", "description": "The title of the extension. Shown in a number of locations." }
+  , "titleDesc": { "message": "Shows today's date in the Badí' calendar, the official calendar of the Bahá'í Faith.", "description": "Used in the manifest" }
+
+  , "browserActionTitle": { "message": "(Loading...)", "description": "Shown until the dynamic tip is created" }
+  
+  , "bYearInVahidMeaning": { "message": ",A,B,Father,D,Gate,V,Eternity,Generosity,Splendour,Love,Delightful,Answer,Single,Bountiful,Affection,Beginning,Luminous,Most Luminous,Unity", "description": "Vahid names, with leading , " }
+  , "bMonthMeaning": { "message": "Intercalary Days,Splendor,Glory,Beauty,Grandeur,Light,Mercy,Words,Perfection,Names,Might,Will,Knowledge,Power,Speech,Questions,Honor,Sovereignty,Dominion,Loftiness", "description": "Names of days/months, with first one being Ayyam-i-ha" }
+  , "bWeekDayMeaning": { "message": ",Glory,Beauty,Perfection,Grace,Justice,Majesty,Independence", "description": "start with Saturday" }
+  
+  , "gWeekdayLong": { "message": "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday", "description": "start with Sunday" }
+  , "gWeekdayShort": { "message": "Sun,Mon,Tue,Wed,Thu,Fri,Sat", "description": "start with Sun" }
+  , "gMonthLong": { "message": "January,February,March,April,May,June,July,August,September,October,November,December", "description": "" }
+  , "gMonthShort": { "message": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec", "description": "" }
+
+  , "startedWithSunset": { "message": "Started with sunset at {0}", "description": "" }
+  , "endingWithSunset": { "message": "Ends with sunset at {0}", "description": "" }
+
+  , "eraLong": { "message": "Bahá'í Era", "description": "" }
+  , "eraAbbrev": { "message": "B.E.", "description": "" }
+  , "eraShort": { "message": "BE", "description": "" }
+
+  , "ordinal": { "message": "th,st,nd,rd", "description": "x,1,2,3" }
+  , "ordinalNames": { "message": ",first,second,third,fourth,fifth,sixth,seventh,eighth,nineth,tenth,eleventh,twelfth,thirteenth,fourteenth,fifteenth,sixteenth,seventeenth,eighteenth,nineteenth", "description": "" }
+
+  , "DayOfWeek": { "message": "Weekday", "description": "" }
+  , "DayOfMonth": { "message": "Day of Month", "description": "" }
+  , "Month": { "message": "Month", "description": "" }
+  , "Year": { "message": "Year", "description": "" }
+  , "YearOfEra": { "message": "Year of Bahá'í Era", "description": "" }
+  , "YearOfVahid": { "message": "Year of Váḥid", "description": "" }
+  , "Vahid": { "message": "Váḥid", "description": "" }
+  , "Kullishay": { "message": "Kull-i-<u>Sh</u>ay’", "description": "" }
+
+  , "currentTimeSample": { "message": "* Gregorian date changes before/after sunset", "description": "" }
+  
+  , "pressToCopy": { "message": "Press key to copy formatted date to the clipboard:", "description": "Can click button with mouse, or press matching key on keyboard" }
+
+  , "afterSunset": { "message": "evening, <strong>after</strong> sunset at {0}", "description": "" }
+  , "beforeSunset": { "message": "day, <strong>before</strong> sunset at {0}", "description": "" }
+
+  , "dayStartedFuture": { "message": "starts", "description": "" }
+  , "dayStartedPast": { "message": "started", "description": "" }
+  , "dayEndedFuture": { "message": "ends", "description": "" }
+  , "dayEndedPast": { "message": "ended", "description": "" }
+
+  , "x": { "message": "", "description": "" }
+}
+
+

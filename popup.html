@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <script src="jquery-2.1.3.min.js"></script>
+  <script src="suncalc.js"></script>
+  <link href="popup.css" rel=stylesheet>
+</head>
+<body>
+    <div id=show>
+    	<div id=day></div>
+    	<div id=sunset></div>
+    	<div id=place></div>
+    </div>
+  <div class=sidebyside>
+    <div id=dayDetails></div>
+    <div id=spacer>&nbsp;</div>
+    <div id=samples>
+      <div id=sampleTitle></div>
+      <div id=sampleList></div>
+      <div id=sampleConfirm>Copied</div>
+    </div>
+  </div>
+  <div id=explain></div>
+  <div id=explain2></div>
+  <textarea id=sampleCopy></textarea>
+  <div id=gDatePicker>
+    <div id=gDate></div>
+    <div>
+      <button type=button class=btnChangeDay data-delta="-1">Prev</button>
+      <button type=button class="btnChangeDay today" data-delta="0">Today</button>
+      <button type=button class=btnChangeDay data-delta="1">Next</button>
+      <button type=button id=btnEveOrDay>Before/After sunset</button>
+    </div>
+  </div>
+
+  <div class="iconArea">
+    <a id=facebook href="https://www.facebook.com/BadiCalendarTools"
+     rel="publisher" target="_top" style="text-decoration:none;">
+      <img src="fb-16.png" alt="Facebook" style="border:0;width:16px;height:16px;"/>
+    </a>  
+    <img id=logo src="_locales/en/images/badi19-48.png">
+    <a id=googlePlus href="http://plus.google.com/u/0/111984989420723537597?prsrc=3"
+     rel="publisher" target="_top" style="text-decoration:none;">
+      <img src="gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
+    </a>
+  </div>
+  <script src="holydays.js"></script>
+  <script src="shared.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

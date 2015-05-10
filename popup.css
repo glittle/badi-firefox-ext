@@ -1,0 +1,179 @@
+html,body{
+  height: auto;
+}
+#show{
+  white-space: nowrap;
+  padding: 5px;
+  font-size: 1.25em;
+  font-family: Tahoma;
+  text-align: center;
+}
+#day{
+  font-size: 1.25em;
+  margin: 0 0 .5em 0;
+}
+#special{
+  font-size: 1.25em;
+  color: blue;
+  margin: 0 0 .5em 0;
+}
+.sidebyside{
+  display: table;
+  margin: 10px 0;
+}
+
+#place{
+  font-size: .7em;
+  color: gray;
+}
+#dayDetails {
+  border: 1px solid blue;
+  border-radius: 3px;
+  padding: 5px;
+  display: table-cell;
+  vertical-align: top;
+}
+#spacer{
+  display: table-cell;
+}
+dl{
+  text-align: left;
+  margin: 0;
+}
+dt{
+  color: green;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+dd{
+  margin-left: 9px;
+  margin-bottom: .4em;
+  white-space: nowrap;
+}
+
+#samples{
+  font-size: 1em;
+  border: 1px solid green;
+  border-radius: 3px;
+  padding: 5px;
+  position: relative;
+  display: table-cell;
+  vertical-align: top;
+  white-space: nowrap;
+}
+#samplesList div {
+  margin: 2px auto;
+}
+#sampleTitle{
+  color: green;
+  opacity: 0.7;
+  margin-bottom: 5px;
+}
+#sampleFootnote{
+  color: green;
+  opacity: 0.7;
+  margin-top: 5px;
+  padding-left: 3px;
+}
+#sampleCopy{
+  position: absolute;
+  top: -500px;
+}
+#sampleConfirm{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: green;
+  display: none;
+}
+button.btnChangeDay, #btnEveOrDay{
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+	background-color:#77b55a;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid #4b8f29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Tahoma;
+	font-size:10px;
+  transition: color 0.4s ease-out;
+	padding:1px 2px;
+	text-decoration:none;
+  min-width: 15px;
+}
+#btnEveOrDay{
+  margin-left: 5px;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ddd), color-stop(1, #bbb));
+	background-color:#ddd;
+	border:1px solid #ddd;
+	color:#333;
+}
+button.today.notToday{
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
+	background-color:#b5775a;
+	border:1px solid #8f4b29;
+}
+#samples button {
+  vertical-align: text-bottom;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+	background-color:#77b55a;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid #4b8f29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Tahoma;
+	font-size:9px;
+  transition: color 0.4s ease-out;
+	padding:1px 2px;
+	text-decoration:none;
+  min-width: 15px;
+}
+#samples button:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, #77b55a));
+	background:-webkit-linear-gradient(top, #72b352 5%, #77b55a 100%);
+	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+	background-color:#72b352;
+}
+#samples button:active {
+	position:relative;
+	top:1px;
+}
+
+#samples div.copied button {
+  background:#b2f392;
+  color: #4b8f29;
+  transition: color 0.4s ease-out;
+}
+#samples div.copied button:hover {
+  background:#b2f392;
+  color: #4b8f29;
+}
+.iconArea{
+  margin: 15px 0 0 0;
+  text-align: center;
+}
+#googlePlus img {
+  margin: 0 0 3px 5px;
+}
+#facebook img{
+  margin: 0 5px 3px 0;
+}
+#logo{
+  width: 22px;
+}
+#explain2{
+  margin-top: 5px;
+}
+#gDatePicker {
+  border: 1px solid #daaaaa;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 10px 0 0 0;
+  text-align: center;
+}
+#gDate{
+  margin: 0 auto 5px auto;
+}
