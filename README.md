@@ -1,29 +1,15 @@
 # Badí' Calendar Chrome Extension #
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
+### To be done ###
 
-* Files for the Chrome Extension
-* The folder is also shared between my computers using Cubby
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
+* Add link at bottom to suggestions page
+* Pick any Badí' date
+* Handle dates before/after supported range
+* Make less cluttered
+* ? Add Tabs - calendar
+* Prepare more for translations
 
 ### Who do I talk to? ###
 
 * Glen Little
-* 
