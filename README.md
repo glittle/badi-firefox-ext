@@ -4,7 +4,7 @@
 ### To be done ###
 
 * Add link at bottom to suggestions page
-* Pick any Badí' date
+* Pick any Badí' date and see Gregorian date
 * Handle dates before/after supported range
 * Make less cluttered
 * ? Add Tabs - calendar
