@@ -30,7 +30,6 @@ function refreshDateInfo(){
 
 function getDateInfo(currentTime){
   var bNow = holyDays.getBDate(currentTime);
-  
   // split the Baha'i day to be "Eve" - sunset to midnight; 
   // and "Morn" - from midnight through to sunset
   var frag1Noon = new Date(currentTime.getTime());
@@ -126,6 +125,8 @@ function getDateInfo(currentTime){
   var thisMoment = new Date().getTime();
   di.dayStarted = getMessage(thisMoment > di.frag1SunTimes.sunset.getTime() ? 'dayStartedPast' : 'dayStartedFuture'); 
   di.dayEnded = getMessage(thisMoment > di.frag2SunTimes.sunset.getTime() ? 'dayEndedPast' : 'dayEndedFuture'); 
+  di.dayStartedLower = di.dayStarted.toLocaleLowerCase(); 
+  di.dayEndedLower = di.dayEnded.toLocaleLowerCase(); 
 
   di.bMonthDayYear = '{bMonthNameAr} {bDay}, {bYear}'.filledWith(di);
   
@@ -143,8 +144,8 @@ function getDateInfo(currentTime){
     di.gCombinedMD = '{frag1MonthShort} {frag1Day}/{frag2Day}'.filledWith(di);
   }
   di.nearestSunset = bNow.eve 
-      ? "Day {dayStarted} with sunset at {startingSunsetDesc}".filledWith(di)
-      : "Day {dayEnded} with sunset at {endingSunsetDesc}".filledWith(di);
+      ? "{dayStarted} with sunset at {startingSunsetDesc}".filledWith(di)
+      : "{dayEnded} with sunset at {endingSunsetDesc}".filledWith(di);
   
   return di;
 }
@@ -168,7 +169,7 @@ function getDateInfo(currentTime){
 var ObjectConstant = '$****$';
 
 function setStorage(key, value) {
-  /// <summary>Save this value in the browser's local and session storage.</summary>
+  /// <summary>Save this value in the browser's local storage. Dates do NOT get returned as full dates!</summary>
   /// <param name="key" type="string">The key to use</param>
   /// <param name="value" type="string">The value to store. Can be a simple or complex object.</param>
   if (typeof value === 'object' || typeof value === 'boolean') {
@@ -182,7 +183,7 @@ function setStorage(key, value) {
 
 
 function getStorage(key, defaultValue) {
-  /// <summary>Get a value from storage.  If found in sessionStorage, use that. Otherwise, get from localStorage.</summary>
+  /// <summary>Get a value from storage.</summary>
   var checkForObject = function (obj) {
     if (obj.substring(0, ObjectConstant.length) == ObjectConstant) {
       obj = $.parseJSON(obj.substring(ObjectConstant.length));
@@ -325,4 +326,41 @@ function getCurrentTime(){
     return _targetDate;
   }
   return new Date();
+}
+function text(key){
+  document.write(getMessage(key));
+}
+
+function localizeHtml(){
+  // parse data-msg...  target:value,target,target,target:value
+  // if no value given in one pair, use the element's ID
+  $('[data-msg]').each(function(domNum, dom){
+    var el = $(dom);
+    var info = el.data('msg');
+    var parts = info.split(',');
+    for (var i = 0; i < parts.length; i++) {
+      var part = parts[i];
+      var detail = part.split(':');
+      var target, value;
+      if (detail.length===1) { 
+        var key = detail[0];
+        var key2 = key === '_id_' ? el.attr('id') : key; 
+        target = 'html';
+        value = getMessage(key2);
+      }
+      if(detail.length===2){
+        target = detail[0];
+        value = getMessage(detail[1]);
+      }
+      if(target==='html'){
+        el.html(value);
+      } 
+      else if(target==='text'){
+        el.text(value);
+      }
+      else{
+        el.attr(target, value);
+      }
+    }
+  });
 }

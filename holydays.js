@@ -1,3 +1,6 @@
+/* global SunCalc */
+var _cachedDateInfos = {};
+
 var HolyDays = function () {
 //  var _now = new Date();
 
@@ -8,6 +11,13 @@ var HolyDays = function () {
   function prepareDateInfos(bYear) {
     _dateInfos = dateInfosRaw();
     _dateInfosForYear = bYear;
+    
+    var cached = _cachedDateInfos[bYear];
+    if(cached){
+      _dateInfos = cached;
+      return;
+    }
+//    console.log('prepare ' + bYear);
 
     // add fast times
     for (var d = 1; d <= 19; d++) {
@@ -82,12 +92,13 @@ var HolyDays = function () {
           case 'AYYAM':
             dateInfo.BMonthDay = makeBMonthDay(0, 1);
 
-            var firstAyyamiHa = new Date(getGDateYMD(bYear, 18, 19));
+            var firstAyyamiHa = new Date(getGDateYMD(bYear, 18, 19).getTime());
             firstAyyamiHa.setDate(firstAyyamiHa.getDate() + 1);
 
-            var lastAyyamiHa = new Date(getGDateYMD(bYear, 19, 1));
+            var lastAyyamiHa = new Date(getGDateYMD(bYear, 19, 1).getTime());
             lastAyyamiHa.setDate(lastAyyamiHa.getDate() - 1);
-
+//console.log('last #2')
+//console.log(lastAyyamiHa);
             var numDaysInAyyamiHa = 1 + Math.round(Math.abs((firstAyyamiHa.getTime() - lastAyyamiHa.getTime()) / _msInDay));
             dateInfo.BMonthDayTo = makeBMonthDay(0, numDaysInAyyamiHa);
 
@@ -177,11 +188,14 @@ var HolyDays = function () {
       }
       return 0;
     });
+    
+//    setStorage('DateInfos' + bYear, _dateInfos);
+    _cachedDateInfos[bYear] = _dateInfos;
   }
 
   function getUpcoming(di, numToAdd){
     var targetDate = moment(moment(di.currentTime).format('YYYY-MM-DD')).toDate();//clone and lose timezone
-    if(_dateInfosForYear != di.bYear){
+      if(_dateInfosForYear != di.bYear){
       prepareDateInfos(di.bYear)
     }
     var added = 0;
@@ -221,144 +235,6 @@ var HolyDays = function () {
     }
     
     return upcoming;
-  }
-
-  function showDatesInYear(host, bYear) {
-    var rows = [];
-    bYear = +bYear;
-
-    prepareDateInfos(bYear);
-
-    var nawRuzOffset = _nawRuzOffsetFrom21[bYear];
-    var yearNote = nawRuzOffset == -1 ? 1
-                  : nawRuzOffset == -2 ? 2
-                  : 0;
-
-    var thbWarningGiven = false;
-
-    var gYear = bYear + 1843;
-
-    for (var i = 0; i < _dateInfos.length; i++) {
-      var dateInfo = _dateInfos[i];
-
-      // if(dateInfo.skip){
-      // continue;
-      // }
-
-      //var gDayOffset = _nawRuzOffsetFrom21[gYear] || 0;
-      //console.log(dateInfo);
-      //console.log(dateInfo.GDate);
-
-
-
-      if (dateInfo.Type == 'M') {
-        rows.push(
-           '<tr class=Feast>'
-         + '<td class=Num>' + dateInfo.MonthNum + '</td>'
-         + '<td class=Name2>' + dateInfo.NameAr + ' (' + dateInfo.NameEn + ')</td>'
-         + '<td class=FromTo>' + ShortBadi({ m: dateInfo.MonthNum, d: 1 }) + ' - 19</td>'
-         + '<td class=Sunset data-gdate="' + dateInfo.GDate.getTime() + '"></td>'
-         + '<td>' + dateInfo.GDate.getDayNames() + '</td>'
-         + '<td class=SpecificDay>' + ShortGregDate(dateInfo.GDate) + ', ' + dateInfo.gYear + '</td>'
-         + '<td class="ForFeast" data-gdate="' + dateInfo.GDate.getTime() + '"></td>'
-         + '</tr>'
-         );
-      }
-
-      else if (dateInfo.Type.substr(0, 1) == 'H') {
-        // both types of Holy Days HS, HO - just CSS is different
-        //console.log(dateInfo);
-
-        if (dateInfo.Special && dateInfo.Special.slice(0, 3) == 'THB' && bYear > _lastTwinHolyBirthdayDefined) {
-          if (!thbWarningGiven) {
-            rows.push('<tr class="NotDefined HolyDay"><td colspan=9>The Twin Holy Birthdays are not yet defined for this year.</td></tr>');
-            thbWarningGiven = true;
-          }
-          continue;
-        }
-
-
-        rows.push(
-             '<tr class="HolyDay HolyDay' + dateInfo.Type + '">'
-           + '<td class=blank></td>'
-           + '<td class=NameLong>' + dateInfo.NameEn + '</td>'
-           + '<td>' + ShortBadi(dateInfo.BMonthDay) + '</td>'
-           + '<td class=Sunset data-gdate="' + dateInfo.GDate.getTime() + '"></td>'
-           + '<td>' + dateInfo.GDate.getDayNames() + '</td>'
-           + '<td class=SpecificDay>' + ShortGregDate(dateInfo.GDate) + ', ' + dateInfo.gYear + '</td>' //+ ', ' + dateInfo.gYear
-           + '<td class="ForStartTime"' + (dateInfo.TimeReason ? (' title="' + dateInfo.TimeReason + '"') : '') + '" data-time="' + (dateInfo.Time || '') + '" data-gdate="' + dateInfo.GDate.getTime() + '"></td>'
-           + '</tr>'
-           );
-      }
-
-      else if (dateInfo.Type == 'OtherRange') {
-        var otherRangeName = dateInfo.NameAr ? (dateInfo.NameAr + ' (' + dateInfo.NameEn + ')') : dateInfo.NameEn;
-        rows.push(
-             '<tr class=OtherDay>'
-           + '<td class=blank></td>'
-           + '<td class=NameLong>' + otherRangeName + '</td>'
-           + '<td>' + ShortBadi(dateInfo.BMonthDay) + ' - ' + (dateInfo.BMonthDay.m == dateInfo.BMonthDayTo.m ? dateInfo.BMonthDayTo.d : ShortBadi(dateInfo.BMonthDayTo)) + '</td>'
-           + '<td class=Sunset></td>'
-           + '<td>' + dateInfo.GDate.getDayNames() + ' - ' + dateInfo.GDateTo.getDayNames() + '</td>'
-           // all date ranges are in same gYear, so don't need to check 
-           + '<td class=SpecificDay>' + ShortGregDate(dateInfo.GDate) + ' - ' + ShortGregDate(dateInfo.GDateTo) + ', ' + dateInfo.gYear + '</td>'
-           + '<td class=ForFeast></td>'
-           //+ '<td class=FromTo>' + ShortGregDate(dateInfo.GDate) + ' - ' + ShortGregDate(dateInfo.GDateTo) + '</td>'
-           + '</tr>'
-           );
-      }
-
-      else if (dateInfo.Type == 'OtherDay') {
-        rows.push(
-             '<tr class=' + dateInfo.Type + '>'
-           + '<td class=blank></td>'
-           + '<td class=NameLong>' + dateInfo.NameEn + '</td>'
-           + '<td>' + ShortBadi(dateInfo.BMonthDay) + '</td>'
-           + '<td class=Sunset data-gdate="' + dateInfo.GDate.getTime() + '"></td>'
-           + '<td>' + dateInfo.GDate.getDayNames() + '</td>'
-           + '<td class=SpecificDay>' + ShortGregDate(dateInfo.GDate) + ', ' + dateInfo.gYear + '</td>'
-           + '<td class=ForFeast></td>'
-           + '</tr>'
-           );
-      }
-
-      else if (dateInfo.Type == 'Today') {
-        rows.push(
-             '<tr class=' + dateInfo.Type + '>'
-           + '<td class=blank></td>'
-           + '<td class=NameLong>' + dateInfo.NameEn + '</td>'
-           + '<td>' + ShortBadi(dateInfo.BMonthDay) + '</td>'
-           + '<td class=Sunset data-gdate="' + dateInfo.GDate.getTime() + '"></td>'
-           + '<td>' + dateInfo.GDate.getDayNames() + '</td>'
-           + '<td class=SpecificDay>' + ShortGregDate(dateInfo.GDate) + ', ' + dateInfo.gYear + '</td>'
-           + '<td class="ForStartTime Today" data-time="' + dateInfo.Time + '" data-gdate="' + dateInfo.GDate.getTime() + '"></td>'
-           + '</tr>'
-           );
-      }
-
-      else if (dateInfo.Type == 'Fast') {
-        rows.push(
-             '<tr class=' + dateInfo.Type + '>'
-           + '<td class=blank></td>'
-           + '<td class=NameLong>' + dateInfo.NameEn + '</td>'
-           + '<td>' + ShortBadi(dateInfo.BMonthDay) + '</td>'
-           + '<td class="FastTimes Sunset"><span class=Sunrise data-gdate="' + dateInfo.GDate.getTime() + '"></span> - <span class=Sunset data-gdate="' + dateInfo.GDate.getTime() + '"></span></td>'
-           + '<td>' + dateInfo.GDate.getDayNames() + '</td>'
-           + '<td class=SpecificDay>' + ShortGregDate(dateInfo.GDate) + ', ' + dateInfo.gYear + '</td>'
-           + '<td class=ForFeast></td>'
-           + '</tr>'
-           );
-      }
-
-      else {
-        rows.push('<tr><td colspan=7>?1?</td></tr>')
-      }
-    }
-
-    rows.push('<tr id=NoSelection><td colspan=9>Please choose what dates to show!</td></tr>')
-
-    host.find('tbody').html(rows.join('\n'));
-
   }
 
   var dateInfosRaw = function () {
@@ -498,7 +374,7 @@ var HolyDays = function () {
     }
     var gYear = bYear + 1843;
     var nawRuz = new Date(gYear, 2, 21 + (_nawRuzOffsetFrom21[bYear] || 0));
-    var answer = new Date(nawRuz);
+    var answer = new Date(nawRuz.getTime());
     answer.setDate(answer.getDate() + (bMonth - 1) * 19 + (bDay - 1));
 
     if (bMonth == 0 || bMonth == 19) {
@@ -510,12 +386,16 @@ var HolyDays = function () {
         answer.setDate(answer.getDate() + (bDay - 1));
       }
       else {
-        var firstAyyamiHa = new Date(getGDateYMD(bYear, 18, 19));
+        var firstAyyamiHa = new Date(getGDateYMD(bYear, 18, 19).getTime());
         firstAyyamiHa.setDate(firstAyyamiHa.getDate() + 1);
-        var lastAyyamiHa = new Date(getGDateYMD(bYear, 19, 1));
+        var lastAyyamiHa = new Date(getGDateYMD(bYear, 19, 1).getTime());
         lastAyyamiHa.setDate(lastAyyamiHa.getDate() - 1);
-
+//console.log('first ' + firstAyyamiHa);
+//console.log('last #1')
+//console.log('last ' + lastAyyamiHa);
         var numDaysInAyyamiHa = daysBetween(firstAyyamiHa, lastAyyamiHa);
+//console.log(numDaysInAyyamiHa);
+//debugger;
         if (bDay > numDaysInAyyamiHa) {
           throw 'invalid Badi date';
         }
@@ -567,10 +447,9 @@ var HolyDays = function () {
         month--;
       }
       if (month >= 19) {
-        var lastAyyamiHa = new Date(getGDateYMD(year, 19, 1));
+        var lastAyyamiHa = new Date(getGDateYMD(year, 19, 1).getTime());
         lastAyyamiHa.setDate(lastAyyamiHa.getDate() - 1);
-
-        if (d.dayOfYear() > lastAyyamiHa.dayOfYear()) {
+        if (d.dayOfYear() + afterSunset > lastAyyamiHa.dayOfYear()) {
           month = 19;
           day = d.dayOfYear() - lastAyyamiHa.dayOfYear() + afterSunset;
         }

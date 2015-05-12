@@ -10,7 +10,7 @@
 <body>
   <div class=sidebyside>
     <div id=showUpcoming>
-      <div id=upcomingTitle>Upcoming Feasts, Holy Days and other events</div>
+      <div id=upcomingTitle data-msg="_id_"></div>
       <table id=upcoming>
         
       </table>
@@ -20,20 +20,21 @@
     	<div id=special></div>
     	<div id=sunset></div>
     	<div id=place></div>
+    	<div id=gDay></div>
     </div>
   </div>
   <div class=sidebyside>
     <div id=gDatePicker>
-      <div id=gDatePickerTitle>Gregorian Date</div>
+      <div id=gDatePickerTitle data-msg="_id_"></div>
       <div id=gDate></div>
       <div id=gDateDesc></div>
-      <div id=gDatePickerTitle2>Show any Date</div>
+      <div id=gDatePickerTitle2 data-msg="_id_"></div>
       <input type="date" id=datePicker min="1844-03-21" max="2065-03-19"></input>
       <div class=gDateButtons>
-        <button type=button class=btnChangeDay data-delta="-1">&#8592; Prev</button>
-        <button type=button class="btnChangeDay today" data-delta="0">Today</button>
-        <button type=button class=btnChangeDay data-delta="1">Next &#8594;</button>
-        <button type=button id=btnEveOrDay>Before &#8593; &#8595; After Sunset</button>
+        <button type=button class=btnChangeDay data-delta="-1" data-msg="prev"></button>
+        <button type=button class="btnChangeDay today" data-delta="0" data-msg="gotoNow"></button>
+        <button type=button class=btnChangeDay data-delta="1" data-msg="next"></button>
+        <button type=button id=btnEveOrDay data-msg="_id_"></button>
       </div>
     </div>
     <div id=spacer>&nbsp;</div>
@@ -42,24 +43,29 @@
     <div id=samples>
       <div id=sampleTitle></div>
       <div id=sampleList></div>
-      <div id=sampleConfirm>Copied</div>
+      <div id=sampleFootnote data-msg="_id_"></div>
     </div>
   </div>
   <div id=explain></div>
   <div id=explain2></div>
   <textarea id=sampleCopy></textarea>
-  
-
   <div class="iconArea">
+    <span id=version class=textLink></span>
+      
     <a id=facebook href="https://www.facebook.com/BadiCalendarTools"
      rel="publisher" target="_top" style="text-decoration:none;">
       <img src="fb-16.png" alt="Facebook" style="border:0;width:16px;height:16px;"/>
-    </a>  
-    <img id=logo src="_locales/en/images/badi19-48.png">
+    </a>
+      
+    <a href="https://chrome.google.com/webstore/detail/bad%C3%AD-calendar/egekinjjpolponbbfjimifpgfdmphomp/"
+      target="_top"><img id=logo data-msg="alt:webstore,title:webstore" src="_locales/en/images/badi19-48.png"></a>
+      
     <a id=googlePlus href="http://plus.google.com/u/0/111984989420723537597?prsrc=3"
      rel="publisher" target="_top" style="text-decoration:none;">
       <img src="gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
     </a>
+    <a class="textLink" href="https://chrome.google.com/webstore/detail/bad%C3%AD-calendar/egekinjjpolponbbfjimifpgfdmphomp/support"
+      target="_top" data-msg="suggestions,title:suggestionsTitle"></a>
   </div>
   <script src="holydays.js"></script>
   <script src="shared.js"></script>

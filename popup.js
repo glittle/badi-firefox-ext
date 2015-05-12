@@ -1,3 +1,5 @@
+/* global getMessage */
+/* global di */
 /* global chrome */
 /* global $ */
 var samplesDiv = $('#samples');
@@ -34,15 +36,15 @@ function showInfo(){
    , {name:getMessage('YearOfEra'), value: "{bYear}".filledWith(di)}
   ];
   
-  var explain1 = ('This day is the day of {bWeekdayNameAr}, the day of {bDayNameAr},'
+  var explain1 = ('This is the day of {bWeekdayNameAr}, the day of {bDayNameAr},'
     + ' of the month of {bMonthNameAr},'
     + ' of the year {bYearInVahidNameAr},'
     + ' of the {bVahidOrdinalName} Váḥid,'
     + ' of the {bKullishayOrdinalName} Kull-i-<u>Sh</u>ay’.').filledWith(di);
 
   var explain2 = ('{bMonthNameAr} {bDay}'
-     + ' {dayStarted} at sunset (about {startingSunsetDesc}) on {frag1WeekdayLong}, {frag1MonthShort} {frag1Day}'
-     + ' and {dayEnded} at sunset (about {endingSunsetDesc}) on {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.').filledWith(di);
+     + ' {dayStartedLower} at sunset (about {startingSunsetDesc}) on {frag1WeekdayLong}, {frag1MonthShort} {frag1Day}'
+     + ' and {dayEndedLower} at sunset (about {endingSunsetDesc}) on {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.').filledWith(di);
 
   // prepare samples
   var samples = [''
@@ -91,10 +93,12 @@ function showInfo(){
   
 
   
-  $('#place').html(localStorage.locationName);
   
   $('#day').html('{bDay} {bMonthNameAr} {bYear}'.filledWith(di));
   $('#sunset').html(di.nearestSunset);
+  $('#place').html(localStorage.locationName);
+  $('#gDay').html('{currentDay} {currentMonthShort} {currentYear}'.filledWith(di));
+
   $('#dayDetails').html('<dl>' + '<dt>{^name}</dt><dd>{^value}</dd>'.filledWithEach(dayDetails) + '</dl>');
 
   $('#explain').html(explain1);
@@ -108,13 +112,19 @@ function showInfo(){
   showUpcoming();
      
   clearSamples();
+  var showFootnote = false;
   for (var i = 0; i < samples.length; i++) {
     var sample = samples[i];
     if(sample) {
+       if(sample.currentTime){
+         showFootnote = true;
+       }
        addSample(sample);
     }
   }
-  samplesDiv.find('#sampleList').append('<div id=sampleFootnote>{0}</div>'.filledWith(getMessage('currentTimeSample')));
+  $('#sampleFootnote').toggle(showFootnote);
+  
+  $('#version').text(getMessage('version').filledWith(chrome.runtime.getManifest().version_name));
 }
 
 function showUpcoming(){
@@ -124,7 +134,7 @@ function showUpcoming(){
   $('#special').html('').hide();
   
   $.each(dayInfos, function(i, dayInfo){
-    var targetDi = getDateInfo(dayInfo.GDate)
+    var targetDi = getDateInfo(dayInfo.GDate);
     
     if(dayInfo.Type === 'M'){
       dayInfo.A = 'Feast of ' + targetDi.bMonthMeaning;
@@ -135,8 +145,7 @@ function showUpcoming(){
     if(dayInfo.Special && dayInfo.Special.slice(0,5)==='AYYAM'){
       dayInfo.A = dayInfo.NameEn;
     }
-    dayInfo.date = targetDi.bMonthNameAr + ' ' + targetDi.bDay
-         + ' - ' + targetDi.gCombinedMD;
+    dayInfo.date = '{bMonthNameAr} {bDay} ({gCombinedMD})'.filledWith(targetDi);
 
     var sameDay = di.gCombinedMD == targetDi.gCombinedMD;
     var targetMoment = moment(dayInfo.GDate);
@@ -147,7 +156,7 @@ function showUpcoming(){
     }
   });
   
-  $('#upcoming').html('<tr class={Type}><td>{away}</td><td>{^A}</td><td>{date}</td></tr>'.filledWithEach(dayInfos))
+  $('#upcoming').html('<tr class={Type}><td>{away}</td><td>{^A}</td><td>{date}</td></tr>'.filledWithEach(dayInfos));
 }
 
 function determineDaysAway(moment1, moment2, sameDay){
@@ -312,14 +321,4 @@ function changeDay(ev, delta){
 
 refreshDateInfo();
 showInfo();
-
-
-/* 
-TO DO
-- reset "Today" button when moved back to current day
-- Holy Days
-- Show next two upcoming Feast/HolyDay events
-- choose any date
-- have "reverse" lookup - pick Badi day in selector and see Gregorian date
-- (new formats in GMail draft email)
-*/
+localizeHtml();

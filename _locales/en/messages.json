@@ -32,18 +32,32 @@
   , "Vahid": { "message": "Váḥid", "description": "" }
   , "Kullishay": { "message": "Kull-i-<u>Sh</u>ay’", "description": "" }
 
-  , "currentTimeSample": { "message": "* Gregorian date changes before/after sunset", "description": "" }
+  , "sampleFootnote": { "message": "* Gregorian date changes before/after sunset", "description": "" }
   
   , "pressToCopy": { "message": "Press key to copy formatted date to the clipboard:", "description": "Can click button with mouse, or press matching key on keyboard" }
 
-  , "afterSunset": { "message": "evening, <strong>after</strong> sunset", "description": "" }
-  , "beforeSunset": { "message": "day, <strong>before</strong> sunset", "description": "" }
+  , "afterSunset": { "message": "evening - <strong>after</strong> sunset", "description": "" }
+  , "beforeSunset": { "message": "day - <strong>before</strong> sunset", "description": "" }
 
-  , "dayStartedFuture": { "message": "starts", "description": "" }
-  , "dayStartedPast": { "message": "started", "description": "" }
-  , "dayEndedFuture": { "message": "ends", "description": "" }
-  , "dayEndedPast": { "message": "ended", "description": "" }
+  , "dayStartedFuture": { "message": "Starts", "description": "" }
+  , "dayStartedPast": { "message": "Started", "description": "" }
+  , "dayEndedFuture": { "message": "Ends", "description": "" }
+  , "dayEndedPast": { "message": "Ended", "description": "" }
 
+  , "suggestions": { "message": "Suggestions?", "description": "" }
+  , "suggestionsTitle": { "message": "Please click here and submit any suggestions for how to improve this extension!", "description": "" }
+  , "webstore": { "message": "Chrome Web Store", "description": "" }
+
+  , "upcomingTitle": { "message": "Upcoming Feasts, Holy Days and other events", "description": "" }
+  , "gDatePickerTitle": { "message": "Gregorian Date", "description": "" }
+  , "gDatePickerTitle2": { "message": "Show any Date", "description": "" }
+  , "prev": { "message": "&#8592; Prev", "description": "" }
+  , "gotoNow": { "message": "Now", "description": "" }
+  , "next": { "message": "Next &#8594;", "description": "" }
+  , "btnEveOrDay": { "message": "Before &#8593; &#8595; After Sunset", "description": "" }
+  
+  , "version": { "message": "Version {0}", "description": "" }
+  
   , "x": { "message": "", "description": "" }
 }
 
