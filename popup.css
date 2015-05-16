@@ -110,7 +110,6 @@ dd{
 button.btnChangeDay, #btnEveOrDay{
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
 	background-color:#77b55a;
-	-webkit-border-radius:4px;
 	border-radius:4px;
 	border:1px solid #4b8f29;
 	display:inline-block;
@@ -127,10 +126,6 @@ button.btnChangeDay, #btnEveOrDay{
 #btnEveOrDay{
   display: block;
   margin: 3px auto 0 auto;
-	x-background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ddd), color-stop(1, #bbb));
-	x-background-color:#ddd;
-	x-border:1px solid #ddd;
-	x-color:#333;
 }
 button.today.notToday{
   background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
@@ -141,7 +136,6 @@ button.today.notToday{
   vertical-align: text-bottom;
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
 	background-color:#77b55a;
-	-webkit-border-radius:4px;
 	border-radius:4px;
 	border:1px solid #4b8f29;
 	display:inline-block;
@@ -213,6 +207,11 @@ button.today.notToday{
   opacity: 0.7;
   margin: 6px 0 0 0;
 }
+#bDatePickerTitle{
+  color: green;
+  opacity: 0.7;
+  margin: 6px 0 0 0;
+}
 #upcomingTitle{
   color: green;
   text-decoration: underline;
@@ -251,4 +250,18 @@ a.textLink{
 }
 a.textLink:hover{
   text-decoration: underline;
+}
+
+.bDatePickerInputs{
+  margin-left: 10px;
+}
+.bDatePickerInputs input{
+  font-size: 11px;
+  font-family: Tahoma;
+  text-align: center;
+  margin: 0 3px;
+  width: 25px;
+}
+#bYearPicker{
+  width: 40px;
 }

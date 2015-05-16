@@ -36,15 +36,9 @@ function showInfo(){
    , {name:getMessage('YearOfEra'), value: "{bYear}".filledWith(di)}
   ];
   
-  var explain1 = ('This is the day of {bWeekdayNameAr}, the day of {bDayNameAr},'
-    + ' of the month of {bMonthNameAr},'
-    + ' of the year {bYearInVahidNameAr},'
-    + ' of the {bVahidOrdinalName} Váḥid,'
-    + ' of the {bKullishayOrdinalName} Kull-i-<u>Sh</u>ay’.').filledWith(di);
+  var explain1 = getMessage('shoghiExample', di);
 
-  var explain2 = ('{bMonthNameAr} {bDay}'
-     + ' {dayStartedLower} at sunset (about {startingSunsetDesc}) on {frag1WeekdayLong}, {frag1MonthShort} {frag1Day}'
-     + ' and {dayEndedLower} at sunset (about {endingSunsetDesc}) on {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.').filledWith(di);
+  var explain2 = getMessage('example2', di);
 
   // prepare samples
   var samples = [''
@@ -124,7 +118,7 @@ function showInfo(){
   }
   $('#sampleFootnote').toggle(showFootnote);
   
-  $('#version').text(getMessage('version').filledWith(chrome.runtime.getManifest().version_name));
+  $('#version').text(getMessage('version', chrome.runtime.getManifest().version_name));
 }
 
 function showUpcoming(){
@@ -218,7 +212,8 @@ function addSample(info){
   var sample = {
     value:'',
     currentTime:false,
-    char:char
+    char:char,
+    tooltip:getMessage('pressKeyOrClick', char)
   };
   
   if(typeof info === 'string'){
@@ -228,7 +223,7 @@ function addSample(info){
   }
   sample.currentNote = sample.currentTime ? ' *' : '';
   samplesDiv.find('#sampleList')
-    .append(('<div><button title="Click button or press {char}."'
+    .append(('<div><button title="{tooltip}"'
     + ' type=button data-char={char} id="key{char}">{char}{currentNote}</button>'
     + ' <span>{^value}</span></div>').filledWith(sample));
 }
@@ -246,7 +241,7 @@ function copySample(ev){
   document.execCommand('copy');
   
   div.addClass('copied');
-  btn.text('Copied!');
+  btn.text(getMessage('copied'));
   setTimeout(function(){
     div.removeClass('copied');
     btn.text(btn.data('char'));
@@ -316,7 +311,7 @@ function changeDay(ev, delta){
 
   showInfo();
 
-  $('button.today').toggleClass('notToday', di.gCombined !== getStorage('originalDI').gCombined);  
+  $('button.today').toggleClass('notToday', di.gCombined !== getStorage('originalCombined'));  
 }
 
 refreshDateInfo();

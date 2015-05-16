@@ -6,7 +6,7 @@ function refreshDateInfoAndShow(){
   refreshDateInfo();
   showIcon();
   
-  setStorage('originalDI', di);
+  setStorage('originalCombined', di.gCombined);
   
   //TODO: if popup is open, need to refresh it
 
@@ -15,11 +15,11 @@ function refreshDateInfoAndShow(){
 
 function showIcon(){
   var tipLines = [
-    '{bDay} {bMonthNameAr} {bYear}'.filledWith(di),
+    getMessage('formatIconToolTip').filledWith(di),
     di.nearestSunset,
     '',
-    '(click for more details)'
-  ];
+    getMessage('formatIconClick')
+    ];
   chrome.browserAction.setTitle({title: tipLines.join('\n')})
   chrome.browserAction.setIcon({
       imageData: draw(di.bMonthNameAr, di.bDay, 'center')
@@ -77,22 +77,23 @@ function draw(line1, line2, line2align) {
   return context.getImageData(0, 0, 19, 19);
 }
 
+var findName = function(typeName, results){
+  for (var r = 0; r < results.length; r++) {
+    var result = results[r];
+    if(result.types.indexOf(typeName) != -1){
+      return result.formatted_address;
+    }
+  } 
+  return null;
+};
+
+
 function startGetLocationName(){
     if (!_locationLat || !_locationLong) {
 	    localStorage.locationName = '?';
       return;
     }
     
-    var findName = function(type, results){
-      for (var r = 0; r < results.length; r++) {
-        var result = results[r];
-        if(result.types.indexOf(type) != -1){
-          return result.formatted_address;
-        }
-      } 
-      return null;
-    };
-
     var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + _locationLat + ',' + _locationLong
 
 	var xhr = new XMLHttpRequest();
@@ -101,9 +102,11 @@ function startGetLocationName(){
 	  if (xhr.readyState == 4) {
       // JSON.parse does not evaluate the attacker's scripts.
       var data = JSON.parse(xhr.responseText);
+//      console.log(data.results);
       localStorage.locationName = //findName('neighborhood', data.results) ||
-               findName('political', data.results)
-               || findName('locality', data.results);
+               findName('neighborhood', data.results)
+               || findName('locality', data.results)
+               || findName('political', data.results);
       
 //      var components = data.results[0].address_components;
 //      for (var i = 0; i < components.length; i++) {

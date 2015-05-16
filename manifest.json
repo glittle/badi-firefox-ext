@@ -1,7 +1,7 @@
 {
   "name": "__MSG_title__",
-  "version": "1.1.1",
-  "version_name": "1.1.1",
+  "version": "1.1.2",
+  "version_name": "1.1.2",
   "description": "__MSG_titleDesc__",
   "default_locale": "en",
   "icons": { 
@@ -15,7 +15,7 @@
       "http://maps.googleapis.com/"],
   "browser_action": {
     "default_popup": "popup.html",
-	"default_title": "__MSG_browserActionTitle__",
+	  "default_title": "__MSG_browserActionTitle__",
     "default_icon": {
       "38": "_locales/en/images/badi19-48.png"
     }

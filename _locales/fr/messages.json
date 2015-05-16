@@ -50,30 +50,15 @@
 
   , "upcomingTitle": { "message": "Upcoming Feasts, Holy Days and other events", "description": "" }
   , "gDatePickerTitle": { "message": "Gregorian Date", "description": "" }
-  , "gDatePickerTitle2": { "message": "Choose Gregorian Date", "description": "changed in 1.1.2" }
+  , "gDatePickerTitle2": { "message": "Show any Date", "description": "" }
   , "prev": { "message": "&#8592; Prev", "description": "" }
   , "gotoNow": { "message": "Now", "description": "" }
   , "next": { "message": "Next &#8594;", "description": "" }
   , "btnEveOrDay": { "message": "Before &#8593; &#8595; After Sunset", "description": "" }
   
   , "version": { "message": "Version {0}", "description": "" }
-
-
-  , "___new_messages____": { "message": "Added 1.1.2"}
-
-  , "formatIconToolTip": { "message": "{bDay} {bMonthNameAr} {bYear}", "description": "text when mouse is over the extension icon" }
-  , "formatIconClick": { "message": "(click for more details)", "description": "" }
-  , "nearestSunsetEve": { "message": "{dayStarted} with sunset at {startingSunsetDesc}", "description": "" }
-  , "nearestSunsetDay": { "message": "{dayEnded} with sunset at {endingSunsetDesc}", "description": "" }
-  , "facebook": { "message": "Facebook", "description": "ALT for icon at bottom of page" }
-  , "googlePlus": { "message": "Google+", "description": "ALT for icon at bottom of page" }
-  , "shoghiExample": { 
-        "message": "This is the day of {bWeekdayNameAr}, the day of {bDayNameAr}, of the month of {bMonthNameAr}, of the year {bYearInVahidNameAr}, of the {bVahidOrdinalName} Váḥid, of the {bKullishayOrdinalName} Kull-i-<u>Sh</u>ay’.", 
-        "description": "Example given by Shoghi Effendi" 
-        }
-  , "example2": { "message": "{bMonthNameAr} {bDay} {dayStartedLower} at sunset (about {startingSunsetDesc}) on {frag1WeekdayLong}, {frag1MonthShort} {frag1Day} and {dayEndedLower} at sunset (about {endingSunsetDesc}) on {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.", "description": "" }
-  , "pressKeyOrClick": { "message": "Click button or type {0}.", "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press" }
-  , "copied": { "message": "Copied!", "description": "short message that replaces sample format button text when button is clicked" }
-  , "bDatePickerTitle": { "message": "Choose Badí' Date", "description": "" }
+  
   , "x": { "message": "", "description": "" }
 }
+
+

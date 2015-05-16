@@ -143,9 +143,7 @@ function getDateInfo(currentTime){
     di.gCombined = '{frag2MonthShort} {frag1Day}/{frag2Day}, {frag2Year}'.filledWith(di);
     di.gCombinedMD = '{frag1MonthShort} {frag1Day}/{frag2Day}'.filledWith(di);
   }
-  di.nearestSunset = bNow.eve 
-      ? "{dayStarted} with sunset at {startingSunsetDesc}".filledWith(di)
-      : "{dayEnded} with sunset at {endingSunsetDesc}".filledWith(di);
+  di.nearestSunset = getMessage(bNow.eve ? "nearestSunsetEve":"nearestSunsetDay", di);
   
   return di;
 }
@@ -306,8 +304,9 @@ String.prototype.filledWithEach = function (arr) {
   return result.join('');
 };
 
-function getMessage(key){
-  return  chrome.i18n.getMessage(key);
+function getMessage(key, obj){
+  var msg = chrome.i18n.getMessage(key) || '{' + key + '}';
+  return typeof obj === 'undefined' ? msg : msg.filledWith(obj);
 }
 
 function digitPad2(num){
@@ -326,9 +325,6 @@ function getCurrentTime(){
     return _targetDate;
   }
   return new Date();
-}
-function text(key){
-  document.write(getMessage(key));
 }
 
 function localizeHtml(){
