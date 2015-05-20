@@ -77,7 +77,9 @@
  
  
   , "new_messages_1_1_3": { "message": ""}
-  , "use24HourClock" : { "message" : "true", "description" : "use 'true' or 'false' to use 24 hour or 12 hour (am/pm) clock" }
+  
+  , "use24HourClock" : { "message" : "false", "description" : "use 'true' or 'false' to use 24 hour or 12 hour (am/pm) clock" }
+  
   , "noLocationName": { "message": "(Current Location)", "description": "If the internet is not available, to get the name of the current location." }
   , "noLocationAvailable": { "message": "(Unknown Location - 6:30pm sunset times)", "description": "If the system does not know the location of this computer." }
   , "locationError": { "message": "Unable to determine your current location.\n\nThe extension will use 6:30pm for sunset on every date.", "description": "If the system cannot determine the location, this is shown in an alert window." }
