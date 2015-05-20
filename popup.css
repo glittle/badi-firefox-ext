@@ -13,7 +13,12 @@ body{
 #day{
   font-size: 1.25em;
 }
-#special{
+#special1{
+  font-size: 1.25em;
+  color: blue;
+  display: none;
+}
+#special2{
   font-size: 1.25em;
   color: blue;
   display: none;
@@ -32,14 +37,10 @@ body{
   color: gray;
 }
 #showUpcoming{
-  padding: 5px;
+  padding: 5px 0;
   display: table-cell;
   vertical-align: top;
-  width: 327px;
-}
-#upcoming{
-  border-spacing: 0;
-  
+  width: 339px;
 }
 tr.M{
   color: darkgoldenrod;
@@ -219,6 +220,7 @@ button.today.notToday{
 }
 #upcoming{
   width: 100%;
+  border-spacing: 1px 0px;
 }
 .gDateButtons{
   text-align: center;

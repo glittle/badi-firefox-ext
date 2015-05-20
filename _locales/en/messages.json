@@ -59,8 +59,7 @@
   , "version": { "message": "Version {0}", "description": "" }
 
 
-  , "___new_messages____": { "message": "Added 1.1.2"}
-
+  , "new_messages_1_1_2": { "message": ""}
   , "formatIconToolTip": { "message": "{bDay} {bMonthNameAr} {bYear}", "description": "text when mouse is over the extension icon" }
   , "formatIconClick": { "message": "(click for more details)", "description": "" }
   , "nearestSunsetEve": { "message": "{dayStarted} with sunset at {startingSunsetDesc}", "description": "" }
@@ -75,5 +74,37 @@
   , "pressKeyOrClick": { "message": "Click button or type {0}.", "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press" }
   , "copied": { "message": "Copied!", "description": "short message that replaces sample format button text when button is clicked" }
   , "bDatePickerTitle": { "message": "Choose Badí' Date", "description": "" }
+ 
+ 
+  , "new_messages_1_1_3": { "message": ""}
+  , "use24HourClock" : { "message" : "true", "description" : "use 'true' or 'false' to use 24 hour or 12 hour (am/pm) clock" }
+  , "noLocationName": { "message": "(Current Location)", "description": "If the internet is not available, to get the name of the current location." }
+  , "noLocationAvailable": { "message": "(Unknown Location - 6:30pm sunset times)", "description": "If the system does not know the location of this computer." }
+  , "locationError": { "message": "Unable to determine your current location.\n\nThe extension will use 6:30pm for sunset on every date.", "description": "If the system cannot determine the location, this is shown in an alert window." }
+  , "HolyDay_NawRuz" : { "message": "Naw R&uacute;z", "description": "" }
+  , "HolyDay_Ridvan1": { "message": "First Day of Ridv&aacute;n", "description": "" }
+  , "HolyDay_Ridvan9": { "message": "Ninth Day of Ridv&aacute;n", "description": "" }
+  , "HolyDay_Ridvan12": { "message": "Twelveth Day of Ridv&aacute;n", "description": "" }
+  , "HolyDay_AscBaha": { "message": "Ascension of Bah&aacute;'u'll&aacute;h", "description": "" }
+  , "HolyDay_DeclBab": { "message": "Declaration of the B&aacute;b", "description": "" }
+  , "HolyDay_Martyrdom": { "message": "Martyrdom of the B&aacute;b", "description": "" }
+  , "HolyDay_BirthBab": { "message": "Birth of the B&aacute;b", "description": "" }
+  , "HolyDay_BirthBaha": { "message": "Birth of Bah&aacute;'u'll&aacute;h", "description": "" }
+  , "HolyDay_Covenant": { "message": "Day of the Covenant", "description": "" }
+  , "HolyDay_AscAbdul": { "message": "Ascension of `Abdu'l-Bah&aacute;", "description": "" }
+  , "FestivalRidvan": { "message": "Festival of Ridv&aacute;n", "description": "" }
+  , "Intercalary": { "message": "Intercalary Days", "description": "" }
+
+  , "FeastOf": { "message": "Feast of {0}", "description": "The localized name of the Feast will be put into {0}" }
+  , "Tonight": { "message": "Tonight", "description": "Shown in the upcoming dates area" }
+  , "Ended": { "message": "Ended", "description": "Shown in the upcoming dates area" }
+  , "Now": { "message": "Now", "description": "Shown in the upcoming dates area" }
+
+  , "1day": { "message": "in {0} day", "description": "" }
+  , "otherDays": { "message": "in {0} days", "description": "" }
+  , "x": { "message": "", "description": "" }
+
+  , "x": { "message": "", "description": "" }
+  , "x": { "message": "", "description": "" }
   , "x": { "message": "", "description": "" }
 }

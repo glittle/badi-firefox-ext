@@ -269,31 +269,31 @@ var HolyDays = function () {
     { Type: 'M', NameEn: 'Dominion', NameAr: 'Mulk', MonthNum: 18 },
     { Type: 'M', NameEn: 'Loftiness', NameAr: "`Al&aacute;'", MonthNum: 19 },
 
-    { Type: 'HS', BDateCode: '1.1', NameEn: 'Naw R&uacute;z' },
-    { Type: 'HS', BDateCode: '2.13', NameEn: 'First Day of Ridv&aacute;n', Time: '1500S', TimeReason: '3 pm Standard time' },
-    { Type: 'HS', BDateCode: '3.2', NameEn: 'Ninth Day of Ridv&aacute;n' },
-    { Type: 'HS', BDateCode: '3.5', NameEn: 'Twelveth Day of Ridv&aacute;n' },
-    { Type: 'HS', BDateCode: '4.13', NameEn: "Ascension of Bah&aacute;'u'll&aacute;h", Time: '0300S', TimeReason: '3 am Standard time' },
+    { Type: 'HS', BDateCode: '1.1', NameEn: 'HolyDay_NawRuz' },
+    { Type: 'HS', BDateCode: '2.13', NameEn: 'HolyDay_Ridvan1', Time: '1500S', TimeReason: '3 pm Standard time' },
+    { Type: 'HS', BDateCode: '3.2', NameEn: 'HolyDay_Ridvan9' },
+    { Type: 'HS', BDateCode: '3.5', NameEn: 'HolyDay_Ridvan12' },
+    { Type: 'HS', BDateCode: '4.13', NameEn: "HolyDay_AscBaha", Time: '0300S', TimeReason: '3 am Standard time' },
 
-    { Type: 'HS', UntilYear: 171, BDateCode: '4.7', NameEn: 'Declaration of the B&aacute;b', Time: 'SS+2', TimeReason: 'about 2 hours after sunset' },
-    { Type: 'HS', FromYear: 172, BDateCode: '4.8', NameEn: 'Declaration of the B&aacute;b', Time: 'SS+2', TimeReason: 'about 2 hours after sunset' },
+    { Type: 'HS', UntilYear: 171, BDateCode: '4.7', NameEn: 'HolyDay_DeclBab', Time: 'SS+2', TimeReason: 'about 2 hours after sunset' },
+    { Type: 'HS', FromYear: 172, BDateCode: '4.8', NameEn: 'HolyDay_DeclBab', Time: 'SS+2', TimeReason: 'about 2 hours after sunset' },
 
-    { Type: 'HS', UntilYear: 171, BDateCode: '6.16', NameEn: 'Martyrdom of the B&aacute;b', Time: '1200S', TimeReason: 'Noon Standard time' },
-    { Type: 'HS', FromYear: 172, BDateCode: '6.17', NameEn: 'Martyrdom of the B&aacute;b', Time: '1200S', TimeReason: 'Noon Standard time' },
+    { Type: 'HS', UntilYear: 171, BDateCode: '6.16', NameEn: 'HolyDay_Martyrdom', Time: '1200S', TimeReason: 'Noon Standard time' },
+    { Type: 'HS', FromYear: 172, BDateCode: '6.17', NameEn: 'HolyDay_Martyrdom', Time: '1200S', TimeReason: 'Noon Standard time' },
 
-    { Type: 'HS', UntilYear: 171, BDateCode: '12.5', NameEn: 'Birth of the B&aacute;b' },
-    { Type: 'HS', UntilYear: 171, BDateCode: '13.9', NameEn: "Birth of Bah&aacute;'u'll&aacute;h" },
-    { Type: 'HS', FromYear: 172, Special: 'THB.1', NameEn: 'Birth of the B&aacute;b' },
-    { Type: 'HS', FromYear: 172, Special: 'THB.2', NameEn: "Birth of Bah&aacute;'u'll&aacute;h" },
+    { Type: 'HS', UntilYear: 171, BDateCode: '12.5', NameEn: 'HolyDay_BirthBab' },
+    { Type: 'HS', UntilYear: 171, BDateCode: '13.9', NameEn: "HolyDay_BirthBaha" },
+    { Type: 'HS', FromYear: 172, Special: 'THB.1', NameEn: 'HolyDay_BirthBab' },
+    { Type: 'HS', FromYear: 172, Special: 'THB.2', NameEn: "HolyDay_BirthBaha" },
 
-    { Type: 'HO', BDateCode: '14.4', NameEn: 'Day of the Covenant' },
-    { Type: 'HO', BDateCode: '14.6', NameEn: "Ascension of `Abdu'l-Bah&aacute;", Time: '0100S', TimeReason: '1 am Standard time' },
+    { Type: 'HO', BDateCode: '14.4', NameEn: 'HolyDay_Covenant' },
+    { Type: 'HO', BDateCode: '14.6', NameEn: "HolyDay_AscAbdul", Time: '0100S', TimeReason: '1 am Standard time' },
 
-    { Type: 'OtherRange', BDateCode: '2.13', BDateCodeTo: '3.5', NameEn: 'Festival of Ridv&aacute;n' },
-    { Type: 'OtherRange', Special: 'AYYAM.Intercalary', NameAr: 'Ayyám-i-Há', NameEn: 'Intercalary Days' },
+    //{ Type: 'OtherRange', BDateCode: '2.13', BDateCodeTo: '3.5', NameEn: 'FestivalRidvan' },
+    //{ Type: 'OtherRange', Special: 'AYYAM.Intercalary', NameAr: 'Ayyám-i-Há', NameEn: 'Intercalary' },
 
-    { Type: 'OtherDay', BDateCode: '2.13', NameEn: 'Annual Meeting and Election' },
-    { Type: 'OtherDay', Special: 'JAN1', NameEn: 'Start of Gregorian Year ' }
+    //{ Type: 'OtherDay', BDateCode: '2.13', NameEn: 'Annual Meeting and Election' },
+    //{ Type: 'OtherDay', Special: 'JAN1', NameEn: 'Start of Gregorian Year ' }
     ];
   };
 
@@ -304,52 +304,11 @@ var HolyDays = function () {
     return { m: +split[0], d: +split[1] };
   }
 
-  function AtTime(timeCode) {
-    // show time
-    if (typeof (timeCode) == 'undefined') return '';
-    // 24hr:  return +timeCode.substr(0,2) + ':' + timeCode.substr(2,2);
-    return new Date(2000, 0, 1, +timeCode.substr(0, 2), +timeCode.substr(2, 2)).showTime();
-  }
-
   function ShortBadi(bMonthDay) {
     // show this date
     return _bMonthNames[bMonthDay.m] + ' ' + bMonthDay.d;
   }
 
-  function ShortGregDate(fullDate) {
-    // show gregorian date
-    if (!fullDate || isNaN(fullDate)) {
-      debugger;
-      return '?2?';
-    }
-    var month = fullDate.getMonth();
-    var day = fullDate.getDate();
-    var eveDate = fullDate.getEveDate();
-    var eveMonth = eveDate.getMonth();
-    var monthName = _gMonthNames[eveMonth];
-    var result;
-    if (eveMonth != month) {
-      // Jul 31/Aug 1
-      result = (monthName + ' ' + eveDate.getDate() + '/').eveInfo() + _gMonthNames[month] + ' ' + day;
-    } else {
-      // Jul 12/13
-      result = monthName + ' ' + (eveDate.getDate() + '/').eveInfo() + day;
-    }
-    return result;
-  }
-
-  function ShortGregDateNoEve(fullDate) {
-    // show gregorian date
-    if (!fullDate || isNaN(fullDate)) {
-      debugger;
-      return '?2?';
-    }
-    var month = fullDate.getMonth();
-    var day = fullDate.getDate();
-    var monthName = _gMonthNames[month];
-    var result = fullDate.showTime() + ' ' + fullDate.getDayOfWeek() + ', ' + monthName + ' ' + day + ', ' + fullDate.getFullYear();
-    return result;
-  }
 
   var makeBMonthDay = function (month, day) {
     // combine numbers into object
@@ -409,19 +368,21 @@ var HolyDays = function () {
   var getBDate = function (d) {
     var afterNawRuz = d.isAfterNawRuz();
     var afterSunset = 0;
-    var sunCalcReady = typeof SunCalc != 'undefined';
-    var latReady = _locationLat != 0;
+    var sunCalcReady = typeof sunCalculator != 'undefined';
+    //var latReady = _locationLat != 0;
 
-    if (sunCalcReady && latReady) {
-      var pmSunset = new Date(d);
+    var pmSunset = new Date(d);
+
+    if (sunCalcReady) {
       pmSunset.setHours(12);
-      pmSunset = SunCalc.getTimes(pmSunset, _locationLat, _locationLong).sunset;
-      if (d.getTime() > pmSunset.getTime()) {
-        afterSunset = 1;
-      }
+      pmSunset = sunCalculator.getTimes(pmSunset, _locationLat, _locationLong).sunset;
     }
-    else {
-      console.log('unknown sunset - ' + sunCalcReady + ' ' + latReady);
+//    else {
+//      console.log('unknown sunset - ' + sunCalcReady + ' ' + latReady);
+//      pmSunset.setHours(18,30,0,0);
+//    }
+    if (d.getTime() > pmSunset.getTime()) {
+      afterSunset = 1;
     }
 
     var year = d.getBadiYear();
@@ -2156,54 +2117,14 @@ var HolyDays = function () {
       18, // default to 6:30pm
       30);
 
-    if (typeof SunCalc != 'undefined' && _locationLat != 0) {
+    if (typeof sunCalculator != 'undefined') {
       var eveSunset = new Date(nawRuz);
-      nawRuz = SunCalc.getTimes(eveSunset, _locationLat, _locationLong).sunset;
+      nawRuz = sunCalculator.getTimes(eveSunset, _locationLat, _locationLong).sunset;
     }
     return nawRuz;
   }
 
-  function AddSunsetTimes2(date, targetTime) {
-    // using https://github.com/mourner/suncalc
-
-      //var targetTime = '' + el.data('time');
-        if (targetTime == 'SS+2') {
-          date.setHours(-12);
-          var sunset2 = SunCalc.getTimes(date, _locationLat, _locationLong).sunset;
-          sunset2.setHours(sunset2.getHours() + 2);
-          // about 2 hours after sunset
-          var minutes = sunset2.getMinutes();
-          minutes = minutes > 30 ? 30 : 0; // start 1/2 hour before
-          sunset2.setMinutes(minutes);
-          el.html(ShortGregDateNoEve(sunset2) + ' (eve)' + ' <span class=help></span>');
-        }
-        else {
-          var isToday = el.hasClass('Today');
-
-          var adjustDTtoST = 0;
-          if (targetTime.slice(-1) == 'S') {
-            targetTime = targetTime.slice(0, 4);
-
-            adjustDTtoST = date.inStandardTime() ? 0 : 1;
-          }
-
-          var timeHour = +targetTime.slice(0, 2);
-          var timeMin = targetTime.slice(-2);
-          date.setHours(timeHour + adjustDTtoST);
-          date.setMinutes(timeMin);
-
-          var times = SunCalc.getTimes(date, _locationLat, _locationLong);
-          if (times.sunset.getTime() < date.getTime()) {
-            // after sunset
-            date.setHours(date.getHours() - 24);
-            el.html((isToday ? 'Time now: ' : '') + ShortGregDateNoEve(date) + ' (eve)');
-          }
-          else {
-            el.html((isToday ? 'Time now: ' : '') + ShortGregDateNoEve(date));
-          }
-        }
-  }
-
+ 
 
   // make these available to the browser
   return {
@@ -2254,18 +2175,19 @@ Date.prototype.dayOfYear = function () {
   j1.setMonth(0, 0);
   return Math.round((this - j1) / 8.64e7);
 }
-Date.prototype.showTime = function (includeHtml) {
+Date.prototype.showTime = function (hoursType) {
   //var time = ('0' + this.getHours()).slice(-2) + ':' + ('0' + this.getMinutes()).slice(-2);
+  var show24hour = hoursType == 24;
   var pm = this.getHours() >= 12;
-  var hours = this.getHours() > 12 ? this.getHours() - 12 : this.getHours();
+  var hours = this.getHours() > 12 && !show24hour ? this.getHours() - 12 : this.getHours();
   var minutes = this.getMinutes();
-  var time = hours + ':' + ('0' + minutes).slice(-2) + (pm ? ' pm' : ' am');
-  if (hours == 12 && minutes == 0) {
+  var time = hours + ':' + ('0' + minutes).slice(-2) + (!show24hour ? (pm ? ' pm' : ' am') : '');
+  if (hours == 12 && minutes == 0 && !show24hour) {
     time = '12:00 noon';
   }
-  if(includeHtml){
-  return '<span title="' + this + '">' + time + '</span>';
-  }
+//  if(includeHtml){
+//  return '<span title="' + this + '">' + time + '</span>';
+//  }
   return time;
   //return time;
 }

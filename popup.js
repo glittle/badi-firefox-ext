@@ -8,7 +8,9 @@ samplesDiv.on('click', 'button', copySample);
 $('.btnChangeDay').on('click', changeDay);
 $('#btnEveOrDay').on('click', toggleEveOrDay);
 $('#datePicker').on('change', jumpToDate);
-
+$('#btnRefeshLocation').on('click', function(ev){
+  registerHandlers();
+});
 $('#datePicker').on('keydown', function(ev){
   ev.stopPropagation();
 });
@@ -18,14 +20,15 @@ $('.iconArea a').click(function(){
   chrome.tabs.create({active: true, url: this.href });
 });
 
-chrome.alarms.onAlarm.addListener(showInfo);
+chrome.alarms.onAlarm.addListener(function(){
+  showInfo(_di);
+});
 
 $('#sampleTitle').html(getMessage('pressToCopy'));
 
 var sampleNum = 0;
 
-function showInfo(){
-
+function showInfo(di){
   var dayDetails = [
      {name:getMessage('DayOfWeek'), value: "{bWeekday} - {bWeekdayNameAr} ({bWeekdayMeaning})".filledWith(di)}
    , {name:getMessage('DayOfMonth'), value: "{bDay} - {bDayNameAr} ({bDayMeaning})".filledWith(di)}
@@ -53,7 +56,7 @@ function showInfo(){
     , '{bMonthDayYear} ⇨ {endingSunsetDesc}'.filledWith(di)
 
     // 1 Beauty (Jamal) 172 B.E.
-    , '{bDay} {bMonthMeaning} ({bMonthNameAr}) {bYear} B.E.'.filledWith(di)
+    , '{bDay} {bMonthMeaning} ({bMonthNameAr}) {bYear} {bEraAbbrev}'.filledWith(di)
     
     // 1 Jamal (Beauty) 172
     , '{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear}'.filledWith(di)
@@ -85,9 +88,6 @@ function showInfo(){
     , '{bYear}.{bMonth00}.{bDay00}'.filledWith(di)
   ];
   
-
-  
-  
   $('#day').html('{bDay} {bMonthNameAr} {bYear}'.filledWith(di));
   $('#sunset').html(di.nearestSunset);
   $('#place').html(localStorage.locationName);
@@ -103,7 +103,18 @@ function showInfo(){
 
   $('#datePicker').val(di.currentDateString);
 
-  showUpcoming();
+    $('#special1').hide(); 
+    $('#special2').hide()
+  if(di.special1){
+    $('#special1').html(di.special1).show();
+    if(di.special2){
+      $('#special2').html(di.special2).show();
+    }
+    else{
+      $('#special2').hide()
+    }
+  }
+  $('#upcoming').html(di.upcomingHtml);
      
   clearSamples();
   var showFootnote = false;
@@ -118,53 +129,13 @@ function showInfo(){
   }
   $('#sampleFootnote').toggle(showFootnote);
   
-  $('#version').text(getMessage('version', chrome.runtime.getManifest().version_name));
-}
-
-function showUpcoming(){
-  var dayInfos = holyDays.getUpcoming(di, 3);
-  var today = moment(di.frag2);
-  today.hour(0);
-  $('#special').html('').hide();
-  
-  $.each(dayInfos, function(i, dayInfo){
-    var targetDi = getDateInfo(dayInfo.GDate);
+  var manifest = chrome.runtime.getManifest();
+  $('#version').text(getMessage('version', manifest.version_name));
+  $('body')
+    .addClass(manifest.current_locale)
+    .addClass(manifest.current_locale.slice(0,2));
     
-    if(dayInfo.Type === 'M'){
-      dayInfo.A = 'Feast of ' + targetDi.bMonthMeaning;
-    }else 
-    if(dayInfo.Type.slice(0,1)==='H'){
-      dayInfo.A = dayInfo.NameEn;
-    }
-    if(dayInfo.Special && dayInfo.Special.slice(0,5)==='AYYAM'){
-      dayInfo.A = dayInfo.NameEn;
-    }
-    dayInfo.date = '{bMonthNameAr} {bDay} ({gCombinedMD})'.filledWith(targetDi);
-
-    var sameDay = di.gCombinedMD == targetDi.gCombinedMD;
-    var targetMoment = moment(dayInfo.GDate);
-    dayInfo.away = determineDaysAway(today, targetMoment, sameDay);
-
-    if(sameDay){
-      $('#special').html(dayInfo.A).show();
-    }
-  });
-  
-  $('#upcoming').html('<tr class={Type}><td>{away}</td><td>{^A}</td><td>{date}</td></tr>'.filledWithEach(dayInfos));
-}
-
-function determineDaysAway(moment1, moment2, sameDay){
-  var days = moment2.diff(moment1, 'days');
-  if(days===1 && !di.bNow.eve){
-    return 'Tonight';
-  }
-  if(days===-1){
-    return 'Ended';
-  }
-  if(days===0){
-    return 'Now';
-  }
-  return (days===1 ? 'in {0} day' : 'in {0} days').filledWith(days);
+  $('button.today').toggleClass('notToday', di.stamp !== getStorage('originalStamp'));  
 }
 
 function keyPressed(ev){
@@ -256,7 +227,7 @@ function toggleEveOrDay(toEve){
     _targetDate.setHours(12,0,0,0);
   }
   refreshDateInfo();
-  showInfo();
+  showInfo(_di);
 }
 
 function jumpToDate(ev){
@@ -265,7 +236,7 @@ function jumpToDate(ev){
     _targetDate = date;
     
     refreshDateInfo();
-    showInfo();
+    showInfo(_di);
   }
 }
 
@@ -303,17 +274,16 @@ function changeDay(ev, delta){
 
   refreshDateInfo();
   
-  if(di.bNow.eve){
+  if(_di.bNow.eve){
     _targetDate.setHours(23,59,0,0);
   }else{
     _targetDate.setHours(12,0,0,0);
   }
 
-  showInfo();
-
-  $('button.today').toggleClass('notToday', di.gCombined !== getStorage('originalCombined'));  
+  showInfo(_di);
+  
 }
 
 refreshDateInfo();
-showInfo();
+showInfo(_di);
 localizeHtml();

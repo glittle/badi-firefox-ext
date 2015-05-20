@@ -4,7 +4,8 @@ var _locationLat = localStorage.lat;
 var _locationLong = localStorage.long;
 var _targetDate = null;
 var holyDays = HolyDays();
-var di = {};
+var knownDateInfos = {};
+var _di = {};
 
 // see messages.json for translations and local names
 var bYearInVahidNameAr = ",Alif,Bá’,Ab,Dál,Báb,Váv,Abad,Jád,Bahá',Ḥubb,Bahháj,Javáb,Aḥad,Vahháb,Vidád,Badí‘,Bahí,Abhá,Váḥid".split(',');
@@ -23,12 +24,19 @@ var gMonthShort = getMessage("gMonthShort").split(',');
 var ordinal = getMessage('ordinal').split(',');
 var ordinalNames = getMessage('ordinalNames').split(',');
 
+var use24HourClock = getMessage('use24HourClock') == 'true';
 
 function refreshDateInfo(){
-  di = getDateInfo(getCurrentTime());
+  return _di = getDateInfo(getCurrentTime());
 }
 
-function getDateInfo(currentTime){
+
+function getDateInfo(currentTime, skipUpcoming){
+  var known = knownDateInfos[currentTime];
+  if(known){
+    return known;
+  }
+  
   var bNow = holyDays.getBDate(currentTime);
   // split the Baha'i day to be "Eve" - sunset to midnight; 
   // and "Morn" - from midnight through to sunset
@@ -41,8 +49,8 @@ function getDateInfo(currentTime){
   var frag2Noon = new Date(frag1Noon.getTime());
   frag2Noon.setDate(frag2Noon.getDate() + 1);
   
-  var frag1SunTimes = SunCalc.getTimes(frag1Noon, _locationLat, _locationLong);
-  var frag2SunTimes = SunCalc.getTimes(frag2Noon, _locationLat, _locationLong);
+  var frag1SunTimes = sunCalculator.getTimes(frag1Noon, _locationLat, _locationLong);
+  var frag2SunTimes = sunCalculator.getTimes(frag2Noon, _locationLat, _locationLong);
 
   var di = { // date info
     frag1: frag1Noon,
@@ -64,8 +72,10 @@ function getDateInfo(currentTime){
     currentWeekday: currentTime.getDay(),
     currentTime: currentTime,
     
-    startingSunsetDesc: frag1SunTimes.sunset.showTime(),
-    endingSunsetDesc: frag2SunTimes.sunset.showTime(),
+    startingSunsetDesc12: frag1SunTimes.sunset.showTime(),
+    startingSunsetDesc24: frag1SunTimes.sunset.showTime(24),
+    endingSunsetDesc12: frag2SunTimes.sunset.showTime(),
+    endingSunsetDesc24: frag2SunTimes.sunset.showTime(24),
     frag1SunTimes: frag1SunTimes,
     frag2SunTimes: frag2SunTimes,
     
@@ -101,9 +111,12 @@ function getDateInfo(currentTime){
   di.bKullishayOrdinalName = getOrdinalName(di.bKullishay);
 
   di.bDay00 = digitPad2(di.bDay);
-  di.frag1Day00 = digitPad2(di.frag1Day),
-  di.frag2Day00 = digitPad2(di.frag2Day),
+  di.frag1Day00 = digitPad2(di.frag1Day);
+  di.frag2Day00 = digitPad2(di.frag2Day);
   di.bMonth00 = digitPad2(di.bMonth);
+
+  di.startingSunsetDesc = use24HourClock ? di.startingSunsetDesc24 : di.startingSunsetDesc12;
+  di.endingSunsetDesc = use24HourClock ? di.endingSunsetDesc24 : di.endingSunsetDesc12;
     
   di.frag1MonthLong = gMonthLong[di.frag1Month];
   di.frag1MonthShort = gMonthShort[di.frag1Month];
@@ -145,7 +158,132 @@ function getDateInfo(currentTime){
   }
   di.nearestSunset = getMessage(bNow.eve ? "nearestSunsetEve":"nearestSunsetDay", di);
   
+  di.stamp = JSON.stringify(di.bNow);// used to compare to other dates and for developer reference 
+  
+  if(!skipUpcoming) {
+    getUpcoming(di);
+  }
+  
+  knownDateInfos[currentTime] = di;
+  
   return di;
+}
+
+
+function showIcon(dateInfo){
+  var tipLines = [];
+  tipLines.push(getMessage('formatIconToolTip').filledWith(dateInfo));
+
+  if(dateInfo.special1){
+    tipLines.push(dateInfo.special1);
+    if(dateInfo.special2){
+      tipLines.push(dateInfo.special2);
+    }  
+  }  
+  
+  tipLines.push(dateInfo.nearestSunset);
+  tipLines.push('');
+  tipLines.push(getMessage('formatIconClick'));
+    
+  chrome.browserAction.setTitle({title: tipLines.join('\n')})
+  chrome.browserAction.setIcon({
+      imageData: draw(dateInfo.bMonthNameAr, dateInfo.bDay, 'center')
+    });
+  //  chrome.browserAction.setBadgeBackgroundColor({color: bNow.eve ? '#ddd' : '#aaa'});
+}
+
+function draw(line1, line2, line2align) {
+  var canvas = document.createElement('canvas');
+  canvas.width = 19;
+  canvas.height = 19;
+  
+  var context = canvas.getContext('2d');
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  //context.strokeRect(0, 0, canvas.width, canvas.height);
+  
+  context.font="9px Tahoma";
+  context.fillText(line1,0,7);
+  
+  context.font="11px Tahoma";
+  context.textAlign = line2align;
+  var x = 0;
+  switch(line2align){
+    case 'center': 
+	  x = 10;
+	  break;
+	case 'end':
+	  x = 19;
+	  break;
+  }
+  context.fillText(line2,x,19);
+  
+  return context.getImageData(0, 0, 19, 19);
+}
+
+function registerHandlers(){
+  // geo
+  var positionOptions = {
+	  enableHighAccuracy: false, 
+	  maximumAge        : Infinity, 
+	  timeout           : 10000
+	};
+  navigator.geolocation.watchPosition(setLocation, noLocation, positionOptions); // this triggers immediately
+}
+
+
+
+function getUpcoming(di){
+  if(di.upcomingHtml){
+    return; // already done 
+  }
+  var dayInfos = holyDays.getUpcoming(di, 3);
+  var today = moment(di.frag2);
+  today.hour(0);
+  di.special1 = null;
+  di.special2 = null;
+  
+  dayInfos.forEach(function(dayInfo, i){
+    var targetDi = getDateInfo(dayInfo.GDate, true);
+    
+    if(dayInfo.Type === 'M'){
+      dayInfo.A = getMessage('FeastOf').filledWith(targetDi.bMonthMeaning);
+    }else 
+    if(dayInfo.Type.slice(0,1)==='H'){
+      dayInfo.A = getMessage(dayInfo.NameEn);
+    }
+    if(dayInfo.Special && dayInfo.Special.slice(0,5)==='AYYAM'){
+      dayInfo.A = getMessage(dayInfo.NameEn);
+    }
+    dayInfo.date = '{bMonthNameAr} {bDay} ({gCombinedMD})'.filledWith(targetDi);
+
+    var sameDay = di.gCombinedMD == targetDi.gCombinedMD;
+    var targetMoment = moment(dayInfo.GDate);
+    dayInfo.away = determineDaysAway(di, today, targetMoment, sameDay);
+
+    if(sameDay){
+      if(!di.special1){
+        di.special1 = dayInfo.A;
+      } else {
+        di.special2 = dayInfo.A;
+      }
+    }
+  });
+  
+  di.upcomingHtml = '<tr class={Type}><td>{away}</td><td>{^A}</td><td>{date}</td></tr>'.filledWithEach(dayInfos);
+}
+
+function determineDaysAway(di, moment1, moment2, sameDay){
+  var days = moment2.diff(moment1, 'days');
+  if(days===1 && !di.bNow.eve){
+    return getMessage('Tonight');
+  }
+  if(days===-1){
+    return getMessage('Ended');
+  }
+  if(days===0){
+    return getMessage('Now');
+  }
+  return getMessage(days===1 ? '1day' : 'otherDays').filledWith(days);
 }
 
 
@@ -156,9 +294,106 @@ function getDateInfo(currentTime){
 
 
 
+var findName = function(typeName, results){
+  for (var r = 0; r < results.length; r++) {
+    var result = results[r];
+    if(result.types.indexOf(typeName) != -1){
+      return result.formatted_address;
+    }
+  } 
+  return null;
+};
 
 
+function startGetLocationName(doNow){
+    if (!_locationLat || !_locationLong) {
+	    localStorage.locationName = getMessage('noLocationAvailable');
+		  refreshDateInfoAndShow();
+      return;
+    }
+ 
+  var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + _locationLat + ',' + _locationLong
 
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", url, true);
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState == 4) {
+      // JSON.parse does not evaluate the attacker's scripts.
+      var data = JSON.parse(xhr.responseText);
+      localStorage.locationName = //findName('neighborhood', data.results) ||
+               findName('neighborhood', data.results)
+               || findName('locality', data.results)
+               || findName('political', data.results)
+               || getMessage('noLocationName');
+      
+//      var components = data.results[0].address_components;
+//      for (var i = 0; i < components.length; i++) {
+//        var component = components[i];
+//        console.log(component);
+//        if (component.types.indexOf('political') != -1) { //$.inArray('political', component.types)!=-1 && 
+//          localStorage.locationName = component.short_name;
+//          break;
+//        }
+//      }
+		  refreshDateInfoAndShow();
+	  }
+	}
+	xhr.send();
+}
+
+function setLocation(position){
+  localStorage.lat = _locationLat = position.coords.latitude;
+  localStorage.long = _locationLong = position.coords.longitude;
+  knownDateInfos = {};
+    
+  startGetLocationName();  
+}
+function noLocation(err){
+  console.error(err);
+
+  localStorage.noLocation = setStorage(true);
+  localStorage.lat = _locationLat = 0;
+  localStorage.long = _locationLong = 0;
+  localStorage.locationName = getMessage('noLocationAvailable');
+ 
+  alert(getMessage('locationError'));
+
+  refreshDateInfoAndShow();
+}
+
+function refreshDateInfoAndShow(){
+  var di = refreshDateInfo();
+  showIcon(di);
+  if(typeof showInfo !== 'undefined'){
+    showInfo(di);
+  }
+  
+  setStorage('originalStamp', di.stamp);
+  //TODO: if popup is open, need to refresh it
+
+  setAlarmForNextUpdate(di.currentTime, di.frag2SunTimes.sunset, di.bNow.eve);
+}
+
+function setAlarmForNextUpdate(currentTime, sunset, inEvening){
+   if(inEvening){
+     // in eve, after sunset, so update after midnight
+     var midnight = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate() + 1).getTime();
+     chrome.alarms.create('midnight', {when: midnight + 1000}); // to be safe, set at least 1 second after midnight 
+   }else{
+     // in the day, so update at the sunset
+     chrome.alarms.create('sunset', {when: sunset.getTime() + 1000}); // at least 1 second after sunset 
+   }
+
+   //chrome.alarms.create('test', {delayInMinutes: 1}); 
+
+   // debug - show alarm that was set
+   chrome.alarms.getAll(function(alarms){
+     for (var i = 0; i < alarms.length; i++) {
+       var alarm = alarms[i];
+       console.log('Refresh scheduled after ' + alarm.name + ': ' + new Date(alarm.scheduledTime));
+     }
+   });
+}
 
 
 

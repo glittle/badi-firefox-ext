@@ -108,6 +108,16 @@ function getSetJ(h, lw, phi, dec, n, M, L) {
 
 SunCalc.getTimes = function (date, lat, lng) {
 
+  // Glen - override
+  if(getStorage('noLocation')){
+    var dt2 = moment(date).toDate();
+    dt2.setHours(18,30,0,0);
+    return {
+      sunset: dt2
+    };
+  }  
+
+
     var lw = rad * -lng,
         phi = rad * lat,
 
@@ -150,5 +160,5 @@ SunCalc.getTimes = function (date, lat, lng) {
   return SunCalc;
 };
 
-var SunCalc = createSunCalc();
+var sunCalculator = createSunCalc();
 
