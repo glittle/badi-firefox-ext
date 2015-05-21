@@ -1,57 +1,73 @@
-body{
+body {
   height: auto;
   margin-bottom: 0;
 }
-#show{
+
+#show {
   display: table-cell;
   white-space: nowrap;
-  padding: 5px;
+  padding: 10px 0 0 0;
   font-size: 1.25em;
   font-family: Tahoma;
   text-align: center;
 }
-#day{
+
+#day {
   font-size: 1.25em;
 }
-#special1{
-  font-size: 1.25em;
-  color: blue;
-  display: none;
-}
-#special2{
+
+#special1 {
   font-size: 1.25em;
   color: blue;
   display: none;
 }
-#sunset{
+
+#special2 {
+  font-size: 1.25em;
+  color: blue;
+  display: none;
+}
+
+#sunset {
   margin: .5em 0 0 0;
 }
-.sidebyside{
+
+.sidebyside1 {
+  display: table;
+  margin: 0;
+  width: 100%;
+}
+
+.sidebyside2 {
   display: table;
   margin: 15px 0 0 0;
   width: 100%;
 }
 
-#place, #gDay{
+#place, #gDay {
   font-size: .7em;
   color: gray;
 }
-#showUpcoming{
+
+#showUpcoming {
   padding: 5px 0;
   display: table-cell;
   vertical-align: top;
   width: 339px;
 }
-tr.M{
+
+tr.M {
   color: darkgoldenrod;
- 
 }
-tr.HS{
+
+tr.HS {
   color: darkblue;
 }
-tr.OtherRange{
+
+tr.OtherRange {
   color: gray;
 }
+
 #dayDetails {
   border: 1px solid blue;
   border-radius: 3px;
@@ -59,26 +75,29 @@ tr.OtherRange{
   display: table-cell;
   vertical-align: top;
 }
-#spacer{
+
+.spacer {
   display: table-cell;
 }
-dl{
+
+dl {
   text-align: left;
   margin: 0;
   width: 160px;
 }
-dt{
+
+dt {
   color: green;
   opacity: 0.7;
   white-space: nowrap;
 }
-dd{
+
+dd {
   margin-left: 9px;
   margin-bottom: .4em;
-  white-space: nowrap;
 }
 
-#samples{
+#samples {
   font-size: 1em;
   border: 1px solid green;
   border-radius: 3px;
@@ -88,105 +107,120 @@ dd{
   vertical-align: top;
   white-space: nowrap;
 }
+
 #samplesList div {
   margin: 2px auto;
 }
-#sampleTitle{
+
+#sampleTitle {
   color: green;
   opacity: 0.7;
-  margin-bottom: 5px;
   width: 370px;
 }
-#sampleFootnote{
+
+#sampleFootnote {
   color: green;
   opacity: 0.7;
   margin-top: 5px;
   padding-left: 3px;
 }
-#sampleCopy{
+
+#sampleCopy {
   position: absolute;
   top: -500px;
 }
 
-button.btnChangeDay, #btnEveOrDay{
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
-	background-color:#77b55a;
-	border-radius:4px;
-	border:1px solid #4b8f29;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Tahoma;
-	font-size:11px;
+button.btnChangeDay, #btnEveOrDay {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+  background-color: #77b55a;
+  border-radius: 4px;
+  border: 1px solid #4b8f29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Tahoma;
+  font-size: 11px;
   line-height: 14px;
   transition: color 0.4s ease-out;
-	padding:1px 2px;
-	text-decoration:none;
+  padding: 1px 2px;
+  text-decoration: none;
   min-width: 15px;
 }
-#btnEveOrDay{
+
+#btnEveOrDay {
   display: block;
   margin: 3px auto 0 auto;
 }
-button.today.notToday{
-  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
-	background-color:#b5775a;
-	border:1px solid #8f4b29;
-}
-#samples button {
-  vertical-align: text-bottom;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
-	background-color:#77b55a;
-	border-radius:4px;
-	border:1px solid #4b8f29;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Tahoma;
-	font-size:9px;
-  transition: color 0.4s ease-out;
-	padding:1px 2px;
-	text-decoration:none;
-  min-width: 15px;
-}
-#samples button:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, #77b55a));
-	background:-webkit-linear-gradient(top, #72b352 5%, #77b55a 100%);
-	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
-	background-color:#72b352;
-}
-#samples button:active {
-	position:relative;
-	top:1px;
+
+button.today.notToday {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
+  background-color: #b5775a;
+  border: 1px solid #8f4b29;
 }
 
+#samples button {
+  vertical-align: text-bottom;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+  background-color: #77b55a;
+  border-radius: 4px;
+  border: 1px solid #4b8f29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Tahoma;
+  font-size: 9px;
+  transition: color 0.4s ease-out;
+  padding: 1px 2px;
+  text-decoration: none;
+  min-width: 15px;
+}
+
+  #samples button:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, #77b55a));
+    background: -webkit-linear-gradient(top, #72b352 5%, #77b55a 100%);
+    background: linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+    background-color: #72b352;
+  }
+
+  #samples button:active {
+    position: relative;
+    top: 1px;
+  }
+
 #samples div.copied button {
-  background:#b2f392;
+  background: #b2f392;
   color: #4b8f29;
   transition: color 0.4s ease-out;
 }
-#samples div.copied button:hover {
-  background:#b2f392;
-  color: #4b8f29;
-}
-.iconArea{
+
+  #samples div.copied button:hover {
+    background: #b2f392;
+    color: #4b8f29;
+  }
+
+.iconArea {
   margin: 15px 0 0 0;
   text-align: center;
 }
+
 #googlePlus img {
   margin: 0 0 3px 5px;
 }
-#facebook img{
+
+#facebook img {
   margin: 0 5px 3px 0;
 }
-#logo{
+
+#logo {
   width: 22px;
 }
-#explain{
+
+#explain {
   margin: 6px 6px 0 0;
   text-align: center;
 }
-#explain2{
+
+#explain2 {
   margin: 3px 6px 0 0;
   text-align: center;
 }
@@ -198,72 +232,85 @@ button.today.notToday{
   display: table-cell;
   vertical-align: top;
 }
-#gDatePickerTitle{
+
+#gDatePickerTitle {
   color: green;
   opacity: 0.7;
   width: 150px;
 }
-#gDatePickerTitle2{
+
+#gDatePickerTitle2 {
   color: green;
   opacity: 0.7;
   margin: 6px 0 0 0;
 }
-#bDatePickerTitle{
+
+#bDatePickerTitle {
   color: green;
   opacity: 0.7;
   margin: 6px 0 0 0;
 }
-#upcomingTitle{
+
+#upcomingTitle {
   color: green;
   text-decoration: underline;
   font-size: 1.2em;
 }
-#upcoming{
+
+#upcoming {
   width: 100%;
   border-spacing: 1px 0px;
 }
-.gDateButtons{
+
+.gDateButtons {
   text-align: center;
 }
-#gDate{
+
+#gDate {
   margin: 0 3px 0 9px;
   white-space: nowrap;
 }
-#gDateDesc{
+
+#gDateDesc {
   margin: 0 3px 0 9px;
   white-space: nowrap;
 }
-#datePicker{
+
+#datePicker {
   display: block;
-  margin: 0px auto 2px auto;
+  margin: 0 auto 2px auto;
   text-align: center;
   font-family: Tahoma;
   font-size: 11px;
 }
 
-.textLink{
+.textLink {
   color: darkblue;
   vertical-align: top;
   display: inline-block;
   margin: 3px 9px 0 6px;
 }
-a.textLink{
+
+a.textLink {
   text-decoration: none;
 }
-a.textLink:hover{
-  text-decoration: underline;
-}
 
-.bDatePickerInputs{
+  a.textLink:hover {
+    text-decoration: underline;
+  }
+
+.bDatePickerInputs {
   margin-left: 10px;
 }
-.bDatePickerInputs input{
-  font-size: 11px;
-  font-family: Tahoma;
-  text-align: center;
-  margin: 0 3px;
-  width: 25px;
-}
-#bYearPicker{
+
+  .bDatePickerInputs input {
+    font-size: 11px;
+    font-family: Tahoma;
+    text-align: center;
+    margin: 0 3px;
+    width: 25px;
+  }
+
+#bYearPicker {
   width: 40px;
 }

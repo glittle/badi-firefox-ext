@@ -1,112 +1,165 @@
 {
-    "title": { "message": "Badí' Calendar", "description": "The title of the extension. Shown in a number of locations." }
-  , "titleDesc": { "message": "Shows today's date in the Badí' calendar, the official calendar of the Bahá'í Faith.", "description": "Used in the manifest" }
-
-  , "browserActionTitle": { "message": "(Loading...)", "description": "Shown until the dynamic tip is created" }
-  
-  , "bYearInVahidMeaning": { "message": ",A,B,Father,D,Gate,V,Eternity,Generosity,Splendour,Love,Delightful,Answer,Single,Bountiful,Affection,Beginning,Luminous,Most Luminous,Unity", "description": "Vahid names, with leading , " }
-  , "bMonthMeaning": { "message": "Intercalary Days,Splendor,Glory,Beauty,Grandeur,Light,Mercy,Words,Perfection,Names,Might,Will,Knowledge,Power,Speech,Questions,Honor,Sovereignty,Dominion,Loftiness", "description": "Names of days/months, with first one being Ayyam-i-ha" }
-  , "bWeekDayMeaning": { "message": ",Glory,Beauty,Perfection,Grace,Justice,Majesty,Independence", "description": "start with Saturday" }
-  
-  , "gWeekdayLong": { "message": "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday", "description": "start with Sunday" }
-  , "gWeekdayShort": { "message": "Sun,Mon,Tue,Wed,Thu,Fri,Sat", "description": "start with Sun" }
-  , "gMonthLong": { "message": "January,February,March,April,May,June,July,August,September,October,November,December", "description": "" }
-  , "gMonthShort": { "message": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec", "description": "" }
-
-  , "startedWithSunset": { "message": "Started with sunset at {0}", "description": "" }
-  , "endingWithSunset": { "message": "Ends with sunset at {0}", "description": "" }
-
-  , "eraLong": { "message": "Bahá'í Era", "description": "" }
-  , "eraAbbrev": { "message": "B.E.", "description": "" }
-  , "eraShort": { "message": "BE", "description": "" }
-
-  , "ordinal": { "message": "th,st,nd,rd", "description": "x,1,2,3" }
-  , "ordinalNames": { "message": ",first,second,third,fourth,fifth,sixth,seventh,eighth,nineth,tenth,eleventh,twelfth,thirteenth,fourteenth,fifteenth,sixteenth,seventeenth,eighteenth,nineteenth", "description": "" }
-
-  , "DayOfWeek": { "message": "Weekday", "description": "" }
-  , "DayOfMonth": { "message": "Day of Month", "description": "" }
-  , "Month": { "message": "Month", "description": "" }
-  , "Year": { "message": "Year", "description": "" }
-  , "YearOfEra": { "message": "Year of Bahá'í Era", "description": "" }
-  , "YearOfVahid": { "message": "Year of Váḥid", "description": "" }
-  , "Vahid": { "message": "Váḥid", "description": "" }
-  , "Kullishay": { "message": "Kull-i-<u>Sh</u>ay’", "description": "" }
-
-  , "sampleFootnote": { "message": "* Gregorian date changes before/after sunset", "description": "" }
-  
-  , "pressToCopy": { "message": "Press key to copy formatted date to the clipboard:", "description": "Can click button with mouse, or press matching key on keyboard" }
-
-  , "afterSunset": { "message": "evening - <strong>after</strong> sunset", "description": "" }
-  , "beforeSunset": { "message": "day - <strong>before</strong> sunset", "description": "" }
-
-  , "dayStartedFuture": { "message": "Starts", "description": "" }
-  , "dayStartedPast": { "message": "Started", "description": "" }
-  , "dayEndedFuture": { "message": "Ends", "description": "" }
-  , "dayEndedPast": { "message": "Ended", "description": "" }
-
-  , "suggestions": { "message": "Suggestions?", "description": "" }
-  , "suggestionsTitle": { "message": "Please click here and submit any suggestions for how to improve this extension!", "description": "" }
-  , "webstore": { "message": "Chrome Web Store", "description": "" }
-
-  , "upcomingTitle": { "message": "Upcoming Feasts, Holy Days and other events", "description": "" }
-  , "gDatePickerTitle": { "message": "Gregorian Date", "description": "" }
-  , "gDatePickerTitle2": { "message": "Choose Gregorian Date", "description": "changed in 1.1.2" }
-  , "prev": { "message": "&#8592; Prev", "description": "" }
-  , "gotoNow": { "message": "Now", "description": "" }
-  , "next": { "message": "Next &#8594;", "description": "" }
-  , "btnEveOrDay": { "message": "Before &#8593; &#8595; After Sunset", "description": "" }
-  
-  , "version": { "message": "Version {0}", "description": "" }
+    "title": { "message": "Badí' Calendar", "description": "The title of the extension. Shown in a number of locations." },
+    "titleDesc": { "message": "Shows today's date in the Badí' calendar, the official calendar of the Bahá'í Faith.", "description": "Used in the manifest" },
+    "browserActionTitle": { "message": "(Loading...)", "description": "Shown until the dynamic tip is created" },
+    "bYearInVahidMeaning": { "message": ",A,B,Father,D,Gate,V,Eternity,Generosity,Splendour,Love,Delightful,Answer,Single,Bountiful,Affection,Beginning,Luminous,Most Luminous,Unity", "description": "Vahid names, with leading , " },
+    "bMonthMeaning": { "message": "Intercalary Days,Splendor,Glory,Beauty,Grandeur,Light,Mercy,Words,Perfection,Names,Might,Will,Knowledge,Power,Speech,Questions,Honor,Sovereignty,Dominion,Loftiness", "description": "Names of days/months, with first one being Ayyam-i-ha" },
+    "bWeekDayMeaning": { "message": ",Glory,Beauty,Perfection,Grace,Justice,Majesty,Independence", "description": "start with Saturday" },
+    "gWeekdayLong": { "message": "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday", "description": "start with Sunday" },
+    "gWeekdayShort": { "message": "Sun,Mon,Tue,Wed,Thu,Fri,Sat", "description": "start with Sun" },
+    "gMonthLong": { "message": "January,February,March,April,May,June,July,August,September,October,November,December", "description": "" },
+    "gMonthShort": { "message": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec", "description": "" },
+    "startedWithSunset": { "message": "Started with sunset at {0}", "description": "" },
+    "endingWithSunset": { "message": "Ends with sunset at {0}", "description": "" },
+    "eraLong": { "message": "Bahá'í Era", "description": "" },
+    "eraAbbrev": { "message": "B.E.", "description": "" },
+    "eraShort": { "message": "BE", "description": "" },
+    "ordinal": { "message": "th,st,nd,rd", "description": "x,1,2,3" },
+    "ordinalNames": { "message": ",first,second,third,fourth,fifth,sixth,seventh,eighth,nineth,tenth,eleventh,twelfth,thirteenth,fourteenth,fifteenth,sixteenth,seventeenth,eighteenth,nineteenth", "description": "" },
+    "sampleFootnote": { "message": "Gregorian dates change before/after sunset", "description": "" },
+    "pressToCopy": { "message": "Press key to copy formatted date to the clipboard:", "description": "Can click button with mouse, or press matching key on keyboard" },
+    "afterSunset": { "message": "evening - <strong>after</strong> sunset", "description": "" },
+    "beforeSunset": { "message": "day - <strong>before</strong> sunset", "description": "" },
+    "dayStartedFuture": { "message": "Starts", "description": "" },
+    "dayStartedPast": { "message": "Started", "description": "" },
+    "dayEndedFuture": { "message": "Ends", "description": "" },
+    "dayEndedPast": { "message": "Ended", "description": "" },
+    "suggestions": { "message": "Suggestions?", "description": "" },
+    "suggestionsTitle": { "message": "Please click here and submit any suggestions for how to improve this extension!", "description": "" },
+    "webstore": { "message": "Chrome Web Store", "description": "" },
+    "upcomingTitle": { "message": "Upcoming Feasts, Holy Days and other events", "description": "" },
+    "gDatePickerTitle": { "message": "Gregorian Date", "description": "" },
+    "gDatePickerTitle2": { "message": "Choose Gregorian Date", "description": "changed in 1.1.2" },
+    "prev": { "message": "&#8592; Prev", "description": "" },
+    "gotoNow": { "message": "Now", "description": "" },
+    "next": { "message": "Next &#8594;", "description": "" },
+    "btnEveOrDay": { "message": "Before &#8593; &#8595; After Sunset", "description": "" },
+    "version": { "message": "Version {0}", "description": "" },
 
 
-  , "new_messages_1_1_2": { "message": ""}
-  , "formatIconToolTip": { "message": "{bDay} {bMonthNameAr} {bYear}", "description": "text when mouse is over the extension icon" }
-  , "formatIconClick": { "message": "(click for more details)", "description": "" }
-  , "nearestSunsetEve": { "message": "{dayStarted} with sunset at {startingSunsetDesc}", "description": "" }
-  , "nearestSunsetDay": { "message": "{dayEnded} with sunset at {endingSunsetDesc}", "description": "" }
-  , "facebook": { "message": "Facebook", "description": "ALT for icon at bottom of page" }
-  , "googlePlus": { "message": "Google+", "description": "ALT for icon at bottom of page" }
-  , "shoghiExample": { 
-        "message": "This is the day of {bWeekdayNameAr}, the day of {bDayNameAr}, of the month of {bMonthNameAr}, of the year {bYearInVahidNameAr}, of the {bVahidOrdinalName} Váḥid, of the {bKullishayOrdinalName} Kull-i-<u>Sh</u>ay’.", 
-        "description": "Example given by Shoghi Effendi" 
-        }
-  , "example2": { "message": "{bMonthNameAr} {bDay} {dayStartedLower} at sunset (about {startingSunsetDesc}) on {frag1WeekdayLong}, {frag1MonthShort} {frag1Day} and {dayEndedLower} at sunset (about {endingSunsetDesc}) on {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.", "description": "" }
-  , "pressKeyOrClick": { "message": "Click button or type {0}.", "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press" }
-  , "copied": { "message": "Copied!", "description": "short message that replaces sample format button text when button is clicked" }
-  , "bDatePickerTitle": { "message": "Choose Badí' Date", "description": "" }
- 
- 
-  , "new_messages_1_1_3": { "message": ""}
-  
-  , "use24HourClock" : { "message" : "false", "description" : "use 'true' or 'false' to use 24 hour or 12 hour (am/pm) clock" }
-  
-  , "noLocationName": { "message": "(Current Location)", "description": "If the internet is not available, to get the name of the current location." }
-  , "noLocationAvailable": { "message": "(Unknown Location - 6:30pm sunset times)", "description": "If the system does not know the location of this computer." }
-  , "locationError": { "message": "Unable to determine your current location.\n\nThe extension will use 6:30pm for sunset on every date.", "description": "If the system cannot determine the location, this is shown in an alert window." }
-  , "HolyDay_NawRuz" : { "message": "Naw R&uacute;z", "description": "" }
-  , "HolyDay_Ridvan1": { "message": "First Day of Ridv&aacute;n", "description": "" }
-  , "HolyDay_Ridvan9": { "message": "Ninth Day of Ridv&aacute;n", "description": "" }
-  , "HolyDay_Ridvan12": { "message": "Twelveth Day of Ridv&aacute;n", "description": "" }
-  , "HolyDay_AscBaha": { "message": "Ascension of Bah&aacute;'u'll&aacute;h", "description": "" }
-  , "HolyDay_DeclBab": { "message": "Declaration of the B&aacute;b", "description": "" }
-  , "HolyDay_Martyrdom": { "message": "Martyrdom of the B&aacute;b", "description": "" }
-  , "HolyDay_BirthBab": { "message": "Birth of the B&aacute;b", "description": "" }
-  , "HolyDay_BirthBaha": { "message": "Birth of Bah&aacute;'u'll&aacute;h", "description": "" }
-  , "HolyDay_Covenant": { "message": "Day of the Covenant", "description": "" }
-  , "HolyDay_AscAbdul": { "message": "Ascension of `Abdu'l-Bah&aacute;", "description": "" }
-  , "FestivalRidvan": { "message": "Festival of Ridv&aacute;n", "description": "" }
-  , "Intercalary": { "message": "Intercalary Days", "description": "" }
+    "new_messages_1_1_2": { "message": "" },
+    "formatIconToolTip": { "message": "{bDay} {bMonthNameAr} {bYear}", "description": "text when mouse is over the extension icon" },
+    "formatIconClick": { "message": "(click for more details)", "description": "" },
+    "nearestSunsetEve": { "message": "{dayStarted} with sunset at {startingSunsetDesc}", "description": "" },
+    "nearestSunsetDay": { "message": "{dayEnded} with sunset at {endingSunsetDesc}", "description": "" },
+    "facebook": { "message": "Facebook", "description": "ALT for icon at bottom of page" },
+    "googlePlus": { "message": "Google+", "description": "ALT for icon at bottom of page" },
+    "shoghiExample": {
+        "message": "This is the day of {bWeekdayNameAr}, the day of {bDayNameAr}, of the month of {bMonthNameAr}, of the year {bYearInVahidNameAr}, of the {bVahidOrdinalName} Váḥid, of the {bKullishayOrdinalName} Kull-i-<u>Sh</u>ay’.",
+        "description": "Example given by Shoghi Effendi"
+    },
+    "example2": { "message": "{bMonthNameAr} {bDay} {dayStartedLower} at sunset (about {startingSunsetDesc}) on {frag1WeekdayLong}, {frag1MonthShort} {frag1Day} and {dayEndedLower} at sunset (about {endingSunsetDesc}) on {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.", "description": "" },
+    "pressKeyOrClick": { "message": "Click button or type {0}.", "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press" },
+    "copied": { "message": "Copied!", "description": "short message that replaces sample format button text when button is clicked" },
+    "bDatePickerTitle": { "message": "Choose Badí' Date", "description": "" },
 
-  , "FeastOf": { "message": "Feast of {0}", "description": "The localized name of the Feast will be put into {0}" }
-  , "Tonight": { "message": "Tonight", "description": "Shown in the upcoming dates area" }
-  , "Ended": { "message": "Ended", "description": "Shown in the upcoming dates area" }
-  , "Now": { "message": "Now", "description": "Shown in the upcoming dates area" }
 
-  , "1day": { "message": "in {0} day", "description": "" }
-  , "otherDays": { "message": "in {0} days", "description": "" }
-  , "x": { "message": "", "description": "" }
+    "new_messages_1_1_3": { "message": "" },
+    "use24HourClock": { "message": "false", "description": "use 'true' or 'false' to use 24 hour or 12 hour (am/pm) clock" },
+    "noLocationName": { "message": "(Current Location)", "description": "If the internet is not available, to get the name of the current location." },
+    "noLocationAvailable": { "message": "(Unknown Location - 6:30pm sunset times)", "description": "If the system does not know the location of this computer." },
+    "locationError": { "message": "Unable to determine your current location.\n\nThe extension will use 6:30pm for sunset on every date.", "description": "If the system cannot determine the location, this is shown in an alert window." },
+    "HolyDay_NawRuz": { "message": "Naw Rúz", "description": "" },
+    "HolyDay_Ridvan1": { "message": "First Day of Ridván", "description": "" },
+    "HolyDay_Ridvan9": { "message": "Ninth Day of Ridván", "description": "" },
+    "HolyDay_Ridvan12": { "message": "Twelveth Day of Ridván", "description": "" },
+    "HolyDay_AscBaha": { "message": "Ascension of Bahá'u'lláh", "description": "" },
+    "HolyDay_DeclBab": { "message": "Declaration of the Báb", "description": "" },
+    "HolyDay_Martyrdom": { "message": "Martyrdom of the Báb", "description": "" },
+    "HolyDay_BirthBab": { "message": "Birth of the Báb", "description": "" },
+    "HolyDay_BirthBaha": { "message": "Birth of Bahá'u'lláh", "description": "" },
+    "HolyDay_Covenant": { "message": "Day of the Covenant", "description": "" },
+    "HolyDay_AscAbdul": { "message": "Ascension of `Abdu'l-Bahá", "description": "" },
+    "FestivalRidvan": { "message": "Festival of Ridván", "description": "" },
+    "Intercalary": { "message": "Intercalary Days", "description": "" },
+    "FeastOf": { "message": "Feast of {0}", "description": "The localized name of the Feast will be put into {0}" },
+    "Tonight": { "message": "Tonight", "description": "Shown in the upcoming dates area" },
+    "Ended": { "message": "Ended", "description": "Shown in the upcoming dates area" },
+    "Now": { "message": "Now", "description": "Shown in the upcoming dates area" },
+    "1day": { "message": "in {0} day", "description": "" },
+    "otherDays": { "message": "in {0} days", "description": "" },
 
-  , "x": { "message": "", "description": "" }
-  , "x": { "message": "", "description": "" }
-  , "x": { "message": "", "description": "" }
+
+    "new_messages_1_1_4": { "message": "" },
+    "sampleGroupTranslationHelp": {
+        "message": "",
+        "description": "When creating samples, can use any of the properties shown when _di is shown when inspecting the popup"
+    },
+    "sampleGroup1_1": {
+        "message": "{bDay} {bMonthNameAr} {bYear}",
+        "description": "3 Jamál 172"
+    },
+    "sampleGroup1_2": {
+        "message": "{bMonthDayYear}",
+        "description": "Jamal 4, 172"
+    },
+    "sampleGroup1_3": {
+        "message": "{bMonthDayYear} ⇨ {endingSunsetDesc}",
+        "description": "Jamal 4, 172 -> 7:55pm"
+    },
+    "sampleGroup1_4": {
+        "message": "{bDay} {bMonthMeaning} ({bMonthNameAr}) {bYear} {bEraAbbrev}",
+        "description": "1 Beauty (Jamal) 172 B.E."
+    },
+    "sampleGroup1_5": {
+        "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear}",
+        "description": "1 Jamal (Beauty) 172"
+    },
+    "sampleGroup1_6": {
+        "message": "{bDay00} {bMonthNameAr} / {bMonthMeaning} {bYear} {bEraAbbrev} ({currentWeekdayShort} {currentDay00} {currentMonthLong} {currentYear})",
+        "description": "04 Jamal / Glory 172 B.E. (Fri 01 May 2015) -- bahai-readings@bcca.org"
+    },
+    "sampleGroup1_7": {
+        "message": "{bWeekdayNameAr} / {bDayNameAr}, {bDayOrdinal} {bMonthNameAr} {bYear}",
+        "description": "Jamál / Bahá, 1st ‘Aẓamat     or [weekday] / [monthday], [day no.] [month] - james@19months.com"
+    },
+    "sampleGroup1_8": {
+        "message": "{bDay} {bMonthNameAr} {bYear} {eraShort} / {currentDay} {currentMonthLong} {currentYear}",
+        "description": "3 Jamál 172 BE / 30 April 2015 -- Calgary LSA"
+    },
+    "sampleGroup1_9": {
+        "message": "{bYear}.{bMonth00}.{bDay00}",
+        "description": "172.03.13"
+    },
+
+
+    "sampleGroup2_1": {
+        "message": "{frag2Day} {frag2MonthLong} {frag2Year} / {bDay} {bMonthMeaning} {bYear}",
+        "description": "30 April 2015 / 3 Beauty 172 -- NSA Canada"
+    },
+    "sampleGroup2_2": {
+        "message": "{frag2Day} {frag2MonthLong} {frag2Year} / {bDay} {bMonthNameAr} {bYear}",
+        "description": "1 May 2015 / 4 Jamál 172  -- Susan Gammage"
+    },
+    "sampleGroup2_3": {
+        "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear} - {gCombined}",
+        "description": "1 Jamál (Beauty) 172 - April 27/28, 2015"
+    },
+
+    "DayOfWeek": { "message": "Weekday", "description": "" },
+    "DayOfWeekFormat": { "message": "{bWeekday} - {bWeekdayNameAr} ({bWeekdayMeaning})", "description": "" },
+    "DayOfMonth": { "message": "Day of Month", "description": "" },
+    "DayOfMonthFormat": { "message": "{bDay} - {bDayNameAr} ({bDayMeaning})", "description": "" },
+    "Month": { "message": "Month", "description": "" },
+    "MonthFormatNormal": { "message": "{bMonth} - {bMonthNameAr} ({bMonthMeaning})", "description": "" },
+    "MonthFormatAyyam": { "message": "{bMonthNameAr} ({bMonthMeaning})", "description": "" },
+    "YearOfEra": { "message": "Year of Bahá'í Era", "description": "" },
+    "YearOfEraFormat": { "message": "{bYear}", "description": "" },
+    "YearOfVahid": { "message": "Year of Váḥid", "description": "" },
+    "YearOfVahidFormat": { "message": "{bYearInVahid} - {bYearInVahidNameAr} ({bYearInVahidMeaning})", "description": "" },
+    "Vahid": { "message": "Váḥid", "description": "" },
+    "VahidFormat": { "message": "{bVahid}", "description": "" },
+    "Kullishay": { "message": "Kull-i-<u>Sh</u>ay’", "description": "" },
+    "KullishayFormat": { "message": "{bKullishay}", "description": "" },
+
+    "bTopDayDisplay": { "message": "{bDay} {bMonthNameAr} {bYear}", "description": "top right corner" },
+    "gTopDayDisplay": { "message": "{currentDay} {currentMonthShort} {currentYear}", "description": "top right corner" },
+    "gregorianDateDisplay": { "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear}", "description": "in left panel" },
+    "upcomingDateFormat": { "message": "{bMonthNameAr} {bDay} ({gCombinedMD})", "description": "upcoming list" },
+
+    "nextRefreshAlarm": { "message": "Next refresh scheduled after {0}: {1}", "description": "only shown in the debug console" },
+    
+    "x": { "message": "", "description": "" },
+    "x": { "message": "", "description": "" }
+
 }

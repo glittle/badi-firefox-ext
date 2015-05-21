@@ -94,7 +94,7 @@ function getDateInfo(currentTime, skipUpcoming){
     
     bEraLong: getMessage('eraLong'),
     bEraAbbrev: getMessage('eraAbbrev'),
-    bEraShort: getMessage('eraShort'),
+    bEraShort: getMessage('eraShort')
   };
   
   di.bYearInVahid = di.bYear - (di.bVahid - 1) * 19;
@@ -172,7 +172,7 @@ function getDateInfo(currentTime, skipUpcoming){
 
 function showIcon(dateInfo){
   var tipLines = [];
-  tipLines.push(getMessage('formatIconToolTip').filledWith(dateInfo));
+  tipLines.push(getMessage('formatIconToolTip', dateInfo));
 
   if(dateInfo.special1){
     tipLines.push(dateInfo.special1);
@@ -184,15 +184,15 @@ function showIcon(dateInfo){
   tipLines.push(dateInfo.nearestSunset);
   tipLines.push('');
   tipLines.push(getMessage('formatIconClick'));
-    
-  chrome.browserAction.setTitle({title: tipLines.join('\n')})
+
+  chrome.browserAction.setTitle({ title: tipLines.join('\n') });
   chrome.browserAction.setIcon({
       imageData: draw(dateInfo.bMonthNameAr, dateInfo.bDay, 'center')
     });
   //  chrome.browserAction.setBadgeBackgroundColor({color: bNow.eve ? '#ddd' : '#aaa'});
 }
 
-function draw(line1, line2, line2align) {
+function draw(line1, line2, line2Alignment) {
   var canvas = document.createElement('canvas');
   canvas.width = 19;
   canvas.height = 19;
@@ -205,9 +205,9 @@ function draw(line1, line2, line2align) {
   context.fillText(line1,0,7);
   
   context.font="11px Tahoma";
-  context.textAlign = line2align;
+  context.textAlign = line2Alignment;
   var x = 0;
-  switch(line2align){
+  switch(line2Alignment){
     case 'center': 
 	  x = 10;
 	  break;
@@ -254,7 +254,7 @@ function getUpcoming(di){
     if(dayInfo.Special && dayInfo.Special.slice(0,5)==='AYYAM'){
       dayInfo.A = getMessage(dayInfo.NameEn);
     }
-    dayInfo.date = '{bMonthNameAr} {bDay} ({gCombinedMD})'.filledWith(targetDi);
+    dayInfo.date = getMessage('upcomingDateFormat', targetDi);
 
     var sameDay = di.gCombinedMD == targetDi.gCombinedMD;
     var targetMoment = moment(dayInfo.GDate);
@@ -305,14 +305,14 @@ var findName = function(typeName, results){
 };
 
 
-function startGetLocationName(doNow){
+function startGetLocationName(){
     if (!_locationLat || !_locationLong) {
 	    localStorage.locationName = getMessage('noLocationAvailable');
 		  refreshDateInfoAndShow();
       return;
     }
- 
-  var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + _locationLat + ',' + _locationLong
+
+  var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&language={2}'.filledWith(_locationLat, _locationLong, chrome.runtime.getManifest().current_locale);
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", url, true);
@@ -326,15 +326,6 @@ function startGetLocationName(doNow){
                || findName('political', data.results)
                || getMessage('noLocationName');
       
-//      var components = data.results[0].address_components;
-//      for (var i = 0; i < components.length; i++) {
-//        var component = components[i];
-//        console.log(component);
-//        if (component.types.indexOf('political') != -1) { //$.inArray('political', component.types)!=-1 && 
-//          localStorage.locationName = component.short_name;
-//          break;
-//        }
-//      }
 		  refreshDateInfoAndShow();
 	  }
 	}
@@ -363,13 +354,12 @@ function noLocation(err){
 
 function refreshDateInfoAndShow(){
   var di = refreshDateInfo();
+  setStorage('originalStamp', di.stamp);
+
   showIcon(di);
   if(typeof showInfo !== 'undefined'){
     showInfo(di);
   }
-  
-  setStorage('originalStamp', di.stamp);
-  //TODO: if popup is open, need to refresh it
 
   setAlarmForNextUpdate(di.currentTime, di.frag2SunTimes.sunset, di.bNow.eve);
 }
@@ -390,7 +380,7 @@ function setAlarmForNextUpdate(currentTime, sunset, inEvening){
    chrome.alarms.getAll(function(alarms){
      for (var i = 0; i < alarms.length; i++) {
        var alarm = alarms[i];
-       console.log('Refresh scheduled after ' + alarm.name + ': ' + new Date(alarm.scheduledTime));
+       console.log(getMessage('nextRefreshAlarm').filledWith(alarm.name, new Date(alarm.scheduledTime)));
      }
    });
 }
@@ -507,8 +497,8 @@ String.prototype.filledWith = function () {
   return result;
 };
 
-function quoteattr(s, preserveCR) {
-  preserveCR = preserveCR ? '&#13;' : '\n';
+function quoteattr(s, preserveCr) {
+  preserveCr = preserveCr ? '&#13;' : '\n';
   return ('' + s) /* Forces the conversion to string. */
       .replace(/&/g, '&amp;') /* This MUST be the 1st replacement. */
       .replace(/'/g, '&apos;') /* The 4 other predefined entities, required. */
@@ -520,9 +510,8 @@ function quoteattr(s, preserveCR) {
       (but it's not necessary).
       Or for XML, only if the named entities are defined in its DTD.
       */
-      .replace(/\r\n/g, preserveCR) /* Must be before the next replacement. */
-      .replace(/[\r\n]/g, preserveCR);
-  ;
+      .replace(/\r\n/g, preserveCr) /* Must be before the next replacement. */
+      .replace(/[\r\n]/g, preserveCr);
 }
 
 
@@ -539,8 +528,9 @@ String.prototype.filledWithEach = function (arr) {
   return result.join('');
 };
 
-function getMessage(key, obj){
-  var msg = chrome.i18n.getMessage(key) || '{' + key + '}';
+function getMessage(key, obj, defaultValue) {
+  var rawMsg = chrome.i18n.getMessage(key);
+  var msg = rawMsg || defaultValue || '{' + key + '}';
   return typeof obj === 'undefined' ? msg : msg.filledWith(obj);
 }
 
@@ -572,7 +562,7 @@ function localizeHtml(){
     for (var i = 0; i < parts.length; i++) {
       var part = parts[i];
       var detail = part.split(':');
-      var target, value;
+      var target, value = '';
       if (detail.length===1) { 
         var key = detail[0];
         var key2 = key === '_id_' ? el.attr('id') : key; 

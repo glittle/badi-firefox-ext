@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
@@ -8,29 +8,27 @@
   <script src="moment.js"></script>
 </head>
 <body>
-  <div class=sidebyside>
+  <div class=sidebyside1>
     <div id=showUpcoming>
       <div id=upcomingTitle data-msg="_id_"></div>
-      <table id=upcoming>
-        
-      </table>
+      <table id=upcoming></table>
     </div>
     <div id=show>
-    	<div id=day></div>
-    	<div id=special1></div>
-    	<div id=special2></div>
-    	<div id=sunset></div>
-    	<div id=place></div>
-    	<div id=gDay></div>
+      <div id=day></div>
+      <div id=special1></div>
+      <div id=special2></div>
+      <div id=sunset></div>
+      <div id=place></div>
+      <div id=gDay></div>
     </div>
   </div>
-  <div class=sidebyside>
+  <div class=sidebyside2>
     <div id=gDatePicker>
       <div id=gDatePickerTitle data-msg="_id_"></div>
       <div id=gDate></div>
       <div id=gDateDesc></div>
       <div id=gDatePickerTitle2 data-msg="_id_"></div>
-      <input type="date" id=datePicker min="1844-03-21" max="2843-03-19"></input>
+      <input type="date" id=datePicker min="1844-03-21" max="2843-03-19">
       <div class=gDateButtons>
         <button type=button class=btnChangeDay data-delta="-1" data-msg="prev"></button>
         <button type=button class="btnChangeDay today" data-delta="0" data-msg="gotoNow"></button>
@@ -44,13 +42,14 @@
         <input id=bDayPicker type=number max=19 min=1>
         </div-->
     </div>
-    <div id=spacer>&nbsp;</div>
+    <div class=spacer>&nbsp;</div>
     <div id=dayDetails></div>
-    <div id=spacer>&nbsp;</div>
+    <div class=spacer>&nbsp;</div>
     <div id=samples>
       <div id=sampleTitle></div>
-      <div id=sampleList></div>
+      <div id=sampleList1></div>
       <div id=sampleFootnote data-msg="_id_"></div>
+      <div id=sampleList2></div>
     </div>
   </div>
   <div id=explain></div>
@@ -58,21 +57,21 @@
   <textarea id=sampleCopy></textarea>
   <div class="iconArea">
     <span id=version class=textLink></span>
-      
+
     <a id=facebook href="https://www.facebook.com/BadiCalendarTools"
-     rel="publisher" target="_top" style="text-decoration:none;">
-      <img src="fb-16.png" data-msg="alt:facebook" style="border:0;width:16px;height:16px;"/>
+       rel="publisher" target="_top" style="text-decoration:none;">
+      <img src="fb-16.png" data-msg="alt:facebook" style="border:0;width:16px;height:16px;" />
     </a>
-      
+
     <a href="https://chrome.google.com/webstore/detail/bad%C3%AD-calendar/egekinjjpolponbbfjimifpgfdmphomp/"
-      target="_top"><img id=logo data-msg="alt:webstore,title:webstore" src="_locales/en/images/badi19-48.png"></a>
-      
+       target="_top"><img id=logo data-msg="alt:webstore,title:webstore" src="_locales/en/images/badi19-48.png"></a>
+
     <a id=googlePlus href="http://plus.google.com/u/0/111984989420723537597?prsrc=3"
-     rel="publisher" target="_top" style="text-decoration:none;">
-      <img src="gplus-16.png" data-msg="alt:googlePlus" style="border:0;width:16px;height:16px;"/>
+       rel="publisher" target="_top" style="text-decoration:none;">
+      <img src="gplus-16.png" data-msg="alt:googlePlus" style="border:0;width:16px;height:16px;" />
     </a>
     <a class="textLink" href="https://chrome.google.com/webstore/detail/bad%C3%AD-calendar/egekinjjpolponbbfjimifpgfdmphomp/support"
-      target="_top" data-msg="suggestions,title:suggestionsTitle"></a>
+       target="_top" data-msg="suggestions,title:suggestionsTitle"></a>
   </div>
   <script src="holydays.js"></script>
   <script src="shared.js"></script>
