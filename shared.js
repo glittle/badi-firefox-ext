@@ -141,20 +141,24 @@ function getDateInfo(currentTime, skipUpcoming){
   di.dayStartedLower = di.dayStarted.toLocaleLowerCase(); 
   di.dayEndedLower = di.dayEnded.toLocaleLowerCase(); 
 
-  di.bMonthDayYear = '{bMonthNameAr} {bDay}, {bYear}'.filledWith(di);
+  di.bMonthDayYear = getMessage('gMonthDayYear', di);
   
   if (di.frag1Year != di.frag2Year) {
-    // Jul 31/Aug 1
-    di.gCombined = '{frag1MonthShort} {frag1Day}, {frag1Year}/{frag2MonthShort} {frag2Day}, {frag2Year}'.filledWith(di);
-    di.gCombinedMD = '{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}'.filledWith(di);
-  } else if (di.frag1Month != di.frag2Month) {
-    // Jul 31/Aug 1
-    di.gCombined = '{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}, {frag2Year}'.filledWith(di);
-    di.gCombinedMD = '{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}'.filledWith(di);
+    // Dec 31/Jan 1
+    // Dec 31, 2015/Jan 1, 2015
+    di.gCombined = getMessage('gCombined_3', di);
+    di.gCombinedY = getMessage('gCombinedY_3', di);
+  } else 
+  if (di.frag1Month != di.frag2Month) {
+    // Mar 31/Apr 1
+    // Mar 31/Apr 1, 2015
+    di.gCombined = getMessage('gCombined_2', di);
+    di.gCombinedY = getMessage('gCombinedY_2', di);
   } else {
     // Jul 12/13
-    di.gCombined = '{frag2MonthShort} {frag1Day}/{frag2Day}, {frag2Year}'.filledWith(di);
-    di.gCombinedMD = '{frag1MonthShort} {frag1Day}/{frag2Day}'.filledWith(di);
+    // Jul 12/13, 2015
+    di.gCombined = getMessage('gCombined_1', di);
+    di.gCombinedY = getMessage('gCombinedY_1', di);
   }
   di.nearestSunset = getMessage(bNow.eve ? "nearestSunsetEve":"nearestSunsetDay", di);
   
@@ -256,7 +260,7 @@ function getUpcoming(di){
     }
     dayInfo.date = getMessage('upcomingDateFormat', targetDi);
 
-    var sameDay = di.gCombinedMD == targetDi.gCombinedMD;
+    var sameDay = di.stamp == targetDi.stamp;
     var targetMoment = moment(dayInfo.GDate);
     dayInfo.away = determineDaysAway(di, today, targetMoment, sameDay);
 
@@ -336,6 +340,8 @@ function setLocation(position){
   localStorage.lat = _locationLat = position.coords.latitude;
   localStorage.long = _locationLong = position.coords.longitude;
   knownDateInfos = {};
+
+  setStorage('locationKnown', true);
     
   startGetLocationName();  
 }
@@ -347,7 +353,7 @@ function noLocation(err){
   localStorage.long = _locationLong = 0;
   localStorage.locationName = getMessage('noLocationAvailable');
  
-  alert(getMessage('locationError'));
+  setStorage('locationKnown', false);
 
   refreshDateInfoAndShow();
 }

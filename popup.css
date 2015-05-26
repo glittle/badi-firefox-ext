@@ -44,6 +44,16 @@ body {
   width: 100%;
 }
 
+#locationError {
+  display: none;
+  background: rgb(173, 0, 0);;
+  color: white;
+  padding: 2px;
+  margin: 2px 0 -11px 0;
+  white-space: normal;
+  font-size: 9pt;
+}
+
 #place, #gDay {
   font-size: .7em;
   color: gray;

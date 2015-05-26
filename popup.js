@@ -83,6 +83,8 @@ function showInfo(di) {
     .addClass(manifest.current_locale.slice(0, 2));
 
   $('button.today').toggleClass('notToday', di.stamp !== getStorage('originalStamp'));
+  
+  $('#locationError').toggle(!getStorage('locationKnown', false));
 }
 
 function addSamples(di) {

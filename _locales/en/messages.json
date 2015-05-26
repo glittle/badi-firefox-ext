@@ -132,7 +132,7 @@
         "description": "1 May 2015 / 4 Jamál 172  -- Susan Gammage"
     },
     "sampleGroup2_3": {
-        "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear} - {gCombined}",
+        "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear} - {gCombinedY}",
         "description": "1 Jamál (Beauty) 172 - April 27/28, 2015"
     },
 
@@ -155,11 +155,25 @@
     "bTopDayDisplay": { "message": "{bDay} {bMonthNameAr} {bYear}", "description": "top right corner" },
     "gTopDayDisplay": { "message": "{currentDay} {currentMonthShort} {currentYear}", "description": "top right corner" },
     "gregorianDateDisplay": { "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear}", "description": "in left panel" },
-    "upcomingDateFormat": { "message": "{bMonthNameAr} {bDay} ({gCombinedMD})", "description": "upcoming list" },
+    "upcomingDateFormat": { "message": "{bMonthNameAr} {bDay} ({gCombined})", "description": "upcoming list" },
 
     "nextRefreshAlarm": { "message": "Next refresh scheduled after {0}: {1}", "description": "only shown in the debug console" },
-    
+
+
+    "new_messages_1_1_5": { "message": "" },
+
+    "gMonthDayYear": { "message": "{bMonthNameAr} {bDay}, {bYear}", "description": "" },
+
+    "gCombined_1": { "message": "{frag1MonthShort} {frag1Day}/{frag2Day}", "description": "day in same gregorian month" },
+    "gCombinedY_1": { "message": "{frag1MonthShort} {frag1Day}/{frag2Day}, {frag1Year}", "description": "with year" },
+    "gCombined_2": { "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}", "description": "day spanning different gregorian months" },
+    "gCombinedY_2": { "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}, {frag1Year}", "description": "with year" },
+    "gCombined_3": { "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}", "description": "day spanning different gregorian years" },
+    "gCombinedY_3": { "message": "{frag1MonthShort} {frag1Day}, {frag1Year}/{frag2MonthShort} {frag2Day}, {frag2Year}", "description": "with year" },
+
+
     "x": { "message": "", "description": "" },
+
     "x": { "message": "", "description": "" }
 
 }
