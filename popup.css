@@ -40,18 +40,37 @@ body {
 
 .sidebyside2 {
   display: table;
-  margin: 15px 0 0 0;
+  margin: 10px 0 0 0;
   width: 100%;
 }
 
-#locationError {
+#locationErrorHolder {
   display: none;
-  background: rgb(173, 0, 0);;
+  background: #ad0000; 
   color: white;
-  padding: 2px;
-  margin: 2px 0 -11px 0;
+  padding: 2px 2px 3px 2px;
+  margin: 6px 1px -11px 3px;
   white-space: normal;
   font-size: 9pt;
+  border-radius: 3px;
+}
+#locationError {
+  margin-left: 30px;
+  display: block;
+  text-align: left;
+}
+#btnRetry{
+  background:url(./ajax-loader-img.gif) no-repeat;
+  cursor:pointer;
+  border:none;
+  width:16px;
+  height:16px;
+  float: left;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+#btnRetry.active{
+  background:url(./ajax-loader.gif) no-repeat;
 }
 
 #place, #gDay {
@@ -105,6 +124,12 @@ dt {
 dd {
   margin-left: 9px;
   margin-bottom: .4em;
+}
+
+.comment{
+  color: green;
+  opacity: 0.6;
+  font-size: 90%;
 }
 
 #samples {
@@ -317,8 +342,8 @@ a.textLink {
     font-size: 11px;
     font-family: Tahoma;
     text-align: center;
-    margin: 0 3px;
-    width: 25px;
+    margin: 0;
+    width: 33px;
   }
 
 #bYearPicker {

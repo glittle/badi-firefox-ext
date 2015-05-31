@@ -1,15 +1,24 @@
+/* global getStorage */
 /* global getMessage */
 /* global di */
 /* global chrome */
 /* global $ */
 var samplesDiv = $('#samples');
+var _showingInfo = false;
+var _changingBDate = false;
 
 samplesDiv.on('click', 'button', copySample);
 $('.btnChangeDay').on('click', changeDay);
 $('#btnEveOrDay').on('click', toggleEveOrDay);
 $('#datePicker').on('change', jumpToDate);
-$('#btnRefeshLocation').on('click', function () {
-  registerHandlers();
+$('.bDatePickerInputs').on('change paste keydown keypress', 'input', changeToBDate);
+$('#btnRetry').on('click', function () {
+    $('#btnRetry').addClass('active')
+    
+    registerHandlers();
+    setTimeout(function(){
+      $('#btnRetry').removeClass('active')
+    }, 1000);
 });
 $('#datePicker').on('keydown', function (ev) {
   ev.stopPropagation();
@@ -29,6 +38,8 @@ $('#sampleTitle').html(getMessage('pressToCopy'));
 var sampleNum = 0;
 
 function showInfo(di) {
+  _showingInfo = true;
+  
   var makeObj = function(key) {
     return { name: getMessage(key), value: getMessage(key + 'Format', di) };
   };
@@ -58,6 +69,12 @@ function showInfo(di) {
 
   $('#gDate').html(getMessage('gregorianDateDisplay', di));
   $('#gDateDesc').html('({^currentRelationToSunset})'.filledWith(di));
+  
+  if(!_changingBDate){
+    $('#bYearPicker').val(di.bYear);
+    $('#bMonthPicker').val(di.bMonth);
+    $('#bDayPicker').val(di.bDay);
+  }
 
   $('#datePicker').val(di.currentDateString);
 
@@ -84,7 +101,49 @@ function showInfo(di) {
 
   $('button.today').toggleClass('notToday', di.stamp !== getStorage('originalStamp'));
   
-  $('#locationError').toggle(!getStorage('locationKnown', false));
+  $('#locationErrorHolder').toggle(!getStorage('locationKnown', false));
+
+  _showingInfo = false;
+}
+
+function changeToBDate(ev){
+  if(_showingInfo){
+    return;
+  }
+  ev.cancelBubble = true;
+  ev.stopPropagation();
+  if(ev.type == 'keydown'){
+    return; // wait for keypress
+  }
+ 
+  var bYear = $('#bYearPicker').val();
+  if(bYear==='') return;
+  bYear = +bYear;
+  // fix to our supported range
+  if(bYear < 1) bYear = 1;
+  if(bYear > 1000) bYear = 1000;
+  
+  var bMonth = $('#bMonthPicker').val(); // month and day will be fixed by getGDate
+  if(bMonth==='') return;
+  
+  var bDay = $('#bDayPicker').val();
+  if(bDay==='') return;
+
+  try {
+    var gDate = holyDays.getGDate(+bYear, +bMonth, +bDay, true);
+
+    _targetDate = gDate;
+
+    refreshDateInfo();
+    
+//    _changingBDate = true;
+    showInfo(_di);
+    _changingBDate = false;
+    
+  } catch (error) {
+    console.log(error);
+  }
+  
 }
 
 function addSamples(di) {
@@ -121,6 +180,9 @@ function addSamples(di) {
 }
 
 function keyPressed(ev) {
+  if(ev.altKey || ev.ctrlKey || ev.shiftKey){
+    return;
+  }
   var key = String.fromCharCode(ev.which) || '';
   switch (ev.which) {
     case 18:
@@ -199,6 +261,7 @@ function copySample(ev) {
   setTimeout(function () {
     div.removeClass('copied');
     btn.text(btn.data('letter'));
+    window.close();
   }, 1000);
 }
 function toggleEveOrDay(toEve) {
@@ -248,6 +311,8 @@ function changeDay(ev, delta) {
 
 }
 
-refreshDateInfo();
-showInfo(_di);
-localizeHtml();
+$(function(){
+  refreshDateInfo();
+  showInfo(_di);
+  localizeHtml();
+});

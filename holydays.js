@@ -323,13 +323,37 @@ var HolyDays = function () {
     return getGDateYMD(bYear, bMonthDay.m, bMonthDay.d);
   }
 
-  var getGDateYMD = function (bYear, bMonth, bDay) {
+  var getGDateYMD = function (bYear, bMonth, bDay, fix) {
     // convert bDate to gDate
-    if (bMonth < 0 || bMonth > 19 || typeof bMonth == 'undefined') {
-      throw 'invalid Badi date';
+    if (bMonth < 0 || typeof bMonth == 'undefined') {
+      if (fix){
+        bMonth = 1;
+      } else {
+        throw 'invalid Badi date';
+      }
     }
-    if (bDay < 1 || bDay > 19 || !bDay) {
-      throw 'invalid Badi date';
+    if (bMonth > 19) {
+      if (fix){
+        bMonth = 19;
+      } else {
+        throw 'invalid Badi date';
+      }
+    }
+    if (bDay < 1 || !bDay) {
+      if (fix){
+        bDay = 1;
+      }
+      else{
+        throw 'invalid Badi date';
+      }
+    }
+    if (bDay > 19) {
+      if (fix){
+        bDay = 19;
+      }
+      else{
+        throw 'invalid Badi date';
+      }    
     }
     var gYear = bYear + 1843;
     var nawRuz = new Date(gYear, 2, 21 + (_nawRuzOffsetFrom21[bYear] || 0));
@@ -356,7 +380,11 @@ var HolyDays = function () {
 //console.log(numDaysInAyyamiHa);
 //debugger;
         if (bDay > numDaysInAyyamiHa) {
-          throw 'invalid Badi date';
+          if(fix){
+            bDay = numDaysInAyyamiHa;          
+          }else{
+            throw 'invalid Badi date';
+          }
         }
         answer = firstAyyamiHa;
         answer.setDate(answer.getDate() + (bDay - 1));

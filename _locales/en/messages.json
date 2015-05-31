@@ -51,7 +51,6 @@
     "example2": { "message": "{bMonthNameAr} {bDay} {dayStartedLower} at sunset (about {startingSunsetDesc}) on {frag1WeekdayLong}, {frag1MonthShort} {frag1Day} and {dayEndedLower} at sunset (about {endingSunsetDesc}) on {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.", "description": "" },
     "pressKeyOrClick": { "message": "Click button or type {0}.", "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press" },
     "copied": { "message": "Copied!", "description": "short message that replaces sample format button text when button is clicked" },
-    "bDatePickerTitle": { "message": "Choose Badí' Date", "description": "" },
 
 
     "new_messages_1_1_3": { "message": "" },
@@ -121,6 +120,10 @@
         "message": "{bYear}.{bMonth00}.{bDay00}",
         "description": "172.03.13"
     },
+   "sampleGroup1_10": {
+        "message": "{bVahid00}.{bYearInVahid00}.{bMonth00}.{bDay00}",
+        "description": "172.03.13"
+    },
 
 
     "sampleGroup2_1": {
@@ -171,9 +174,11 @@
     "gCombined_3": { "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}", "description": "day spanning different gregorian years" },
     "gCombinedY_3": { "message": "{frag1MonthShort} {frag1Day}, {frag1Year}/{frag2MonthShort} {frag2Day}, {frag2Year}", "description": "with year" },
 
-
-    "x": { "message": "", "description": "" },
-
+    "new_messages_1_1_8": { "message": "" },
+    
+    "bDatePickerTitle": { "message": "Choose <u>B</u>adí' Date", "description": "added <u></u> - should have one letter between <u> and </u>" },
+    "ayyamIs0": { "message": "0 = Ayyám-i-Há", "description": "in Badi date picker area" },
+ 
     "x": { "message": "", "description": "" }
 
 }

@@ -20,7 +20,11 @@
       <div id=sunset></div>
       <div id=place></div>
       <div id=gDay></div>
-      <div id=locationError data-msg="_id_"></div>
+      <div id=locationErrorHolder>
+        <button id=btnRetry></button>
+        <span id=locationError data-msg="_id_"></span>
+      </div>
+      
     </div>
   </div>
   <div class=sidebyside2>
@@ -36,12 +40,13 @@
         <button type=button class=btnChangeDay data-delta="1" data-msg="next"></button>
         <button type=button id=btnEveOrDay data-msg="_id_"></button>
       </div>
-      <!--div id=bDatePickerTitle data-msg=_id_></div>
+      <div id=bDatePickerTitle data-msg="_id_,extractAccessKeyFor:bYearPicker"></div>
       <div class=bDatePickerInputs>
         <input id=bYearPicker type=number max=1000 min=1>
         <input id=bMonthPicker type=number max=19 min=0>
         <input id=bDayPicker type=number max=19 min=1>
-        </div-->
+        <div class=comment id=ayyamIs0 data-msg="_id_"></div>
+      </div>
     </div>
     <div class=spacer>&nbsp;</div>
     <div id=dayDetails></div>

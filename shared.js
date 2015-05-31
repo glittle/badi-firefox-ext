@@ -114,6 +114,8 @@ function getDateInfo(currentTime, skipUpcoming){
   di.frag1Day00 = digitPad2(di.frag1Day);
   di.frag2Day00 = digitPad2(di.frag2Day);
   di.bMonth00 = digitPad2(di.bMonth);
+  di.bYearInVahid00 = digitPad2(di.bYearInVahid);
+  di.bVahid00 = digitPad2(di.bVahid);
 
   di.startingSunsetDesc = use24HourClock ? di.startingSunsetDesc24 : di.startingSunsetDesc12;
   di.endingSunsetDesc = use24HourClock ? di.endingSunsetDesc24 : di.endingSunsetDesc12;
@@ -561,9 +563,12 @@ function getCurrentTime(){
 function localizeHtml(){
   // parse data-msg...  target:value,target,target,target:value
   // if no value given in one pair, use the element's ID
+  var accessKeyList = [];
   $('[data-msg]').each(function(domNum, dom){
     var el = $(dom);
     var info = el.data('msg');
+    var accessKeyFor = null;
+    var text = '';
     var parts = info.split(',');
     for (var i = 0; i < parts.length; i++) {
       var part = parts[i];
@@ -571,16 +576,21 @@ function localizeHtml(){
       var target, value = '';
       if (detail.length===1) { 
         var key = detail[0];
-        var key2 = key === '_id_' ? el.attr('id') : key; 
+        var key2 = key === '_id_' ? el.attr('id') : key;
         target = 'html';
         value = getMessage(key2);
       }
       if(detail.length===2){
+        if(detail[0]=='extractAccessKeyFor') {
+          accessKeyFor = detail[1];
+          continue;
+        } 
         target = detail[0];
         value = getMessage(detail[1]);
       }
       if(target==='html'){
         el.html(value);
+        text = value;
       } 
       else if(target==='text'){
         el.text(value);
@@ -589,5 +599,19 @@ function localizeHtml(){
         el.attr(target, value);
       }
     }
+    if(accessKeyFor){
+      var accessKey = $('<div/>').html(text).find('u').text().substring(0,1);
+      if(accessKey){
+        accessKeyList.push({
+            id: accessKeyFor,
+            key:accessKey
+          });
+      }
+    }
   });
+  // apply after all done
+  for (var a = 0; a < accessKeyList.length; a++) {
+    var item = accessKeyList[a];
+    $('#' + item.id).attr('accesskey', item.key);
+  }
 }

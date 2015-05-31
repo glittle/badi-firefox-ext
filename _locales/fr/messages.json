@@ -52,7 +52,7 @@
     "example2": { "message": "{bDay} {bMonthNameAr} {dayStartedLower} au coucher du soleil (à {startingSunsetDesc}) {frag1WeekdayLong} {frag1Day} {frag1MonthShort}  et {dayEndedLower} au coucher du soleil (à {endingSunsetDesc}) {frag2WeekdayLong} {frag2Day} {frag2MonthShort} .", "description": "" },
     "pressKeyOrClick": { "message": "Cliquez sur le bouton ou tapez {0}.", "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press" },
     "copied": { "message": "Copié!", "description": "short message that replaces sample format button text when button is clicked" },
-    "bDatePickerTitle": { "message": "Choisissez une date Badí'", "description": "" },
+    "bDatePickerTitle": { "message": "Choisissez une date <u>B</u>adí'", "description": "" },
 
 
     "new_messages_1_1_3": { "message": "" },
