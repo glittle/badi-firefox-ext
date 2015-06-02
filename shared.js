@@ -560,11 +560,11 @@ function getCurrentTime(){
   return new Date();
 }
 
-function localizeHtml(){
+function localizeHtml(host){
   // parse data-msg...  target:value,target,target,target:value
   // if no value given in one pair, use the element's ID
   var accessKeyList = [];
-  $('[data-msg]').each(function(domNum, dom){
+  $(host || document).find('[data-msg]').each(function(domNum, dom){
     var el = $(dom);
     var info = el.data('msg');
     var accessKeyFor = null;

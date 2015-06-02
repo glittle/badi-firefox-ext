@@ -6,6 +6,7 @@
 var samplesDiv = $('#samples');
 var _showingInfo = false;
 var _changingBDate = false;
+var _currentPageNum = 0;
 
 samplesDiv.on('click', 'button', copySample);
 $('.btnChangeDay').on('click', changeDay);
@@ -23,6 +24,7 @@ $('#btnRetry').on('click', function () {
 $('#datePicker').on('keydown', function (ev) {
   ev.stopPropagation();
 });
+$('.buttons').on('click', 'button', changePage)
 $(document).on('keydown', keyPressed);
 
 $('.iconArea a').click(function () {
@@ -103,7 +105,47 @@ function showInfo(di) {
   
   $('#locationErrorHolder').toggle(!getStorage('locationKnown', false));
 
+  updateStatic(di);
+
   _showingInfo = false;
+}
+
+function changePage(ev, delta){
+  var num;
+  if(ev)
+  {
+    var btn = ev.target;
+    num = +btn.id.substr(-1, 1) - 1;
+    showPage(num);
+  } 
+  else if(delta){
+    num = _currentPageNum;
+    switch(delta){
+      case -1:
+        if(num > 0){
+          num += delta;
+        }
+        break;
+      case 1:
+        if(num < 1){
+          num += delta;
+        }
+        break;
+    }  
+    showPage(num);
+  }
+}
+
+function showPage(num){
+  _currentPageNum = num;
+  
+  var pages = $('.midSection .sidebyside2');
+  pages.hide();
+  pages.eq(num).show();
+  
+  var btns = $('.pagePicker button');
+  btns.removeClass('selected');
+  btns.eq(num).addClass('selected');
 }
 
 function changeToBDate(ev){
@@ -203,6 +245,16 @@ function keyPressed(ev) {
       return;
     case 40:
       toggleEveOrDay(true);
+      ev.preventDefault();
+      return;
+
+    case 33: //pgup
+      changePage(null, -1);
+      ev.preventDefault();
+      return;
+      
+    case 34: //pgdn
+      changePage(null, 1);
       ev.preventDefault();
       return;
 
@@ -308,11 +360,57 @@ function changeDay(ev, delta) {
   }
 
   showInfo(_di);
+}
 
+function fillStatic(){
+  var nameList = [];
+  for (var i = 1; i < bMonthNameAr.length; i++) {
+    nameList.push({
+      num: i,
+      arabic: bMonthNameAr[i],
+      meaning: bMonthMeaning[i]
+    });
+  }
+  $('#monthListBody').html('<tr class="dayListNum{num} monthListNum{num}"><td>{num}</td><td>{arabic}</td><td>{meaning}</td></tr>'.filledWithEach(nameList));
+
+  nameList = [];
+  for (i = 1; i < bWeekdayNameAr.length; i++) {
+    nameList.push({
+      num: i,
+      arabic: bWeekdayNameAr[i],
+      meaning: bWeekdayMeaning[i],
+      equiv: gWeekdayLong[i < 2 ? 5 + i : i - 2]
+    });
+  }
+  $('#weekdayListBody').html('<tr class=weekdayListNum{num}><td>{num}</td><td>{arabic}</td><td>{meaning}</td><td>{equiv}</td></tr>'.filledWithEach(nameList));
+
+  nameList = [];
+  for (i = 1; i < bYearInVahidNameAr.length; i++) {
+    nameList.push({
+      num: i,
+      arabic: bYearInVahidNameAr[i],
+      meaning: bYearInVahidMeaning[i]
+    });
+  }
+  $('#vahidListBody').html('<tr class=vahidListNum{num}><td>{num}</td><td>{arabic}</td><td>{meaning}</td></tr>'.filledWithEach(nameList));
+}
+function updateStatic(di){
+  $('#lists table tr.selected').removeClass('selected');
+  $('#lists table tr.selectedDay').removeClass('selectedDay');
+  $('.vahidListNum{bVahid}, .monthListNum{bMonth}'.filledWith(di)).addClass('selected');
+  $('.dayListNum{bDay}, .weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
 }
 
 $(function(){
+  showPage(0);
+
   refreshDateInfo();
   showInfo(_di);
   localizeHtml();
+  
+  setTimeout(function(){
+    fillStatic();
+    updateStatic(_di);
+    localizeHtml('#page2');
+  },100);
 });

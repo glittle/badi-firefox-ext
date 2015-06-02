@@ -179,6 +179,18 @@
     "bDatePickerTitle": { "message": "Choose <u>B</u>adí' Date", "description": "added <u></u> - should have one letter between <u> and </u>" },
     "ayyamIs0": { "message": "0 = Ayyám-i-Há", "description": "in Badi date picker area" },
  
+    "new_messages_1_1_9": { "message": "" },
+    "pick_page1": { "message": "Page 1" },
+    "pick_page2": { "message": "Page 2" },
+    "weekDayNames": { "message": "Weekday Names", "description": "on page 2 - table caption" },
+    "monthNames": { "message": "Month/Day Names", "description": "on page 2 - table caption" },
+    "vahidNames": { "message": "Váḥid Names", "description": "on page 2 - table caption" },
+    "num": { "message": "#", "description": "on page 2 - table heading" },
+    "arabic": { "message": "Name", "description": "on page 2 - table heading" },
+    "meaning": { "message": "Meaning", "description": "on page 2 - table heading" },
+    "equiv": { "message": "Equivalent", "description": "on page 2 - table heading" },
+ 
+ 
     "x": { "message": "", "description": "" }
 
 }

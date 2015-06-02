@@ -39,9 +39,55 @@ body {
 }
 
 .sidebyside2 {
-  display: table;
-  margin: 10px 0 0 0;
+  margin: 10px 4px 0 0;
   width: 100%;
+  box-sizing: border-box;
+}
+
+.midSection{
+  position: relative;
+}
+.sidebyside2 > div {
+  display: table-cell;
+}
+
+.spacerEnd {
+  width: 7px;
+  z-index: -1;
+}
+div.pagePicker{
+  position: absolute;
+  right: 11px;
+  top: 0;
+  display: block
+}
+.pagePicker .buttons{
+  transform: rotate(-90deg);
+  transform-origin: top right;
+  padding-right: 5px;
+}
+.pagePicker .buttons button{
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+  background-color: #77b55a;
+  border: 1px solid #4b8f29;
+
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Tahoma;
+  font-size: 10px;
+  transition: color 0.4s ease-out;
+  padding: 0px 5px 2px;
+  margin-left: -1px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.pagePicker .buttons button.selected{
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
+  background-color: #b5775a;
+  border: 1px solid #8f4b29;
 }
 
 #locationErrorHolder {
@@ -105,9 +151,6 @@ tr.OtherRange {
   vertical-align: top;
 }
 
-.spacer {
-  display: table-cell;
-}
 
 dl {
   text-align: left;
@@ -131,6 +174,7 @@ dd {
   opacity: 0.6;
   font-size: 90%;
 }
+
 
 #samples {
   font-size: 1em;
@@ -164,6 +208,65 @@ dd {
   position: absolute;
   top: -500px;
 }
+
+#page2{
+  display: none;
+}
+#page2a div{
+  width: 50px;
+}
+#page2lists {
+  font-size: 1em;
+  border: 1px solid purple;
+  border-radius: 3px;
+  padding: 5px;
+  position: relative;
+  vertical-align: top;
+  white-space: nowrap;
+}
+#lists{
+  padding: 0px 20px 0 5px;
+  vertical-align: top;
+  
+}
+#lists table {
+  vertical-align: top;
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: inline-block;
+  margin-right: 20px;
+}
+#lists table caption{
+  color: green;
+  opacity: .7;
+  text-align: left;
+}
+#lists table th {
+  text-align: left;
+}
+#lists table th, 
+#lists table td {
+  padding: 0 6px 0 4px;
+}
+#lists table tr td:first-child,
+#lists table tr th:first-child {
+  text-align: right;
+}
+#lists table tr.selectedDay td{
+  color: blue;
+}
+#lists table tr.selectedDay {
+  background-color: #eee;
+}
+#lists table #monthListBody tr.selected {
+  background-color: #ddd;
+  color: green;
+}
+#lists table #vahidListBody tr.selected {
+  background-color: #aaa;
+  color: #fff;
+}
+
 
 button.btnChangeDay, #btnEveOrDay {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
