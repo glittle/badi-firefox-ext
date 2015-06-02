@@ -174,10 +174,11 @@
     "gCombined_3": { "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}", "description": "day spanning different gregorian years" },
     "gCombinedY_3": { "message": "{frag1MonthShort} {frag1Day}, {frag1Year}/{frag2MonthShort} {frag2Day}, {frag2Year}", "description": "with year" },
 
+
     "new_messages_1_1_8": { "message": "" },
-    
     "bDatePickerTitle": { "message": "Choose <u>B</u>adí' Date", "description": "added <u></u> - should have one letter between <u> and </u>" },
     "ayyamIs0": { "message": "0 = Ayyám-i-Há", "description": "in Badi date picker area" },
+ 
  
     "new_messages_1_1_9": { "message": "" },
     "pick_page1": { "message": "Page 1" },
@@ -192,5 +193,4 @@
  
  
     "x": { "message": "", "description": "" }
-
 }
