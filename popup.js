@@ -119,16 +119,21 @@ function changePage(ev, delta){
     showPage(num);
   } 
   else if(delta){
+    var lastPageNum = 1;
     num = _currentPageNum;
     switch(delta){
       case -1:
         if(num > 0){
-          num += delta;
+          num -= 1;
+        }else{
+          num = lastPageNum;
         }
         break;
       case 1:
-        if(num < 1){
-          num += delta;
+        if(num < lastPageNum){
+          num += 1;
+        }else{
+          num = 0;
         }
         break;
     }  
