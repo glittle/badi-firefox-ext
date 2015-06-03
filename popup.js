@@ -10,9 +10,9 @@ var _currentPageNum = 0;
 
 samplesDiv.on('click', 'button', copySample);
 $('.btnChangeDay').on('click', changeDay);
+$('.bDatePickerInputs').on('change paste keydown keypress', 'input', changeToBDate);
 $('#btnEveOrDay').on('click', toggleEveOrDay);
 $('#datePicker').on('change', jumpToDate);
-$('.bDatePickerInputs').on('change paste keydown keypress', 'input', changeToBDate);
 $('#btnRetry').on('click', function () {
     $('#btnRetry').addClass('active')
     
@@ -61,7 +61,6 @@ function showInfo(di) {
 
   $('#day').html(getMessage('bTopDayDisplay', di));
   $('#sunset').html(di.nearestSunset);
-  $('#place').html(localStorage.locationName);
   $('#gDay').html(getMessage('gTopDayDisplay', di));
 
   $('#dayDetails').html('<dl>' + '<dt>{^name}</dt><dd>{^value}</dd>'.filledWithEach(dayDetails) + '</dl>');
@@ -103,9 +102,13 @@ function showInfo(di) {
 
   $('button.today').toggleClass('notToday', di.stamp !== getStorage('originalStamp'));
   
-  $('#locationErrorHolder').toggle(!getStorage('locationKnown', false));
-
   updateStatic(di);
+
+  if(!getStorage('locationKnown', false)){
+    setTimeout(function(){
+      showLocation();
+    }, 1000);
+  }
 
   _showingInfo = false;
 }
@@ -145,10 +148,11 @@ function showPage(num){
   _currentPageNum = num;
   
   var pages = $('.midSection .sidebyside2');
+  var btns = $('.pagePicker button');
+
   pages.hide();
   pages.eq(num).show();
-  
-  var btns = $('.pagePicker button');
+
   btns.removeClass('selected');
   btns.eq(num).addClass('selected');
 }
@@ -235,20 +239,20 @@ function keyPressed(ev) {
     case 18:
       return; // 08 (ALT) causes a crashes
 
-    case 37:
+    case 37: //left
       changeDay(null, -1);
       ev.preventDefault();
       return;
-    case 39:
+    case 39: //right
       changeDay(null, 1);
       ev.preventDefault();
       return;
 
-    case 38:
+    case 38: //up
       toggleEveOrDay(false);
       ev.preventDefault();
       return;
-    case 40:
+    case 40: //down
       toggleEveOrDay(true);
       ev.preventDefault();
       return;
@@ -257,9 +261,13 @@ function keyPressed(ev) {
       changePage(null, -1);
       ev.preventDefault();
       return;
-      
     case 34: //pgdn
       changePage(null, 1);
+      ev.preventDefault();
+      return;
+
+    case 36: //home
+      changeDay(null, 0);
       ev.preventDefault();
       return;
 
@@ -380,11 +388,13 @@ function fillStatic(){
 
   nameList = [];
   for (i = 1; i < bWeekdayNameAr.length; i++) {
+    var gDay = i < 2 ? 5 + i : i - 2;
+    var eveDay = gDay == 0 ? 6 : gDay - 1;
     nameList.push({
       num: i,
       arabic: bWeekdayNameAr[i],
       meaning: bWeekdayMeaning[i],
-      equiv: gWeekdayLong[i < 2 ? 5 + i : i - 2]
+      equiv: gWeekdayShort[eveDay] + '/' + gWeekdayLong[gDay]
     });
   }
   $('#weekdayListBody').html('<tr class=weekdayListNum{num}><td>{num}</td><td>{arabic}</td><td>{meaning}</td><td>{equiv}</td></tr>'.filledWithEach(nameList));
@@ -406,16 +416,39 @@ function updateStatic(di){
   $('.dayListNum{bDay}, .weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
 }
 
+function showShortcutKeys(){
+  if(chrome.commands){
+    chrome.commands.getAll(function(cmd){
+      for (var i = 0; i < cmd.length; i++) {
+        var a = cmd[i];
+        if(a.shortcut){
+          $('#shortcutKeys').text(a.shortcut);
+        };
+      };
+    });
+  }
+}
+
+function showLocation(){
+  $('#place').html(localStorage.locationName);
+  $('#locationErrorHolder').toggle(!getStorage('locationKnown', false));
+}
+
 $(function(){
   showPage(0);
 
   refreshDateInfo();
   showInfo(_di);
   localizeHtml();
+
+  showLocation();
   
   setTimeout(function(){
     fillStatic();
     updateStatic(_di);
+    
+    showShortcutKeys();
+    
     localizeHtml('#page2');
   },100);
 });

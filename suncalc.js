@@ -109,7 +109,7 @@ function getSetJ(h, lw, phi, dec, n, M, L) {
 SunCalc.getTimes = function (date, lat, lng) {
 
   // Glen - override
-  if(getStorage('noLocation')){
+  if(localStorage['locationKnown']!==ObjectConstant+'true'){
     var dt2 = moment(date).toDate();
     dt2.setHours(18,30,0,0);
     return {

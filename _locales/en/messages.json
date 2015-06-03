@@ -97,32 +97,36 @@
         "description": "Jamal 4, 172 -> 7:55pm"
     },
     "sampleGroup1_4": {
+        "message": "{bYear} {bMonthNameAr} {bDay}",
+        "description": "172 Azamat 3"
+    },
+    "sampleGroup1_5": {
         "message": "{bDay} {bMonthMeaning} ({bMonthNameAr}) {bYear} {bEraAbbrev}",
         "description": "1 Beauty (Jamal) 172 B.E."
     },
-    "sampleGroup1_5": {
+    "sampleGroup1_6": {
         "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear}",
         "description": "1 Jamal (Beauty) 172"
     },
-    "sampleGroup1_6": {
+    "sampleGroup1_7": {
         "message": "{bDay00} {bMonthNameAr} / {bMonthMeaning} {bYear} {bEraAbbrev} ({currentWeekdayShort} {currentDay00} {currentMonthLong} {currentYear})",
         "description": "04 Jamal / Glory 172 B.E. (Fri 01 May 2015) -- bahai-readings@bcca.org"
     },
-    "sampleGroup1_7": {
+    "sampleGroup1_8": {
         "message": "{bWeekdayNameAr} / {bDayNameAr}, {bDayOrdinal} {bMonthNameAr} {bYear}",
         "description": "Jamál / Bahá, 1st ‘Aẓamat     or [weekday] / [monthday], [day no.] [month] - james@19months.com"
     },
-    "sampleGroup1_8": {
+    "sampleGroup1_9": {
         "message": "{bDay} {bMonthNameAr} {bYear} {eraShort} / {currentDay} {currentMonthLong} {currentYear}",
         "description": "3 Jamál 172 BE / 30 April 2015 -- Calgary LSA"
     },
-    "sampleGroup1_9": {
+    "sampleGroup1_10": {
         "message": "{bYear}.{bMonth00}.{bDay00}",
         "description": "172.03.13"
     },
-   "sampleGroup1_10": {
+    "sampleGroup1_11": {
         "message": "{bVahid00}.{bYearInVahid00}.{bMonth00}.{bDay00}",
-        "description": "172.03.13"
+        "description": "10.01.03.13"
     },
 
 
@@ -156,7 +160,7 @@
     "KullishayFormat": { "message": "{bKullishay}", "description": "" },
 
     "bTopDayDisplay": { "message": "{bDay} {bMonthNameAr} {bYear}", "description": "top right corner" },
-    "gTopDayDisplay": { "message": "{currentDay} {currentMonthShort} {currentYear}", "description": "top right corner" },
+    "gTopDayDisplay": { "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear}", "description": "top right corner" },
     "gregorianDateDisplay": { "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear}", "description": "in left panel" },
     "upcomingDateFormat": { "message": "{bMonthNameAr} {bDay} ({gCombined})", "description": "upcoming list" },
 
@@ -181,8 +185,8 @@
  
  
     "new_messages_1_2_0": { "message": "" },
-    "pick_page1": { "message": "Page 1" },
-    "pick_page2": { "message": "Page 2" },
+    "pick_page1": { "message": "Today" },
+    "pick_page2": { "message": "Lists" },
     "weekDayNames": { "message": "Weekday Names", "description": "on page 2 - table caption" },
     "monthNames": { "message": "Month/Day Names", "description": "on page 2 - table caption" },
     "vahidNames": { "message": "Váḥid Names", "description": "on page 2 - table caption" },

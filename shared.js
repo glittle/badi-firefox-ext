@@ -312,13 +312,7 @@ var findName = function(typeName, results){
 
 
 function startGetLocationName(){
-    if (!_locationLat || !_locationLong) {
-	    localStorage.locationName = getMessage('noLocationAvailable');
-		  refreshDateInfoAndShow();
-      return;
-    }
-
-  var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&language={2}'.filledWith(_locationLat, _locationLong, chrome.runtime.getManifest().current_locale);
+  var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&language={2}'.filledWith(localStorage.lat, localStorage.long, chrome.runtime.getManifest().current_locale);
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", url, true);
@@ -331,9 +325,12 @@ function startGetLocationName(){
                || findName('locality', data.results)
                || findName('political', data.results)
                || getMessage('noLocationName');
-      
-		  refreshDateInfoAndShow();
-	  }
+
+      // if popup is showing...
+      if(typeof showLocation !== 'undefined'){
+        showLocation();
+	    }
+    }
 	}
 	xhr.send();
 }
@@ -344,18 +341,21 @@ function setLocation(position){
   knownDateInfos = {};
 
   setStorage('locationKnown', true);
-    
+  localStorage.locationName = getMessage('noLocationAvailable'); // temp until we get it
+
   startGetLocationName();  
+
+  refreshDateInfoAndShow();
 }
 function noLocation(err){
-  console.error(err);
-
-  localStorage.noLocation = setStorage(true);
   localStorage.lat = _locationLat = 0;
   localStorage.long = _locationLong = 0;
-  localStorage.locationName = getMessage('noLocationAvailable');
- 
+  knownDateInfos = {};
+
+  console.error(err);
+
   setStorage('locationKnown', false);
+  localStorage.locationName = getMessage('noLocationAvailable');
 
   refreshDateInfoAndShow();
 }
