@@ -165,6 +165,7 @@ function getDateInfo(currentTime, skipUpcoming){
   di.nearestSunset = getMessage(bNow.eve ? "nearestSunsetEve":"nearestSunsetDay", di);
   
   di.stamp = JSON.stringify(di.bNow);// used to compare to other dates and for developer reference 
+  di.stampDay = '{y}.{m}.{d}'.filledWith(di.bNow); // ignore eve/day
   
   if(!skipUpcoming) {
     getUpcoming(di);
@@ -247,10 +248,9 @@ function getUpcoming(di){
   today.hour(0);
   di.special1 = null;
   di.special2 = null;
-  
+
   dayInfos.forEach(function(dayInfo, i){
     var targetDi = getDateInfo(dayInfo.GDate, true);
-    
     if(dayInfo.Type === 'M'){
       dayInfo.A = getMessage('FeastOf').filledWith(targetDi.bMonthMeaning);
     }else 
@@ -262,7 +262,7 @@ function getUpcoming(di){
     }
     dayInfo.date = getMessage('upcomingDateFormat', targetDi);
 
-    var sameDay = di.stamp == targetDi.stamp;
+    var sameDay = di.stampDay == targetDi.stampDay;
     var targetMoment = moment(dayInfo.GDate);
     dayInfo.away = determineDaysAway(di, today, targetMoment, sameDay);
 

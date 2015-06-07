@@ -1,0 +1,104 @@
+.cal1body {
+  height: auto;
+  margin-bottom: 0;
+  font-family: Tahoma;
+  background-color: #fff;
+}
+
+#months {
+  font-size: 9px;
+}
+
+  #months b {
+    font-weight: normal;
+  }
+
+.mGroup {
+}
+
+.bm {
+}
+
+  .bm i {
+    font-style: normal;
+    padding-right: 2px;
+  }
+
+.mGroup1, .mGroup2, .mGroup3 {
+  background-color: rgba(255, 0, 0, 0.05); /* fire of God */
+}
+
+.mGroup4, .mGroup5, .mGroup6, .mGroup7 {
+  background-color: rgba(200, 200, 200, 0.05); /* air of eternity */
+}
+
+.mGroup8, .mGroup9, .mGroup10, .mGroup11, .mGroup12, .mGroup13 {
+  background-color: rgba(0, 0, 255, 0.05); /* water of Divine Unity */
+}
+
+.mGroup14, .mGroup15, .mGroup16, .mGroup17, .mGroup18, .mGroup19 {
+  background-color: rgba(0, 255, 0, 0.05); /* earth */
+}
+
+.bd {
+  display: inline-block;
+  width: 32px;
+  border-left: 1px solid rgba(0,0,0,.2);
+  border-bottom: 1px solid rgba(0,0,0,.2);
+}
+
+  .bd:first-child {
+  }
+
+  .bd.selected {
+    font-weight: bold;
+    background-color: red;
+  }
+
+.bmName {
+  display: inline-block;
+  width: 55px;
+  padding-left: 2px;
+}
+
+.gm {
+  font-size: 8px;
+  color: rgba(0,0,0,.5);
+}
+
+.gd {
+  display: inline-block;
+  width: 33px;
+}
+
+  .gd.gd1 {
+    color: rgba(0,0,0,1);
+  }
+
+  .gd.gAlt {
+    border-top: 1px solid rgba(0,0,0,.1);
+  }
+
+.gmInitial {
+  display: inline-block;
+  width: 70px; /* margin + offset */
+}
+
+
+#btnClose {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#btnReload {
+  position: absolute;
+  bottom: 0;
+  left: 150px;
+}
+
+#btnPrint {
+  position: absolute;
+  bottom: 0;
+  left: 250px;
+}

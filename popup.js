@@ -7,6 +7,7 @@ var samplesDiv = $('#samples');
 var _showingInfo = false;
 var _changingBDate = false;
 var _currentPageNum = 0;
+var _cal1 = null;
 
 samplesDiv.on('click', 'button', copySample);
 $('.btnChangeDay').on('click', changeDay);
@@ -14,19 +15,18 @@ $('.bDatePickerInputs').on('change paste keydown keypress', 'input', changeToBDa
 $('#btnEveOrDay').on('click', toggleEveOrDay);
 $('#datePicker').on('change', jumpToDate);
 $('#btnRetry').on('click', function () {
-    $('#btnRetry').addClass('active')
-    
-    registerHandlers();
-    setTimeout(function(){
-      $('#btnRetry').removeClass('active')
-    }, 1000);
+  $('#btnRetry').addClass('active');
+  registerHandlers();
+  setTimeout(function () {
+    $('#btnRetry').removeClass('active');
+  }, 1000);
 });
 $('#datePicker').on('keydown', function (ev) {
   ev.stopPropagation();
 });
-$('.buttons').on('click', 'button', changePage)
+$('.pagePicker').on('click', 'button', changePage);
 $(document).on('keydown', keyPressed);
-
+$('#btnCal1').on('click', showCal1);
 $('.iconArea a').click(function () {
   chrome.tabs.create({ active: true, url: this.href });
 });
@@ -41,8 +41,8 @@ var sampleNum = 0;
 
 function showInfo(di) {
   _showingInfo = true;
-  
-  var makeObj = function(key) {
+
+  var makeObj = function (key) {
     return { name: getMessage(key), value: getMessage(key + 'Format', di) };
   };
   var dayDetails = [
@@ -56,7 +56,6 @@ function showInfo(di) {
   ];
 
   var explain1 = getMessage('shoghiExample', di);
-
   var explain2 = getMessage('example2', di);
 
   $('#day').html(getMessage('bTopDayDisplay', di));
@@ -70,8 +69,8 @@ function showInfo(di) {
 
   $('#gDate').html(getMessage('gregorianDateDisplay', di));
   $('#gDateDesc').html('({^currentRelationToSunset})'.filledWith(di));
-  
-  if(!_changingBDate){
+
+  if (!_changingBDate) {
     $('#bYearPicker').val(di.bYear);
     $('#bMonthPicker').val(di.bMonth);
     $('#bDayPicker').val(di.bDay);
@@ -83,12 +82,12 @@ function showInfo(di) {
   $('#special2').hide();
   if (di.special1) {
     $('#special1').html(di.special1).show();
+    $('#day').addClass('withSpecial');
     if (di.special2) {
-      $('#special2').html(di.special2).show();
+      $('#special2').html(' - ' + di.special2).show();
     }
-    else {
-      $('#special2').hide();
-    }
+  } else {
+    $('#day').removeClass('withSpecial');
   }
   $('#upcoming').html(di.upcomingHtml);
 
@@ -101,11 +100,11 @@ function showInfo(di) {
     .addClass(manifest.current_locale.slice(0, 2));
 
   $('button.today').toggleClass('notToday', di.stamp !== getStorage('originalStamp'));
-  
+
   updateStatic(di);
 
-  if(!getStorage('locationKnown', false)){
-    setTimeout(function(){
+  if (!getStorage('locationKnown', false)) {
+    setTimeout(function () {
       showLocation();
     }, 1000);
   }
@@ -113,72 +112,91 @@ function showInfo(di) {
   _showingInfo = false;
 }
 
-function changePage(ev, delta){
-  var num;
-  if(ev)
-  {
-    var btn = ev.target;
-    num = +btn.id.substr(-1, 1) - 1;
-    showPage(num);
-  } 
-  else if(delta){
-    var lastPageNum = 1;
+function changePage(ev, delta) {
+  if (ev) {
+    var btn = $(ev.target);
+    var id = btn.data('page');
+    showPage(id);
+  }
+  else {
+    var pageButtons = $('.pagePicker button');
+    var lastPageNum = pageButtons.length - 1;
     num = _currentPageNum;
-    switch(delta){
+
+    switch (delta) {
       case -1:
-        if(num > 0){
+        if (num > 0) {
           num -= 1;
-        }else{
+        } else {
           num = lastPageNum;
         }
         break;
       case 1:
-        if(num < lastPageNum){
+        if (num < lastPageNum) {
           num += 1;
-        }else{
+        } else {
           num = 0;
         }
         break;
-    }  
-    showPage(num);
+    }
+    _currentPageNum = num;
+
+    console.log(delta);
+    console.log(num);
+
+    showPage(pageButtons.eq(num).data('page'));
   }
 }
 
-function showPage(num){
-  _currentPageNum = num;
-  
-  var pages = $('.midSection .sidebyside2');
+function showPage(id) {
+  var pages = $('.page');
   var btns = $('.pagePicker button');
 
   pages.hide();
-  pages.eq(num).show();
+  pages.filter('#' + id).show();
 
-  btns.removeClass('selected');
-  btns.eq(num).addClass('selected');
+  var forNormalDisplay = '#upcoming, #upcomingTitle, .midSection, .explains, .normal';
+  switch (id) {
+    case 'pageCal1':
+      $(forNormalDisplay).hide();
+      break;
+
+    case 'pageLists':
+      $(forNormalDisplay).hide();
+      $('.midSection').show();
+      break;
+
+    case 'pageDay':
+      $(forNormalDisplay).show();
+      break;
+  }
+
+  btns.removeClass('showing');
+  btns.filter('*[data-page="{0}"]'.filledWith(id)).addClass('showing');
 }
 
-function changeToBDate(ev){
-  if(_showingInfo){
+function changeToBDate(ev) {
+  if (_showingInfo) {
     return;
   }
   ev.cancelBubble = true;
   ev.stopPropagation();
-  if(ev.type == 'keydown'){
+  if (ev.type == 'keydown') {
     return; // wait for keypress
   }
- 
+
   var bYear = $('#bYearPicker').val();
-  if(bYear==='') return;
+  if (bYear === '') return;
   bYear = +bYear;
   // fix to our supported range
-  if(bYear < 1) bYear = 1;
-  if(bYear > 1000) bYear = 1000;
-  
+  if (bYear < 1) bYear = 1;
+  if (bYear > 1000) bYear = 1000;
+
   var bMonth = $('#bMonthPicker').val(); // month and day will be fixed by getGDate
-  if(bMonth==='') return;
-  
+  if (bMonth === '') return;
+
   var bDay = $('#bDayPicker').val();
-  if(bDay==='') return;
+  if (bDay === '') return;
 
   try {
     var gDate = holyDays.getGDate(+bYear, +bMonth, +bDay, true);
@@ -186,15 +204,15 @@ function changeToBDate(ev){
     _targetDate = gDate;
 
     refreshDateInfo();
-    
-//    _changingBDate = true;
+
+    //    _changingBDate = true;
     showInfo(_di);
     _changingBDate = false;
-    
+
   } catch (error) {
     console.log(error);
   }
-  
+
 }
 
 function addSamples(di) {
@@ -231,7 +249,7 @@ function addSamples(di) {
 }
 
 function keyPressed(ev) {
-  if(ev.altKey || ev.ctrlKey || ev.shiftKey){
+  if (ev.altKey || ev.ctrlKey || ev.shiftKey) {
     return;
   }
   var key = String.fromCharCode(ev.which) || '';
@@ -375,7 +393,7 @@ function changeDay(ev, delta) {
   showInfo(_di);
 }
 
-function fillStatic(){
+function fillStatic() {
   var nameList = [];
   for (var i = 1; i < bMonthNameAr.length; i++) {
     nameList.push({
@@ -409,19 +427,23 @@ function fillStatic(){
   }
   $('#vahidListBody').html('<tr class=vahidListNum{num}><td>{num}</td><td>{arabic}</td><td>{meaning}</td></tr>'.filledWithEach(nameList));
 }
-function updateStatic(di){
+function updateStatic(di) {
   $('#lists table tr.selected').removeClass('selected');
   $('#lists table tr.selectedDay').removeClass('selectedDay');
   $('.vahidListNum{bVahid}, .monthListNum{bMonth}'.filledWith(di)).addClass('selected');
   $('.dayListNum{bDay}, .weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
+
+  if (_cal1) {
+    _cal1.showCalendar(di);
+  }
 }
 
-function showShortcutKeys(){
-  if(chrome.commands){
-    chrome.commands.getAll(function(cmd){
+function showShortcutKeys() {
+  if (chrome.commands) {
+    chrome.commands.getAll(function (cmd) {
       for (var i = 0; i < cmd.length; i++) {
         var a = cmd[i];
-        if(a.shortcut){
+        if (a.shortcut) {
           $('#shortcutKeys').text(a.shortcut);
         };
       };
@@ -429,26 +451,51 @@ function showShortcutKeys(){
   }
 }
 
-function showLocation(){
+function showLocation() {
   $('#place').html(localStorage.locationName);
   $('#locationErrorHolder').toggle(!getStorage('locationKnown', false));
 }
 
-$(function(){
-  showPage(0);
+function hideCal1() {
+  $('#iFrameCal1').hide();
+}
+
+function showCal1() {
+  var iframe = $('#iFrameCal1');
+  if (iframe.is(':visible')) {
+    iframe.hide();
+  }
+  else {
+    if (!iframe.attr('src')) {
+      iframe.attr('src', 'cal1.html').fadeIn();
+    }
+    else {
+      iframe.show();
+    }
+  }
+}
+
+$(function () {
+  showPage('pageDay');
 
   refreshDateInfo();
   showInfo(_di);
   localizeHtml();
 
   showLocation();
-  
-  setTimeout(function(){
+
+  setTimeout(function () {
     fillStatic();
     updateStatic(_di);
-    
+
     showShortcutKeys();
-    
-    localizeHtml('#page2');
-  },100);
+
+    localizeHtml('#pageLists');
+
+    setTimeout(function () {
+      _cal1 = Cal1(_di);
+      _cal1.preparePage();
+      _cal1.showCalendar(_di);
+    }, 100);
+  }, 100);
 });

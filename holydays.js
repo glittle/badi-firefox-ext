@@ -194,9 +194,9 @@ var HolyDays = function () {
   }
 
   function getUpcoming(di, numToAdd){
-    var targetDate = moment(moment(di.currentTime).format('YYYY-MM-DD')).toDate();//clone and lose timezone
-      if(_dateInfosForYear != di.bYear){
-      prepareDateInfos(di.bYear)
+    var targetDate = moment(moment(di.frag1).format('YYYY-MM-DD')).toDate();//clone and lose timezone
+    if(_dateInfosForYear != di.bYear){
+      prepareDateInfos(di.bYear);
     }
     var added = 0;
     var upcoming = [];
@@ -313,16 +313,14 @@ var HolyDays = function () {
   var makeBMonthDay = function (month, day) {
     // combine numbers into object
     return { m: +month, d: +day };
-  }
-
+  };
   var getGDateYBDate = function (bYear, bMonthDay) {
     if (!bMonthDay || !bMonthDay.d) {
       debugger;
       return '?3?';
     }
     return getGDateYMD(bYear, bMonthDay.m, bMonthDay.d);
-  }
-
+  };
   var getGDateYMD = function (bYear, bMonth, bDay, fix) {
     // convert bDate to gDate
     if (bMonth < 0 || typeof bMonth == 'undefined') {
@@ -361,7 +359,7 @@ var HolyDays = function () {
     answer.setDate(answer.getDate() + (bMonth - 1) * 19 + (bDay - 1));
 
     if (bMonth == 0 || bMonth == 19) {
-      var nextNawRuz = new Date(gYear + 1, 2, 21 + (_nawRuzOffsetFrom21[bYear + 1] || 0))
+      var nextNawRuz = new Date(gYear + 1, 2, 21 + (_nawRuzOffsetFrom21[bYear + 1] || 0));
       var startOfAla = new Date(nextNawRuz.getTime());
       startOfAla.setDate(startOfAla.getDate() - 19);
       if (bMonth == 19) {
@@ -391,8 +389,7 @@ var HolyDays = function () {
       }
     }
     return answer;
-  }
-
+  };
   var getBDate = function (d) {
     var afterNawRuz = d.isAfterNawRuz();
     var afterSunset = 0;
@@ -449,14 +446,10 @@ var HolyDays = function () {
     }
 
     return { y: year, m: month, d: day, eve: afterSunset == 1 };
-  }
-
-
+  };
   var daysBetween = function (d1, d2) {
-    return 1 + Math.round(Math.abs((d1.getTime() - d2.getTime()) / _msInDay))
-  }
-
-  // Badi months - 0=Ayyam-i-Há
+    return 1 + Math.round(Math.abs((d1.getTime() - d2.getTime()) / _msInDay));
+  }; // Badi months - 0=Ayyam-i-Há
   var _bMonthNames = "Ayyám-i-Há,Bahá,Jalál,Jamál,`Azamat,Núr,Rahmat,Kalimát,Kamál,Asmá’,`Izzat,Mashíyyat,`Ilm,Qudrat,Qawl,Masá'il,Sharaf,Sultán,Mulk,`Alá’".split(',');
 
   // =============================================================  
@@ -2150,11 +2143,7 @@ var HolyDays = function () {
       nawRuz = sunCalculator.getTimes(eveSunset, _locationLat, _locationLong).sunset;
     }
     return nawRuz;
-  }
-
- 
-
-  // make these available to the browser
+  }; // make these available to the browser
   return {
     getNawRuz: getNawRuz,
     dateInfos: _dateInfos,
@@ -2165,44 +2154,38 @@ var HolyDays = function () {
     _bMonths: _bMonthNames,
     _nawRuzOffsetFrom21: _nawRuzOffsetFrom21
   };
-}
-
-
-// prototypes for holyDays
+}; // prototypes for holyDays
 Date.prototype.getNawRuz = function () {
   return holyDays.getNawRuz(this.getFullYear());
-}
+};
 Date.prototype.isAfterNawRuz = function () {
   return this.getTime() > holyDays.getNawRuz(this.getFullYear()).getTime();
-}
+};
 Date.prototype.getBadiYear = function () {
   return this.getFullYear() - 1843 - (this.isAfterNawRuz() ? 0 : 1);
-}
-
-
-// base date info /////////////////////////////////////////
+}; // base date info /////////////////////////////////////////
 //var _gMonthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 //var _dayNamesLong = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 var _gMonthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var _dayNamesShortGreg = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 Date.prototype.getMonthName = function () {
   return _gMonthNames[this.getMonth()];
-}
+};
 Date.prototype.getDayOfWeek = function () {
   return _dayNamesShortGreg[this.getDay()];
-}
+};
 Date.prototype.getDayNames = function () {
   return (this.getEveDate().getDayOfWeek() + '/').eveInfo() + this.getDayOfWeek();
-}
+};
 Date.prototype.inStandardTime = function () {
   var jan = new Date(this.getFullYear(), 0, 1);
   return jan.getTimezoneOffset() == this.getTimezoneOffset();
-}
+};
 Date.prototype.dayOfYear = function () {
   var j1 = new Date(this);
   j1.setMonth(0, 0);
   return Math.round((this - j1) / 8.64e7);
-}
+};
 Date.prototype.showTime = function (hoursType) {
   //var time = ('0' + this.getHours()).slice(-2) + ':' + ('0' + this.getMinutes()).slice(-2);
   var show24hour = hoursType == 24;
@@ -2218,19 +2201,17 @@ Date.prototype.showTime = function (hoursType) {
 //  }
   return time;
   //return time;
-}
+};
 Date.prototype.getEveDate = function () {
   var x = new Date(this.getTime());
   x.setDate(x.getDate() - 1);
   return x;
-}
+};
 Date.prototype.getTimezoneName = function(){
   // very simple method
   
-}
-
-// other
+}; // other
 String.prototype.eveInfo = function () {
   return '<span class=eveInfo>' + this + '</span>';
-}
+};
 

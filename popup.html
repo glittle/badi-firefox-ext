@@ -3,138 +3,142 @@
 <head>
   <meta charset="utf-8" />
   <link href="popup.css" rel=stylesheet>
+  <link href="cal1.css" rel=stylesheet>
   <script src="jquery-2.1.3.min.js"></script>
   <script src="suncalc.js"></script>
   <script src="moment.js"></script>
 </head>
 <body>
-  <div class=sidebyside1>
+  <div class=pagePicker>
+    <div class=buttons>
+      <button data-page="pageDay" data-msg=pick_pageDay></button>
+      <button data-page="pageLists" data-msg=pick_pageLists></button>
+      <button data-page="pageCal1" data-msg=pick_pageCal1></button>
+    </div>
+  </div>
+
+  <div class="sidebyside1">
     <div id=showUpcoming>
       <div id=upcomingTitle data-msg="_id_"></div>
       <table id=upcoming></table>
     </div>
     <div id=show>
       <div id=day></div>
-      <div id=special1></div>
-      <div id=special2></div>
-      <div id=sunset></div>
-      <div id=place></div>
-      <div id=gDay></div>
+      <div id=special>
+        <span id=special1></span>
+        <span id=special2></span>
+      </div>
+      <div id=sunset class="normal"></div>
+      <div id=place class="normal"></div>
+      <div id=gDay class="normal"></div>
       <div id=locationErrorHolder>
         <button id=btnRetry></button>
         <span id=locationError data-msg="_id_"></span>
       </div>
-      
     </div>
   </div>
   <div class=midSection>
-    <div class=pagePicker>
-      <div class=buttons>
-        <button id=pick_page2 data-msg=_id_></button>
-        <button id=pick_page1 data-msg=_id_></button>
+    <div class="sidebyside2 page" id=pageDay>
+      <div id=gDatePicker>
+        <div id=gDatePickerTitle data-msg="_id_"></div>
+        <div id=gDate></div>
+        <div id=gDateDesc></div>
+        <div id=gDatePickerTitle2 data-msg="_id_"></div>
+        <input type="date" id=datePicker min="1844-03-21" max="2843-03-19">
+        <div class=gDateButtons>
+          <button type=button class=btnChangeDay data-delta="-1" data-msg="prev"></button>
+          <button type=button class="btnChangeDay today" data-delta="0" data-msg="gotoNow"></button>
+          <button type=button class=btnChangeDay data-delta="1" data-msg="next"></button>
+          <button type=button id=btnEveOrDay data-msg="_id_"></button>
+        </div>
+        <div id=bDatePickerTitle data-msg="_id_,extractAccessKeyFor:bYearPicker"></div>
+        <div class=bDatePickerInputs>
+          <input id=bYearPicker type=number max=1000 min=1>
+          <input id=bMonthPicker type=number max=19 min=0>
+          <input id=bDayPicker type=number max=19 min=1>
+          <div class=comment id=ayyamIs0 data-msg="_id_"></div>
+        </div>
+      </div>
+      <div class=spacer>&nbsp;</div>
+      <div id=dayDetails></div>
+      <div class=spacer>&nbsp;</div>
+      <div id=samples>
+        <div id=sampleTitle></div>
+        <div id=sampleList1></div>
+        <div id=sampleFootnote data-msg="_id_"></div>
+        <div id=sampleList2></div>
       </div>
     </div>
-  <div class=sidebyside2 id=page1>
-    <div id=gDatePicker>
-      <div id=gDatePickerTitle data-msg="_id_"></div>
-      <div id=gDate></div>
-      <div id=gDateDesc></div>
-      <div id=gDatePickerTitle2 data-msg="_id_"></div>
-      <input type="date" id=datePicker min="1844-03-21" max="2843-03-19">
-      <div class=gDateButtons>
-        <button type=button class=btnChangeDay data-delta="-1" data-msg="prev"></button>
-        <button type=button class="btnChangeDay today" data-delta="0" data-msg="gotoNow"></button>
-        <button type=button class=btnChangeDay data-delta="1" data-msg="next"></button>
-        <button type=button id=btnEveOrDay data-msg="_id_"></button>
+    <div class="sidebyside2 page" id=pageLists>
+      <div id=page2a>
+        <div></div>
       </div>
-      <div id=bDatePickerTitle data-msg="_id_,extractAccessKeyFor:bYearPicker"></div>
-      <div class=bDatePickerInputs>
-        <input id=bYearPicker type=number max=1000 min=1>
-        <input id=bMonthPicker type=number max=19 min=0>
-        <input id=bDayPicker type=number max=19 min=1>
-        <div class=comment id=ayyamIs0 data-msg="_id_"></div>
+      <!--    <div class=spacer>&nbsp;</div>
+          <div id=page2b>&nbsp;
+          </div>-->
+      <div class=spacer>&nbsp;</div>
+      <div id=page2lists>
+        <div id=lists>
+          <table>
+            <caption data-msg="weekDayNames"></caption>
+            <thead>
+              <tr>
+                <th data-msg=num></th>
+                <th data-msg=arabic></th>
+                <th data-msg=meaning></th>
+                <th data-msg=equiv></th>
+              </tr>
+            </thead>
+            <tbody id=weekdayListBody></tbody>
+          </table>
+          <table>
+            <caption data-msg="monthNames"></caption>
+            <thead>
+              <tr>
+                <th data-msg=num></th>
+                <th data-msg=arabic></th>
+                <th data-msg=meaning></th>
+              </tr>
+            </thead>
+            <tbody id=monthListBody></tbody>
+          </table>
+          <table>
+            <caption data-msg="vahidNames"></caption>
+            <thead>
+              <tr>
+                <th data-msg=num></th>
+                <th data-msg=arabic></th>
+                <th data-msg=meaning></th>
+              </tr>
+            </thead>
+            <tbody id=vahidListBody></tbody>
+          </table>
+        </div>
       </div>
     </div>
-    <div class=spacer>&nbsp;</div>
-    <div id=dayDetails></div>
-    <div class=spacer>&nbsp;</div>
-    <div id=samples>
-      <div id=sampleTitle></div>
-      <div id=sampleList1></div>
-      <div id=sampleFootnote data-msg="_id_"></div>
-      <div id=sampleList2></div>
-    </div>
-    <div class=spacerEnd>&nbsp;</div>
   </div>
-  <div class=sidebyside2 id=page2>
-    <div id=page2a>
-      <div></div>
+  <div id="pageCal1" class="fullPage page">
+    <div id="months">
     </div>
-<!--    <div class=spacer>&nbsp;</div>
-    <div id=page2b>&nbsp;
-    </div>-->
-    <div class=spacer>&nbsp;</div>
-    <div id=page2lists>
-      <div id=lists>
-        <table>
-          <caption data-msg="weekDayNames"></caption>
-          <thead>
-            <tr>
-              <th data-msg=num></th>
-              <th data-msg=arabic></th>
-              <th data-msg=meaning></th>
-              <th data-msg=equiv></th>
-            </tr>
-          </thead>
-          <tbody id=weekdayListBody>
-          </tbody>
-        </table>
-        <table>
-          <caption  data-msg="monthNames"></caption>
-          <thead>
-            <tr>
-              <th data-msg=num></th>
-              <th data-msg=arabic></th>
-              <th data-msg=meaning></th>
-            </tr>
-          </thead>
-          <tbody id=monthListBody>
-          </tbody>
-        </table>
-        <table>
-          <caption data-msg="vahidNames"></caption>
-          <thead>
-            <tr>
-              <th data-msg=num></th>
-              <th data-msg=arabic></th>
-              <th data-msg=meaning></th>
-            </tr>
-          </thead>
-          <tbody id=vahidListBody>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class=spacerEnd>&nbsp;</div>
   </div>
-  </div>
-  <div id=explain></div>
-  <div id=explain2></div>
+  <div id=explain class="explains"></div>
+  <div id=explain2 class="explains"></div>
   <textarea id=sampleCopy></textarea>
+  <iframe id="iFrameCal1"></iframe>
   <div class="iconArea">
     <span id=version class=textLink></span>
 
     <a id=facebook href="https://www.facebook.com/BadiCalendarTools"
-       rel="publisher" target="_top" style="text-decoration:none;">
-      <img src="fb-16.png" data-msg="alt:facebook" style="border:0;width:16px;height:16px;" />
+       rel="publisher" target="_top" style="text-decoration: none;">
+      <img src="fb-16.png" data-msg="alt:facebook" style="border: 0; width: 16px; height: 16px;" />
     </a>
 
     <a href="https://chrome.google.com/webstore/detail/bad%C3%AD-calendar/egekinjjpolponbbfjimifpgfdmphomp/"
        target="_top"><img id=logo data-msg="alt:webstore,title:webstore" src="badi19a-22.png"></a>
 
     <a id=googlePlus href="http://plus.google.com/u/0/111984989420723537597?prsrc=3"
-       rel="publisher" target="_top" style="text-decoration:none;">
-      <img src="gplus-16.png" data-msg="alt:googlePlus" style="border:0;width:16px;height:16px;" />
+       rel="publisher" target="_top" style="text-decoration: none;">
+      <img src="gplus-16.png" data-msg="alt:googlePlus" style="border: 0; width: 16px; height: 16px;" />
     </a>
     <a class="textLink" href="https://chrome.google.com/webstore/detail/bad%C3%AD-calendar/egekinjjpolponbbfjimifpgfdmphomp/support"
        target="_top" data-msg="suggestions,title:suggestionsTitle"></a>
@@ -143,5 +147,6 @@
   <script src="holydays.js"></script>
   <script src="shared.js"></script>
   <script src="popup.js"></script>
+  <script src="cal1.js"></script>
 </body>
 </html>
