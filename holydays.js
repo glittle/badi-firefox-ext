@@ -2150,7 +2150,8 @@ var HolyDays = function () {
     getUpcoming: getUpcoming,
     getGDate: getGDateYMD,
     getBDate: getBDate,
-	  showDay: ShortBadi,
+    showDay: ShortBadi,
+    prepareDateInfos: prepareDateInfos,
     _bMonths: _bMonthNames,
     _nawRuzOffsetFrom21: _nawRuzOffsetFrom21
   };

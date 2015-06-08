@@ -12,8 +12,8 @@
   <div class=pagePicker>
     <div class=buttons>
       <button data-page="pageDay" data-msg=pick_pageDay></button>
-      <button data-page="pageLists" data-msg=pick_pageLists></button>
       <button data-page="pageCal1" data-msg=pick_pageCal1></button>
+      <button data-page="pageLists" data-msg=pick_pageLists></button>
     </div>
   </div>
 
@@ -30,7 +30,7 @@
       </div>
       <div id=sunset class="normal"></div>
       <div id=place class="normal"></div>
-      <div id=gDay class="normal"></div>
+      <div id=gDay></div>
       <div id=locationErrorHolder>
         <button id=btnRetry></button>
         <span id=locationError data-msg="_id_"></span>
@@ -126,6 +126,8 @@
   <textarea id=sampleCopy></textarea>
   <iframe id="iFrameCal1"></iframe>
   <div class="iconArea">
+    <span id=tips data-msg="tips,title:tipsText"></span>
+
     <span id=version class=textLink></span>
 
     <a id=facebook href="https://www.facebook.com/BadiCalendarTools"
@@ -142,7 +144,7 @@
     </a>
     <a class="textLink" href="https://chrome.google.com/webstore/detail/bad%C3%AD-calendar/egekinjjpolponbbfjimifpgfdmphomp/support"
        target="_top" data-msg="suggestions,title:suggestionsTitle"></a>
-    <span id=shortcutKeys></span>
+    <span id=shortcutKeys data-msg="title:shortcutKeyTitle"></span>
   </div>
   <script src="holydays.js"></script>
   <script src="shared.js"></script>

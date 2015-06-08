@@ -141,9 +141,6 @@ function changePage(ev, delta) {
     }
     _currentPageNum = num;
 
-    console.log(delta);
-    console.log(num);
-
     showPage(pageButtons.eq(num).data('page'));
   }
 }
@@ -349,7 +346,7 @@ function copySample(ev) {
 }
 function toggleEveOrDay(toEve) {
   _targetDate = getCurrentTime();
-  toEve = typeof toEve === 'boolean' ? toEve : !di.bNow.eve;
+  toEve = typeof toEve === 'boolean' ? toEve : !_di.bNow.eve;
   if (toEve) {
     _targetDate.setHours(23, 59, 0, 0);
   } else {
@@ -494,7 +491,6 @@ $(function () {
 
     setTimeout(function () {
       _cal1 = Cal1(_di);
-      _cal1.preparePage();
       _cal1.showCalendar(_di);
     }, 100);
   }, 100);

@@ -23,6 +23,7 @@ var gMonthShort = getMessage("gMonthShort").split(',');
 
 var ordinal = getMessage('ordinal').split(',');
 var ordinalNames = getMessage('ordinalNames').split(',');
+var elements = getMessage('elements').split(',');
 
 var use24HourClock = getMessage('use24HourClock') == 'true';
 
@@ -67,6 +68,7 @@ function getDateInfo(currentTime, skipUpcoming){
     
     currentYear: currentTime.getFullYear(),
     currentMonth: currentTime.getMonth(), // 0 based
+    currentMonth1: 1 + currentTime.getMonth(), 
     currentDay: currentTime.getDate(),
     currentDay00: digitPad2(currentTime.getDate()),
     currentWeekday: currentTime.getDay(),
@@ -112,6 +114,7 @@ function getDateInfo(currentTime, skipUpcoming){
 
   di.bDay00 = digitPad2(di.bDay);
   di.frag1Day00 = digitPad2(di.frag1Day);
+  di.currentMonth01 = digitPad2(di.currentMonth1);
   di.frag2Day00 = digitPad2(di.frag2Day);
   di.bMonth00 = digitPad2(di.bMonth);
   di.bYearInVahid00 = digitPad2(di.bYearInVahid);

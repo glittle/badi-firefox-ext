@@ -8,7 +8,6 @@ body {
   width: 430px;
   display: table-cell;
   white-space: nowrap;
-  padding: 10px 0 0 0;
   font-size: 1.25em;
   font-family: Tahoma;
   text-align: center;
@@ -17,11 +16,12 @@ body {
 #day {
   font-size: 1.25em;
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 14px;
   margin-bottom: 9px;
 }
+
   #day.withSpecial {
-    margin-top: -4px;
+    margin-top: 0;
     margin-bottom: 0;
   }
 
@@ -54,7 +54,7 @@ body {
 
 .midSection {
   position: relative;
-  margin: 10px 16px 0 6px;
+  margin: 9px 16px 0 6px;
 }
 
 .sidebyside2 > div {
@@ -81,7 +81,6 @@ div.pagePicker {
 
   .pagePicker .buttons button {
     float: right;
-
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
     background-color: #b5775a;
     border: 1px solid #8f4b29;
@@ -91,7 +90,7 @@ div.pagePicker {
     cursor: pointer;
     color: #ffffff;
     font-family: Tahoma;
-    font-size: 10px;
+    font-size: 11px;
     transition: color 0.4s ease-out;
     padding: 0px 5px 2px;
     margin-left: 3px;
@@ -116,8 +115,16 @@ div.pagePicker {
 
 #shortcutKeys {
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 2px;
+  bottom: 2px;
+  font-size: 90%;
+  color: #999;
+}
+
+#tips {
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
   font-size: 90%;
   color: #999;
 }
@@ -179,7 +186,7 @@ tr.OtherRange {
 }
 
 #dayDetails {
-  border: 1px solid blue;
+  border: 1px solid rgba(0, 3, 255, 0.67);
   border-radius: 3px;
   padding: 5px;
   display: table-cell;
@@ -440,6 +447,8 @@ button.today.notToday {
   color: green;
   text-decoration: underline;
   font-size: 1.2em;
+  overflow: visible;
+  white-space: nowrap;
 }
 
 #upcoming {
@@ -515,6 +524,5 @@ a.textLink {
   border: 1px solid green;
   border-radius: 3px;
   display: none;
-  width: 712px;
   margin: 5px 17px 5px 5px;
 }

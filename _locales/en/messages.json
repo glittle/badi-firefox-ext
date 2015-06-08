@@ -121,10 +121,14 @@
     "description": "3 Jamál 172 BE / 30 April 2015 -- Calgary LSA"
   },
   "sampleGroup1_10": {
+    "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear} - {gCombinedY}",
+    "description": "1 Jamál (Beauty) 172 - April 27/28, 2015"
+  },
+  "sampleGroup1_11": {
     "message": "{bYear}.{bMonth00}.{bDay00}",
     "description": "172.03.13"
   },
-  "sampleGroup1_11": {
+  "sampleGroup1_12": {
     "message": "{bVahid00}.{bYearInVahid00}.{bMonth00}.{bDay00}",
     "description": "10.01.03.13"
   },
@@ -137,10 +141,6 @@
   "sampleGroup2_2": {
     "message": "{frag2Day} {frag2MonthLong} {frag2Year} / {bDay} {bMonthNameAr} {bYear}",
     "description": "1 May 2015 / 4 Jamál 172  -- Susan Gammage"
-  },
-  "sampleGroup2_3": {
-    "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear} - {gCombinedY}",
-    "description": "1 Jamál (Beauty) 172 - April 27/28, 2015"
   },
 
   "DayOfWeek": { "message": "Weekday", "description": "" },
@@ -193,10 +193,14 @@
   "meaning": { "message": "Meaning", "description": "on page 2 - table heading" },
   "equiv": { "message": "Equivalent", "description": "on page 2 - table heading" },
 
-  "new_messages_1_2_2": { "message": "" },
-  "pick_pageDay": { "message": "Today" },
+  "new_messages_1_3": { "message": "" },
+  "pick_pageDay": { "message": "Day" },
   "pick_pageLists": { "message": "Lists" },
-  "pick_pageCal1": { "message": "Calendar" },
+  "pick_pageCal1": { "message": "Year" },
+  "elements": { "message": "Fire,Air,Water,Earth", "description": "the Bab's designations, found in 'https://books.google.ca/books?id=XTfoaK15t64C&pg=PA394&lpg=PA394&dq=get+of+the+heart+nader+bab&source=bl&ots=vyF-pWLAr8&sig=ruiuoE48sGWWgaB_AFKcSfkHvqw&hl=en&sa=X&ei=hbp0VfGwIon6oQSTk4Mg&ved=0CDAQ6AEwAw#v=snippet&q=%22air%20of%20eternity%22&f=false' " },
+  "tips": { "message": "Tips", "description": "hints of how to use the tool" },
+  "tipsText": { "message": "Use PgUp/PgDn keys to select panels.\nUse Right/Left arrow keys to change days.\nUse Up/Down arrow keys to switch before/after sunset.", "description": "" },
+  "shortcutKeyTitle": { "message": "Press this key combination to open the Calendar from anywhere in Chrome.", "description": "" },
 
   "x": { "message": "", "description": "" }
 }
