@@ -87,7 +87,6 @@ function getDateInfo(currentTime, skipUpcoming){
     bMonth: bNow.m,
     bYear: bNow.y,
     bVahid: Math.floor(1 + (bNow.y - 1) / 19),
-    bKullishay: 1,
     
     bDayNameAr: bMonthNameAr[bNow.d],
     bDayMeaning: bMonthMeaning[bNow.d],
@@ -99,7 +98,9 @@ function getDateInfo(currentTime, skipUpcoming){
     bEraShort: getMessage('eraShort')
   };
   
-  di.bYearInVahid = di.bYear - (di.bVahid - 1) * 19;
+  di.bKullishay = Math.floor(1 + (di.bVahid - 1) / 19);
+  di.bVahid = di.bVahid - (di.bKullishay - 1) * 19;
+  di.bYearInVahid = di.bYear - (di.bVahid - 1) * 19 - (di.bKullishay -1) * 19 * 19;
   di.bYearInVahidNameAr = bYearInVahidNameAr[di.bYearInVahid];
   di.bYearInVahidMeaning = bYearInVahidMeaning[di.bYearInVahid];
   di.bWeekdayNameAr = bWeekdayNameAr[di.bWeekday];
@@ -278,7 +279,7 @@ function getUpcoming(di){
     }
   });
   
-  di.upcomingHtml = '<tr class={Type}><td>{away}</td><td>{^A}</td><td>{date}</td></tr>'.filledWithEach(dayInfos);
+  di.upcomingHtml = '<tr class={Type}><td>{away}</td><td>{^A}</td><td>{^date}</td></tr>'.filledWithEach(dayInfos);
 }
 
 function determineDaysAway(di, moment1, moment2, sameDay){

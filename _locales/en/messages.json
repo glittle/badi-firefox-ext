@@ -29,7 +29,7 @@
   "webstore": { "message": "Chrome Web Store", "description": "" },
   "upcomingTitle": { "message": "Upcoming Feasts, Holy Days and other events", "description": "" },
   "gDatePickerTitle": { "message": "Gregorian Date", "description": "" },
-  "gDatePickerTitle2": { "message": "Choose Gregorian Date", "description": "changed in 1.1.2" },
+  "gDatePickerTitle2": { "message": "Choose <u>G</u>regorian Date", "description": "changed in 1.1.2" },
   "prev": { "message": "&#8592; Prev", "description": "" },
   "gotoNow": { "message": "Now", "description": "" },
   "next": { "message": "Next &#8594;", "description": "" },
@@ -187,7 +187,6 @@
   "new_messages_1_2_0": { "message": "" },
   "weekDayNames": { "message": "Weekday Names", "description": "on page 2 - table caption" },
   "monthNames": { "message": "Month/Day Names", "description": "on page 2 - table caption" },
-  "vahidNames": { "message": "Váḥid Names", "description": "on page 2 - table caption" },
   "num": { "message": "#", "description": "on page 2 - table heading" },
   "arabic": { "message": "Name", "description": "on page 2 - table heading" },
   "meaning": { "message": "Meaning", "description": "on page 2 - table heading" },
@@ -201,6 +200,18 @@
   "tips": { "message": "Tips", "description": "hints of how to use the tool" },
   "tipsText": { "message": "Use PgUp/PgDn keys to select panels.\nUse Right/Left arrow keys to change days.\nUse Up/Down arrow keys to switch before/after sunset.", "description": "" },
   "shortcutKeyTitle": { "message": "Press this key combination to open the Calendar from anywhere in Chrome.", "description": "" },
+
+
+  "new_messages_1_3_2": { "message": "" },
+  "yearNames": { "message": "Years in a Váḥid", "description": "on page 2 - table caption" },
+
+
+  "new_messages_1_3_3": { "message": "" },
+  "prevYear": { "message": "Prev Year", "description": "hold Shift and press left arrow key" },
+  "nextYear": { "message": "Next Year", "description": "hold Shift and press right arrow key" },
+  "prevYearTitle": { "message": "Press Shift + Left Arrow to view the previous year", "description": "hold Shift and press left arrow key" },
+  "nextYearTitle": { "message": "Press Shift + Right Arrow to view the next Year", "description": "hold Shift and press right arrow key" },
+
 
   "x": { "message": "", "description": "" }
 }

@@ -8,10 +8,14 @@ var _showingInfo = false;
 var _changingBDate = false;
 var _currentPageNum = 0;
 var _cal1 = null;
+var _enableSampleKeys = true;
 
 samplesDiv.on('click', 'button', copySample);
 $('.btnChangeDay').on('click', changeDay);
-$('.bDatePickerInputs').on('change paste keydown keypress', 'input', changeToBDate);
+$('.btnChangeYear').on('click', changeYear);
+$('.bDatePickerInputs input, .bYearPicker').on('change paste keydown keypress', changeToBDate);
+$('.bKullishayPicker, .bVahidPicker, .bYearInVahidPicker').on('change paste keydown keypress', changeInVahid);
+
 $('#btnEveOrDay').on('click', toggleEveOrDay);
 $('#datePicker').on('change', jumpToDate);
 $('#btnRetry').on('click', function () {
@@ -71,9 +75,12 @@ function showInfo(di) {
   $('#gDateDesc').html('({^currentRelationToSunset})'.filledWith(di));
 
   if (!_changingBDate) {
-    $('#bYearPicker').val(di.bYear);
+    $('.bYearPicker').val(di.bYear);
     $('#bMonthPicker').val(di.bMonth);
     $('#bDayPicker').val(di.bDay);
+    $('.bKullishayPicker').val(di.bKullishay);
+    $('.bVahidPicker').val(di.bVahid);
+    $('.bYearInVahidPicker').val(di.bYearInVahid);
   }
 
   $('#datePicker').val(di.currentDateString);
@@ -156,20 +163,79 @@ function showPage(id) {
   switch (id) {
     case 'pageCal1':
       $(forNormalDisplay).hide();
+      $('#yearPicker').show();
+      _enableSampleKeys = false;
       break;
 
     case 'pageLists':
       $(forNormalDisplay).hide();
       $('.midSection').show();
+      $('#yearPicker').hide();
+      _enableSampleKeys = false;
       break;
 
     case 'pageDay':
       $(forNormalDisplay).show();
+      $('#yearPicker').hide();
+      _enableSampleKeys = true;
       break;
   }
 
   btns.removeClass('showing');
   btns.filter('*[data-page="{0}"]'.filledWith(id)).addClass('showing');
+}
+
+function changeInVahid(ev) {
+  if (_showingInfo) {
+    return;
+  }
+
+  ev.cancelBubble = true;
+  ev.stopPropagation();
+  if (ev.type == 'keydown') {
+    return; // wait for keypress
+  }
+
+  var bKullishay = $('.bKullishayPicker').val();
+  if (bKullishay === '') return;
+  bKullishay = +bKullishay;
+
+  var bVahid = $('.bVahidPicker').val();
+  if (bVahid === '') return;
+  bVahid = +bVahid;
+
+  var bYearInVahid = $('.bYearInVahidPicker').val();
+  if (bYearInVahid === '') return;
+  bYearInVahid = +bYearInVahid;
+
+  // fix to our supported range
+  if (bYearInVahid < 1) {
+    bYearInVahid = 19;
+    bVahid--;
+  }
+  if (bYearInVahid > 19) {
+    bYearInVahid = 1;
+    bVahid++;
+  }
+
+  if (bVahid < 1) {
+    bVahid = 19;
+    bKullishay--;
+  }
+  if (bVahid > 19) {
+    bVahid = 1;
+    bKullishay++;
+  }
+
+  if (bKullishay < 1) {
+    bKullishay = 1;
+  }
+  if (bKullishay > 3) {
+    bKullishay = 3;
+  }
+
+  var year = Math.min(1000, 19 * 19 * (bKullishay - 1) + 19 * (bVahid - 1) + bYearInVahid);
+  changeYear(null, null, year);
 }
 
 function changeToBDate(ev) {
@@ -182,7 +248,8 @@ function changeToBDate(ev) {
     return; // wait for keypress
   }
 
-  var bYear = $('#bYearPicker').val();
+  var input = $(ev.target);
+  var bYear = input.hasClass('bYearPicker') ? input.val() : $('.bYearPicker').val(); // we have 2... use this one
   if (bYear === '') return;
   bYear = +bYear;
   // fix to our supported range
@@ -246,7 +313,7 @@ function addSamples(di) {
 }
 
 function keyPressed(ev) {
-  if (ev.altKey || ev.ctrlKey || ev.shiftKey) {
+  if (ev.altKey || ev.ctrlKey) {
     return;
   }
   var key = String.fromCharCode(ev.which) || '';
@@ -255,11 +322,19 @@ function keyPressed(ev) {
       return; // 08 (ALT) causes a crashes
 
     case 37: //left
-      changeDay(null, -1);
+      if (ev.shiftKey) {
+        changeYear(null, -1);
+      } else {
+        changeDay(null, -1);
+      }
       ev.preventDefault();
       return;
     case 39: //right
-      changeDay(null, 1);
+      if (ev.shiftKey) {
+        changeYear(null, 1);
+      } else {
+        changeDay(null, 1);
+      }
       ev.preventDefault();
       return;
 
@@ -287,14 +362,16 @@ function keyPressed(ev) {
       return;
 
     default:
-      try {
-        var sample = $('#key' + key);
-        if (sample.length) {
-          sample.trigger('click'); // effective if a used letter is typed
-          ev.preventDefault();
+      if (_enableSampleKeys) {
+        try {
+          var sample = $('#key' + key);
+          if (sample.length) {
+            sample.trigger('click'); // effective if a used letter is typed
+            ev.preventDefault();
+          }
+        } catch (ex) {
+          // ignore jquery error
         }
-      } catch (ex) {
-        // ignore jquery error
       }
       return;
   }
@@ -366,6 +443,17 @@ function jumpToDate(ev) {
   }
 }
 
+function changeYear(ev, delta, targetYear) {
+  delta = ev ? +$(ev.target).data('delta') : +delta;
+
+  var year = targetYear ? targetYear : _di.bYear + delta;
+  var gDate = holyDays.getGDate(year, _di.bMonth, _di.bDay, true);
+  _targetDate = gDate;
+
+  refreshDateInfo();
+  showInfo(_di);
+}
+
 function changeDay(ev, delta) {
   delta = ev ? +$(ev.target).data('delta') : +delta;
   if (delta === 0) {
@@ -422,14 +510,18 @@ function fillStatic() {
       meaning: bYearInVahidMeaning[i]
     });
   }
-  $('#vahidListBody').html('<tr class=vahidListNum{num}><td>{num}</td><td>{arabic}</td><td>{meaning}</td></tr>'.filledWithEach(nameList));
+  $('#yearListBody').html('<tr class=yearListNum{num}><td>{num}</td><td>{arabic}</td><td>{meaning}</td></tr>'.filledWithEach(nameList));
 }
 function updateStatic(di) {
   $('#lists table tr.selected').removeClass('selected');
   $('#lists table tr.selectedDay').removeClass('selectedDay');
-  $('.vahidListNum{bVahid}, .monthListNum{bMonth}'.filledWith(di)).addClass('selected');
-  $('.dayListNum{bDay}, .weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
-
+  $('.yearListNum{bYearInVahid}, .monthListNum{bMonth}'.filledWith(di)).addClass('selected');
+  if (di.bMonth !== 0) {
+    $('.dayListNum{bDay}, .weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
+  } else {
+    // ayyam-i-ha
+    $('.weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
+  }
   if (_cal1) {
     _cal1.showCalendar(di);
   }
