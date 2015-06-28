@@ -212,6 +212,10 @@
   "prevYearTitle": { "message": "Press Shift + Left Arrow to view the previous year", "description": "hold Shift and press left arrow key" },
   "nextYearTitle": { "message": "Press Shift + Right Arrow to view the next Year", "description": "hold Shift and press right arrow key" },
 
+  "new_messages_1_3_6": { "message": "" },
+  "jumpTo": { "message": "<u>J</u>ump ± days", "description": "user can enter a day after/before currently selected day" },
+  "btnJumpTo": { "message": "Go", "description": "" },
+  "btnJumpToTitle": { "message": "Move forward or backward by this number of days", "description": "tooltip" },
 
   "x": { "message": "", "description": "" }
 }

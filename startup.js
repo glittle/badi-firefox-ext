@@ -1,10 +1,11 @@
+/* Code by Glen Little */
 /* global setStorage */
 /* global di */
 /* global chrome */
 
 function prepare(){
   chrome.alarms.clearAll();
-  localStorage.clear(); 
+  // localStorage.clear(); 
 
   registerHandlers();
 

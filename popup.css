@@ -331,7 +331,7 @@ body.pt_PT #page2a div {
     }
 
 
-button.btnChangeDay, #btnEveOrDay, button.btnChangeYear {
+button.btnChangeDay, #btnEveOrDay, button.btnChangeYear, button.btnJumpTo {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
   background-color: #77b55a;
   border-radius: 4px;
@@ -525,17 +525,6 @@ input.bYearPicker {
   width: 50px;
 }
 
-#iFrameCal1 {
-  display: none;
-  position: absolute;
-  border: none;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
 .fullPage {
   border: 1px solid green;
   border-radius: 3px;
@@ -580,13 +569,25 @@ input.bYearPicker {
   margin-top: 2px;
 }
 
-.vahidInputs > div {
-  display: inline-block;
-}
-.vahidInputs > div > span{
-  display: block;
-}
+  .vahidInputs > div {
+    display: inline-block;
+  }
+
+    .vahidInputs > div > span {
+      display: block;
+    }
 
 .nobreak {
   white-space: nowrap;
+}
+
+.JumpDays {
+  position: absolute;
+  bottom: 0;
+  right: -110px;
+}
+
+#yearPicker input.jumpTo {
+  width: 45px;
+  text-align: right;
 }

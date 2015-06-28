@@ -17,12 +17,12 @@
   "ordinal": { "message": "º", "description": "x,1,2,3" },
   "ordinalNames": { "message": ",primeiro,segundo,terceiro,quarto,quinto,sexto,sétimo,oitavo,nono,décimo,décimo primeiro,décimo segundo,décimo terceiro,décimo quarto,décimo quinto,décimo sexto,décimo sétimo,décimo oitavo,décimo nono", "description": "" },
   "sampleFootnote": { "message": "Data Gregorianas mudam antes/depois por-do-sol", "description": "" },
-  "pressToCopy": { "message": "Prima uma tecla para copiar data formatada para o area de transferência:", "description": "Prima botão do rato ou tecla correspondente" },
-  "afterSunset": { "message": "noite - após por-d-sol", "description": "" },
-  "beforeSunset": { "message": "dia - antes por-do-sol", "description": "" },
-  "dayStartedFuture": { "message": "Inicia em", "description": "" },
+  "pressToCopy": { "message": "Prima uma tecla para copiar data formatada para a área de transferência:", "description": "Prima botão do rato ou tecla correspondente" },
+  "afterSunset": { "message": "noite - após pôr-do-sol", "description": "" },
+  "beforeSunset": { "message": "dia - antes pôr-do-sol", "description": "" },
+  "dayStartedFuture": { "message": "Inicia", "description": "" },
   "dayStartedPast": { "message": "Iniciado", "description": "" },
-  "dayEndedFuture": { "message": "Termina em", "description": "" },
+  "dayEndedFuture": { "message": "Termina", "description": "" },
   "dayEndedPast": { "message": "Terminado", "description": "" },
   "suggestions": { "message": "Sugestões?", "description": "" },
   "suggestionsTitle": { "message": "Clique aqui e envie envie qualquer sugestão para melhorar esta extensão!", "description": "" },
@@ -30,10 +30,10 @@
   "upcomingTitle": { "message": "Festas, Dias Sagrados e outros eventos seguintes", "description": "" },
   "gDatePickerTitle": { "message": "Data Gregoriana", "description": "" },
   "gDatePickerTitle2": { "message": "Escolha Data <u>G</u>regoriana", "description": "changed in 1.1.2" },
-  "prev": { "message": "&#8592; Prev", "description": "" },
+  "prev": { "message": "&#8592; Ant.", "description": "" },
   "gotoNow": { "message": "Agora", "description": "" },
-  "next": { "message": "Seguinte &#8594;", "description": "" },
-  "btnEveOrDay": { "message": "Antes &#8593; &#8595; Depois por-do-sol", "description": "" },
+  "next": { "message": "Seg. &#8594;", "description": "" },
+  "btnEveOrDay": { "message": "Antes &#8593; &#8595; Depois pôr-do-sol", "description": "" },
   "version": { "message": "Version {0}", "description": "" },
 
 
@@ -45,7 +45,7 @@
   "facebook": { "message": "Facebook", "description": "ALT para icone na parte inferior da página" },
   "googlePlus": { "message": "Google+", "description": "ALT para icone na parte inferior da página" },
   "shoghiExample": {
-    "message": "Este é o dia {bDayNameAr}, da semana {bWeekdayNameAr}, do mês {bMonthNameAr}, do ano {bYearInVahidNameAr}, do Váhid of {bVahidOrdinalName}, do Kull-i-<u>Sh</u>ay’ {bKullishayOrdinalName}.", 
+    "message": "Este é o dia {bDayNameAr}, da semana {bWeekdayNameAr}, do mês {bMonthNameAr}, do ano {bYearInVahidNameAr}, do {bVahidOrdinalName} Váhid, do {bKullishayOrdinalName} Kull-i-<u>Sh</u>ay’.", 
         "description": "Exemplo dado por Shoghi Effendi"
   },
   "example2": { "message": "{bMonthNameAr} {bDay} {dayStartedLower} ao pôr-do-sol (about {startingSunsetDesc}) em {frag1WeekdayLong}, {frag1MonthShort} {frag1Day} and {dayEndedLower} ao pôr-do-sol (about {endingSunsetDesc}) <span class=nobreak>em {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.</span>", "description": "" },
@@ -198,7 +198,7 @@
   "pick_pageCal1": { "message": "Ano" },
   "elements": { "message": "Fogo,Ar,Água,Terra", "description": " designações do Bab's , encontradas em https://books.google.ca/books?id=XTfoaK15t64C&pg=PA394&lpg=PA394&dq=get+of+the+heart+nader+bab&source=bl&ots=vyF-pWLAr8&sig=ruiuoE48sGWWgaB_AFKcSfkHvqw&hl=en&sa=X&ei=hbp0VfGwIon6oQSTk4Mg&ved=0CDAQ6AEwAw#v=snippet&q=%22air%20of%20eternity%22&f=false' " },
   "tips": { "message": "Sugestões", "description": "sugestões para uso desta ferramenta" },
-  "tipsText": { "message": "Usar teclas PgUp/PgDn para seleccionar paineis.\nUsar setas Esquerda/Direita para mudar os dias.\nUsar setas cima/Baixo para alternar entre antes/depois do por-do-sol.", "description": "" },
+  "tipsText": { "message": "Usar teclas PgUp/PgDn para seleccionar paineis.\nUsar setas Esquerda/Direita para mudar os dias.\nUsar setas cima/Baixo para alternar entre antes/depois do pôr-do-sol.", "description": "" },
   "shortcutKeyTitle": { "message": "Prima esta combinação de teclas para abrir o calendário em qualquer área do Chrome.", "description": "" },
 
 
@@ -212,6 +212,11 @@
   "prevYearTitle": { "message": "Prima Shift + seta Esquerda para ver ano anterior ", "description": "prima Shift e seta Esquerda" },
   "nextYearTitle": { "message": "Prima Shift + Seta Direita para ver ano seguinte", "description": "prima Shift e seta Direita" },
 
+  
+  "new_messages_1_3_6": { "message": "" },
+  "jumpTo": { "message": "<u>M</u>over ± dias", "description": "user can enter a day after/before currently selected day" },
+  "btnJumpTo": { "message": "Ir", "description": "" },
+  "btnJumpToTitle": { "message": "Mover para a frente ou para trás este número de dias", "description": "tooltip" },
 
   "x": { "message": "", "description": "" }
 }

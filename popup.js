@@ -1,3 +1,4 @@
+/* Code by Glen Little */
 /* global getStorage */
 /* global getMessage */
 /* global di */
@@ -9,10 +10,16 @@ var _changingBDate = false;
 var _currentPageNum = 0;
 var _cal1 = null;
 var _enableSampleKeys = true;
+var _pageHitTimeout = null;
+var tracker = null;
 
 samplesDiv.on('click', 'button', copySample);
 $('.btnChangeDay').on('click', changeDay);
 $('.btnChangeYear').on('click', changeYear);
+
+$('.btnJumpTo').on('click', moveDays);
+$('.jumpTo').val(getStorage('jumpTo', '0'));
+
 $('.bDatePickerInputs input, .bYearPicker').on('change paste keydown keypress', changeToBDate);
 $('.bKullishayPicker, .bVahidPicker, .bYearInVahidPicker').on('change paste keydown keypress', changeInVahid);
 
@@ -30,7 +37,7 @@ $('#datePicker').on('keydown', function (ev) {
 });
 $('.pagePicker').on('click', 'button', changePage);
 $(document).on('keydown', keyPressed);
-$('#btnCal1').on('click', showCal1);
+//$('#btnCal1').on('click', showCal1);
 $('.iconArea a').click(function () {
   chrome.tabs.create({ active: true, url: this.href });
 });
@@ -38,8 +45,6 @@ $('.iconArea a').click(function () {
 chrome.alarms.onAlarm.addListener(function () {
   showInfo(_di);
 });
-
-$('#sampleTitle').html(getMessage('pressToCopy'));
 
 var sampleNum = 0;
 
@@ -183,6 +188,12 @@ function showPage(id) {
 
   btns.removeClass('showing');
   btns.filter('*[data-page="{0}"]'.filledWith(id)).addClass('showing');
+
+  clearTimeout(_pageHitTimeout);
+  // delay a bit, to ensure we are not just moving past this page
+  _pageHitTimeout = setTimeout(function () {
+    tracker.sendAppView(id);
+  }, 500);
 }
 
 function changeInVahid(ev) {
@@ -208,31 +219,69 @@ function changeInVahid(ev) {
   if (bYearInVahid === '') return;
   bYearInVahid = +bYearInVahid;
 
+  var maxKullishay = 3;
+
   // fix to our supported range
   if (bYearInVahid < 1) {
-    bYearInVahid = 19;
     bVahid--;
+    if (bVahid < 1) {
+      bKullishay--;
+      if (bKullishay < 1) {
+        bKullishay = 1;
+      }
+      else {
+        bVahid = 19;
+        bYearInVahid = 19;
+      }
+    }
+    else {
+      bYearInVahid = 19;
+    }
   }
   if (bYearInVahid > 19) {
-    bYearInVahid = 1;
     bVahid++;
+    if (bVahid > 19) {
+      bKullishay++;
+      if (bKullishay > maxKullishay) {
+        bKullishay = maxKullishay;
+      }
+      else {
+        bVahid = 1;
+        bYearInVahid = 1;
+      }
+    }
+    else {
+      bYearInVahid = 1;
+    }
   }
 
   if (bVahid < 1) {
-    bVahid = 19;
     bKullishay--;
+    if (bKullishay < 1) {
+      bKullishay = 1;
+    }
+    else {
+      bVahid = 19;
+    }
   }
   if (bVahid > 19) {
-    bVahid = 1;
     bKullishay++;
+    if (bKullishay > maxKullishay) {
+      bKullishay = maxKullishay;
+    }
+    else {
+      bVahid = 1;
+    }
   }
 
   if (bKullishay < 1) {
     bKullishay = 1;
   }
-  if (bKullishay > 3) {
-    bKullishay = 3;
+  if (bKullishay > maxKullishay) {
+    bKullishay = maxKullishay;
   }
+
+  tracker.sendEvent('changeInVahid', bKullishay + '-' + bVahid + '-' + bYearInVahid);
 
   var year = Math.min(1000, 19 * 19 * (bKullishay - 1) + 19 * (bVahid - 1) + bYearInVahid);
   changeYear(null, null, year);
@@ -261,6 +310,8 @@ function changeToBDate(ev) {
 
   var bDay = $('#bDayPicker').val();
   if (bDay === '') return;
+
+  tracker.sendEvent('changeToBDate', bYear + '.' + bMonth + '.' + bDay);
 
   try {
     var gDate = holyDays.getGDate(+bYear, +bMonth, +bDay, true);
@@ -408,6 +459,9 @@ function clearSamples() {
 
 function copySample(ev) {
   var btn = $(ev.target);
+  var letter = btn.text();
+  tracker.sendEvent('sample', letter);
+
   var div = btn.closest('div');
   var text = div.find('span').text();
   $('#sampleCopy').val(text).focus().select();
@@ -429,6 +483,42 @@ function toggleEveOrDay(toEve) {
   } else {
     _targetDate.setHours(12, 0, 0, 0);
   }
+
+  tracker.sendEvent('toggleEveDay', toEve ? 'Eve' : 'Day');
+
+  refreshDateInfo();
+  showInfo(_di);
+}
+
+function moveDays(ev) {
+  var input = $('input.jumpTo');
+  var days = +input.val();
+  if (!days) {
+    days = 0;
+    input.val(days);
+  } else {
+    var min = +input.attr('min');
+    if (days < min) {
+      days = min;
+      input.val(days);
+    }
+    else {
+      var max = +input.attr('max');
+      if (days > max) {
+        days = max;
+        input.val(days);
+      }
+    }
+  }
+  setStorage('jumpTo', days);
+  tracker.sendEvent('jumpDays', days);
+
+  if (!days) {
+    return;
+  }
+  var target = new Date(_di.currentTime);
+  target.setTime(target.getTime() + days * 86400000);
+  _targetDate = target;
   refreshDateInfo();
   showInfo(_di);
 }
@@ -446,15 +536,19 @@ function jumpToDate(ev) {
 function changeYear(ev, delta, targetYear) {
   delta = ev ? +$(ev.target).data('delta') : +delta;
 
+
   var year = targetYear ? targetYear : _di.bYear + delta;
   var gDate = holyDays.getGDate(year, _di.bMonth, _di.bDay, true);
   _targetDate = gDate;
+
+  tracker.sendEvent('changeYear', delta);
 
   refreshDateInfo();
   showInfo(_di);
 }
 
 function changeDay(ev, delta) {
+
   delta = ev ? +$(ev.target).data('delta') : +delta;
   if (delta === 0) {
     _targetDate = null;
@@ -464,6 +558,8 @@ function changeDay(ev, delta) {
 
     _targetDate.setDate(_targetDate.getDate() + delta);
   }
+
+  tracker.sendEvent('changeDay', delta);
 
   _targetDate = getCurrentTime();
 
@@ -565,6 +661,8 @@ function showCal1() {
 }
 
 $(function () {
+  prepareAnalytics();
+
   showPage('pageDay');
 
   refreshDateInfo();

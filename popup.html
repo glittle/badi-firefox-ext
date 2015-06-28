@@ -31,8 +31,8 @@
 
         <div class="vahidInputs">
           <div>
-            <span data-msg="Kullishay"></span>
-            <input class=bKullishayPicker type=number min=1 max=3>
+            <span data-msg="Kullishay,extractAccessKeyFor:kullishayPicker"></span>
+            <input class=bKullishayPicker id="kullishayPicker" type=number min=1 max=3>
           </div>
           <div>
             <span data-msg="Vahid"></span>
@@ -43,6 +43,15 @@
             <input class=bYearInVahidPicker type=number max=20 min=0>
           </div>
         </div>
+
+        <div class="JumpDays">
+          <div>
+            <div data-msg="jumpTo,extractAccessKeyFor:jumpTo"></div>
+            <input class=jumpTo id="jumpTo" type=number min=-9999 max=9999>
+            <button type=button class=btnJumpTo data-msg="btnJumpTo,title:btnJumpToTitle"></button>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -87,7 +96,7 @@
       <div id=dayDetails></div>
       <div class=spacer>&nbsp;</div>
       <div id=samples>
-        <div id=sampleTitle></div>
+        <div id=sampleTitle data-msg="pressToCopy"></div>
         <div id=sampleList1></div>
         <div id=sampleFootnote data-msg="_id_"></div>
         <div id=sampleList2></div>
@@ -148,7 +157,6 @@
   <div id=explain class="explains"></div>
   <div id=explain2 class="explains"></div>
   <textarea id=sampleCopy></textarea>
-  <iframe id="iFrameCal1"></iframe>
   <div class="iconArea">
     <span id=tips data-msg="tips,title:tipsText"></span>
 
@@ -170,6 +178,7 @@
        target="_top" data-msg="suggestions,title:suggestionsTitle"></a>
     <span id=shortcutKeys data-msg="title:shortcutKeyTitle"></span>
   </div>
+  <script src="google-analytics-bundle.js"></script>
   <script src="holydays.js"></script>
   <script src="shared.js"></script>
   <script src="popup.js"></script>
