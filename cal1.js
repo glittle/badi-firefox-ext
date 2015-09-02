@@ -110,7 +110,10 @@ var Cal1 = function (di, host) {
 
 
       gMonthHtml.push('<div class=gm>');
-      gMonthHtml.push('<div class="gmInitial"></div>');
+
+      var gd = holyDays.getGDate(di.bYear, bm, 1, false);
+      var gMonthName = host.gMonthShort[gd.getMonth()];
+      gMonthHtml.push('<div class="gmInitial gma0">{0}</div>'.filledWith(gMonthName));
 
       for (var bd = 1; bd <= 19; bd++) {
 
@@ -122,7 +125,7 @@ var Cal1 = function (di, host) {
           bdTip = ' title="' + getMessage(holyDay.NameEn) + '"';
         }
 
-        var gd = holyDays.getGDate(di.bYear, bm, bd, false);
+        gd = holyDays.getGDate(di.bYear, bm, bd, false);
         var gDayOfMonth = gd.getDate();
 
         var dow = gd.getDay();
@@ -135,8 +138,8 @@ var Cal1 = function (di, host) {
           currentDay00: digitPad2(gDayOfMonth)
         });
 
-        if (gDayOfMonth == 1) {
-          var gMonthName = host.gMonthShort[gd.getMonth()];
+        if (gDayOfMonth == 1 && bd != 1) {
+          gMonthName = host.gMonthShort[gd.getMonth()];
           gMonthAlt = 1 - gMonthAlt;
           gMonthHtml.push('<div class="gd gd1 dow{1} gma{2}{3} g{4}"><i>{0} 1</i></div>'.filledWith(
             gMonthName,
@@ -148,7 +151,7 @@ var Cal1 = function (di, host) {
           gMonthHtml.push('<div class="gd dow{1}{2}{3} gma{4}{6} g{7}"><b>{0}</b>{5}</div>'.filledWith(
             gDayOfMonth,
             dow,
-            gDayOfMonth == 1 ? ' gd1' : '',
+            gDayOfMonth == 1 && bd != 1 ? ' gd1' : '',
             gDayOfMonth % 2 ? ' gAlt' : '',
             gMonthAlt,
             host.gWeekdayShort[dow],

@@ -118,6 +118,8 @@ function getDateInfo(currentTime, skipUpcoming) {
   di.bWeekdayNameAr = bWeekdayNameAr[di.bWeekday];
   di.bWeekdayMeaning = bWeekdayMeaning[di.bWeekday];
 
+  di.element = elements[getElementNum(bNow.m) - 1];
+
   di.bDayOrdinal = di.bDay + getOrdinal(di.bDay);
   di.bVahidOrdinal = di.bVahid + getOrdinal(di.bVahid);
   di.bKullishayOrdinal = di.bKullishay + getOrdinal(di.bKullishay);
@@ -151,6 +153,7 @@ function getDateInfo(currentTime, skipUpcoming) {
   di.currentWeekdayLong = gWeekdayLong[di.currentWeekday];
   di.currentWeekdayShort = gWeekdayShort[di.currentWeekday];
   di.currentDateString = moment(di.currentTime).format('YYYY-MM-DD');
+
 
   di.currentRelationToSunset = getMessage(bNow.eve ? 'afterSunset' : 'beforeSunset');
   var thisMoment = new Date().getTime();
@@ -192,6 +195,22 @@ function getDateInfo(currentTime, skipUpcoming) {
   return di;
 }
 
+function getElementNum(monthNum) {
+  // the Bab's designations, found in 'https://books.google.ca/books?id=XTfoaK15t64C&pg=PA394&lpg=PA394&dq=get+of+the+heart+nader+bab&source=bl&ots=vyF-pWLAr8&sig=ruiuoE48sGWWgaB_AFKcSfkHvqw&hl=en&sa=X&ei=hbp0VfGwIon6oQSTk4Mg&ved=0CDAQ6AEwAw#v=snippet&q=%22air%20of%20eternity%22&f=false'
+
+  //  1, 2, 3
+  //  4, 5, 6, 7
+  //  8, 9,10,11,12,13
+  // 14,15,16,17,18,19
+  if (monthNum >= 4 && monthNum <= 7) {
+    return 2;
+  } else if (monthNum >= 8 && monthNum <= 13) {
+    return 3;
+  } else if (monthNum >= 14 && monthNum <= 19) {
+    return 4;
+  }
+  return 1;
+}
 
 function showIcon(dateInfo) {
   var tipLines = [];

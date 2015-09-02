@@ -114,7 +114,7 @@
     "description": "Jamál / Bahá, 1st ‘Aẓamat     or [weekday] / [monthday], [day no.] [month] - james@19months.com"
   },
   "sampleGroup1_8": {
-    "message": "{bDay} {bMonthNameAr} {bYear} {eraShort} / {currentDay} {currentMonthLong} {currentYear}",
+    "message": "{bDay} {bMonthNameAr} {bYear} {bEraShort} / {currentDay} {currentMonthLong} {currentYear}",
     "description": "3 Jamál 172 BE / 30 April 2015 -- Calgary LSA"
   },
   "sampleGroup1_9": {

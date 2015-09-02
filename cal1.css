@@ -125,8 +125,11 @@
 }
 
 .gmInitial {
-  width: 95px; /* bmName width + offset */
+  width: 93px; /* bmName width + offset */
+  padding-right: 2px;
+  text-align: right;
   display: inline-block;
+  font-weight: 500;
 }
 
 .gLast {
@@ -191,7 +194,7 @@
   display: inline-block;
   width: 12px;
   height: 12px;
-  background: url(./star12.gif);
+  background: url(./star12c.gif);
   margin: -2px 1px 0 0;
   position: absolute;
   right: 1px;
