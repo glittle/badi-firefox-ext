@@ -6,11 +6,12 @@
 * Add page listing year's Holy Days and Feasts with start times
 * Handle dates before/after supported range
 * Make less cluttered
+* Show in full browser window
 
-### Features ###
+### Current Features ###
 
 * Pick any Badí' date and see Gregorian date
-* Calendare view
+* Calendar view
 * Keystrokes to change dates/years
 
 
