@@ -70,6 +70,7 @@ function showInfo(di) {
   $('#day').html(getMessage('bTopDayDisplay', di));
   $('#sunset').html(di.nearestSunset);
   $('#gDay').html(getMessage('gTopDayDisplay', di));
+  $('#gDayWithSunset').html(getMessage('gTopDayDisplay', di) + ' - ' + getMessage(di.bNow.eve ? 'startingSunsetDesc' : 'endingSunsetDesc', di));
 
   $('#dayDetails').html('<dl>' + '<dt>{^name}</dt><dd>{^value}</dd>'.filledWithEach(dayDetails) + '</dl>');
 
@@ -164,25 +165,25 @@ function showPage(id) {
   pages.hide();
   pages.filter('#' + id).show();
 
-  var forNormalDisplay = '#upcoming, #upcomingTitle, .midSection, .explains, .normal';
+  var forNormalDisplay = '#gDay, #upcoming, #upcomingTitle, .midSection, .explains, .normal';
   switch (id) {
+    case 'pageDay':
+      $(forNormalDisplay).show();
+      $('#yearPicker, #gDayWithSunset').hide();
+      _enableSampleKeys = true;
+      break;
+
     case 'pageCal1':
       $(forNormalDisplay).hide();
-      $('#yearPicker').show();
+      $('#yearPicker, #gDayWithSunset').show();
       _enableSampleKeys = false;
       break;
 
     case 'pageLists':
       $(forNormalDisplay).hide();
-      $('.midSection').show();
+      $('.midSection, #gDayWithSunset').show();
       $('#yearPicker').hide();
       _enableSampleKeys = false;
-      break;
-
-    case 'pageDay':
-      $(forNormalDisplay).show();
-      $('#yearPicker').hide();
-      _enableSampleKeys = true;
       break;
   }
 
@@ -339,21 +340,21 @@ function addSamples(di) {
   var msg;
   var notInMessagesJson = '_$$$_';
 
-  for (var sampleGroupNum = 1; ; sampleGroupNum++) {
+  for (var sampleGroupNum = 1; sampleGroupNum < 9; sampleGroupNum++) {
     var test = 'sampleGroup{0}_1'.filledWith(sampleGroupNum);
     msg = getMessage(test, null, notInMessagesJson);
     if (msg === notInMessagesJson) {
-      break;
+      continue;
     }
     if (sampleGroupNum === 2) {
       showFootnote = true;
     }
 
-    for (var sampleNum = 1; ; sampleNum++) {
+    for (var sampleNum = 1; sampleNum < 99; sampleNum++) {
       var key = 'sampleGroup{0}_{1}'.filledWith(sampleGroupNum, sampleNum);
       msg = getMessage(key, di, notInMessagesJson);
       if (msg === notInMessagesJson) {
-        break;
+        continue;
       }
 
       addSample(msg, sampleGroupNum);

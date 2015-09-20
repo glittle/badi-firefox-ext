@@ -1,593 +1,604 @@
 body {
-  margin: 0;
-  width: 100%;
-  height: auto;
+    margin: 0;
+    width: 100%;
+    height: auto;
+    font-family: Geneva, 'Segoe UI';
+    font-size: 75%;
 }
 
 #show {
-  width: 430px;
-  display: table-cell;
-  white-space: nowrap;
-  font-size: 1.25em;
-  font-family: Tahoma;
-  text-align: center;
+    width: 430px;
+    display: table-cell;
+    white-space: nowrap;
+    font-size: 1.25em;
+    /*font-family: Geneva;*/
+    text-align: center;
 }
 
 #day {
-  font-size: 1.25em;
-  display: inline-block;
-  margin-top: 14px;
-  margin-bottom: 9px;
+    font-size: 1.25em;
+    display: inline-block;
+    margin-top: 14px;
+    margin-bottom: 9px;
 }
 
-  #day.withSpecial {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+    #day.withSpecial {
+        margin-top: 0;
+        margin-bottom: -1px;
+    }
 
 #special {
+    margin-top: -1px;
 }
 
 #special1 {
-  font-size: 1.25em;
-  color: blue;
-  display: none;
+    font-size: 1.25em;
+    color: blue;
+    display: none;
 }
 
 #special2 {
-  font-size: 1.25em;
-  color: blue;
-  display: none;
+    font-size: 1.25em;
+    color: blue;
+    display: none;
 }
 
 #sunset {
 }
 
 .sidebyside1 {
-  display: table;
-  margin: 0 10px;
-  width: 100%;
+    display: table;
+    margin: 0 10px;
+    width: 100%;
 }
 
 .sidebyside2 {
 }
 
 .midSection {
-  position: relative;
-  margin: 9px 16px 0 6px;
+    position: relative;
+    margin: 9px 16px 0 6px;
 }
 
 .sidebyside2 > div {
-  display: table-cell;
+    display: table-cell;
 }
 
 .spacerEnd {
-  width: 7px;
-  z-index: -1;
+    width: 7px;
+    z-index: -1;
 }
 
 div.pagePicker {
-  position: absolute;
-  right: 17px;
-  top: 104px;
-  display: block;
+    position: absolute;
+    right: 17px;
+    top: 104px;
+    display: block;
 }
 
 .pagePicker .buttons {
-  transform: rotate(-90deg);
-  transform-origin: top right;
-  padding-right: 5px;
+    transform: rotate(-90deg);
+    transform-origin: top right;
+    padding-right: 5px;
 }
 
-  .pagePicker .buttons button {
-    float: right;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
-    background-color: #b5775a;
-    border: 1px solid #8f4b29;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    font-family: Tahoma;
-    font-size: 11px;
-    transition: color 0.4s ease-out;
-    padding: 0px 5px 2px;
-    margin-left: 3px;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-    .pagePicker .buttons button.showing {
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
-      background-color: #77b55a;
-      border: 1px solid #4b8f29;
+    .pagePicker .buttons button {
+        float: right;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
+        background-color: #b5775a;
+        border: 1px solid #8f4b29;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        /*font-family: Geneva;*/
+        font-size: 11px;
+        transition: color 0.4s ease-out;
+        padding: 0px 5px 2px;
+        margin-left: 3px;
+        text-decoration: none;
+        white-space: nowrap;
     }
 
-    .pagePicker .buttons button:focus {
-      outline: none;
-    }
+        .pagePicker .buttons button.showing {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+            background-color: #77b55a;
+            border: 1px solid #4b8f29;
+        }
+
+        .pagePicker .buttons button:focus {
+            outline: none;
+        }
 
 #ayyamIs0 {
-  text-align: right;
-  padding-right: 9px;
+    text-align: right;
+    padding-right: 9px;
 }
 
 #shortcutKeys {
-  position: absolute;
-  right: 2px;
-  bottom: 2px;
-  font-size: 90%;
-  color: #999;
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    font-size: 90%;
+    color: #999;
 }
 
 #tips {
-  position: absolute;
-  left: 2px;
-  bottom: 2px;
-  font-size: 90%;
-  color: #999;
+    position: absolute;
+    left: 2px;
+    bottom: 2px;
+    font-size: 90%;
+    color: #999;
 }
 
 #locationErrorHolder {
-  display: none;
-  background: #ad0000;
-  color: white;
-  padding: 2px 2px 3px 2px;
-  margin: 6px 1px -11px 3px;
-  white-space: normal;
-  font-size: 9pt;
-  border-radius: 3px;
+    display: none;
+    background: #ad0000;
+    color: white;
+    padding: 2px 2px 3px 2px;
+    margin: 6px 1px -11px 3px;
+    white-space: normal;
+    font-size: 9pt;
+    border-radius: 3px;
 }
 
 #locationError {
-  margin-left: 30px;
-  display: block;
-  text-align: left;
+    margin-left: 30px;
+    display: block;
+    text-align: left;
 }
 
 #btnRetry {
-  background: url(./ajax-loader-img.gif) no-repeat;
-  cursor: pointer;
-  border: none;
-  width: 16px;
-  height: 16px;
-  float: left;
-  margin-top: 5px;
-  margin-left: 5px;
+    background: url(./ajax-loader-img.gif) no-repeat;
+    cursor: pointer;
+    border: none;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
 }
 
-  #btnRetry.active {
-    background: url(./ajax-loader.gif) no-repeat;
-  }
+    #btnRetry.active {
+        background: url(./ajax-loader.gif) no-repeat;
+    }
 
-#place, #gDay {
-  font-size: .7em;
-  color: gray;
+#place, #gDay, #gDayWithSunset {
+    font-size: .7em;
+    color: gray;
+}
+
+#gDayWithSunset{
+    display: none;
 }
 
 #showUpcoming {
-  padding: 5px 0;
-  display: table-cell;
-  vertical-align: top;
-  width: 339px;
-  position: relative;
+    padding: 5px 0;
+    display: table-cell;
+    vertical-align: top;
+    width: 339px;
+    position: relative;
 }
 
 tr.M {
-  color: darkgoldenrod;
+    color: darkgoldenrod;
 }
 
 tr.HS {
-  color: darkblue;
+    color: darkblue;
 }
 
 tr.OtherRange {
-  color: gray;
+    color: gray;
 }
 
 #dayDetails {
-  border: 1px solid rgba(0, 3, 255, 0.67);
-  border-radius: 3px;
-  padding: 5px;
-  display: table-cell;
-  vertical-align: top;
+    border: 1px solid rgba(0, 3, 255, 0.67);
+    border-radius: 3px;
+    padding: 5px;
+    display: table-cell;
+    vertical-align: top;
 }
 
 
 dl {
-  text-align: left;
-  margin: 0;
-  width: 160px;
+    text-align: left;
+    margin: 0;
+    width: 160px;
 }
 
 dt {
-  color: green;
-  opacity: 0.7;
-  white-space: nowrap;
+    color: green;
+    opacity: 0.7;
+    white-space: nowrap;
 }
 
 dd {
-  margin-left: 9px;
-  margin-bottom: .4em;
+    margin-left: 9px;
+    margin-bottom: .4em;
 }
 
 .comment {
-  color: green;
-  opacity: 0.6;
-  font-size: 90%;
+    color: green;
+    opacity: 0.6;
+    font-size: 90%;
 }
 
 
 #samples {
-  font-size: 1em;
-  border: 1px solid green;
-  border-radius: 3px;
-  padding: 5px;
-  position: relative;
-  display: table-cell;
-  vertical-align: top;
-  white-space: nowrap;
+    font-size: 1em;
+    border: 1px solid green;
+    border-radius: 3px;
+    padding: 5px;
+    position: relative;
+    display: table-cell;
+    vertical-align: top;
+    white-space: nowrap;
 }
 
 #samplesList div {
-  margin: 2px auto;
+    margin: 2px auto;
 }
 
 #sampleTitle {
-  color: green;
-  opacity: 0.7;
-  width: 370px;
-  white-space: nowrap;
+    color: green;
+    opacity: 0.7;
+    width: 370px;
+    white-space: nowrap;
 }
 
 body.pt_PT #sampleTitle {
-  width: 410px;
+    width: 410px;
 }
 
 #sampleFootnote {
-  color: green;
-  opacity: 0.7;
-  margin-top: 5px;
-  padding-left: 3px;
+    color: green;
+    opacity: 0.7;
+    margin-top: 5px;
+    padding-left: 3px;
 }
 
 #sampleCopy {
-  position: absolute;
-  top: -500px;
+    position: absolute;
+    top: -500px;
 }
 
 #pageLists {
-  display: none;
+    display: none;
 }
 
 #page2a div {
-  width: 70px;
+    width: 70px;
 }
 
 body.pt_PT #page2a div {
-  width: 60px;
+    width: 60px;
+}
+
+body.nl #page2a div {
+    width: 52px;
 }
 
 #page2lists {
-  font-size: 1em;
-  border: 1px solid green;
-  border-radius: 3px;
-  padding: 5px;
-  position: relative;
-  vertical-align: top;
-  white-space: nowrap;
+    font-size: 1em;
+    border: 1px solid green;
+    border-radius: 3px;
+    padding: 5px;
+    position: relative;
+    vertical-align: top;
+    white-space: nowrap;
 }
 
 #lists {
-  padding: 0px 20px 0 5px;
-  vertical-align: top;
+    padding: 0px 20px 0 5px;
+    vertical-align: top;
 }
 
-  #lists table {
-    vertical-align: top;
-    border-spacing: 0;
-    border-collapse: collapse;
-    display: inline-block;
-    margin-right: 20px;
-  }
-
-    #lists table caption {
-      color: green;
-      opacity: .7;
-      text-align: left;
+    #lists table {
+        vertical-align: top;
+        border-spacing: 0;
+        border-collapse: collapse;
+        display: inline-block;
+        margin-right: 20px;
     }
 
-    #lists table th {
-      text-align: left;
-    }
+        #lists table caption {
+            color: green;
+            opacity: .7;
+            text-align: left;
+        }
 
-    #lists table th,
-    #lists table td {
-      padding: 0 6px 0 4px;
-    }
+        #lists table th {
+            text-align: left;
+        }
 
-    #lists table tr td:first-child,
-    #lists table tr th:first-child {
-      text-align: right;
-    }
+        #lists table th,
+        #lists table td {
+            padding: 0 6px 0 4px;
+        }
 
-    #lists table tr.selectedDay td {
-      color: blue;
-    }
+        #lists table tr td:first-child,
+        #lists table tr th:first-child {
+            text-align: right;
+        }
 
-    #lists table tr.selectedDay {
-      background-color: #eee;
-    }
+        #lists table tr.selectedDay td {
+            color: blue;
+        }
 
-    #lists table #monthListBody tr.selected {
-      background-color: #ddd;
-      color: green;
-    }
+        #lists table tr.selectedDay {
+            background-color: #eee;
+        }
 
-    #lists table #yearListBody tr.selected {
-      background-color: #ddd;
-      color: #9a710c;
-    }
+        #lists table #monthListBody tr.selected {
+            background-color: #ddd;
+            color: green;
+        }
+
+        #lists table #yearListBody tr.selected {
+            background-color: #ddd;
+            color: #9a710c;
+        }
 
 
 button.btnChangeDay, #btnEveOrDay, button.btnChangeYear, button.btnJumpTo {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
-  background-color: #77b55a;
-  border-radius: 4px;
-  border: 1px solid #4b8f29;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: Tahoma;
-  font-size: 11px;
-  line-height: 14px;
-  transition: color 0.4s ease-out;
-  padding: 1px 2px;
-  text-decoration: none;
-  min-width: 15px;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+    background-color: #77b55a;
+    border-radius: 4px;
+    border: 1px solid #4b8f29;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Geneva, 'Segoe UI';
+    font-size: 11px;
+    line-height: 14px;
+    transition: color 0.4s ease-out;
+    padding: 1px 2px;
+    text-decoration: none;
+    min-width: 15px;
 }
 
 #btnEveOrDay {
-  display: block;
-  margin: 3px auto 0 auto;
+    display: block;
+    margin: 3px auto 0 auto;
 }
 
 button.today.notToday {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
-  background-color: #b5775a;
-  border: 1px solid #8f4b29;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
+    background-color: #b5775a;
+    border: 1px solid #8f4b29;
 }
 
 #samples button {
-  vertical-align: text-bottom;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
-  background-color: #77b55a;
-  border-radius: 4px;
-  border: 1px solid #4b8f29;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: Tahoma;
-  font-size: 9px;
-  transition: color 0.4s ease-out;
-  padding: 1px 2px;
-  text-decoration: none;
-  min-width: 15px;
+    vertical-align: text-bottom;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+    background-color: #77b55a;
+    border-radius: 4px;
+    border: 1px solid #4b8f29;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    /*font-family: Geneva;*/
+    font-size: 9px;
+    transition: color 0.4s ease-out;
+    padding: 1px 2px;
+    text-decoration: none;
+    min-width: 15px;
 }
 
-  #samples button:hover {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, #77b55a));
-    background: -webkit-linear-gradient(top, #72b352 5%, #77b55a 100%);
-    background: linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
-    background-color: #72b352;
-  }
+    #samples button:hover {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, #77b55a));
+        background: -webkit-linear-gradient(top, #72b352 5%, #77b55a 100%);
+        background: linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+        background-color: #72b352;
+    }
 
-  #samples button:active {
-    position: relative;
-    top: 1px;
-  }
+    #samples button:active {
+        position: relative;
+        top: 1px;
+    }
 
 #samples div.copied button {
-  background: #b2f392;
-  color: #4b8f29;
-  transition: color 0.4s ease-out;
-}
-
-  #samples div.copied button:hover {
     background: #b2f392;
     color: #4b8f29;
-  }
+    transition: color 0.4s ease-out;
+}
+
+    #samples div.copied button:hover {
+        background: #b2f392;
+        color: #4b8f29;
+    }
 
 .iconArea {
-  margin: 15px 0 0 0;
-  text-align: center;
-  position: relative;
+    margin: 15px 0 0 0;
+    text-align: center;
+    position: relative;
 }
 
 #googlePlus img {
-  margin: 0 0 3px 5px;
+    margin: 0 0 3px 5px;
 }
 
 #facebook img {
-  margin: 0 5px 3px 0;
+    margin: 0 5px 3px 0;
 }
 
 #logo {
-  width: 22px;
+    width: 22px;
 }
 
 .explains {
-  text-align: center;
+    text-align: center;
 }
 
 #explain {
-  margin: 6px 6px 0 0;
+    margin: 6px 6px 0 0;
 }
 
 #explain2 {
-  margin: 3px 6px 0 0;
+    margin: 3px 6px 0 0;
 }
 
 #gDatePicker {
-  border: 1px solid #daaaaa;
-  border-radius: 3px;
-  padding: 5px;
-  display: table-cell;
-  vertical-align: top;
+    border: 1px solid #daaaaa;
+    border-radius: 3px;
+    padding: 5px;
+    display: table-cell;
+    vertical-align: top;
 }
 
 #gDatePickerTitle {
-  color: green;
-  opacity: 0.7;
-  width: 150px;
+    color: green;
+    opacity: 0.7;
+    width: 150px;
 }
 
 #gDatePickerTitle2 {
-  color: green;
-  opacity: 0.7;
-  margin: 6px 0 0 0;
+    color: green;
+    opacity: 0.7;
+    margin: 6px 0 0 0;
 }
 
 #bDatePickerTitle {
-  color: green;
-  opacity: 0.7;
-  margin: 6px 0 0 0;
+    color: green;
+    opacity: 0.7;
+    margin: 6px 0 0 0;
 }
 
 #upcomingTitle {
-  color: green;
-  text-decoration: underline;
-  font-size: 1.2em;
-  overflow: visible;
-  white-space: nowrap;
+    color: green;
+    text-decoration: underline;
+    font-size: 1.2em;
+    overflow: visible;
+    white-space: nowrap;
 }
 
 #upcoming {
-  width: 100%;
-  border-spacing: 1px 0px;
+    width: 100%;
+    border-spacing: 1px 0px;
 }
 
-  #upcoming td {
-    white-space: nowrap;
-  }
+    #upcoming td {
+        white-space: nowrap;
+    }
 
 .gDateButtons {
-  text-align: center;
+    text-align: center;
 }
 
 #gDate {
-  margin: 0 3px 0 9px;
-  white-space: nowrap;
+    margin: 0 3px 0 9px;
+    white-space: nowrap;
 }
 
 #gDateDesc {
-  margin: 0 3px 0 9px;
-  white-space: nowrap;
+    margin: 0 3px 0 9px;
+    white-space: nowrap;
 }
 
 #datePicker {
-  display: block;
-  margin: 0 auto 2px auto;
-  text-align: center;
-  font-family: Tahoma;
-  font-size: 11px;
+    display: block;
+    margin: 0 auto 2px auto;
+    text-align: center;
+    font-family: Geneva, 'Segoe UI';
+    font-size: 11px;
 }
 
 .textLink {
-  color: darkblue;
-  vertical-align: top;
-  display: inline-block;
-  margin: 3px 9px 0 6px;
+    color: darkblue;
+    vertical-align: top;
+    display: inline-block;
+    margin: 3px 9px 0 6px;
 }
 
 a.textLink {
-  text-decoration: none;
+    text-decoration: none;
 }
 
-  a.textLink:hover {
-    text-decoration: underline;
-  }
+    a.textLink:hover {
+        text-decoration: underline;
+    }
 
 .bDatePickerInputs {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
-  .bDatePickerInputs input {
-    font-size: 11px;
-    font-family: Tahoma;
-    text-align: center;
-    margin: 0;
-    width: 33px;
-  }
+    .bDatePickerInputs input {
+        font-size: 11px;
+        font-family: Geneva, 'Segoe UI';
+        text-align: center;
+        margin: 0;
+        width: 33px;
+    }
 
 input.bYearPicker {
-  width: 50px;
+    width: 50px;
 }
 
 .fullPage {
-  border: 1px solid green;
-  border-radius: 3px;
-  display: none;
-  margin: 5px 17px 5px 5px;
+    border: 1px solid green;
+    border-radius: 3px;
+    display: none;
+    margin: 5px 17px 5px 5px;
 }
 
 #yearPicker {
-  display: none;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  white-space: nowrap;
+    display: none;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    white-space: nowrap;
 }
 
-  #yearPicker input {
-    font-size: 11px;
-    font-family: Tahoma;
-    text-align: center;
-    margin: 0;
-  }
+    #yearPicker input {
+        font-size: 11px;
+        font-family: Geneva, 'Segoe UI';
+        text-align: center;
+        margin: 0;
+    }
 
 
 
 .bVahidPicker, .bYearInVahidPicker {
-  width: 40px;
+    width: 40px;
 }
 
 .half {
-  width: 50%;
-  text-align: left;
-  margin: 0 0 0 1px;
-  display: inline-block;
-}
-
-  .half:first-child {
-    text-align: right;
-    margin: 1px 0 0 0;
-  }
-
-.vahidInputs {
-  margin-top: 2px;
-}
-
-  .vahidInputs > div {
+    width: 50%;
+    text-align: left;
+    margin: 0 0 0 1px;
     display: inline-block;
-  }
+}
 
-    .vahidInputs > div > span {
-      display: block;
+    .half:first-child {
+        text-align: right;
+        margin: 1px 0 0 0;
     }
 
+.vahidInputs {
+    margin-top: 2px;
+}
+
+    .vahidInputs > div {
+        display: inline-block;
+    }
+
+        .vahidInputs > div > span {
+            display: block;
+        }
+
 .nobreak {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 .JumpDays {
-  position: absolute;
-  bottom: 0;
-  right: -110px;
+    position: absolute;
+    bottom: 0;
+    right: -110px;
 }
 
 #yearPicker input.jumpTo {
-  width: 45px;
-  text-align: right;
+    width: 45px;
+    text-align: right;
 }

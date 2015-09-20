@@ -97,10 +97,6 @@
     "message": "{bMonthDayYear} ⇨ {endingSunsetDesc}",
     "description": "Jamal 4, 172 -> 7:55pm"
   },
-  "sampleGroup1_4": {
-    "message": "{bDay} {bMonthMeaning} ({bMonthNameAr}) {bYear} {bEraAbbrev}",
-    "description": "1 Beauty (Jamal) 172 B.E."
-  },
   "sampleGroup1_5": {
     "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear}",
     "description": "1 Jamal (Beauty) 172"
@@ -121,25 +117,25 @@
     "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear} - {gCombinedY}",
     "description": "1 Jamál (Beauty) 172 - April 27/28, 2015"
   },
-  "sampleGroup1_10": {
-    "message": "{bYear}.{bMonth00}.{bDay00}",
-    "description": "172.03.13"
-  },
-  "sampleGroup1_11": {
+
+  "sampleGroup1_14": {
     "message": "{bVahid00}.{bYearInVahid00}.{bMonth00}.{bDay00}",
     "description": "10.01.03.13"
   },
-  "sampleGroup1_12": {
-    "message": "",
-    "description": "empty, so English sample doesn't show"
+  "sampleGroup1_15": {
+    "message": "{bYear}.{bMonth00}.{bDay00}",
+    "description": "172.03.13"
+  },
+  "sampleGroup1_20": {
+    "message": "{bYear}.{bMonth00}.{bDay00} {currentMonthShort} {currentDay}",
+    "description": "172.03.13 Sep 3 -- OneNote tabs"
   },
 
-
-  "sampleGroup2_1": {
+  "sampleGroup1_23": {
     "message": "{frag2Day} {frag2MonthLong} {frag2Year} / {bDay} {bMonthMeaning} {bYear}",
     "description": "30 April 2015 / 3 Beauty 172 -- NSA Canada"
   },
-  "sampleGroup2_2": {
+  "sampleGroup1_24": {
     "message": "{frag2Day} {frag2MonthLong} {frag2Year} / {bDay} {bMonthNameAr} {bYear}",
     "description": "1 May 2015 / 4 Jamál 172  -- Susan Gammage"
   },

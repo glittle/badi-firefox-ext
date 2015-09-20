@@ -3,13 +3,21 @@
 /* global di */
 /* global chrome */
 
-function prepare(){
-  chrome.alarms.clearAll();
-  // localStorage.clear(); 
+//function installed(info) {
+//    if (info.reason == 'update') {
+//        alert('Updated!');
+//    };
+//}
 
-  registerHandlers();
+function prepare() {
+    chrome.alarms.clearAll();
+    // localStorage.clear(); 
 
-  chrome.alarms.onAlarm.addListener(refreshDateInfoAndShow);
+    registerHandlers();
+
+    chrome.alarms.onAlarm.addListener(refreshDateInfoAndShow);
+
+    // chrome.runtime.onInstalled.addListener(installed);
 }
 
 prepare();

@@ -1,0 +1,522 @@
+{
+  "title": {
+    "message": "calendario Badí'",
+    "description": "El titulo de la extension. aparece en varias partes."
+  },
+  "titleDesc": {
+    "message": "ensena el dia de hoy en el calendario Badí', el calendario oficial de La Fe Bahá'í.",
+    "description": "Usado en la manifeatacion"
+  },
+  "browserActionTitle": {
+    "message": "(Cargando...)",
+    "description": "Glen aparece hasta que la dinamica desparezca"
+  },
+  "bYearInVahidMeaning": {
+    "message": ",A,B,Padre,D,portal,V,Eternidad,Generosidad,Esplendor,amor,Delicia,respuesta,unico,Benevolente,Affecto,principio,Luminoso,Mas Luminoso,Unidad",
+    "description": " Nombres Vahid, que conducen , "
+  },
+  "bMonthMeaning": {
+    "message": "Dias intercalares,Esplendor,Gloria,Belleza,Grandeza,Luz,Misericordia,palabras,Perfecion,Nombres,fuerza,voluntad,concimiento,Poder,discurso,pregunta,Honor,Soverania,Dominio,sublimidad",
+    "description": "Names of days/months, with first one being Ayyam-i-ha"
+  },
+  "bWeekDayMeaning": {
+    "message": ",Gloria,Belleza,Perfeccion,Gracia,Justicia,Majestad,Independencia",
+    "description": "empieza con Sabado"
+  },
+  "gWeekdayLong": {
+    "message": "Domingo,Lunes,Martes,Miercoles,Jueves,Viernes,Sabado",
+    "description": "start with Sunday"
+  },
+  "gWeekdayShort": {
+    "message": "Dom,Lun,Mar,Mier,Jue,Vier,Sab",
+    "description": "start with Sun"
+  },
+  "gMonthLong": {
+    "message": "Enero,Febrero,Marzo,Abril,Mayo,Junio,Julio,Agosto,Septiembre,Octobre,Noviembre,Diciembre",
+    "description": ""
+  },
+  "gMonthShort": {
+    "message": "Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic",
+    "description": ""
+  },
+  "startedWithSunset": {
+    "message": "Comienza al alba {0}",
+    "description": ""
+  },
+  "endingWithSunset": {
+    "message": "Termina al ocaso {0}",
+    "description": ""
+  },
+  "eraLong": {
+    "message": "Era Bahá'í",
+    "description": ""
+  },
+  "eraAbbrev": {
+    "message": "E.B.",
+    "description": "glen"
+  },
+  "eraShort": {
+    "message": "Ser",
+    "description": ""
+  },
+  "ordinal": {
+    "message": "th,st,nd,rd",
+    "description": "x,1,2,3"
+  },
+  "ordinalNames": {
+    "message": ",Primero,segundo,tercero,cuarto,quint,sexto,septimo,octavo,noveno,decimo,decimo primero,decimo segundo,decimo tercero,decimo cuarto,decimo quinto,decimo sexto,decimo septimo,decimo octavo,decimo noveno",
+    "description": ""
+  },
+  "sampleFootnote": {
+    "message": "El calendario Gregoriano cambia antes/despues del ocaso",
+    "description": ""
+  },
+  "pressToCopy": {
+    "message": "Presiona la tecla para copiar la hora del formato al portapapeles",
+    "description": "Can click button with mouse, or press matching key on keyboard"
+  },
+  "afterSunset": {
+    "message": "al anochecer - depues de la caida del sol",
+    "description": ""
+  },
+  "beforeSunset": {
+    "message": "dia - antes del ocaso",
+    "description": ""
+  },
+  "dayStartedFuture": {
+    "message": "empieza",
+    "description": ""
+  },
+  "dayStartedPast": {
+    "message": "empezo",
+    "description": ""
+  },
+  "dayEndedFuture": {
+    "message": "acaba",
+    "description": ""
+  },
+  "dayEndedPast": {
+    "message": "acabo",
+    "description": ""
+  },
+  "suggestions": {
+    "message": "Sugerencias?",
+    "description": ""
+  },
+  "suggestionsTitle": {
+    "message": "Por favor haga click aqui y envie cualquier sugerencia de como mejorar esta extension!",
+    "description": ""
+  },
+  "webstore": {
+    "message": "Chrome Web Store",
+    "description": ""
+  },
+  "upcomingTitle": {
+    "message": "Proximas fiestas de 19 dias, Dias sagrados y otros eventos",
+    "description": ""
+  },
+  "gDatePickerTitle": {
+    "message": "Dia del calendario Gregoriano",
+    "description": ""
+  },
+  "gDatePickerTitle2": {
+    "message": "Eligir <u>C</u>alendario gregoriano",
+    "description": "changed in 1.1.2"
+  },
+  "prev": {
+    "message": "&larr; Previo",
+    "description": "glen"
+  },
+  "gotoNow": {
+    "message": "Ahora",
+    "description": "glen"
+  },
+  "next": {
+    "message": "Próximo &rarr;",
+    "description": "glen"
+  },
+  "btnEveOrDay": {
+    "message": "antes y despues de la puesta del sol",
+    "description": ""
+  },
+  "version": {
+    "message": "Versión {0}",
+    "description": "glen"
+  },
+
+  "new_messages_1_1_2": { "message": "" },
+  "formatIconToolTip": {
+    "message": "{bDay} {bMonthNameAr} {bYear}",
+    "description": "text when mouse is over the extension icon"
+  },
+  "formatIconClick": {
+    "message": "(pulse para mas detalles)",
+    "description": ""
+  },
+  "nearestSunsetEve": { 
+    "message": "{dayStarted} con ocaso al {startingSunsetDesc}",
+    "description": ""
+  },
+  "nearestSunsetDay": {
+    "message": "{dayEnded} con ocaso {endingSunsetDesc}",
+    "description": ""
+  },
+  "facebook": {
+    "message": "Facebook",
+    "description": "ALT for icon at bottom of page"
+  },
+  "googlePlus": {
+    "message": "Google+",
+    "description": "ALT for icon at bottom of page"
+  },
+  "shoghiExample": {
+    "message": "este es el dia de {bWeekdayNameAr}, El dia de {bDayNameAr}, del mes de {bMonthNameAr}, del año {bYearInVahidNameAr},del {bVahidOrdinalName} Váḥid, of the {bKullishayOrdinalName} Kull-i-<u>Sh</u>ay’.",
+    "description": "Example given by Shoghi Effendi"
+  },
+  "example2": {
+    "message": "{bMonthNameAr} {bDay} {dayStartedLower} al caer el sol (mas o menos {startingSunsetDesc}) el {frag1WeekdayLong}, {frag1MonthShort} {frag1Day} y {dayEndedLower} al atardecer (mas o menos {endingSunsetDesc}) el  {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.",
+    "description": ""
+  },
+  "pressKeyOrClick": {
+    "message": "Presione el boton {0}.",
+    "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press"
+  },
+  "copied": {
+    "message": "Copiado!",
+    "description": "short message that replaces sample format button text when button is clicked"
+  },
+
+  "new_messages_1_1_3": { "message": "" },
+  "use24HourClock": {
+    "message": "false",
+    "description": "use 'true' or 'false' to use 24 hour or 12 hour (am/pm) clock"
+  },
+  "noLocationName": {
+    "message": "(localidad actual)",
+    "description": "If the internet is not available, to get the name of the current location."
+  },
+  "noLocationAvailable": {
+    "message": "(localizacion desconocida - 6:30pm hora de la caida del sol)",
+    "description": "If the system does not know the location of this computer."
+  },
+  "locationError": {
+    "message": "incapaz de determinar su actual localizacion.\n\nLa extension usara 6:30pm para la caida del sol cada dia.",
+    "description": "If the system cannot determine the location, this is shown in an alert window."
+  },
+  "HolyDay_NawRuz": {
+    "message": "Naw Rúz",
+    "description": ""
+  },
+  "HolyDay_Ridvan1": {
+    "message": "Primer dia de Ridván",
+    "description": ""
+  },
+  "HolyDay_Ridvan9": {
+    "message": "Noveno dia de Ridván",
+    "description": ""
+  },
+  "HolyDay_Ridvan12": {
+    "message": "Doceavo dia de Ridván",
+    "description": ""
+  },
+  "HolyDay_AscBaha": {
+    "message": "Ascension de Bahá'u'lláh",
+    "description": ""
+  },
+  "HolyDay_DeclBab": {
+    "message": "Declaracion de El Báb",
+    "description": ""
+  },
+  "HolyDay_Martyrdom": {
+    "message": "Martirio de El Báb",
+    "description": ""
+  },
+  "HolyDay_BirthBab": {
+    "message": "Nacimiento de El Báb",
+    "description": ""
+  },
+  "HolyDay_BirthBaha": {
+    "message": "Nacimiento de Bahá'u'lláh",
+    "description": ""
+  },
+  "HolyDay_Covenant": {
+    "message": "Dia del Convenio",
+    "description": ""
+  },
+  "HolyDay_AscAbdul": {
+    "message": "Ascension de `Abdu'l-Bahá",
+    "description": ""
+  },
+  "FestivalRidvan": {
+    "message": "Festival de Ridván",
+    "description": ""
+  },
+  "Intercalary": {
+    "message": "Dias Intercalarios",
+    "description": "glen"
+  },
+  "FeastOf": {
+    "message": "Fiesta de {0}",
+    "description": "The localized name of the Feast will be put into {0}"
+  },
+  "Tonight": {
+    "message": "esta noche",
+    "description": "Shown in the upcoming dates area"
+  },
+  "Ended": {
+    "message": "termino",
+    "description": "Shown in the upcoming dates area"
+  },
+  "Now": {
+    "message": "ahora",
+    "description": "Shown in the upcoming dates area"
+  },
+  "1day": {
+    "message": "en {0} dia",
+    "description": ""
+  },
+  "otherDays": {
+    "message": "en {0} dias",
+    "description": ""
+  },
+
+  "new_messages_1_1_4": { "message": "" },
+  "sampleGroupTranslationHelp": {
+    "message": "",
+    "description": "When creating samples, can use any of the properties shown when _di is shown when inspecting the popup"
+  },
+  "sampleGroup1_1": {
+    "message": "{bDay} {bMonthNameAr} {bYear}",
+    "description": "3 Jamál 172"
+  },
+  "sampleGroup1_2": {
+    "message": "{bMonthDayYear}",
+    "description": "Jamal 4, 172"
+  },
+  "sampleGroup1_3": {
+    "message": "{bMonthDayYear} ⇨ {endingSunsetDesc}",
+    "description": "Jamal 4, 172 -> 7:55pm"
+  },
+  "sampleGroup1_6": {
+    "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear}",
+    "description": "1 Jamal (Beauty) 172"
+  },
+  "sampleGroup1_7": {
+    "message": "{bDay00} {bMonthNameAr} / {bMonthMeaning} {bYear} {bEraAbbrev} ({currentWeekdayShort} {currentDay00} {currentMonthLong} {currentYear})",
+    "description": "04 Jamal / Glory 172 B.E. (Fri 01 May 2015) -- bahai-readings@bcca.org"
+  },
+  "sampleGroup1_8": {
+    "message": "{bWeekdayNameAr} / {bDayNameAr}, {bDayOrdinal} {bMonthNameAr} {bYear}",
+    "description": "Jamál / Bahá, 1st ‘Aẓamat     or [weekday] / [monthday], [day no.] [month] - james@19months.com"
+  },
+  "sampleGroup1_9": {
+    "message": "{bDay} {bMonthNameAr} {bYear} / {currentDay} {currentMonthLong} {currentYear}",
+    "description": "3 Jamál 172 / 30 April 2015 -- Calgary LSA"
+  },
+  "sampleGroup1_10": {
+    "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear} - {gCombinedY}",
+    "description": "1 Jamál (Beauty) 172 - April 27/28, 2015"
+  },
+
+  "sampleGroup1_12": {
+    "message": "{bVahid00}.{bYearInVahid00}.{bMonth00}.{bDay00}",
+    "description": "10.01.03.13"
+  },
+
+  "sampleGroup2_1": {
+    "message": "{frag2Day} {frag2MonthLong} {frag2Year} / {bDay} {bMonthMeaning} {bYear}",
+    "description": "30 April 2015 / 3 Beauty 172 -- NSA Canada"
+  },
+  "sampleGroup2_2": {
+    "message": "{frag2Day} {frag2MonthLong} {frag2Year} / {bDay} {bMonthNameAr} {bYear}",
+    "description": "1 May 2015 / 4 Jamál 172  -- Susan Gammage"
+  },
+
+  "DayOfWeek": {
+    "message": "dia de la semana",
+    "description": ""
+  },
+  "DayOfWeekFormat": { "message": "{bWeekday} - {bWeekdayNameAr} ({bWeekdayMeaning})", "description": "" },
+  "DayOfMonth": {
+    "message": "Dia del mes",
+    "description": ""
+  },
+  "DayOfMonthFormat": { "message": "{bDay} - {bDayNameAr} ({bDayMeaning})", "description": "" },
+  "Month": {
+    "message": "Mes",
+    "description": ""
+  },
+  "MonthFormatNormal": { "message": "{bMonth} - {bMonthNameAr} ({bMonthMeaning})", "description": "" },
+  "MonthFormatAyyam": { "message": "{bMonthNameAr} ({bMonthMeaning})", "description": "" },
+  "YearOfEra": {
+    "message": "año de la era Bahá'í",
+    "description": ""
+  },
+  "YearOfEraFormat": {
+    "message": "{bYear}",
+    "description": ""
+  },
+  "YearOfVahid": {
+    "message": "año Váḥid",
+    "description": ""
+  },
+  "YearOfVahidFormat": { "message": "{bYearInVahid} - {bYearInVahidNameAr} ({bYearInVahidMeaning})", "description": "" },
+  "Vahid": {
+    "message": "Váḥid",
+    "description": ""
+  },
+  "VahidFormat": {
+    "message": "{bVahid}",
+    "description": ""
+  },
+  "Kullishay": {
+    "message": "Kull-i-<u>Sh</u>ay’",
+    "description": ""
+  },
+  "KullishayFormat": {
+    "message": "{bKullishay}",
+    "description": ""
+  },
+
+  "bTopDayDisplay": { "message": "{bDay} {bMonthNameAr} {bYear}", "description": "top right corner" },
+  "gTopDayDisplay": { "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear} {currentRelationToSunset}", "description": "top right corner" },
+  "gregorianDateDisplay": {
+    "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear}",
+    "description": "in left panel"
+  },
+  "upcomingDateFormat": {
+    "message": "{bMonthNameAr} {bDay} ({gCombined})",
+    "description": "upcoming list"
+  },
+  "nextRefreshAlarm": {
+    "message": "Siguiente refresh schedule {0}: {1}",
+    "description": "only shown in the debug console"
+  },
+
+  "new_messages_1_1_5": { "message": "" },
+  "gMonthDayYear": {
+    "message": "{bMonthNameAr} {bDay}, {bYear}",
+    "description": ""
+  },
+  "gCombined_1": {
+    "message": "{frag1MonthShort} {frag1Day}/{frag2Day}",
+    "description": "day in same gregorian month"
+  },
+  "gCombinedY_1": {
+    "message": "{frag1MonthShort} {frag1Day}/{frag2Day}, {frag1Year}",
+    "description": "with year"
+  },
+  "gCombined_2": {
+    "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}",
+    "description": "day spanning different gregorian months"
+  },
+  "gCombinedY_2": {
+    "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}, {frag1Year}",
+    "description": "with year"
+  },
+  "gCombined_3": {
+    "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}",
+    "description": "day spanning different gregorian years"
+  },
+  "gCombinedY_3": {
+    "message": "{frag1MonthShort} {frag1Day}, {frag1Year}/{frag2MonthShort} {frag2Day}, {frag2Year}",
+    "description": "with year"
+  },
+
+  "new_messages_1_1_8": { "message": "" },
+  "bDatePickerTitle": {
+    "message": "Elegir la fecha <u>B</u>adí'",
+    "description": "glen added <u></u> - should have one letter between <u> and </u>"
+  },
+  "ayyamIs0": {
+    "message": "0 = Ayyám-i-Há",
+    "description": "in Badi date picker area"
+  },
+
+  "new_messages_1_2_0": { "message": "" },
+  "weekDayNames": {
+    "message": "Nombres de los dias de la semana",
+    "description": "on page 2 - table caption"
+  },
+  "monthNames": {
+    "message": "Nombres del Mes/Dia",
+    "description": "on page 2 - table caption"
+  },
+  "num": {
+    "message": "#",
+    "description": "on page 2 - table heading"
+  },
+  "arabic": {
+    "message": "Nombre",
+    "description": "on page 2 - table heading"
+  },
+  "meaning": {
+    "message": "Significado",
+    "description": "on page 2 - table heading"
+  },
+  "equiv": {
+    "message": "Equivalente",
+    "description": "on page 2 - table heading"
+  },
+  "new_messages_1_3": { "message": "" },
+  "pick_pageDay": { "message": "Dia" },
+  "pick_pageLists": { "message": "Listas" },
+  "pick_pageCal1": { "message": "Año" },
+  "elements": {
+    "message": "Fuego,Aire,Agua,Tierra",
+    "description": "the Bab's designations, found in 'https://books.google.ca/books?id=XTfoaK15t64C&pg=PA394&lpg=PA394&dq=get+of+the+heart+nader+bab&source=bl&ots=vyF-pWLAr8&sig=ruiuoE48sGWWgaB_AFKcSfkHvqw&hl=en&sa=X&ei=hbp0VfGwIon6oQSTk4Mg&ved=0CDAQ6AEwAw#v=snippet&q=%22air%20of%20eternity%22&f=false' "
+  },
+  "tips": {
+    "message": "Consejo",
+    "description": "glen hints of how to use the tool"
+  },
+  "tipsText": {
+    "message": "Use PgUp/PgDn teclas para seleccionar paneles.\nUse derecha/iaquierda teclas con flechas para cambiar los dias.\nUse teclas con flechas arriba/abajo para cambiar antes/despues ocaso.",
+    "description": ""
+  },
+  "shortcutKeyTitle": {
+    "message": "Presione esta combinacion de teclados para abrir el calendario  desde cualquier parte en Chrome.",
+    "description": ""
+  },
+
+  "new_messages_1_3_2": { "message": "" },
+  "yearNames": {
+    "message": "Años en Váḥid",
+    "description": "on page 2 - table caption"
+  },
+
+  "new_messages_1_3_3": { "message": "" },
+  "prevYear": {
+    "message": "Años Anteriores",
+    "description": "hold Shift and press left arrow key"
+  },
+  "nextYear": {
+    "message": "Proximo Año",
+    "description": "hold Shift and press right arrow key"
+  },
+  "prevYearTitle": {
+    "message": "Presione Shift + Left flecha para mirar los años anteriores",
+    "description": "hold Shift and press left arrow key"
+  },
+  "nextYearTitle": {
+    "message": "Presione Shift + Right flecha para mirar el año siguiente",
+    "description": "hold Shift and press right arrow key"
+  },
+  "new_messages_1_3_6": { "message": "" },
+  "jumpTo": {
+    "message": "<u>J</u>ump ± dias",
+    "description": "user can enter a day after/before currently selected day"
+  },
+  "btnJumpTo": {
+    "message": "ir",
+    "description": ""
+  },
+  "btnJumpToTitle": {
+    "message": "regresar or avanzar de acuerdo al nuero de dias",
+    "description": "tooltip"
+  },
+  "x": {
+    "message": "",
+    "description": ""
+  }
+}

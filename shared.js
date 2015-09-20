@@ -355,7 +355,6 @@ function startGetLocationName() {
   xhr.open("GET", url, true);
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
-      // JSON.parse does not evaluate the attacker's scripts.
       var data = JSON.parse(xhr.responseText);
       localStorage.locationName =
                findName('neighborhood', data.results, true)
