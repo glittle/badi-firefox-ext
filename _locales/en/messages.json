@@ -212,5 +212,27 @@
   "btnJumpTo": { "message": "Go", "description": "" },
   "btnJumpToTitle": { "message": "Move forward or backward by this number of days", "description": "tooltip" },
 
+  "new_messages_1_4": { "message": "" },
+  "pick_pageSpecial": { "message": "Events" },
+  "specialDaysTitle": { "message": "Feasts and Holy Days in {bYear}", "description": "" },
+  "dateHeading": { "message": "Date", "description": "heading in Events listing" },
+  "specialTimeHeading": { "message": "Special Time", "description": "heading in Events listing" },
+  "eventTimeHeading": { "message": "Event Time", "description": "heading in Events listing" },
+  "sunsetHeading": { "message": "Sunset to begin the day", "description": "heading in Events listing" },
+  "startTimeOption": { "message": "Usual meeting start time: ", "description": "above Events listing" },
+  "currentDay": { "message": "Current day", "description": "shown in Events listing" },
+
+  "includeThese": { "message": "Show", "description": "choosing what to include in the listing" },
+  "includeFeasts": { "message": "Feasts", "description": "choosing what to include in the listing" },
+  "includeHolyDays": { "message": "Holy Days", "description": "choosing what to include in the listing" },
+
+  "specialTime_1500S": { "message": "3 pm (Standard Time)", "description": "First day of Ridvan" },
+  "specialTime_SS2": { "message": "About 2 hours after sunset", "description": "Declaration of the Bab" },
+  "specialTime_0300S": { "message": "3 am (Standard Time)", "description": "Ascension of Baha'u'llah" },
+  "specialTime_1200S": { "message": "Noon (Standard Time)", "description": "Martyrdom of the Bab" },
+  "specialTime_0100S": { "message": "1 am (Standard Time)", "description": "Martyrdom of the Bab" },
+  "eventTime": { "message": "{eventTime}, {eventWeekdayShort} {eventMonthShort} {eventDay}, {eventYear}", "description": "show start time in Events listing" },
+
+
   "x": { "message": "", "description": "" }
 }

@@ -7,6 +7,7 @@ var _targetDate = null;
 var holyDays = HolyDays();
 var knownDateInfos = {};
 var _di = {};
+var _initialDi;
 
 // see messages.json for translations and local names
 var bYearInVahidNameAr = ",Alif,Bá’,Ab,Dál,Báb,Váv,Abad,Jád,Bahá',Ḥubb,Bahháj,Javáb,Aḥad,Vahháb,Vidád,Badí‘,Bahí,Abhá,Váḥid".split(',');

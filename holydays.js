@@ -11,11 +11,10 @@ var HolyDays = function () {
   function prepareDateInfos(bYear) {
     _dateInfos = dateInfosRaw();
     _dateInfosForYear = bYear;
-    
+
     var cached = _cachedDateInfos[bYear];
     if(cached){
-      _dateInfos = cached;
-      return;
+      return _dateInfos = cached;
     }
 //    console.log('prepare ' + bYear);
 
@@ -190,7 +189,7 @@ var HolyDays = function () {
     });
     
 //    setStorage('DateInfos' + bYear, _dateInfos);
-    _cachedDateInfos[bYear] = _dateInfos;
+    return _cachedDateInfos[bYear] = _dateInfos;
   }
 
   function getUpcoming(di, numToAdd){
@@ -275,8 +274,8 @@ var HolyDays = function () {
     { Type: 'HS', BDateCode: '3.5', NameEn: 'HolyDay_Ridvan12' },
     { Type: 'HS', BDateCode: '4.13', NameEn: "HolyDay_AscBaha", Time: '0300S', TimeReason: '3 am Standard time' },
 
-    { Type: 'HS', UntilYear: 171, BDateCode: '4.7', NameEn: 'HolyDay_DeclBab', Time: 'SS+2', TimeReason: 'about 2 hours after sunset' },
-    { Type: 'HS', FromYear: 172, BDateCode: '4.8', NameEn: 'HolyDay_DeclBab', Time: 'SS+2', TimeReason: 'about 2 hours after sunset' },
+    { Type: 'HS', UntilYear: 171, BDateCode: '4.7', NameEn: 'HolyDay_DeclBab', Time: 'SS2', TimeReason: 'about 2 hours after sunset' },
+    { Type: 'HS', FromYear: 172, BDateCode: '4.8', NameEn: 'HolyDay_DeclBab', Time: 'SS2', TimeReason: 'about 2 hours after sunset' },
 
     { Type: 'HS', UntilYear: 171, BDateCode: '6.16', NameEn: 'HolyDay_Martyrdom', Time: '1200S', TimeReason: 'Noon Standard time' },
     { Type: 'HS', FromYear: 172, BDateCode: '6.17', NameEn: 'HolyDay_Martyrdom', Time: '1200S', TimeReason: 'Noon Standard time' },
@@ -2146,7 +2145,6 @@ var HolyDays = function () {
   }; // make these available to the browser
   return {
     getNawRuz: getNawRuz,
-    dateInfos: _dateInfos,
     getUpcoming: getUpcoming,
     getGDate: getGDateYMD,
     getBDate: getBDate,

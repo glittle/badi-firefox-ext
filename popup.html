@@ -12,6 +12,7 @@
     <div class=pagePicker>
         <div class=buttons>
             <button data-page="pageDay" data-msg=pick_pageDay></button>
+            <button data-page="pageSpecial" data-msg=pick_pageSpecial></button>
             <button data-page="pageCal1" data-msg=pick_pageCal1></button>
             <button data-page="pageLists" data-msg=pick_pageLists></button>
         </div>
@@ -101,6 +102,44 @@
                 <div id=sampleList1></div>
                 <div id=sampleFootnote data-msg="_id_"></div>
                 <div id=sampleList2></div>
+            </div>
+        </div>
+        <div class="sidebyside2 page" id=pageSpecial>
+            <div id=spacerSpecial>
+                <div></div>
+            </div>
+            <div class=spacer>&nbsp;</div>
+            <div id=specialLists>
+<div id=eventStartHolder>
+    <span id=includeWhat>
+        <span data-msg=includeThese></span>
+        
+        <label><input type=checkbox class=includeThis id=includeFeasts><span data-msg=includeFeasts></span></label>
+        <label><input type=checkbox class=includeThis id=includeHolyDays><span data-msg=includeHolyDays></span></label>
+    </span>
+    
+    <span data-msg=startTimeOption></span>
+    <select id=eventStart>
+        <option value=1800>6:00pm</option>
+        <option value=1830>6:30pm</option>
+        <option value=1900>7:00pm</option>
+        <option value=1930>7:30pm</option>
+        <option value=2000>8:00pm</option>
+    </select>
+</div>
+                <table id=specialListsTable>
+                    <caption id="specialDaysTitle"></caption>
+                    <thead>
+                        <tr>
+                            <th data-msg=dateHeading></th>
+                            <th data-msg=arabic></th>
+                            <th data-msg=specialTimeHeading class=forHD></th>
+                            <th data-msg=eventTimeHeading></th>
+                            <th data-msg=sunsetHeading colspan=2></th>
+                        </tr>
+                    </thead>
+                    <tbody id=specialListBody></tbody>
+                </table>
             </div>
         </div>
         <div class="sidebyside2 page" id=pageLists>
