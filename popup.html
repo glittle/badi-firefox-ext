@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <link href="jquery-ui.min.css" rel=stylesheet>
     <link href="popup.css" rel=stylesheet>
     <link href="cal1.css" rel=stylesheet>
     <script src="jquery-2.1.3.min.js"></script>
@@ -12,8 +13,9 @@
     <div class=pagePicker>
         <div class=buttons>
             <button data-page="pageDay" data-msg=pick_pageDay></button>
-            <button data-page="pageSpecial" data-msg=pick_pageSpecial></button>
             <button data-page="pageCal1" data-msg=pick_pageCal1></button>
+            <button data-page="pageEvents" data-msg=pick_pageEvents></button>
+            <button data-page="pageFast" data-msg=pick_pageFast></button>
             <button data-page="pageLists" data-msg=pick_pageLists></button>
         </div>
     </div>
@@ -63,7 +65,7 @@
                 <span id=special2></span>
             </div>
             <div id=sunset class="normal"></div>
-            <div id=place class="normal"></div>
+            <div class="normal place"></div>
             <div id=gDay></div>
             <div id=gDayWithSunset></div>
             <div id=locationErrorHolder>
@@ -86,6 +88,7 @@
                     <button type=button class=btnChangeDay data-delta="1" data-msg="next"></button>
                     <button type=button id=btnEveOrDay data-msg="_id_"></button>
                 </div>
+                <div id=bDatePickerTitleTip data-msg="_id_"></div>
                 <div id=bDatePickerTitle data-msg="_id_,extractAccessKeyFor:bYearPicker"></div>
                 <div class=bDatePickerInputs>
                     <input class=bYearPicker id="bYearPicker" type=number max=1000 min=1>
@@ -104,29 +107,29 @@
                 <div id=sampleList2></div>
             </div>
         </div>
-        <div class="sidebyside2 page" id=pageSpecial>
+        <div class="sidebyside2 page" id=pageEvents>
             <div id=spacerSpecial>
                 <div></div>
             </div>
             <div class=spacer>&nbsp;</div>
             <div id=specialLists>
-<div id=eventStartHolder>
-    <span id=includeWhat>
-        <span data-msg=includeThese></span>
-        
-        <label><input type=checkbox class=includeThis id=includeFeasts><span data-msg=includeFeasts></span></label>
-        <label><input type=checkbox class=includeThis id=includeHolyDays><span data-msg=includeHolyDays></span></label>
-    </span>
-    
-    <span data-msg=startTimeOption></span>
-    <select id=eventStart>
-        <option value=1800>6:00pm</option>
-        <option value=1830>6:30pm</option>
-        <option value=1900>7:00pm</option>
-        <option value=1930>7:30pm</option>
-        <option value=2000>8:00pm</option>
-    </select>
-</div>
+                <div id=eventStartHolder>
+                    <span id=includeWhat>
+                        <span data-msg=includeThese></span>
+
+                        <label><input type=checkbox class=includeThis id=includeFeasts><span data-msg="includeFeasts,extractAccessKeyFor:includeFeasts"></span></label>
+                        <label><input type=checkbox class=includeThis id=includeHolyDays><span data-msg="includeHolyDays,extractAccessKeyFor:includeHolyDays"></span></label>
+                    </span>
+
+                    <span data-msg="startTimeOption,extractAccessKeyFor:eventStart"></span>
+                    <select id=eventStart>
+                        <option value=1800>6:00pm</option>
+                        <option value=1830>6:30pm</option>
+                        <option value=1900>7:00pm</option>
+                        <option value=1930>7:30pm</option>
+                        <option value=2000>8:00pm</option>
+                    </select>
+                </div>
                 <table id=specialListsTable>
                     <caption id="specialDaysTitle"></caption>
                     <thead>
@@ -139,6 +142,29 @@
                         </tr>
                     </thead>
                     <tbody id=specialListBody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="sidebyside2 page" id=pageFast>
+            <div id=spacerFast>
+                <div></div>
+            </div>
+            <div class=spacer>&nbsp;</div>
+            <div id=fastList>
+                <table id=fastListTable>
+                    <caption>
+                        <div id=fastDaysTitle></div>
+                        <div class=place></div>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th data-msg=arabic></th>
+                            <th data-msg=sunriseFastHeading></th>
+                            <th data-msg=sunsetFastHeading></th>
+                            <th data-msg=fastGDate></th>
+                        </tr>
+                    </thead>
+                    <tbody id=fastListBody></tbody>
                 </table>
             </div>
         </div>
@@ -218,6 +244,7 @@
            target="_top" data-msg="suggestions,title:suggestionsTitle"></a>
         <span id=shortcutKeys data-msg="title:shortcutKeyTitle"></span>
     </div>
+    <script src="jquery-ui.min.js"></script>
     <script src="google-analytics-bundle.js"></script>
     <script src="holydays.js"></script>
     <script src="shared.js"></script>

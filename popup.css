@@ -164,12 +164,12 @@ div.pagePicker {
         background: url(./ajax-loader.gif) no-repeat;
     }
 
-#place, #gDay, #gDayWithSunset {
+.place, #gDay, #gDayWithSunset {
     font-size: .7em;
     color: gray;
 }
 
-#gDayWithSunset{
+#gDayWithSunset {
     display: none;
 }
 
@@ -341,7 +341,7 @@ body.nl #page2a div {
             color: #9a710c;
         }
 
-#specialLists{
+#specialLists {
     font-size: 1em;
     border: 1px solid green;
     border-radius: 3px;
@@ -356,92 +356,142 @@ body.nl #page2a div {
     width: 0px;
 }
 
-#specialListsTable{
+#specialListsTable {
     width: 100%;
     border-spacing: 1px 0px;
 }
-#specialListsTable tbody tr{
-    display: none;
-}
-#specialListsTable.Feasts tbody tr.M{
-    display: table-row;
-}
-#specialListsTable.HolyDays tbody tr.HS,
-#specialListsTable.HolyDays tbody tr.HO
-{
-    display: table-row;
-}
-#specialListsTable .forHD
-{
-    display: none;
-}
-#specialListsTable.HolyDays .forHD{
-    display: table-cell;
-}
 
-#specialListsTable th{
-    text-align: left;
-}
-#specialListsTable td{
-    vertical-align: top;
-}
-#specialListsTable caption {
-    color: green;
-    opacity: .7;
-    text-align: left;
-    font-weight: bold;
-}
-#specialListsTable .M TD {
-    color: black;
-    border-top: solid 1px #ddd;
-}
+    #specialListsTable tbody tr {
+        display: none;
+    }
 
-#specialListsTable .HS td {
-    color: black;
-}
+    #specialListsTable.Feasts tbody tr.M {
+        display: table-row;
+    }
 
-#specialListsTable .HS .name{
-    color: blue;
-    font-weight: 600;
-    background-image: url(./star12c.gif);
-    background-repeat: no-repeat;
-    background-position: 2px 3px;
-    padding-left: 18px;
-}
+    #specialListsTable.HolyDays tbody tr.HS,
+    #specialListsTable.HolyDays tbody tr.HO {
+        display: table-row;
+    }
 
-#specialListsTable .HO td {
-    color: black;
-}
+    #specialListsTable .forHD {
+        display: none;
+    }
 
-#specialListsTable .HO .name{
-    color: blue;
-    background: url(star12b.gif);
-    background-repeat: no-repeat;
-    background-position: 2px 3px;
-    padding-left: 17px;
-}
+    #specialListsTable.HolyDays .forHD {
+        display: table-cell;
+    }
 
-#specialListsTable .Today {
-    color: #070;
-}
+    #specialListsTable th {
+        text-align: left;
+    }
 
-#specialListsTable tr.Default td.eventTime{
-    color: #777;
-}
+    #specialListsTable td {
+        vertical-align: top;
+    }
 
-#eventStartHolder{
+    #specialListsTable caption {
+        color: green;
+        text-align: left;
+        font-size: 1.2em;
+        margin: -2px 0px 2px 2px;
+    }
+
+    #specialListsTable .M TD {
+        color: black;
+        border-top: solid 1px #ddd;
+    }
+
+    #specialListsTable .HS td {
+        color: black;
+    }
+
+    #specialListsTable .HS .name {
+        color: blue;
+        font-weight: 600;
+        background-image: url(./star12c.gif);
+        background-repeat: no-repeat;
+        background-position: 2px 3px;
+        padding-left: 18px;
+    }
+
+    #specialListsTable .HO td {
+        color: black;
+    }
+
+    #specialListsTable .HO .name {
+        color: blue;
+        background: url(star12b.gif);
+        background-repeat: no-repeat;
+        background-position: 2px 3px;
+        padding-left: 17px;
+    }
+
+    #specialListsTable .Today {
+        color: #070;
+    }
+
+    #specialListsTable tr.Default td.eventTime {
+        color: #777;
+    }
+
+#eventStartHolder {
     position: absolute;
     right: 3px;
     top: 1px;
     z-index: 1;
 }
-#eventStartHolder select{
-    font-size: 12px; 
-}
-#includeWhat{
+
+    #eventStartHolder select {
+        font-size: 12px;
+    }
+
+#includeWhat {
     margin-right: 20px;
     display: inline-block;
 }
+
+#fastList {
+    font-size: 1em;
+    border: 1px solid green;
+    border-radius: 3px;
+    padding: 5px;
+    position: relative;
+    vertical-align: top;
+    white-space: nowrap;
+    min-width: 500px;
+}
+
+#spacerFast div {
+    width: 0px;
+}
+
+#fastListTable {
+    /*border-spacing: 15px 2px;*/
+    border-collapse: collapse;
+    margin: 0 auto 20px;
+}
+
+    #fastListTable th {
+        text-align: left;
+    }
+
+    #fastListTable td,
+    #fastListTable th {
+        padding: 2px 9px;
+    }
+
+
+    #fastListTable caption {
+        color: green;
+        font-size: 1.2em;
+        margin: -2px 0px 2px 2px;
+    }
+
+tr.FastSat td {
+    border-top: solid 1px #ddd;
+}
+
 
 button.btnChangeDay, #btnEveOrDay, button.btnChangeYear, button.btnJumpTo {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
@@ -565,6 +615,13 @@ button.today.notToday {
     color: green;
     opacity: 0.7;
     margin: 6px 0 0 0;
+}
+
+#bDatePickerTitleTip {
+    float: right;
+    color: #999;
+    margin: 6px 0 0 0;
+    font-size: 90%;
 }
 
 #upcomingTitle {
