@@ -380,7 +380,7 @@ var HolyDays = function () {
           if(fix){
             bDay = numDaysInAyyamiHa;          
           }else{
-            throw 'invalid Badi date';
+            throw 'invalid Badi date'; 
           }
         }
         answer = firstAyyamiHa;

@@ -176,7 +176,6 @@
 
   "new_messages_1_1_8": { "message": "" },
   "bDatePickerTitle": { "message": "Kies een <u>B</u>adí' datum", "description": "added <u></u> - should have one letter between <u> and </u>" },
-  "ayyamIs0": { "message": "0 = Ayyám-i-Há", "description": "in Badi date picker area" },
 
 
   "new_messages_1_2_0": { "message": "" },
@@ -212,5 +211,42 @@
   "btnJumpTo": { "message": "Ga", "description": "" },
   "btnJumpToTitle": { "message": "Ga dit aantal dagen voor- of achteruit", "description": "tooltip" },
 
-  "x": { "message": "", "description": "" }
+
+  "new_messages_1_4": { "message": "" },
+
+  "pick_pageEvents": { "message": "Events" },
+  
+  "specialDaysTitle": { "message": "Feasts and Holy Days in {bYear}", "description": "" },
+  "dateHeading": { "message": "Day", "description": "heading in Events listing" },
+  "suspendWorkHeading": { "message": "Suspend Work", "description": "heading in Events listing" },
+  "eventTimeHeading1": { "message": "Meeting Time", "description": "heading in Events listing (if not showing Holy Days)" },
+  "eventTimeHeading2": { "message": "Meeting/Special Time", "description": "heading in Events listing (if showing Holy Days)" },
+  "sunsetHeading": { "message": "Start of Badí' Day", "description": "heading in Events listing" },
+  
+  "includeThese": { "message": "Show", "description": "choosing what to include in the listing" },
+  "includeFeasts": { "message": "<u>F</u>easts", "description": "choosing what to include in the listing" },
+  "includeHolyDays": { "message": "<u>H</u>oly Days", "description": "choosing what to include in the listing" },
+  "startTimeOption": { "message": "Usual meeting time: ", "description": "above Events listing" },
+
+  "specialTime_1500S": { "message": "3 pm (Standard Time)", "description": "First day of Ridvan" },
+  "specialTime_SS2": { "message": "About 2 hours after sunset", "description": "Declaration of the Bab" },
+  "specialTime_0300S": { "message": "3 am (Standard Time)", "description": "Ascension of Baha'u'llah" },
+  "specialTime_1200S": { "message": "Noon (Standard Time)", "description": "Martyrdom of the Bab" },
+  "specialTime_0100S": { "message": "1 am (Standard Time)", "description": "Martyrdom of the Bab" },
+
+  "eventTime": { "message": "{eventTime} {eventWeekdayShort} {eventMonthShort} {eventDay}, {eventYear}", "description": "show start time in Events listing" },
+  "evePartOfDay": { "message": "{startingSunsetDesc} {frag1WeekdayShort} {frag1MonthShort} {frag1Day}, {frag1Year}", "description": "show start time in Events listing" },
+
+
+  "pick_pageFast": { "message": "Fast" },
+  "fastDaysTitle": { "message": "Fasting Times in {bYear}", "description": "" },
+  "sunriseFastHeading": { "message": "Sunrise", "description": "heading in Fast days listing" },
+  "sunsetFastHeading": { "message": "Sunset", "description": "heading in Fast days listing" },
+  "fastGDate": { "message": "Date", "description": "heading in Fast days listing" },
+  "mainPartOfDay": { "message": "{frag2WeekdayShort} {frag2MonthShort} {frag2Day}, {frag2Year}", "description": "show start time in Events listing" },
+  
+  "ayyamIs0": { "message": "(Y M D) 0 = Ayyám-i-Há", "description": "(updated) in Badi date picker area" },
+
+  
+   "x": { "message": "", "description": "" }
 }

@@ -25,12 +25,9 @@
             <div id=upcomingTitle data-msg="_id_"></div>
             <table id=upcoming></table>
             <div id="yearPicker">
-
-                <div>
-                    <button type=button class=btnChangeYear data-delta="-1" data-msg="prevYear,title:prevYearTitle"></button>
-                    <input class=bYearPicker type=number max=1000 min=1>
-                    <button type=button class=btnChangeYear data-delta="1" data-msg="nextYear,title:nextYearTitle"></button>
-                </div>
+                <button type=button class=btnChangeYear data-delta="-1" data-msg="prevYear,title:prevYearTitle"></button>
+                <input class=bYearPicker type=number max=1000 min=1>
+                <button type=button class=btnChangeYear data-delta="1" data-msg="nextYear,title:nextYearTitle"></button>
 
                 <div class="vahidInputs">
                     <div>
@@ -88,7 +85,6 @@
                     <button type=button class=btnChangeDay data-delta="1" data-msg="next"></button>
                     <button type=button id=btnEveOrDay data-msg="_id_"></button>
                 </div>
-                <div id=bDatePickerTitleTip data-msg="_id_"></div>
                 <div id=bDatePickerTitle data-msg="_id_,extractAccessKeyFor:bYearPicker"></div>
                 <div class=bDatePickerInputs>
                     <input class=bYearPicker id="bYearPicker" type=number max=1000 min=1>
@@ -121,7 +117,7 @@
                         <label><input type=checkbox class=includeThis id=includeHolyDays><span data-msg="includeHolyDays,extractAccessKeyFor:includeHolyDays"></span></label>
                     </span>
 
-                    <span data-msg="startTimeOption,extractAccessKeyFor:eventStart"></span>
+                    <span data-msg="startTimeOption"></span>
                     <select id=eventStart>
                         <option value=1800>6:00pm</option>
                         <option value=1830>6:30pm</option>
@@ -136,9 +132,11 @@
                         <tr>
                             <th data-msg=dateHeading></th>
                             <th data-msg=arabic></th>
-                            <th data-msg=specialTimeHeading class=forHD></th>
-                            <th data-msg=eventTimeHeading></th>
-                            <th data-msg=sunsetHeading colspan=2></th>
+                            <th data-msg=suspendWorkHeading class=forHD></th>
+                            <!--<th data-msg=specialTimeHeading class=forHD></th>-->
+                            <th data-msg=eventTimeHeading1 class=forFeast></th>
+                            <th data-msg=eventTimeHeading2 class=forHD></th>
+                            <th data-msg=sunsetHeading></th>
                         </tr>
                     </thead>
                     <tbody id=specialListBody></tbody>
@@ -158,7 +156,7 @@
                     </caption>
                     <thead>
                         <tr>
-                            <th data-msg=arabic></th>
+                            <th data-msg=dateHeading></th>
                             <th data-msg=sunriseFastHeading></th>
                             <th data-msg=sunsetFastHeading></th>
                             <th data-msg=fastGDate></th>

@@ -6,7 +6,7 @@
 }
 
 #months {
-  margin: 4px 0;
+  margin: 2px 0 5px 0;
   width: 742px;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .element.mGroup4 {
-  width: 147px;
+  width: 172px;
   color: rgba(0, 255, 0, 1);
 }
 

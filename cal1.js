@@ -77,8 +77,16 @@ var Cal1 = function (di, host) {
     var html = [];
     var gMonthAlt = 0;
     var lastMGroup = -1;
+    var doneAyyamiHa = false;
 
     for (var bm = 1; bm <= 19; bm++) {
+      if (bm === 1 && doneAyyamiHa) {
+        bm = 19;
+      }
+      if (bm === 19 && !doneAyyamiHa) {
+        bm = 0;
+        doneAyyamiHa = true;
+      }
 
       var monthGroup = [];
       var mGroup = 1;
@@ -90,7 +98,7 @@ var Cal1 = function (di, host) {
         mGroup = 2;
       } else if (bm >= 8 && bm <= 13) {
         mGroup = 3;
-      } else if (bm >= 14 && bm <= 19) {
+      } else if (bm >= 14 && bm <= 19 || bm === 0) {
         mGroup = 4;
       }
 
@@ -106,7 +114,7 @@ var Cal1 = function (di, host) {
       }
 
       bMonthHtml.push('<div class="bm bm{0}">'.filledWith(bm));
-      bMonthHtml.push('<div class=bmName><i>{1}</i>{0}</div>'.filledWith(host.bMonthNameAr[bm], bm));
+      bMonthHtml.push('<div class=bmName><i>{^1}</i>{0}</div>'.filledWith(host.bMonthNameAr[bm], bm === 0 ? "" : bm));
 
 
       gMonthHtml.push('<div class=gm>');
@@ -116,7 +124,17 @@ var Cal1 = function (di, host) {
       gMonthHtml.push('<div class="gmInitial gma0">{0}</div>'.filledWith(gMonthName));
 
       for (var bd = 1; bd <= 19; bd++) {
-
+        try {
+          gd = holyDays.getGDate(di.bYear, bm, bd, false);
+        }
+        catch (e) {
+          if (bm === 0 && e == 'invalid Badi date') {
+            break;
+          }
+          else {
+            throw e;
+          }
+        }
         var holyDay = getHolyDay(bm, bd);
         var holyDayMarker = '';
         var bdTip = '';
@@ -125,7 +143,6 @@ var Cal1 = function (di, host) {
           bdTip = ' title="' + getMessage(holyDay.NameEn) + '"';
         }
 
-        gd = holyDays.getGDate(di.bYear, bm, bd, false);
         var gDayOfMonth = gd.getDate();
 
         var dow = gd.getDay();

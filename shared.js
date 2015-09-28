@@ -363,6 +363,8 @@ function startGetLocationName() {
                || findName('political', data.results)
                || getMessage('noLocationName');
 
+      setStorage('locationNameKnown', true);
+
       // if popup is showing...
       if (typeof showLocation !== 'undefined') {
         showLocation();
@@ -378,7 +380,8 @@ function setLocation(position) {
   knownDateInfos = {};
 
   setStorage('locationKnown', true);
-  localStorage.locationName = getMessage('noLocationAvailable'); // temp until we get it
+  setStorage('locationNameKnown', false);
+  localStorage.locationName = getMessage('browserActionTitle'); // temp until we get it
 
   startGetLocationName();
 
@@ -416,7 +419,7 @@ function setAlarmForNextUpdate(currentTime, sunset, inEvening) {
     chrome.alarms.create('midnight', { when: midnight + 1000 }); // to be safe, set at least 1 second after midnight 
   } else {
     // in the day, so update at the sunset
-    chrome.alarms.create('sunset', { when: sunset.getTime() + 1000 }); // at least 1 second after sunset 
+    chrome.alarms.create('sunset', { when: sunset.getTime() }); 
   }
 
   //chrome.alarms.create('test', {delayInMinutes: 1}); 
@@ -652,6 +655,24 @@ function localizeHtml(host) {
     $('#' + item.id).attr('accesskey', item.key);
   }
 }
+
+
+function installed(info) {
+    if (info.reason == 'update') {
+        var newVersion = chrome.runtime.getManifest().version_name;
+        var oldVersion = localStorage.updateVersion;
+        console.log(oldVersion + ' --> ' + newVersion);
+        if (newVersion != oldVersion) {
+            localStorage.updateVersion = newVersion;
+            chrome.tabs.create({
+                url: 'https://sites.google.com/site/badicalendartools/home/chrome-extension/history#' + chrome.i18n.getMessage('@@ui_locale')
+            });
+        }
+    } else {
+      console.log(info);
+    }
+}
+
 
 // google analytics
 function prepareAnalytics() {
