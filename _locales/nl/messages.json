@@ -48,7 +48,7 @@
     "message": "Deze dag heet {bWeekdayNameAr}, de dag {bDayNameAr} van de maand {bMonthNameAr}, van het jaar {bYearInVahidNameAr}, van de {bVahidOrdinalName} Váḥid, van de {bKullishayOrdinalName} Kull-i-<u>Sh</u>ay’.",
     "description": "Example given by Shoghi Effendi"
   },
-  "example2": { "message": "{bMonthNameAr} {bDay} {dayStartedLower} bij zonsondergang (ongeveer {startingSunsetDesc}) op {frag1WeekdayLong} {frag1Day} {frag1MonthShort} en {dayEndedLower} bij zonsondergang (ongeveer {endingSunsetDesc}) op {frag2WeekdayLong} {frag2Day} {frag2MonthShort}.", "description": "" },
+  "example2": { "message": "{bDay} {bMonthNameAr} {dayStartedLower} bij zonsondergang (ongeveer {startingSunsetDesc}) op {frag1WeekdayLong} {frag1Day} {frag1MonthShort} en {dayEndedLower} bij zonsondergang (ongeveer {endingSunsetDesc}) op {frag2WeekdayLong} {frag2Day} {frag2MonthShort}.", "description": "" },
   "pressKeyOrClick": { "message": "Druk op de toets of klik {0}.", "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press" },
   "copied": { "message": "Gekopiëerd!", "description": "short message that replaces sample format button text when button is clicked" },
 
@@ -214,38 +214,38 @@
 
   "new_messages_1_4": { "message": "" },
 
-  "pick_pageEvents": { "message": "Events" },
+  "pick_pageEvents": { "message": "Gebeurtenissen" },
   
-  "specialDaysTitle": { "message": "Feasts and Holy Days in {bYear}", "description": "" },
-  "dateHeading": { "message": "Day", "description": "heading in Events listing" },
-  "suspendWorkHeading": { "message": "Suspend Work", "description": "heading in Events listing" },
-  "eventTimeHeading1": { "message": "Meeting Time", "description": "heading in Events listing (if not showing Holy Days)" },
-  "eventTimeHeading2": { "message": "Meeting/Special Time", "description": "heading in Events listing (if showing Holy Days)" },
-  "sunsetHeading": { "message": "Start of Badí' Day", "description": "heading in Events listing" },
+  "specialDaysTitle": { "message": "Feesten en heilige dagen in {bYear}", "description": "" },
+  "dateHeading": { "message": "Dag", "description": "heading in Events listing" },
+  "suspendWorkHeading": { "message": "Vrij van werk", "description": "heading in Events listing" },
+  "eventTimeHeading1": { "message": "Tijd van de bijeenkomst", "description": "heading in Events listing (if not showing Holy Days)" },
+  "eventTimeHeading2": { "message": "Tijd bijeenkomst/herdenking", "description": "heading in Events listing (if showing Holy Days)" },
+  "sunsetHeading": { "message": "Begin van de Badí' Dag", "description": "heading in Events listing" },
   
-  "includeThese": { "message": "Show", "description": "choosing what to include in the listing" },
-  "includeFeasts": { "message": "<u>F</u>easts", "description": "choosing what to include in the listing" },
-  "includeHolyDays": { "message": "<u>H</u>oly Days", "description": "choosing what to include in the listing" },
-  "startTimeOption": { "message": "Usual meeting time: ", "description": "above Events listing" },
+  "includeThese": { "message": "Toon", "description": "choosing what to include in the listing" },
+  "includeFeasts": { "message": "<u>F</u>eesten", "description": "choosing what to include in the listing" },
+  "includeHolyDays": { "message": "<u>H</u>eilige dagen", "description": "choosing what to include in the listing" },
+  "startTimeOption": { "message": "Gebruikelijke begintijd: ", "description": "above Events listing" },
 
-  "specialTime_1500S": { "message": "3 pm (Standard Time)", "description": "First day of Ridvan" },
-  "specialTime_SS2": { "message": "About 2 hours after sunset", "description": "Declaration of the Bab" },
-  "specialTime_0300S": { "message": "3 am (Standard Time)", "description": "Ascension of Baha'u'llah" },
-  "specialTime_1200S": { "message": "Noon (Standard Time)", "description": "Martyrdom of the Bab" },
-  "specialTime_0100S": { "message": "1 am (Standard Time)", "description": "Martyrdom of the Bab" },
+  "specialTime_1500S": { "message": "15:00 (Standaard Tijd)", "description": "First day of Ridvan" },
+  "specialTime_SS2": { "message": "Ongeveer twee uur na zonsondergang", "description": "Declaration of the Bab" },
+  "specialTime_0300S": { "message": "3:00 (Standaard Tijd)", "description": "Ascension of Baha'u'llah" },
+  "specialTime_1200S": { "message": "Middaguur (Standaard Tijd)", "description": "Martyrdom of the Bab" },
+  "specialTime_0100S": { "message": "1:00 (Standaard Tijd)", "description": "Martyrdom of the Bab" },
 
-  "eventTime": { "message": "{eventTime} {eventWeekdayShort} {eventMonthShort} {eventDay}, {eventYear}", "description": "show start time in Events listing" },
-  "evePartOfDay": { "message": "{startingSunsetDesc} {frag1WeekdayShort} {frag1MonthShort} {frag1Day}, {frag1Year}", "description": "show start time in Events listing" },
+  "eventTime": { "message": "{eventTime} {eventWeekdayShort} {eventDay} {eventMonthShort} {eventYear}", "description": "show start time in Events listing" },
+  "evePartOfDay": { "message": "{startingSunsetDesc} {frag1WeekdayShort} {frag1Day} {frag1MonthShort} {frag1Year}", "description": "show start time in Events listing" },
 
 
-  "pick_pageFast": { "message": "Fast" },
-  "fastDaysTitle": { "message": "Fasting Times in {bYear}", "description": "" },
-  "sunriseFastHeading": { "message": "Sunrise", "description": "heading in Fast days listing" },
-  "sunsetFastHeading": { "message": "Sunset", "description": "heading in Fast days listing" },
-  "fastGDate": { "message": "Date", "description": "heading in Fast days listing" },
-  "mainPartOfDay": { "message": "{frag2WeekdayShort} {frag2MonthShort} {frag2Day}, {frag2Year}", "description": "show start time in Events listing" },
+  "pick_pageFast": { "message": "Vasten" },
+  "fastDaysTitle": { "message": "Tijden van de vasten in {bYear}", "description": "" },
+  "sunriseFastHeading": { "message": "Zonsopkomst", "description": "heading in Fast days listing" },
+  "sunsetFastHeading": { "message": "Zonsondergang", "description": "heading in Fast days listing" },
+  "fastGDate": { "message": "Datum", "description": "heading in Fast days listing" },
+  "mainPartOfDay": { "message": "{frag2WeekdayShort} {frag2Day} {frag2MonthShort} {frag2Year}", "description": "show start time in Events listing" },
   
-  "ayyamIs0": { "message": "(Y M D) 0 = Ayyám-i-Há", "description": "(updated) in Badi date picker area" },
+  "ayyamIs0": { "message": "(J M D) 0 = Ayyám-i-Há", "description": "(updated) in Badi date picker area" },
 
   
    "x": { "message": "", "description": "" }

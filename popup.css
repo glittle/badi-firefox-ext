@@ -609,6 +609,10 @@ button.today.notToday {
     text-align: center;
 }
 
+.centered {
+    text-align: center;
+}
+
 #explain {
     margin: 6px 6px 0 0;
 }
