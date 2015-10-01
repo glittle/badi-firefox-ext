@@ -945,7 +945,7 @@ $(function () {
   prepareAnalytics();
 
   $('#eventStart').val(getStorage('eventStart') || '1930');
-  $('#includeFeasts').prop('checked', getStorage('includeFeasts') || true);
+  $('#includeFeasts').prop('checked', getStorage('includeFeasts') || false);
   $('#includeHolyDays').prop('checked', getStorage('includeHolyDays') || false);
 
   refreshDateInfo();
