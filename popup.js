@@ -14,6 +14,7 @@ var _enableDayKeys = true;
 var _pageHitTimeout = null;
 var tracker = null;
 var _currentPageId = null;
+var _initialStartupDone = false;
 
 samplesDiv.on('click', 'button', copySample);
 $('.btnChangeDay').on('click', changeDay);
@@ -28,6 +29,8 @@ $('.bKullishayPicker, .bVahidPicker, .bYearInVahidPicker').on('change paste keyd
 $('#btnEveOrDay').on('click', toggleEveOrDay);
 $('#datePicker').on('change', jumpToDate);
 $('#eventStart').on('change', function () {
+  setStorage('eventStart', $(this).val());
+
   BuildSpecialDaysTable(_di);
   $('.eventTime').effect("highlight", 1000);
 });
@@ -122,7 +125,10 @@ function showInfo(di) {
 
   $('button.today').toggleClass('notToday', di.stamp !== getStorage('originalStamp'));
 
-  updateStatic(di);
+  if (_initialStartupDone) {
+    updateStatic(di);
+    BuildSpecialDaysTable(di);
+  }
 
   if (getStorage('locationNameKnown', false)) {
     showLocation();
@@ -228,9 +234,11 @@ function showPage(id) {
 
   clearTimeout(_pageHitTimeout);
   // delay a bit, to ensure we are not just moving past this page
-  _pageHitTimeout = setTimeout(function () {
-    tracker.sendAppView(id);
-  }, 500);
+  if (tracker) {
+    _pageHitTimeout = setTimeout(function () {
+      tracker.sendAppView(id);
+    }, 500);
+  }
 }
 
 function changeInVahid(ev) {
@@ -472,8 +480,12 @@ function keyPressed(ev) {
 
       if (_currentPageId == 'pageEvents') {
         // don't require ALT...
-        $('input[accessKey=' + key + ']', '#pageEvents').click();
-        $('select[accessKey=' + key + ']', '#pageEvents').click();
+        try {
+          $('input[accessKey=' + key + ']', '#pageEvents').click();
+          $('select[accessKey=' + key + ']', '#pageEvents').click();
+        } catch (e) {
+          // key may have odd symbol in it
+        }
       }
 
       var pageNum = +key;
@@ -627,7 +639,9 @@ function changeDay(ev, delta) {
     _targetDate.setDate(_targetDate.getDate() + delta);
   }
 
-  tracker.sendEvent('changeDay', delta);
+  if (tracker) {
+    tracker.sendEvent('changeDay', delta);
+  }
 
   _targetDate = getCurrentTime();
 
@@ -676,6 +690,9 @@ function fillStatic() {
   }
   $('#yearListBody').html('<tr class=yearListNum{num}><td>{num}</td><td>{arabic}</td><td>{meaning}</td></tr>'.filledWithEach(nameList));
 
+}
+
+function fillEventStart() {
   // fill ddl
   var startTime = new Date(2000, 5, 5, 0, 0, 0, 0); // random day
   var startTimes = [];
@@ -688,8 +705,11 @@ function fillStatic() {
       }
     }
   }
-  $('#eventStart').html('<option value={v}>{t}</option>'.filledWithEach(startTimes));
+  $('#eventStart')
+    .html('<option value={v}>{t}</option>'.filledWithEach(startTimes))
+    .val(getStorage('eventStart') || '1930');
 }
+
 function updateStatic(di) {
   $('#lists table tr.selected').removeClass('selected');
   $('#lists table tr.selectedDay').removeClass('selectedDay');
@@ -703,7 +723,6 @@ function updateStatic(di) {
   if (_cal1) {
     _cal1.showCalendar(di);
   }
-  BuildSpecialDaysTable(di);
 }
 
 function SetFiltersForSpecialDaysTable(ev) {
@@ -726,52 +745,55 @@ function SetFiltersForSpecialDaysTable(ev) {
     .toggleClass('Feasts', includeFeasts)
     .toggleClass('HolyDays', includeHolyDays);
 }
+var _lastSpecialDaysYear = 0;
 
 function BuildSpecialDaysTable(di) {
-  var dayInfos = holyDays.prepareDateInfos(di.bNow.y);
+  var year = di.bNow.y;
+  if (_lastSpecialDaysYear === year) {
+    return;
+  }
+  _lastSpecialDaysYear = year;
+  var dayInfos = holyDays.prepareDateInfos(year);
 
   SetFiltersForSpecialDaysTable();
 
   dayInfos.forEach(function (dayInfo, i) {
     if (dayInfo.Type == 'Today') {
-      // an old version... remove it
+      // an old version... remove Today from list
       dayInfos.splice(i, 1);
       i--;
     }
   });
 
-  var todayShown = false;
-  todayShown = true; // decided not to include 'today' in the listing
-  dayInfos.forEach(function (dayInfo, i) {
-    if (!todayShown) {
-      var targetDi = getDateInfo(dayInfo.GDate, true);
-      if (targetDi.currentTime > di.currentTime) {
-        dayInfos.splice(i, 0, {
-          GDate: di.currentTime,
-          di: di,
-          Time: digitPad2(di.currentTime.getHours()) + digitPad2(di.currentTime.getMinutes()),
-          A: getMessage('currentDay'),
-          Type: 'Today',
-          BMonthDay: {
-            d: di.bNow.d,
-            m: di.bNow.m,
-          }
-        });
-        i++;
-        todayShown = true;
-      }
-    }
+  //var todayShown = false;
+  //todayShown = true; // decided not to include 'today' in the listing
+  //dayInfos.forEach(function (dayInfo, i) {
+  //  if (!todayShown) {
+  //    var targetDi = getDateInfo(dayInfo.GDate, true);
+  //    if (targetDi.currentTime > di.currentTime) {
+  //      dayInfos.splice(i, 0, {
+  //        GDate: di.currentTime,
+  //        di: di,
+  //        Time: digitPad2(di.currentTime.getHours()) + digitPad2(di.currentTime.getMinutes()),
+  //        A: getMessage('currentDay'),
+  //        Type: 'Today',
+  //        BMonthDay: {
+  //          d: di.bNow.d,
+  //          m: di.bNow.m,
+  //        }
+  //      });
+  //      i++;
+  //      todayShown = true;
+  //    }
+  //  }
 
-  });
+  //});
 
   var defaultEventStart = $('#eventStart').val();
-  setStorage('eventStart', defaultEventStart);
-
   dayInfos.forEach(function (dayInfo, i) {
     var targetDi = getDateInfo(dayInfo.GDate, true);
 
     dayInfo.di = targetDi;
-
     dayInfo.D = targetDi.bMonthNameAr + ' ' + targetDi.bDay;
     dayInfo.G = getMessage('evePartOfDay', targetDi);
     dayInfo.Sunset = getMessage('startingSunsetDesc', targetDi);
@@ -792,7 +814,8 @@ function BuildSpecialDaysTable(di) {
     }
 
     if (dayInfo.Type === 'Fast') {
-      dayInfo.Sunrise = targetDi.frag2SunTimes.sunrise.showTime(use24HourClock ? 24 : 0);
+      var sunrise = targetDi.frag2SunTimes.sunrise;
+      dayInfo.Sunrise = sunrise ? sunrise.showTime(use24HourClock ? 24 : 0) : '?';
       dayInfo.FastDay = getMessage('mainPartOfDay', targetDi);
       if (targetDi.frag2Weekday == 6) {
         dayInfo.RowClass = 'FastSat';
@@ -941,31 +964,46 @@ function adjustHeight() {
   }
 }
 
+function prepareDefaults() {
+  var feasts = getStorage('includeFeasts');
+  var holyDays = getStorage('includeHolyDays');
+
+  if (typeof (feasts) === 'undefined' && typeof (holyDays) === 'undefined') {
+    feasts = false;
+    holyDays = true;
+  }
+
+  $('#includeFeasts').prop('checked', feasts || false);
+  $('#includeHolyDays').prop('checked', holyDays || false);
+}
+
 $(function () {
   prepareAnalytics();
 
-  $('#eventStart').val(getStorage('eventStart') || '1930');
-  $('#includeFeasts').prop('checked', getStorage('includeFeasts') || false);
-  $('#includeHolyDays').prop('checked', getStorage('includeHolyDays') || false);
-
   refreshDateInfo();
-
-  localizeHtml();
 
   showPage('pageDay');
 
+  localizeHtml();
 
-  showInfo(_di);
+  changeDay(null, 0);
+
+  $('body').removeClass('hidden');
 
   setTimeout(function () {
+    _initialStartupDone = true;
+
+    prepareDefaults();
+
+    fillEventStart();
 
     adjustHeight();
 
+    updateStatic(_di);
+
+    BuildSpecialDaysTable(_di);
+
     fillStatic();
-
-    showLocation();
-
-    changeDay(null, 0);
 
     showShortcutKeys();
 
@@ -973,9 +1011,8 @@ $(function () {
 
     _initialDi = $.extend(true, {}, _di);
 
-    setTimeout(function () {
-      _cal1 = Cal1(_di);
-      _cal1.showCalendar(_di);
-    }, 10);
-  }, 10);
+    _cal1 = Cal1(_di);
+    _cal1.showCalendar(_di);
+
+  }, 250);
 });

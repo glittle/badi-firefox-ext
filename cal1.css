@@ -1,224 +1,232 @@
 .cal1body {
-  height: auto;
-  margin-bottom: 0;
-  font-family: Tahoma;
-  background-color: #fff;
+    height: auto;
+    margin-bottom: 0;
+    font-family: Tahoma;
+    background-color: #fff;
 }
 
 #months {
-  margin: 2px 0 5px 0;
-  width: 742px;
+    margin: 2px 0 5px 0;
+    width: 742px;
 }
 
 .month {
-  margin-top: -1px;
-  position: relative;
+    margin-top: -1px;
+    position: relative;
 }
 
 .element {
-  transform: rotate(-90deg);
-  transform-origin: top right;
-  position: absolute;
-  top: 4px;
-  right: 14px;
-  line-height: 13px;
-  font-size: 11px;
-  text-align: center;
+    transform: rotate(-90deg);
+    transform-origin: top right;
+    position: absolute;
+    top: 4px;
+    right: 14px;
+    line-height: 13px;
+    font-size: 11px;
+    text-align: center;
 }
 
 .bm {
 }
 
-  .bm i {
-    font-style: normal;
-    padding-right: 2px;
-    font-size: 8px;
-  }
+    .bm i {
+        font-style: normal;
+        padding-right: 2px;
+        font-size: 8px;
+    }
 
 .mGroup1 {
-  background-color: rgba(255, 0, 0, 0.1); /* fire of God */
+    background-color: rgba(255, 0, 0, 0.1); /* fire of God */
 }
 
 .mGroup2 {
-  background-color: rgba(200, 200, 200, 0.1); /* air of eternity */
+    background-color: rgba(200, 200, 200, 0.1); /* air of eternity */
 }
 
 .mGroup3 {
-  background-color: rgba(0, 0, 255, 0.1); /* water of Divine Unity */
+    background-color: rgba(0, 0, 255, 0.1); /* water of Divine Unity */
 }
 
 .mGroup4 {
-  background-color: rgba(0, 255, 0, 0.1); /* earth */
+    background-color: rgba(0, 255, 0, 0.1); /* earth */
 }
 
 .element.mGroup1 {
-  width: 72px;
-  color: rgba(255, 0, 0, 0.6);
+    width: 72px;
+    color: rgba(255, 0, 0, 0.6);
 }
 
 .element.mGroup2 {
-  width: 97px;
-  color: rgba(100, 100, 100, .8);
+    width: 97px;
+    color: rgba(100, 100, 100, .8);
 }
 
 .element.mGroup3 {
-  width: 147px;
-  color: rgba(0, 0, 255, .6);
+    width: 147px;
+    color: rgba(0, 0, 255, .6);
 }
 
 .element.mGroup4 {
-  width: 172px;
-  color: rgba(0, 255, 0, 1);
+    width: 172px;
+    color: rgba(0, 255, 0, 1);
 }
 
 
 .bd, .gd {
-  display: inline-block;
-  width: 34px;
-  box-sizing: border-box;
-  position: relative;
+    display: inline-block;
+    width: 34px;
+    box-sizing: border-box;
+    position: relative;
 }
 
 .bd {
-  border-left: 1px solid rgba(0,0,0,.2);
-  border-bottom: 1px solid rgba(0,0,0,.2);
-  padding: 0 0 1px 2px;
-  font-size: 11px;
-  line-height: 10px;
+    border-left: 1px solid rgba(0,0,0,.2);
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    padding: 0 0 1px 2px;
+    font-size: 11px;
+    line-height: 10px;
 }
 
-  .bd:hover {
-    background-color: #b7f59a;
-    cursor: pointer;
-  }
-
-  .bd b {
-    font-weight: normal;
-  }
-
-  .bd.dow6 {
-    border-left: 1px solid rgba(0,0,0,.6);
-    border-bottom: 1px solid rgba(0,0,0,.6);
-    /* saturday */
-  }
-
-    .bd.dow6 b {
-      font-weight: bold;
+    .bd:hover {
+        background-color: #b7f59a;
+        cursor: pointer;
     }
 
-  .bd.selected {
-    background-color: #77b55a;
-    border: 1px solid #4b8f29;
-  }
-
-    .bd.selected b {
-      color: #fff;
-      font-weight: bold;
+    .bd b {
+        font-weight: normal;
     }
+
+    .bd.dow6 {
+        border-left: 1px solid rgba(0,0,0,.6);
+        border-bottom: 1px solid rgba(0,0,0,.6);
+        /* saturday */
+    }
+
+        .bd.dow6 b {
+            font-weight: bold;
+        }
+
+    .bd.selected {
+        background-color: #77b55a;
+        border: 1px solid #4b8f29;
+    }
+
+        .bd.selected b {
+            color: #fff;
+            font-weight: bold;
+        }
 
 .bmName {
-  display: inline-block;
-  width: 80px;
-  padding-left: 2px;
-  font-size: 13px;
-  line-height: 10px;
+    display: inline-block;
+    width: 78px;
+    margin-right: 3px;
+    font-size: 13px;
+    line-height: 10px;
+    padding: 1px 0 1px 1px;
+}
+
+.bm.selected .bmName {
+    background-color: #77b55a;
+    color: #fff;
 }
 
 .gmInitial {
-  width: 93px; /* bmName width + offset */
-  padding-right: 2px;
-  text-align: right;
-  display: inline-block;
-  font-weight: 500;
+    width: 93px; /* bmName width + offset */
+    padding-right: 2px;
+    text-align: right;
+    display: inline-block;
+    font-weight: 500;
 }
 
 .gLast {
-  width: 21px;
-  overflow: hidden;
-  vertical-align: bottom;
+    width: 21px;
+    overflow: hidden;
+    vertical-align: bottom;
 }
 
 .gm {
-  font-size: 8px;
-  margin-top: -1px;
+    font-size: 8px;
+    margin-top: -1px;
 }
 
 .gd {
-  line-height: 10px;
-  margin-bottom: 0px;
-  border-left: 1px solid rgba(0,0,0,.2);
-  padding-left: 1px;
+    line-height: 10px;
+    margin-bottom: 0px;
+    border-left: 1px solid rgba(0,0,0,.2);
+    padding-left: 1px;
 }
 
-  .gd.gd1 {
-    font-weight: 700;
-  }
+    .gd.gd1 {
+        font-weight: bold;
+        /*color: rgba(83, 205, 0, 0.9);*/
+    }
 
-  .gd b {
-    font-weight: normal;
-    padding-right: 3px;
-  }
+    .gd b {
+        font-weight: normal;
+        padding-right: 3px;
+    }
 
-  .gd i {
-    font-style: normal;
-  }
+    .gd i {
+        font-style: normal;
+    }
 
-  .gd.dow6 {
-    background-color: #efefef;
-    border-left: 1px solid rgba(0,0,0,.6);
-    /* saturday */
-  }
+    .gd.dow6 {
+        background-color: #efefef;
+        border-left: 1px solid rgba(0,0,0,.6);
+        /* saturday */
+    }
 
-  .gd.dow0 {
-    background-color: #efefef;
-  }
+    .gd.dow0 {
+        background-color: #efefef;
+    }
 
-  .gd.selected {
-    background-color: #77b55a;
-    color: #fff;
-  }
+    .gd.selected {
+        background-color: #77b55a;
+        color: #fff;
+    }
 
 /*.gd.gAlt {
     border-top: 2px solid rgba(0,0,0,.1);
   }*/
 
 .gma0 {
-  color: rgba(0,0,255,.6);
+    color: rgba(0,0,255,.8);
 }
 
 .gma1 {
-  color: rgba(83, 205, 0, 0.9);
+    color: rgba(0,0,255,.8);
+    /*color: rgba(83, 205, 0, 0.9);*/
 }
 
 .hdHS, .hdHO {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background: url(./star12c.gif);
-  margin: -2px 1px 0 0;
-  position: absolute;
-  right: 1px;
-  top: 1px;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: url(./star12c.gif);
+    margin: -2px 1px 0 0;
+    position: absolute;
+    right: 1px;
+    top: 1px;
 }
 
 .hdHO {
-  background: url(star12b.gif);
+    background: url(star12b.gif);
 }
 
 #btnClose {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 #btnReload {
-  position: absolute;
-  bottom: 0;
-  left: 150px;
+    position: absolute;
+    bottom: 0;
+    left: 150px;
 }
 
 #btnPrint {
-  position: absolute;
-  bottom: 0;
-  left: 250px;
+    position: absolute;
+    bottom: 0;
+    left: 250px;
 }

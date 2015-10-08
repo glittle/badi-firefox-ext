@@ -66,8 +66,8 @@ var Cal1 = function (di, host) {
   }
 
   function highlightTargetDay() {
-    $('.bd.selected, .gd.selected').removeClass('selected');
-    var sel = ('.bm{bMonth} .bd{bDay}, .g' + gDaySerial).filledWith(di);
+    $('.bd.selected, .gd.selected, .bm.selected').removeClass('selected');
+    var sel = ('.bm{bMonth}, .bm{bMonth} .bd{bDay}, .g' + gDaySerial).filledWith(di);
     $(sel).addClass('selected');
   }
 

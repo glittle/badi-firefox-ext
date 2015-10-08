@@ -351,7 +351,7 @@ var findName = function (typeName, results, getLastMatch) {
 
 function startGetLocationName() {
   var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&language={2}'.filledWith(localStorage.lat, localStorage.long, chrome.runtime.getManifest().current_locale);
-
+  console.log('getting');
   var xhr = new XMLHttpRequest();
   xhr.open("GET", url, true);
   xhr.onreadystatechange = function () {
@@ -364,6 +364,7 @@ function startGetLocationName() {
                || getMessage('noLocationName');
 
       setStorage('locationNameKnown', true);
+      console.log(localStorage.locationName);
 
       // if popup is showing...
       if (typeof showLocation !== 'undefined') {

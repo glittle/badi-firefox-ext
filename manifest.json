@@ -1,7 +1,7 @@
 {
   "name": "__MSG_title__",
-  "version": "1.4.0",
-  "version_name": "1.4.0",
+  "version": "1.4.3",
+  "version_name": "1.4.3",
   "description": "__MSG_titleDesc__",
   "default_locale": "en",
   "icons": {

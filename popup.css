@@ -6,6 +6,10 @@ body {
     font-size: 75%;
 }
 
+    body.hidden {
+        display: none;
+    }
+
 #show {
     width: 430px;
     display: table-cell;
