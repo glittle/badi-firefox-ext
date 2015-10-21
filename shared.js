@@ -1,13 +1,20 @@
 /* Code by Glen Little */
 /* global HolyDays */
 /* global moment */
+
+var settings = {
+  // eventually move to a settings page?
+  rememberFocusTimeMinutes: 5
+};
+
 var _locationLat = localStorage.lat;
 var _locationLong = localStorage.long;
-var _targetDate = null;
+var _focusTime = null;
 var holyDays = HolyDays();
 var knownDateInfos = {};
 var _di = {};
 var _initialDi;
+var _firstLoad = true;
 
 // see messages.json for translations and local names
 var bYearInVahidNameAr = ",Alif,Bá’,Ab,Dál,Báb,Váv,Abad,Jád,Bahá',Ḥubb,Bahháj,Javáb,Aḥad,Vahháb,Vidád,Badí‘,Bahí,Abhá,Váḥid".split(',');
@@ -29,12 +36,16 @@ var elements = getMessage('elements').split(',');
 
 var use24HourClock = getMessage('use24HourClock') == 'true';
 
-function refreshDateInfo() {
-  return _di = getDateInfo(getCurrentTime());
+function refreshDateInfo(skipUpcoming) {
+  return _di = getDateInfo(getFocusTime(), skipUpcoming);
 }
 
 
 function getDateInfo(currentTime, skipUpcoming) {
+  if (isNaN(currentTime)) {
+    //debugger;
+  }
+
   // hard code limits
   var minDate = new Date(1844, 2, 21, 0, 0, 0, 0);
   if (currentTime < minDate) {
@@ -215,6 +226,7 @@ function getElementNum(monthNum) {
 
 function showIcon(dateInfo) {
   var tipLines = [];
+
   tipLines.push(getMessage('formatIconToolTip', dateInfo));
 
   if (dateInfo.special1) {
@@ -351,7 +363,6 @@ var findName = function (typeName, results, getLastMatch) {
 
 function startGetLocationName() {
   var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&language={2}'.filledWith(localStorage.lat, localStorage.long, chrome.runtime.getManifest().current_locale);
-  console.log('getting');
   var xhr = new XMLHttpRequest();
   xhr.open("GET", url, true);
   xhr.onreadystatechange = function () {
@@ -365,6 +376,8 @@ function startGetLocationName() {
 
       setStorage('locationNameKnown', true);
       console.log(localStorage.locationName);
+
+      //console.log('got location name ' + (new Date().getSeconds() + new Date().getMilliseconds() / 1000));
 
       // if popup is showing...
       if (typeof showLocation !== 'undefined') {
@@ -402,11 +415,15 @@ function noLocation(err) {
 }
 
 function refreshDateInfoAndShow() {
-  var di = refreshDateInfo();
+  // also called from alarm, to update to the next day
+  var di = refreshDateInfo(_firstLoad);
+  _di = di;
+  _firstLoad = false;
   setStorage('originalStamp', di.stamp);
 
   showIcon(di);
   if (typeof showInfo !== 'undefined') {
+    // are we inside the open popup?
     showInfo(di);
   }
 
@@ -419,11 +436,9 @@ function setAlarmForNextUpdate(currentTime, sunset, inEvening) {
     var midnight = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate() + 1).getTime();
     chrome.alarms.create('midnight', { when: midnight + 1000 }); // to be safe, set at least 1 second after midnight 
   } else {
-    // in the day, so update at the sunset
-    chrome.alarms.create('sunset', { when: sunset.getTime() }); 
+    // in the day, so update right at the sunset
+    chrome.alarms.create('sunset', { when: sunset.getTime() });
   }
-
-  //chrome.alarms.create('test', {delayInMinutes: 1}); 
 
   // debug - show alarm that was set
   chrome.alarms.getAll(function (alarms) {
@@ -594,11 +609,17 @@ function getOrdinalName(num) {
   return ordinalNames[num];
 }
 
-function getCurrentTime() {
-  if (_targetDate) {
-    return _targetDate;
+function getFocusTime() {
+  if (!_focusTime) {
+    _focusTime = new Date();
   }
-  return new Date();
+  return _focusTime;
+}
+
+function setFocusTime(t) {
+  _focusTime = t;
+  setStorage('focusTime', t);
+  setStorage('focusTimeAsOf', new Date());
 }
 
 function localizeHtml(host) {
@@ -659,21 +680,42 @@ function localizeHtml(host) {
 
 
 function installed(info) {
-    if (info.reason == 'update') {
-        var newVersion = chrome.runtime.getManifest().version_name;
-        var oldVersion = localStorage.updateVersion;
-        console.log(oldVersion + ' --> ' + newVersion);
-        if (newVersion != oldVersion) {
-            localStorage.updateVersion = newVersion;
-            chrome.tabs.create({
-                url: 'https://sites.google.com/site/badicalendartools/home/chrome-extension/history#' + chrome.i18n.getMessage('@@ui_locale')
-            });
-        }
-    } else {
-      console.log(info);
-    }
+  if (info.reason == 'update') {
+    setTimeout(function () {
+      var newVersion = chrome.runtime.getManifest().version_name;
+      var oldVersion = localStorage.updateVersion;
+      console.log(oldVersion + ' --> ' + newVersion);
+      if (newVersion != oldVersion) {
+        localStorage.updateVersion = newVersion;
+        chrome.tabs.create({
+          url: 'https://sites.google.com/site/badicalendartools/home/chrome-extension/history?'
+            + '{0}:{1}'.filledWith(
+            chrome.runtime.getManifest().version_name,
+            getMessage('translation'))
+        });
+
+        tracker.sendEvent('updated', getVersionInfo());
+      }
+    }, 1000);
+  } else {
+    console.log(info);
+  }
 }
 
+function getVersionInfo() {
+  var info = '{0}:{1} ({2})'.filledWith(
+            chrome.runtime.getManifest().version_name,
+            getMessage('translation'),
+            navigator.languages ? navigator.languages.slice(0, 2).join(',') : '');
+  return info;
+}
+
+function timeNow(msg) {
+  // for debugging
+  var now = new Date();
+  var time = now.getMilliseconds() / 1000 + now.getSeconds();
+  console.log(time + ' ' + msg)
+}
 
 // google analytics
 function prepareAnalytics() {
@@ -687,10 +729,8 @@ function prepareAnalytics() {
   }
 }
 function initAnalyticsConfig(config) {
-  var preferredLanguages = navigator.languages ? navigator.languages.slice(0, 2).join(',') : '';
+  tracker.sendEvent('opened', getVersionInfo());
 
-  tracker.sendEvent('opened', preferredLanguages);
-
-  //var d = analytics.EventBuilder.builder().dimension(1, preferredLanguages)
+  //var d = analytics.EventBuilder.builder().dimension(1, info)
   //tracker.send(d);
 }

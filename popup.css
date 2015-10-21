@@ -1,26 +1,66 @@
 body {
     margin: 0;
-    width: 100%;
-    height: auto;
+    width: 800px;
     font-family: Geneva, 'Segoe UI';
-    font-size: 75%;
+    font-size: 12px;
+    display: none;
 }
 
-    body.hidden {
-        display: none;
+.mainTop {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mainMiddle {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mainBottom {
+    display: flex;
+    flex-direction: column;
+}
+
+#pageDay, #pageEvents, #pageFast, #pageLists, #pageCal1 {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+#pageEvents, #pageFast, #pageLists, #pageCal1 {
+    border: 1px solid green;
+    border-radius: 3px;
+}
+
+#pageDay {
+    display: flex;
+}
+
+    #pageDay > div {
+        margin-left: 4px;
+        justify-content: flex-end;
+        flex: 0 1 100%;
     }
 
+#pageEvents {
+    display: flex;
+    align-items: flex-start;
+    max-height: 500px;
+    overflow: auto;
+}
+
 #show {
-    width: 430px;
-    display: table-cell;
+    /*width: 340px;*/
+    /*display: table-cell;*/
     white-space: nowrap;
-    font-size: 1.25em;
+    font-size: 16px;
     /*font-family: Geneva;*/
     text-align: center;
 }
 
 #day {
-    font-size: 1.25em;
+    font-size: 18px;
     display: inline-block;
     margin-top: 14px;
     margin-bottom: 9px;
@@ -31,87 +71,75 @@ body {
         margin-bottom: -1px;
     }
 
+body[data-pageid=pageCal1] #day {
+    margin-top: 1px;
+    margin-bottom: 2px;
+}
+
+    body[data-pageid=pageCal1] #day.withSpecial {
+        margin-top: 1px;
+        margin-bottom: 2px;
+    }
+
 #special {
     margin-top: -1px;
 }
 
 #special1 {
-    font-size: 1.25em;
+    font-size: 17px;
     color: blue;
     display: none;
 }
 
 #special2 {
-    font-size: 1.25em;
+    font-size: 16px;
     color: blue;
     display: none;
 }
 
-#sunset {
+body.ta #sunset {
+    font-size: 13px;
 }
 
-.sidebyside1 {
-    display: table;
-    margin: 0 10px;
-    width: 100%;
+div.selectPages {
+    width: 15px;
 }
 
-.sidebyside2 {
-}
-
-.midSection {
-    position: relative;
-    margin: 0 16px 0 6px;
-}
-
-.sidebyside2 > div {
-    display: table-cell;
-}
-
-.spacerEnd {
-    width: 7px;
-    z-index: -1;
-}
-
-div.pagePicker {
-    position: absolute;
-    right: 17px;
-    top: 104px;
-    display: block;
-}
-
-.pagePicker .buttons {
+.selectPages .buttons {
     transform: rotate(-90deg);
-    transform-origin: top right;
-    padding-right: 5px;
+    transform-origin: left;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    margin: 5px 0 0 7px;
 }
 
-    .pagePicker .buttons button {
-        float: right;
+    .selectPages .buttons button {
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
         background-color: #b5775a;
         border: 1px solid #8f4b29;
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
-        display: inline-block;
+        display: block;
         cursor: pointer;
         color: #ffffff;
         /*font-family: Geneva;*/
         font-size: 12px;
         transition: color 0.4s ease-out;
-        padding: 0px 5px 2px;
+        padding: 0 5px 1px;
         margin-left: 3px;
         text-decoration: none;
         white-space: nowrap;
+        line-height: 13px;
     }
 
-        .pagePicker .buttons button.showing {
+        .selectPages .buttons button.showing {
             background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
             background-color: #77b55a;
             border: 1px solid #4b8f29;
         }
 
-        .pagePicker .buttons button:focus {
+        .selectPages .buttons button:focus {
             outline: none;
         }
 
@@ -124,7 +152,7 @@ div.pagePicker {
     position: absolute;
     right: 2px;
     bottom: 2px;
-    font-size: 90%;
+    font-size: 11px;
     color: #999;
 }
 
@@ -132,7 +160,7 @@ div.pagePicker {
     position: absolute;
     left: 2px;
     bottom: 2px;
-    font-size: 90%;
+    font-size: 11px;
     color: #999;
 }
 
@@ -168,8 +196,8 @@ div.pagePicker {
         background: url(./ajax-loader.gif) no-repeat;
     }
 
-.place, #gDay, #gDayWithSunset {
-    font-size: .7em;
+.place, #gDay {
+    font-size: 11px;
     color: gray;
 }
 
@@ -177,21 +205,7 @@ div.pagePicker {
     margin-bottom: 3px;
 }
 
-#gDayWithSunset {
-    display: none;
-    margin-bottom: 2px;
-}
-
 #showUpcoming {
-    padding: 5px 0;
-    display: table-cell;
-    vertical-align: bottom;
-    width: 339px;
-    position: relative;
-}
-
-body[data-page='pageDay'] #showUpcoming {
-    vertical-align: top;
 }
 
 tr.M {
@@ -210,7 +224,7 @@ tr.OtherRange {
     border: 1px solid rgba(0, 3, 255, 0.67);
     border-radius: 3px;
     padding: 5px;
-    display: table-cell;
+    /*display: table-cell;*/
     vertical-align: top;
 }
 
@@ -235,17 +249,17 @@ dd {
 .comment {
     color: green;
     opacity: 0.6;
-    font-size: 90%;
+    font-size: 11px;
 }
 
 
 #samples {
-    font-size: 1em;
+    font-size: 12px;
     border: 1px solid green;
     border-radius: 3px;
     padding: 5px;
     position: relative;
-    display: table-cell;
+    /*display: table-cell;*/
     vertical-align: top;
     white-space: nowrap;
 }
@@ -258,7 +272,7 @@ dd {
     color: green;
     opacity: 0.7;
     width: 370px;
-    white-space: nowrap;
+    white-space: normal;
 }
 
 body.pt_PT #sampleTitle {
@@ -278,100 +292,72 @@ body.pt_PT #sampleTitle {
 }
 
 #pageLists {
-    display: none;
+    display: flex;
+    justify-content: center;
 }
 
-#page2a div {
-    width: 0px;
-}
-
-body.pt_PT #page2a div {
-    width: 60px;
-}
-
-body.nl #page2a div {
-    width: 52px;
-}
-
-#page2lists {
-    font-size: 1em;
-    border: 1px solid green;
-    border-radius: 3px;
-    padding: 5px;
-    position: relative;
-    vertical-align: top;
-    white-space: nowrap;
-}
-
-#lists {
-    padding: 0px 20px 5px 5px;
-    vertical-align: top;
-}
-
-    #lists table {
-        vertical-align: top;
+    #pageLists table {
         border-spacing: 0;
         border-collapse: collapse;
         display: inline-block;
-        margin-right: 20px;
+        margin: 2px 15px 5px 15px;
     }
 
-        #lists table caption {
+        #pageLists table caption {
             color: green;
             opacity: .7;
             text-align: left;
         }
 
-        #lists table th {
+        #pageLists table th {
             text-align: left;
         }
 
-        #lists table th,
-        #lists table td {
+        #pageLists table th,
+        #pageLists table td {
             padding: 0 6px 0 4px;
         }
 
-        #lists table tr td:first-child,
-        #lists table tr th:first-child {
+        #pageLists table tr td:first-child,
+        #pageLists table tr th:first-child {
             text-align: right;
         }
 
-        #lists table tr.selectedDay td {
+        #pageLists table tr.selectedDay td {
             color: blue;
         }
 
-        #lists table tr.selectedDay {
+        #pageLists table tr.selectedDay {
             background-color: #eee;
         }
 
-        #lists table #monthListBody tr.selected {
+        #pageLists table #monthListBody tr.selected {
             background-color: #ddd;
             color: green;
         }
 
-        #lists table #yearListBody tr.selected {
+        #pageLists table #yearListBody tr.selected {
             background-color: #ddd;
             color: #9a710c;
         }
 
-#specialLists {
-    font-size: 1em;
-    border: 1px solid green;
-    border-radius: 3px;
-    padding: 5px;
-    position: relative;
-    vertical-align: top;
-    white-space: nowrap;
-    min-width: 690px;
+#specialDaysTitle {
+    display: none;
+    font-size: 18px;
+    text-align: center;
+    margin: 0px 50px 0 0;
 }
 
-#spacerSpecial div {
-    width: 0px;
+#specialLists {
+    padding: 4px;
+    white-space: nowrap;
+    overflow: auto;
 }
 
 #specialListsTable {
-    width: 100%;
+    width: 99.9%;
     border-spacing: 1px 0px;
+    border-collapse: collapse;
 }
 
     #specialListsTable tbody tr {
@@ -382,9 +368,9 @@ body.nl #page2a div {
         display: table-row;
     }
 
-    #specialListsTable.HolyDays tbody tr.HS,
-    #specialListsTable.HolyDays tbody tr.HO {
+    #specialListsTable.HolyDays tbody tr.H {
         display: table-row;
+        background-color: rgb(250, 250, 250);
     }
 
     #specialListsTable .forHD {
@@ -399,6 +385,10 @@ body.nl #page2a div {
         display: none;
     }
 
+
+    #specialListsTable td.eventTime {
+        white-space: normal;
+    }
 
     #specialListsTable tr.SpecialTime td.eventTime {
         color: blue;
@@ -423,11 +413,11 @@ body.nl #page2a div {
     #specialListsTable caption {
         color: green;
         text-align: left;
-        font-size: 1.2em;
+        font-size: 16px;
         margin: -2px 0px 2px 2px;
     }
 
-    #specialListsTable .M TD {
+    #specialListsTable TD {
         color: black;
         border-top: solid 1px #ddd;
     }
@@ -436,9 +426,12 @@ body.nl #page2a div {
         color: black;
     }
 
+    #specialListsTable td.name {
+        white-space: normal;
+    }
+
     #specialListsTable .HS .name {
         color: blue;
-        font-weight: 600;
         background-image: url(./star12c.gif);
         background-repeat: no-repeat;
         background-position: 2px 3px;
@@ -466,15 +459,18 @@ body.nl #page2a div {
     }
 
 #eventStartHolder {
-    position: absolute;
-    right: 3px;
-    top: 1px;
-    z-index: 1;
+    float: right;
+    margin: 0 0 10px 0;
 }
 
-    #eventStartHolder select {
-        font-size: 12px;
-    }
+body.ta #eventStartHolder {
+    position: relative;
+    float: right;
+}
+
+#eventStartHolder select {
+    font-size: 12px;
+}
 
 #includeWhat {
     margin-right: 20px;
@@ -482,18 +478,12 @@ body.nl #page2a div {
 }
 
 #fastList {
-    font-size: 1em;
-    border: 1px solid green;
-    border-radius: 3px;
+    font-size: 12px;
     padding: 5px;
     position: relative;
     vertical-align: top;
     white-space: nowrap;
     width: 100%;
-}
-
-#spacerFast div {
-    width: 0px;
 }
 
 #fastListTable {
@@ -514,8 +504,7 @@ body.nl #page2a div {
 
     #fastListTable caption {
         color: green;
-        font-size: 1.2em;
-        margin: -2px 0px 2px 2px;
+        font-size: 16px;
     }
 
 tr.FastSat td {
@@ -595,6 +584,7 @@ button.today.notToday {
     margin: 3px 0 0 0;
     text-align: center;
     position: relative;
+    clear: both;
 }
 
 #googlePlus img {
@@ -607,10 +597,12 @@ button.today.notToday {
 
 #logo {
     width: 22px;
+    height: 24px;
 }
 
 .explains {
     text-align: center;
+    clear: both;
 }
 
 .centered {
@@ -629,8 +621,6 @@ button.today.notToday {
     border: 1px solid #daaaaa;
     border-radius: 3px;
     padding: 5px;
-    display: table-cell;
-    vertical-align: top;
 }
 
 #gDatePickerTitle {
@@ -655,15 +645,15 @@ button.today.notToday {
     float: right;
     color: #999;
     margin: 6px 0 0 0;
-    font-size: 90%;
+    font-size: 11px;
 }
 
 #upcomingTitle {
     color: green;
     text-decoration: underline;
-    font-size: 1.2em;
-    overflow: visible;
-    white-space: nowrap;
+}
+
+body.ta #upcomingTitle {
 }
 
 #upcoming {
@@ -686,7 +676,6 @@ button.today.notToday {
 
 #gDateDesc {
     margin: 0 3px 0 9px;
-    white-space: nowrap;
 }
 
 #datePicker {
@@ -728,38 +717,36 @@ input.bYearPicker {
     width: 50px;
 }
 
-.fullPage {
-    border: 1px solid green;
-    border-radius: 3px;
-    display: none;
-    margin: 0 17px 5px 5px;
+
+#yearSelector {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-#yearPicker {
-    display: none;
-    text-align: left;
-    bottom: 0;
-    white-space: nowrap;
-    vertical-align: top;
-}
+    #yearSelector > div {
+        margin: 2px 5px;
+        background-color: rgb(237, 246, 233);
+        padding: 2px;
+        border-radius: 5px;
+        border: 1px solid rgb(237, 246, 233);
+    }
 
-    #yearPicker input {
+    #yearSelector input {
         font-size: 11px;
         font-family: Geneva, 'Segoe UI';
         text-align: center;
         margin: 0;
     }
 
-    #yearPicker .vahidInputs {
-        text-align: center;
-    }
-
 .JumpDays {
-    display: inline-block;
-    margin-left: 10px;
+    display: block;
+    text-align: center;
 }
 
-#yearPicker input.jumpTo {
+.yearPicker {
+}
+
+#yearSelector input.jumpTo {
     width: 45px;
     text-align: right;
 }
@@ -768,21 +755,9 @@ input.bYearPicker {
     width: 40px;
 }
 
-.half {
-    width: 50%;
-    text-align: left;
-    margin: 0 0 0 1px;
-    display: inline-block;
-}
-
-    .half:first-child {
-        text-align: right;
-        margin: 1px 0 0 0;
-    }
-
 .vahidInputs {
-    margin-top: 2px;
-    display: inline-block;
+    text-align: center;
+    display: block;
 }
 
     .vahidInputs > div {

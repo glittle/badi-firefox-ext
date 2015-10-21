@@ -315,7 +315,6 @@ var HolyDays = function () {
   };
   var getGDateYBDate = function (bYear, bMonthDay) {
     if (!bMonthDay || !bMonthDay.d) {
-      debugger;
       return '?3?';
     }
     return getGDateYMD(bYear, bMonthDay.m, bMonthDay.d);
@@ -2143,6 +2142,7 @@ var HolyDays = function () {
     }
     return nawRuz;
   }; // make these available to the browser
+
   return {
     getNawRuz: getNawRuz,
     getUpcoming: getUpcoming,

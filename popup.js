@@ -31,6 +31,7 @@ $('#datePicker').on('change', jumpToDate);
 $('#eventStart').on('change', function () {
   setStorage('eventStart', $(this).val());
 
+  _lastSpecialDaysYear = null;
   BuildSpecialDaysTable(_di);
   $('.eventTime').effect("highlight", 1000);
 });
@@ -46,7 +47,7 @@ $('#btnRetry').on('click', function () {
 $('#datePicker').on('keydown', function (ev) {
   ev.stopPropagation();
 });
-$('.pagePicker').on('click', 'button', changePage);
+$('.selectPages').on('click', 'button', changePage);
 $(document).on('keydown', keyPressed);
 //$('#btnCal1').on('click', showCal1);
 $('.iconArea a').click(function () {
@@ -81,7 +82,7 @@ function showInfo(di) {
   $('#day').html(getMessage('bTopDayDisplay', di));
   $('#sunset').html(di.nearestSunset);
   $('#gDay').html(getMessage('gTopDayDisplay', di));
-  $('#gDayWithSunset').html(getMessage('gTopDayDisplay', di) + ' - ' + getMessage(di.bNow.eve ? 'startingSunsetDesc' : 'endingSunsetDesc', di));
+  //$('#gDayWithSunset').html(getMessage('gTopDayDisplay', di) + ' - ' + getMessage(di.bNow.eve ? 'startingSunsetDesc' : 'endingSunsetDesc', di));
 
   $('#dayDetails').html('<dl>' + '<dt>{^name}</dt><dd>{^value}</dd>'.filledWithEach(dayDetails) + '</dl>');
 
@@ -136,6 +137,8 @@ function showInfo(di) {
     startGetLocationName();
   }
 
+  setFocusTime(di.currentTime);
+
   _showingInfo = false;
 }
 
@@ -151,7 +154,7 @@ function changePage(ev, delta) {
     showPage(id);
   }
   else {
-    var pageButtons = $('.pagePicker button');
+    var pageButtons = $('.selectPages button');
     var lastPageNum = pageButtons.length - 1;
     var num = _currentPageNum;
 
@@ -178,21 +181,23 @@ function changePage(ev, delta) {
 }
 
 function showPage(id) {
+  id = id || _currentPageId || 'pageDay';
   var pages = $('.page');
-  var btns = $('.pagePicker button');
+  var btns = $('.selectPages button');
 
   pages.css({ visible: 'hidden' }); // reduce flicker?
 
-  var pageDay = '#gDay, #upcoming, #upcomingTitle, .midSection, .explains, .normal, .JumpDays, #show, .iconArea';
-  var pageCal1 = '#yearPicker, #gDayWithSunset, .JumpDays, #show';
-  var pageEvents = '.midSection, #yearPicker, #gDayWithSunset, .iconArea';
-  var pageLists = '.midSection, #gDayWithSunset, #show, .iconArea';
-  var pageFast = '#yearPicker, .midSection, #gDayWithSunset, .iconArea';
+  var other = '.vahidInputs'; // don't fit on any page... likely need to remove it
+  var pageDay = '#gDay, #showUpcoming, .explains, .normal, #show, .iconArea, #special';
+  var pageEvents = '#yearSelector, .iconArea, #specialDaysTitle';
+  var pageCal1 = '#yearSelector, .JumpDays, #show, #gDay';
+  var pageLists = '#gDay, #show, .iconArea, #special';
+  var pageFast = '#yearSelector, .iconArea';
 
-  $([pageDay, pageEvents, pageCal1, pageLists, pageFast].join(',')).hide();
+  $([other, pageDay, pageEvents, pageCal1, pageLists, pageFast].join(',')).hide();
 
   _currentPageId = id;
-  $('body').attr('data-page', id);
+  $('body').attr('data-pageid', id);
   switch (id) {
     case 'pageDay':
       $(pageDay).show();
@@ -231,6 +236,12 @@ function showPage(id) {
   pages.hide();
   pages.filter('#' + id).show();
   pages.css({ visible: 'visible' });
+
+  if (id == 'pageDay') {
+    adjustHeight();
+  }
+
+  setStorage('focusPage', id);
 
   clearTimeout(_pageHitTimeout);
   // delay a bit, to ensure we are not just moving past this page
@@ -361,7 +372,7 @@ function changeToBDate(ev) {
   try {
     var gDate = holyDays.getGDate(+bYear, +bMonth, +bDay, true);
 
-    _targetDate = gDate;
+    setFocusTime(gDate);
 
     refreshDateInfo();
 
@@ -497,7 +508,7 @@ function keyPressed(ev) {
       }
 
       if (validPagePicker) {
-        var pageButtons = $('.pagePicker button');
+        var pageButtons = $('.selectPages button');
         if (pageNum > 0 && pageNum <= pageButtons.length) {
           _currentPageNum = pageNum - 1;
           showPage(pageButtons.eq(_currentPageNum).data('page'));
@@ -556,12 +567,12 @@ function copySample(ev) {
   }, 1000);
 }
 function toggleEveOrDay(toEve) {
-  _targetDate = getCurrentTime();
+  setFocusTime(getFocusTime());
   toEve = typeof toEve === 'boolean' ? toEve : !_di.bNow.eve;
   if (toEve) {
-    _targetDate.setHours(23, 59, 0, 0);
+    _focusTime.setHours(23, 59, 0, 0);
   } else {
-    _targetDate.setHours(12, 0, 0, 0);
+    _focusTime.setHours(12, 0, 0, 0);
   }
 
   tracker.sendEvent('toggleEveDay', toEve ? 'Eve' : 'Day');
@@ -598,7 +609,7 @@ function moveDays(ev) {
   }
   var target = new Date(_di.currentTime);
   target.setTime(target.getTime() + days * 86400000);
-  _targetDate = target;
+  setFocusTime(target);
   refreshDateInfo();
   showInfo(_di);
 }
@@ -606,7 +617,7 @@ function moveDays(ev) {
 function jumpToDate(ev) {
   var date = moment($(ev.target).val()).toDate();
   if (!isNaN(date)) {
-    _targetDate = date;
+    setFocusTime(date);
 
     refreshDateInfo();
     showInfo(_di);
@@ -619,7 +630,7 @@ function changeYear(ev, delta, targetYear) {
 
   var year = targetYear ? targetYear : _di.bYear + delta;
   var gDate = holyDays.getGDate(year, _di.bMonth, _di.bDay, true);
-  _targetDate = gDate;
+  setFocusTime(gDate);
 
   tracker.sendEvent('changeYear', delta);
 
@@ -631,26 +642,24 @@ function changeDay(ev, delta) {
 
   delta = ev ? +$(ev.target).data('delta') : +delta;
   if (delta === 0) {
-    _targetDate = null;
+    // reset to real time
+    setFocusTime(new Date());
   } else {
-    _targetDate = getCurrentTime();
-    // console.log(delta + ' ' + di.bNow.eve);  
-
-    _targetDate.setDate(_targetDate.getDate() + delta);
+    var time = getFocusTime();
+    time.setDate(time.getDate() + delta);
+    setFocusTime(time);
   }
 
   if (tracker) {
     tracker.sendEvent('changeDay', delta);
   }
 
-  _targetDate = getCurrentTime();
-
   refreshDateInfo();
 
   if (_di.bNow.eve) {
-    _targetDate.setHours(23, 59, 0, 0);
+    _focusTime.setHours(23, 59, 0, 0);
   } else {
-    _targetDate.setHours(12, 0, 0, 0);
+    _focusTime.setHours(12, 0, 0, 0);
   }
 
   showInfo(_di);
@@ -711,8 +720,8 @@ function fillEventStart() {
 }
 
 function updateStatic(di) {
-  $('#lists table tr.selected').removeClass('selected');
-  $('#lists table tr.selectedDay').removeClass('selectedDay');
+  $('#pageLists table tr.selected').removeClass('selected');
+  $('#pageLists table tr.selectedDay').removeClass('selectedDay');
   $('.yearListNum{bYearInVahid}, .monthListNum{bMonth}'.filledWith(di)).addClass('selected');
   if (di.bMonth !== 0) {
     $('.dayListNum{bDay}, .weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
@@ -868,11 +877,13 @@ function BuildSpecialDaysTable(di) {
 
     dayInfo.date = getMessage('upcomingDateFormat', targetDi);
 
-
+    if (dayInfo.Type.substring(0, 1) == 'H') {
+      dayInfo.TypeShort = ' H';
+    }
   });
 
   var rowTemplate = [];
-  rowTemplate.push('<tr class="{Type}{DefaultTimeClass}{STClass}">');
+  rowTemplate.push('<tr class="{Type}{TypeShort}{DefaultTimeClass}{STClass}">');
   rowTemplate.push('<td>{D}</td>');
   rowTemplate.push('<td class=name {STColSpan}>{A}</td>');
   rowTemplate.push('<td class=forHD>{NoWork}</td>');
@@ -880,9 +891,7 @@ function BuildSpecialDaysTable(di) {
   rowTemplate.push('<td>{G}</td>');
   rowTemplate.push('</tr>');
 
-  $('#specialListBody')
-    .html(rowTemplate.join('')
-    .filledWithEach(dayInfos.filter(function (el) { return el.Type != 'Fast' })));
+  $('#specialListBody').html(rowTemplate.join('').filledWithEach(dayInfos.filter(function (el) { return el.Type != 'Fast' })));
 
   $('#specialDaysTitle').html(getMessage('specialDaysTitle', di));
 
@@ -956,11 +965,11 @@ function showCal1() {
 
 function adjustHeight() {
   // try to ensure that the tabs are not longer than page1 content
-  var content = $('#gDatePicker');
+  var content = $('.mainMiddle');
   var contentHeight = content.height();
-  var tabsHeight = $('.pagePicker').width();
+  var tabsHeight = $('.selectPages').prop('scrollHeight');
   if (tabsHeight > contentHeight) {
-    content.height(tabsHeight);
+    content.css("min-height", (5 + tabsHeight) + 'px');
   }
 }
 
@@ -977,35 +986,65 @@ function prepareDefaults() {
   $('#includeHolyDays').prop('checked', holyDays || false);
 }
 
+function recallFocus() {
+  var storedAsOf = getStorage('focusTimeAsOf');
+  if (!storedAsOf) {
+    return;
+  }
+  var focusTimeAsOf = new Date(storedAsOf);
+
+  var now = new Date();
+  if (now - focusTimeAsOf < settings.rememberFocusTimeMinutes * 60000) {
+
+    var focusPage = getStorage('focusPage');
+    if (focusPage) {
+      _currentPageId = focusPage;
+    }
+
+    var stored = getStorage('focusTime');
+    if (stored) {
+      var time = new Date(stored);
+
+      if (now.toDateString() != time.toDateString()) {
+
+        console.log('reuse focus time: ' + time);
+
+        setFocusTime(time);
+
+        setTimeout(function () {
+          $('#day,#gDay').effect("highlight", 4000);
+        }, 150);
+      }
+    }
+  }
+}
+
 $(function () {
-  prepareAnalytics();
+  recallFocus();
+
+  showPage();
 
   refreshDateInfo();
 
-  showPage('pageDay');
-
   localizeHtml();
 
-  changeDay(null, 0);
+  showInfo(_di);
 
-  $('body').removeClass('hidden');
+  showShortcutKeys();
 
   setTimeout(function () {
+
     _initialStartupDone = true;
 
     prepareDefaults();
 
     fillEventStart();
 
-    adjustHeight();
-
-    updateStatic(_di);
+    fillStatic();
 
     BuildSpecialDaysTable(_di);
 
-    fillStatic();
-
-    showShortcutKeys();
+    updateStatic(_di);
 
     localizeHtml('#pageLists');
 
@@ -1014,5 +1053,15 @@ $(function () {
     _cal1 = Cal1(_di);
     _cal1.showCalendar(_di);
 
-  }, 250);
+    $('body').show();
+    adjustHeight();
+
+    prepareAnalytics();
+
+  }, _currentPageId == 'pageDay' ? 1000 : 0);
+
+  if (_currentPageId == 'pageDay') {
+    $('body').show();
+    adjustHeight();
+  }
 });

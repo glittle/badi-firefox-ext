@@ -1,152 +1,153 @@
-{
+﻿{
   "translation": {
-    "name": "Glen Little",
-    "email": "glen.little@gmail.com",
-    "message": "en",
+    "name": "Ramasamy Palaniappan",
+    "email": "prsamy@gmail.com",
+    "message": "ta",
     "description":  "(this is not shown in the tool)"
   },
   "title": {
-    "message": "Badí' Calendar",
+    "message": "படீ' நாள்காட்டி",
     "description": "The title of the extension. Shown in a number of locations."
   },
   "titleDesc": {
-    "message": "Shows today's date in the Badí' calendar, the official calendar of the Bahá'í Faith.",
+    "message": "பஹாய் சமயத்தின் அதிகாரபூர்வ நாள்காட்டியான, படீ’ நாள்காட்டி இன்றைய திகதியைக் காண்பிக்கின்றது.",
     "description": "Used in the manifest"
   },
   "browserActionTitle": {
-    "message": "(Loading...)",
+    "message": "(பதிவேற்றம்...)",
     "description": "Shown until the dynamic tip is created"
   },
   "bYearInVahidMeaning": {
-    "message": ",A,B,Father,D,Gate,V,Eternity,Generosity,Splendour,Love,Delightful,Answer,Single,Bountiful,Affection,Beginning,Luminous,Most Luminous,Unity",
+    "message": ",அ,ப,தந்தை,ட,வாசல்,V,நித்தியம்,வள்ளன்மை,பேரொளி,அன்பு,மகிழ்ச்சிகரமான,பதில்,தனி,அபரிமிதம்,பாசம்,ஆரம்பம்,ஒளிர்வு,அதி ஒளிர்வு,ஒற்றுமை",
     "description": "Vahid names, with leading , "
   },
   "bMonthMeaning": {
-    "message": "Intercalary Days,Splendor,Glory,Beauty,Grandeur,Light,Mercy,Words,Perfection,Names,Might,Will,Knowledge,Power,Speech,Questions,Honor,Sovereignty,Dominion,Loftiness",
+    "message": "உபரி நாள்கள்,பேரொளி,புகழ்,அழகு,சிறப்பு,ஒளி,இரக்கம்,சொற்கள்,நிறைவு,பெயர்,வலிமை,விருப்பம்,அறிவு, சக்தி,உரை,கேள்வி,மதிப்பு,மாட்சிமை,அரசு,உயர்வு",
     "description": "Names of days/months, with first one being Ayyam-i-ha"
   },
   "bWeekDayMeaning": {
-    "message": ",Glory,Beauty,Perfection,Grace,Justice,Majesty,Independence",
+    "message": ",புகழ்,அழகு,நிறைவு,கிருபை,நீதி,மாட்சிமை,சுதந்திரம்",
     "description": "start with Saturday"
   },
   "gWeekdayLong": {
-    "message": "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",
+    "message": "ஞாயிறு,திங்கள்,செவ்வாய்,புதன்,வியாழன்,வெள்ளி,சனி",
     "description": "start with Sunday"
   },
   "gWeekdayShort": {
-    "message": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
+    "message": "ஞா,திங்,செவ்,புத,வியா,வெ,சனி",
     "description": "start with Sun"
   },
   "gMonthLong": {
-    "message": "January,February,March,April,May,June,July,August,September,October,November,December",
+    "message": "ஜனவரி,பிப்ரவரி,மார்ச்,ஏப்ரல்,மே,ஜூன்,ஜூலை,ஆகஸ்ட்,செப்டம்பர்,அக்டோபர்,நவம்பர்,டிசம்பர்",
     "description": ""
   },
   "gMonthShort": {
-    "message": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
+    "message": "ஜன,பிப்,மார்,ஏப்,மே,ஜூன்,ஜூலை,ஆக,செப்,அக்,நவ,டிச",
     "description": ""
   },
   "startedWithSunset": {
-    "message": "Started with sunset at {0}",
+    "message": "உதயத்தில் {0} ஆரம்பம்",
     "description": ""
   },
   "endingWithSunset": {
-    "message": "Ends with sunset at {0}",
+    "message": "அஸ்தமனத்தில் {0} முடிவு",
     "description": ""
   },
   "eraLong": {
-    "message": "Bahá'í Era",
+    "message": "பஹாய் யுகம்",
     "description": ""
   },
   "eraAbbrev": {
-    "message": "B.E.",
+    "message": "ப.யு.",
     "description": ""
   },
   "eraShort": {
-    "message": "BE",
+    "message": "ப.யு.",
     "description": ""
   },
   "ordinal": {
-    "message": "th,st,nd,rd",
+    "message": "வது,ஆம்,வது,வது",
     "description": "x,1,2,3"
   },
   "ordinalNames": {
-    "message": ",first,second,third,fourth,fifth,sixth,seventh,eighth,nineth,tenth,eleventh,twelfth,thirteenth,fourteenth,fifteenth,sixteenth,seventeenth,eighteenth,nineteenth",
+    "message": ",முதல்,இரண்டாம்,மூன்றாம்,நான்காம்,ஐந்தாம்,ஆறாம்,ஏழாம்,எட்டாம்,ஒன்பதாம்,பத்தாம்,பதினொன்றாம்,பன்னிரண்டாம்,பதிமூன்றாம்,பதிநான்காம்,பதினைந்தாம்,பதினேழாம்,பதினெட்டாம்,பத்தொன்பதாம்",
     "description": ""
   },
   "sampleFootnote": {
-    "message": "Gregorian dates change before/after sunset",
+    "message": "கிரேகோரிய தித்திகள் அஸ்தமனத்திற்கு முன்/பின் மாறும்",
     "description": ""
   },
   "pressToCopy": {
-    "message": "Press key to copy formatted date to the clipboard:",
+    "message": "வடிவமைத்த திகதியை பலகையில் ஒட்ட, விசையை அழுத்துக",
     "description": "Can click button with mouse, or press matching key on keyboard"
   },
   "afterSunset": {
-    "message": "evening - after sunset",
+    "message": "மாலை - அஸ்தமனத்திற்குப் பிறகு",
     "description": ""
   },
   "beforeSunset": {
-    "message": "day - before sunset",
+    "message": "பகல் - அஸ்தமனத்திற்கு முன்",
     "description": ""
   },
   "dayStartedFuture": {
-    "message": "Starts",
+    "message": "ஆரம்பிக்கின்றது",
     "description": ""
   },
   "dayStartedPast": {
-    "message": "Started",
+    "message": "ஆரம்பித்துவிட்டது",
     "description": ""
   },
   "dayEndedFuture": {
-    "message": "Ends",
+    "message": "முடிகிறது",
     "description": ""
   },
   "dayEndedPast": {
-    "message": "Ended",
+    "message": "முடிவுற்றது",
     "description": ""
   },
   "suggestions": {
-    "message": "Suggestions?",
+    "message": "பரிந்துரைகள்?",
     "description": ""
   },
   "suggestionsTitle": {
-    "message": "Please click here and submit any suggestions for how to improve this extension!",
+    "message": "இங்கு சொடுக்கி இவ்விரிவாக்கத்தை எவ்வாறு மேம்படுத்துவது என்பதற்கான பரிந்துரைகளைச் சமர்ப்பிக்கவும்!",
     "description": ""
   },
   "webstore": {
     "message": "Chrome Web Store",
+    "translation": "required?",
     "description": ""
   },
   "upcomingTitle": {
-    "message": "Upcoming Feasts, Holy Days and other events",
+    "message": "எதிர்வரும் விருந்துகள், புனித நாள்கள் மற்றும் பிற நிகழ்ச்சிகள்",
     "description": ""
   },
   "gDatePickerTitle": {
-    "message": "Gregorian Date",
+    "message": "கிரேகோரிய திகதி",
     "description": ""
   },
   "gDatePickerTitle2": {
-    "message": "Choose <u>G</u>regorian Date",
+    "message": "கிரேகோரிய திகதியைத் தேர்வு செய்க",
     "description": "changed in 1.1.2"
   },
   "prev": {
-    "message": "&larr; Prev",
+    "message": "&larr; முன்",
     "description": ""
   },
   "gotoNow": {
-    "message": "Now",
+    "message": "இப்பொழுது",
     "description": ""
   },
   "next": {
-    "message": "Next &rarr;",
+    "message": "அடுத்த &rarr;",
     "description": ""
   },
   "btnEveOrDay": {
-    "message": "Before &uarr; &darr; After Sunset",
+    "message": "&uarr; முன் &darr; அஸ்தமனத்திற்குப் பிறகு",
     "description": ""
   },
   "version": {
-    "message": "Version {0}",
+    "message": "பதிப்பு {0}",
     "description": ""
   },
 
@@ -157,39 +158,43 @@
     "description": "text when mouse is over the extension icon"
   },
   "formatIconClick": {
-    "message": "(click for more details)",
+    "message": "(மேலும் விவரங்களுக்குச் சொடுக்கவும்)",
     "description": ""
   },
   "nearestSunsetEve": {
-    "message": "{dayStarted} with sunset at {startingSunsetDesc}",
+    "message": "{dayStarted} அஸ்தமனத்துடன் {startingSunsetDesc}",
     "description": ""
   },
   "nearestSunsetDay": {
-    "message": "{dayEnded} with sunset at {endingSunsetDesc}",
+    "message": "{dayEnded} அஸ்தமனத்துடன் {endingSunsetDesc}",
     "description": ""
   },
   "facebook": {
-    "message": "Facebook",
+    "message": "முகநூல்",
     "description": "ALT for icon at bottom of page"
   },
   "googlePlus": {
-    "message": "Google+",
+    "message": "கூகிள்+",
     "description": "ALT for icon at bottom of page"
   },
   "shoghiExample": {
-    "message": "This is the day of {bWeekdayNameAr}, the day of {bDayNameAr}, of the month of {bMonthNameAr}, of the year {bYearInVahidNameAr}, of the {bVahidOrdinalName} Váḥid, of the {bKullishayOrdinalName} Kull-i-<u>Sh</u>ay’.",
+    "message": "இது {bWeekdayNameAr} நாள், the day of {bDayNameAr} நாள், {bMonthNameAr} மாதம், {bYearInVahidNameAr} வருடம், {bVahidOrdinalName} வஹீட், {bKullishayOrdinalName} குல்-இ-ஷே.",
+    "translation": "required",
     "description": "Example given by Shoghi Effendi"
   },
   "example2": {
     "message": "{bMonthNameAr} {bDay} {dayStartedLower} at sunset (about {startingSunsetDesc}) on {frag1WeekdayLong}, {frag1MonthShort} {frag1Day} and {dayEndedLower} at sunset (about {endingSunsetDesc}) on {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.",
+    "translation": "required",
     "description": ""
   },
   "pressKeyOrClick": {
     "message": "Click button or type {0}.",
+    "translation": "required",
     "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press"
   },
   "copied": {
     "message": "Copied!",
+    "translation": "required",
     "description": "short message that replaces sample format button text when button is clicked"
   },
 
@@ -201,90 +206,93 @@
   },
   "noLocationName": {
     "message": "(Current Location)",
+    "translation": "required",
     "description": "If the internet is not available, to get the name of the current location."
   },
   "noLocationAvailable": {
     "message": "(Unknown Location - 6:30pm sunset times)",
+    "translation": "required",
     "description": "If the system does not know the location of this computer."
   },
   "locationError": {
     "message": "Unable to determine your current location.\n\nThe extension will use 6:30pm for sunset on every date.",
+    "translation": "required",
     "description": "If the system cannot determine the location, this is shown in an alert window."
   },
   "HolyDay_NawRuz": {
-    "message": "Naw Rúz",
+    "message": "நவ்-ருஸ்",
     "description": ""
   },
   "HolyDay_Ridvan1": {
-    "message": "First Day of Ridván",
+    "message": "ரித்வான் 1-வது நாள்",
     "description": ""
   },
   "HolyDay_Ridvan9": {
-    "message": "Ninth Day of Ridván",
+    "message": "ரித்வான் 9-வது நாள்",
     "description": ""
   },
   "HolyDay_Ridvan12": {
-    "message": "Twelveth Day of Ridván",
+    "message": "ரித்வான் 12-வது நாள்",
     "description": ""
   },
   "HolyDay_AscBaha": {
-    "message": "Ascension of Bahá'u'lláh",
+    "message": "பஹாவுல்லாவின் விண்ணேற்றம்",
     "description": ""
   },
   "HolyDay_DeclBab": {
-    "message": "Declaration of the Báb",
+    "message": "பாப் பெருமானாரின் பிரகடனம்",
     "description": ""
   },
   "HolyDay_Martyrdom": {
-    "message": "Martyrdom of the Báb",
+    "message": "பாப் பெருமானாரின் தியாக மரணம்",
     "description": ""
   },
   "HolyDay_BirthBab": {
-    "message": "Birth of the Báb",
+    "message": "பாப் பெருமானாரின் பிறப்பு",
     "description": ""
   },
   "HolyDay_BirthBaha": {
-    "message": "Birth of Bahá'u'lláh",
+    "message": "பஹாவுல்லாவின் பிறப்பு",
     "description": ""
   },
   "HolyDay_Covenant": {
-    "message": "Day of the Covenant",
+    "message": "ஒப்பந்தத் திருநாள்",
     "description": ""
   },
   "HolyDay_AscAbdul": {
-    "message": "Ascension of `Abdu'l-Bahá",
+    "message": "அப்துல்-பஹாவின் விண்ணேற்றம்",
     "description": ""
   },
   "FestivalRidvan": {
-    "message": "Festival of Ridván",
+    "message": "ரித்வான் திருவிழா",
     "description": ""
   },
   "Intercalary": {
-    "message": "Intercalary Days",
+    "message": "உபரி நாள்கள்",
     "description": ""
   },
   "FeastOf": {
-    "message": "Feast of {0}",
+    "message": "{0} விருந்து",
     "description": "The localized name of the Feast will be put into {0}"
   },
   "Tonight": {
-    "message": "Tonight",
+    "message": "இன்றிரவு",
     "description": "Shown in the upcoming dates area"
   },
   "Ended": {
-    "message": "Ended",
+    "message": "முடிவுற்றது",
     "description": "Shown in the upcoming dates area"
   },
   "Now": {
-    "message": "Now",
+    "message": "இப்பொழுது",
     "description": "Shown in the upcoming dates area"
   },
   "1day": {
-    "message": "in {0} day",
+    "message": "{0} நாளில்",
     "description": ""
   },
   "otherDays": {
-    "message": "in {0} days",
+    "message": "{0} நாள்களில்",
     "description": ""
   },
 
@@ -294,62 +302,9 @@
     "message": "",
     "description": "Samples usually don't need translating. If needed, copy from the 'en' file and modify. When creating samples, can use any of the properties shown when _di is shown when inspecting the popup"
   },
-  "sampleGroup1_1": {
-    "message": "{bDay} {bMonthNameAr} {bYear}",
-    "description": "3 Jamál 172"
-  },
-  "sampleGroup1_2": {
-    "message": "{bMonthDayYear}",
-    "description": "Jamal 4, 172"
-  },
-  "sampleGroup1_3": {
-    "message": "{bMonthDayYear} ⇨ {endingSunsetDesc}",
-    "description": "Jamal 4, 172 -> 7:55pm"
-  },
-  "sampleGroup1_6": {
-    "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear}",
-    "description": "1 Jamal (Beauty) 172"
-  },
-  "sampleGroup1_7": {
-    "message": "{bDay00} {bMonthNameAr} / {bMonthMeaning} {bYear} {bEraAbbrev} ({currentWeekdayShort} {currentDay00} {currentMonthLong} {currentYear})",
-    "description": "04 Jamal / Glory 172 B.E. (Fri 01 May 2015) -- bahai-readings@bcca.org"
-  },
-  "sampleGroup1_8": {
-    "message": "{bWeekdayNameAr} / {bDayNameAr}, {bDayOrdinal} {bMonthNameAr} {bYear}",
-    "description": "Jamál / Bahá, 1st ‘Aẓamat     or [weekday] / [monthday], [day no.] [month] - james@19months.com"
-  },
-  "sampleGroup1_9": {
-    "message": "{bDay} {bMonthNameAr} {bYear} / {currentDay} {currentMonthLong} {currentYear}",
-    "description": "3 Jamál 172 / 30 April 2015 -- Calgary LSA"
-  },
-  "sampleGroup1_10": {
-    "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear} - {gCombinedY}",
-    "description": "1 Jamál (Beauty) 172 - April 27/28, 2015"
-  },
-  "sampleGroup1_14": {
-    "message": "{bVahid00}.{bYearInVahid00}.{bMonth00}.{bDay00}",
-    "description": "10.01.03.13"
-  },
-  "sampleGroup1_15": {
-    "message": "{bYear}.{bMonth00}.{bDay00}",
-    "description": "172.03.13"
-  },
-  "sampleGroup1_20": {
-    "message": "{bYear}.{bMonth00}.{bDay00} {currentMonthShort} {currentDay}",
-    "description": "172.03.13 Sep 3 -- OneNote tabs"
-  },
-
-  "sampleGroup1_23": {
-    "message": "{currentDay} {currentMonthLong} {currentYear} / {bDay} {bMonthMeaning} {bYear}",
-    "description": "30 April 2015 / 3 Beauty 172 -- NSA Canada"
-  },
-  "sampleGroup1_24": {
-    "message": "{currentDay} {currentMonthLong} {currentYear} / {bDay} {bMonthNameAr} {bYear}",
-    "description": "1 May 2015 / 4 Jamál 172  -- Susan Gammage"
-  },
 
   "DayOfWeek": {
-    "message": "Weekday",
+    "message": "வாரநாள்",
     "description": ""
   },
   "DayOfWeekFormat": {
@@ -357,7 +312,7 @@
     "description": ""
   },
   "DayOfMonth": {
-    "message": "Day of Month",
+    "message": "மாத நாள்",
     "description": ""
   },
   "DayOfMonthFormat": {
@@ -365,7 +320,7 @@
     "description": ""
   },
   "Month": {
-    "message": "Month",
+    "message": "மாதம்",
     "description": ""
   },
   "MonthFormatNormal": {
@@ -377,7 +332,7 @@
     "description": ""
   },
   "YearOfEra": {
-    "message": "Year of Bahá'í Era",
+    "message": "பஹாய் யுக வருடம்",
     "description": ""
   },
   "YearOfEraFormat": {
@@ -385,7 +340,7 @@
     "description": ""
   },
   "YearOfVahid": {
-    "message": "Year of Váḥid",
+    "message": "வஹீட் வருடம்",
     "description": ""
   },
   "YearOfVahidFormat": {
@@ -393,7 +348,7 @@
     "description": ""
   },
   "Vahid": {
-    "message": "Váḥid",
+    "message": "வஹீட்",
     "description": ""
   },
   "VahidFormat": {
@@ -401,7 +356,7 @@
     "description": ""
   },
   "Kullishay": {
-    "message": "Kull-i-<u>Sh</u>ay’",
+    "message": "குல்-இ-ஷே",
     "description": ""
   },
   "KullishayFormat": {
@@ -427,7 +382,7 @@
   },
 
   "nextRefreshAlarm": {
-    "message": "Next refresh scheduled after {0}: {1}",
+    "message": "அடுத்த புதுப்பிப்பு {0}க்குப் பிறகு: {1}",
     "description": "only shown in the debug console"
   },
 
@@ -467,98 +422,98 @@
 
   "new_messages_1_1_8": { "message": "" },
   "bDatePickerTitle": {
-    "message": "Choose <u>B</u>adí' Date",
+    "message": "படீ திகதியைத் தேர்வு செய்க",
     "description": "added <u></u> - should have one letter between <u> and </u>"
   },
 
 
   "new_messages_1_2_0": { "message": "" },
   "weekDayNames": {
-    "message": "Weekday Names",
-    "description": "on List page - table caption"
+    "message": "வாரநாள்களின் பெயர்",
+    "description": "on page 2 - table caption"
   },
   "monthNames": {
-    "message": "Month/Day Names",
-    "description": "on List page - table caption"
+    "message": "மாதம்/நாள் பெயர்",
+    "description": "on page 2 - table caption"
   },
   "num": {
     "message": "#",
-    "description": "on List page - table heading"
+    "description": "on page 2 - table heading"
   },
   "arabic": {
-    "message": "Name",
-    "description": "on List page - table heading"
+    "message": "பெயர்",
+    "description": "on page 2 - table heading"
   },
   "meaning": {
-    "message": "Meaning",
-    "description": "on List page - table heading"
+    "message": "அர்த்தம்",
+    "description": "on page 2 - table heading"
   },
   "equiv": {
-    "message": "Equivalent",
-    "description": "on List page - table heading"
+    "message": "இணையான",
+    "description": "on page 2 - table heading"
   },
 
   "new_messages_1_3": { "message": "" },
   "pick_pageDay": {
-    "message": "Day",
+    "message": "நாள்",
     "description": ""
   },
   "pick_pageLists": {
-    "message": "Lists",
+    "message": "பட்டியல்கள்",
     "description": ""
   },
   "pick_pageCal1": {
-    "message": "Year",
+    "message": "வருடம்",
     "description": ""
   },
   "elements": {
-    "message": "Fire,Air,Water,Earth",
+    "message": "தீ,வாயு,நீர்,பூமி",
     "description": "the Bab's designations, found in 'https://books.google.ca/books?id=XTfoaK15t64C&pg=PA394&lpg=PA394&dq=get+of+the+heart+nader+bab&source=bl&ots=vyF-pWLAr8&sig=ruiuoE48sGWWgaB_AFKcSfkHvqw&hl=en&sa=X&ei=hbp0VfGwIon6oQSTk4Mg&ved=0CDAQ6AEwAw#v=snippet&q=%22air%20of%20eternity%22&f=false' "
   },
   "tips": {
-    "message": "Tips",
+    "message": "உதவிக்கு",
     "description": "hints of how to use the tool"
   },
   "tipsText": {
-    "message": "Use PgUp/PgDn keys to select panels.\nUse Right/Left arrow keys to change days.\nUse Up/Down arrow keys to switch before/after sunset.",
+    "message": "பலகத்தைத் தேர்வு செய்ய பக்.மேல்/பக்.கீழ் விசைகளைப் பயன்படுத்துக. \nநாள்களை மாற்ற வலம்/இடம் அம்புவிசைகளைப் பயன்படுத்துக.அஸ்தமனத்திற்கு முன்/பின் \nமேல்/கீழ் அம்புவிசைகளைப் பயன்படுத்துக.",
     "description": ""
   },
   "shortcutKeyTitle": {
-    "message": "Press this key combination to open the Calendar from anywhere in Chrome.",
+    "message": "குரோம் உலவியில் எங்கிலுமிருந்து படீ’ நாள்காட்டியைத் திறக்க இவ்விசையை சொடுக்கவும்",
     "description": ""
   },
 
 
   "new_messages_1_3_3": { "message": "" },
   "prevYear": {
-    "message": "Prev Year",
+    "message": "முந்திய",
     "description": "hold Shift and press left arrow key"
   },
   "nextYear": {
-    "message": "Next Year",
+    "message": "அடுத்த",
     "description": "hold Shift and press right arrow key"
   },
   "prevYearTitle": {
-    "message": "Press Shift + Left Arrow to view the previous year",
+    "message": "முந்திய வருடத்தைக் கண்ணுற (Shift + Left) அம்புவிடையை அழுத்தவும்",
     "description": "hold Shift and press left arrow key"
   },
   "nextYearTitle": {
-    "message": "Press Shift + Right Arrow to view the next Year",
+    "message": "அடுத்த வருடத்தைக் கண்ணுற (Shift + Right) அம்புவிசையை அழுத்தவும்",
     "description": "hold Shift and press right arrow key"
   },
 
 
   "new_messages_1_3_6": { "message": "" },
   "jumpTo": {
-    "message": "<u>J</u>ump ± days",
+    "message": "நாள்கள் முன்/பின் செல்",
     "description": "user can enter a day after/before currently selected day"
   },
   "btnJumpTo": {
-    "message": "Go",
+    "message": "செல்",
     "description": ""
   },
   "btnJumpToTitle": {
-    "message": "Move forward or backward by this number of days",
+    "message": "இத்தனை நாள்கள் முன்னும் பின்னும் செல்",
     "description": "tooltip"
   },
 
@@ -567,69 +522,70 @@
 
   "pick_pageEvents": {
     "message": "Events",
+    "translation": "required",
     "description": "showing Feast and Holy Days"
   },
 
   "specialDaysTitle": {
-    "message": "Feasts and Holy Days in {bYear}",
+    "message": "{bYear} த்தில் விருந்துகளும் புனித நாள்களும்",
     "description": ""
   },
   "dateHeading": {
-    "message": "Day",
-    "description": "heading in Events listing"
+    "message": "நாள்",
+    "விவரம்": "heading in Events listing"
   },
   "suspendWorkHeading": {
-    "message": "Suspend Work",
+    "message": "பணி விடுப்பு",
     "description": "heading in Events listing"
   },
   "eventTimeHeading1": {
-    "message": "Usual meeting time",
+    "message": "வழக்கமாக ஒன்றுகூடும் நேரம்",
     "description": "heading in Events listing (if not showing Holy Days)"
   },
   "eventTimeHeading2": {
-    "message": "Meeting/Special Time",
+    "message": "ஒன்றுகூடும்/விசேஷ நேரம்",
     "description": "heading in Events listing (if showing Holy Days)"
   },
   "sunsetHeading": {
-    "message": "Start of Badí' Day",
+    "message": "படீ' நாளின் ஆரம்பம்",
     "description": "heading in Events listing"
   },
 
   "includeThese": {
-    "message": "Show",
+    "message": "காட்டு",
     "description": "choosing what to include in the listing"
   },
   "includeFeasts": {
-    "message": "<u>F</u>easts",
+    "message": "விருந்துகள்",
     "description": "choosing what to include in the listing"
   },
   "includeHolyDays": {
-    "message": "<u>H</u>oly Days",
+    "message": "புனித நாள்கள்",
     "description": "choosing what to include in the listing"
   },
   "startTimeOption": {
-    "message": "Usual meeting time: ",
+    "message": "வழக்கமாக ஒன்றுகூடும் நேரம்: ",
     "description": "above Events listing"
   },
 
   "specialTime_1500S": {
-    "message": "3 pm (Standard Time)",
+    "message": "மாலை 3 மணி (நியம நேரம்)",
     "description": "First day of Ridvan"
   },
   "specialTime_SS2": {
-    "message": "About 2 hours after sunset",
+    "message": "அஸ்தமனத்திற்குப் பிறகு சுமார் 2 மணி நேரம் கழித்து",
     "description": "Declaration of the Bab"
   },
   "specialTime_0300S": {
-    "message": "3 am (Standard Time)",
+    "message": "காலை 3 மணி (நியம நேரம்)",
     "description": "Ascension of Baha'u'llah"
   },
   "specialTime_1200S": {
-    "message": "Noon (Standard Time)",
+    "message": "நன்பகல் (நியம நேரம்)",
     "description": "Martyrdom of the Bab"
   },
   "specialTime_0100S": {
-    "message": "1 am (Standard Time)",
+    "message": "அதிகாலை 1 மணி (நியம நேரம்)",
     "description": "Martyrdom of the Bab"
   },
 
@@ -645,22 +601,23 @@
 
   "pick_pageFast": {
     "message": "Fast",
+    "translation": "required",
     "description": ""
   },
   "fastDaysTitle": {
-    "message": "Fasting Times in {bYear}",
+    "message": "{bYear} நோன்பு நேரங்கள்",
     "description": ""
   },
   "sunriseFastHeading": {
-    "message": "Sunrise",
+    "message": "சூர்யோதயம்",
     "description": "heading in Fast days listing"
   },
   "sunsetFastHeading": {
-    "message": "Sunset",
+    "message": " சூர்யஸ்தமனம்",
     "description": "heading in Fast days listing"
   },
   "fastGDate": {
-    "message": "Date",
+    "message": "திகதி",
     "description": "heading in Fast days listing"
   },
   "mainPartOfDay": {
@@ -669,7 +626,7 @@
   },
 
   "ayyamIs0": {
-    "message": "(Y M D) 0 = Ayyám-i-Há",
+    "message": "(வ மா நா) 0 = உபரி நாள்கள்",
     "description": "(updated) in Badi date picker area"
   },
 

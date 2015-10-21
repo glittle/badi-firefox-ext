@@ -1,4 +1,10 @@
 {
+  "translation": {
+    "name": "Lorena Reyes",
+    "email": "lreyes09@msn.com",
+    "message": "es",
+    "description":  "(this is not shown in the tool)"
+  },
   "title": {
     "message": "calendario Badí'",
     "description": "El titulo de la extension. aparece en varias partes."
@@ -136,13 +142,14 @@
     "description": "glen"
   },
   "btnEveOrDay": {
-    "message": "antes y despues de la puesta del sol",
+    "message": "antes y despues &uarr; &darr; de la puesta del sol",
     "description": ""
   },
   "version": {
     "message": "Versión {0}",
     "description": "glen"
   },
+
 
   "new_messages_1_1_2": { "message": "" },
   "formatIconToolTip": {
@@ -153,7 +160,7 @@
     "message": "(pulse para mas detalles)",
     "description": ""
   },
-  "nearestSunsetEve": { 
+  "nearestSunsetEve": {
     "message": "{dayStarted} con ocaso al {startingSunsetDesc}",
     "description": ""
   },
@@ -185,6 +192,7 @@
     "message": "Copiado!",
     "description": "short message that replaces sample format button text when button is clicked"
   },
+
 
   "new_messages_1_1_3": { "message": "" },
   "use24HourClock": {
@@ -280,74 +288,41 @@
     "description": ""
   },
 
+
   "new_messages_1_1_4": { "message": "" },
   "sampleGroupTranslationHelp": {
     "message": "",
-    "description": "When creating samples, can use any of the properties shown when _di is shown when inspecting the popup"
-  },
-  "sampleGroup1_1": {
-    "message": "{bDay} {bMonthNameAr} {bYear}",
-    "description": "3 Jamál 172"
-  },
-  "sampleGroup1_2": {
-    "message": "{bMonthDayYear}",
-    "description": "Jamal 4, 172"
-  },
-  "sampleGroup1_3": {
-    "message": "{bMonthDayYear} ⇨ {endingSunsetDesc}",
-    "description": "Jamal 4, 172 -> 7:55pm"
-  },
-  "sampleGroup1_6": {
-    "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear}",
-    "description": "1 Jamal (Beauty) 172"
-  },
-  "sampleGroup1_7": {
-    "message": "{bDay00} {bMonthNameAr} / {bMonthMeaning} {bYear} {bEraAbbrev} ({currentWeekdayShort} {currentDay00} {currentMonthLong} {currentYear})",
-    "description": "04 Jamal / Glory 172 B.E. (Fri 01 May 2015) -- bahai-readings@bcca.org"
-  },
-  "sampleGroup1_8": {
-    "message": "{bWeekdayNameAr} / {bDayNameAr}, {bDayOrdinal} {bMonthNameAr} {bYear}",
-    "description": "Jamál / Bahá, 1st ‘Aẓamat     or [weekday] / [monthday], [day no.] [month] - james@19months.com"
-  },
-  "sampleGroup1_9": {
-    "message": "{bDay} {bMonthNameAr} {bYear} / {currentDay} {currentMonthLong} {currentYear}",
-    "description": "3 Jamál 172 / 30 April 2015 -- Calgary LSA"
-  },
-  "sampleGroup1_10": {
-    "message": "{bDay} {bMonthNameAr} ({bMonthMeaning}) {bYear} - {gCombinedY}",
-    "description": "1 Jamál (Beauty) 172 - April 27/28, 2015"
-  },
-
-  "sampleGroup1_12": {
-    "message": "{bVahid00}.{bYearInVahid00}.{bMonth00}.{bDay00}",
-    "description": "10.01.03.13"
-  },
-
-  "sampleGroup2_1": {
-    "message": "{frag2Day} {frag2MonthLong} {frag2Year} / {bDay} {bMonthMeaning} {bYear}",
-    "description": "30 April 2015 / 3 Beauty 172 -- NSA Canada"
-  },
-  "sampleGroup2_2": {
-    "message": "{frag2Day} {frag2MonthLong} {frag2Year} / {bDay} {bMonthNameAr} {bYear}",
-    "description": "1 May 2015 / 4 Jamál 172  -- Susan Gammage"
+    "description": "Samples usually don't need translating. If needed, copy from the 'en' file and modify. When creating samples, can use any of the properties shown when _di is shown when inspecting the popup"
   },
 
   "DayOfWeek": {
     "message": "dia de la semana",
     "description": ""
   },
-  "DayOfWeekFormat": { "message": "{bWeekday} - {bWeekdayNameAr} ({bWeekdayMeaning})", "description": "" },
+  "DayOfWeekFormat": {
+    "message": "{bWeekday} - {bWeekdayNameAr} ({bWeekdayMeaning})",
+    "description": ""
+  },
   "DayOfMonth": {
     "message": "Dia del mes",
     "description": ""
   },
-  "DayOfMonthFormat": { "message": "{bDay} - {bDayNameAr} ({bDayMeaning})", "description": "" },
+  "DayOfMonthFormat": {
+    "message": "{bDay} - {bDayNameAr} ({bDayMeaning})",
+    "description": ""
+  },
   "Month": {
     "message": "Mes",
     "description": ""
   },
-  "MonthFormatNormal": { "message": "{bMonth} - {bMonthNameAr} ({bMonthMeaning})", "description": "" },
-  "MonthFormatAyyam": { "message": "{bMonthNameAr} ({bMonthMeaning})", "description": "" },
+  "MonthFormatNormal": {
+    "message": "{bMonth} - {bMonthNameAr} ({bMonthMeaning})",
+    "description": ""
+  },
+  "MonthFormatAyyam": {
+    "message": "{bMonthNameAr} ({bMonthMeaning})",
+    "description": ""
+  },
   "YearOfEra": {
     "message": "año de la era Bahá'í",
     "description": ""
@@ -360,7 +335,10 @@
     "message": "año Váḥid",
     "description": ""
   },
-  "YearOfVahidFormat": { "message": "{bYearInVahid} - {bYearInVahidNameAr} ({bYearInVahidMeaning})", "description": "" },
+  "YearOfVahidFormat": {
+    "message": "{bYearInVahid} - {bYearInVahidNameAr} ({bYearInVahidMeaning})",
+    "description": ""
+  },
   "Vahid": {
     "message": "Váḥid",
     "description": ""
@@ -378,8 +356,14 @@
     "description": ""
   },
 
-  "bTopDayDisplay": { "message": "{bDay} {bMonthNameAr} {bYear}", "description": "top right corner" },
-  "gTopDayDisplay": { "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear} {currentRelationToSunset}", "description": "top right corner" },
+  "bTopDayDisplay": {
+    "message": "{bDay} {bMonthNameAr} {bYear}",
+    "description": "top right corner"
+  },
+  "gTopDayDisplay": {
+    "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear} {currentRelationToSunset}",
+    "description": "top right corner"
+  },
   "gregorianDateDisplay": {
     "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear}",
     "description": "in left panel"
@@ -388,16 +372,20 @@
     "message": "{bMonthNameAr} {bDay} ({gCombined})",
     "description": "upcoming list"
   },
+
   "nextRefreshAlarm": {
     "message": "Siguiente refresh schedule {0}: {1}",
     "description": "only shown in the debug console"
   },
 
+
   "new_messages_1_1_5": { "message": "" },
+
   "gMonthDayYear": {
     "message": "{bMonthNameAr} {bDay}, {bYear}",
     "description": ""
   },
+
   "gCombined_1": {
     "message": "{frag1MonthShort} {frag1Day}/{frag2Day}",
     "description": "day in same gregorian month"
@@ -423,11 +411,13 @@
     "description": "with year"
   },
 
+
   "new_messages_1_1_8": { "message": "" },
   "bDatePickerTitle": {
     "message": "Elegir la fecha <u>B</u>adí'",
     "description": "glen added <u></u> - should have one letter between <u> and </u>"
   },
+
 
   "new_messages_1_2_0": { "message": "" },
   "weekDayNames": {
@@ -454,10 +444,20 @@
     "message": "Equivalente",
     "description": "on page 2 - table heading"
   },
+
   "new_messages_1_3": { "message": "" },
-  "pick_pageDay": { "message": "Dia" },
-  "pick_pageLists": { "message": "Listas" },
-  "pick_pageCal1": { "message": "Año" },
+  "pick_pageDay": {
+    "message": "Dia",
+    "description": ""
+  },
+  "pick_pageLists": {
+    "message": "Listas",
+    "description": ""
+  },
+  "pick_pageCal1": {
+    "message": "Año",
+    "description": ""
+  },
   "elements": {
     "message": "Fuego,Aire,Agua,Tierra",
     "description": "the Bab's designations, found in 'https://books.google.ca/books?id=XTfoaK15t64C&pg=PA394&lpg=PA394&dq=get+of+the+heart+nader+bab&source=bl&ots=vyF-pWLAr8&sig=ruiuoE48sGWWgaB_AFKcSfkHvqw&hl=en&sa=X&ei=hbp0VfGwIon6oQSTk4Mg&ved=0CDAQ6AEwAw#v=snippet&q=%22air%20of%20eternity%22&f=false' "
@@ -475,11 +475,6 @@
     "description": ""
   },
 
-  "new_messages_1_3_2": { "message": "" },
-  "yearNames": {
-    "message": "Años en Váḥid",
-    "description": "on page 2 - table caption"
-  },
 
   "new_messages_1_3_3": { "message": "" },
   "prevYear": {
@@ -498,6 +493,7 @@
     "message": "Presione Shift + Right flecha para mirar el año siguiente",
     "description": "hold Shift and press right arrow key"
   },
+
   "new_messages_1_3_6": { "message": "" },
   "jumpTo": {
     "message": "<u>J</u>ump ± dias",
@@ -512,42 +508,137 @@
     "description": "tooltip"
   },
 
- 
-  
-   "new_messages_1_4": { "message": "" },
 
-  "pick_pageEvents": { "message": "Events" },
-  
-  "specialDaysTitle": { "message": "Feasts and Holy Days in {bYear}", "description": "" },
-  "dateHeading": { "message": "Day", "description": "heading in Events listing" },
-  "suspendWorkHeading": { "message": "Suspend Work", "description": "heading in Events listing" },
-  "eventTimeHeading1": { "message": "Meeting Time", "description": "heading in Events listing (if not showing Holy Days)" },
-  "eventTimeHeading2": { "message": "Meeting/Special Time", "description": "heading in Events listing (if showing Holy Days)" },
-  "sunsetHeading": { "message": "Start of Badí' Day", "description": "heading in Events listing" },
-  
-  "includeThese": { "message": "Show", "description": "choosing what to include in the listing" },
-  "includeFeasts": { "message": "<u>F</u>easts", "description": "choosing what to include in the listing" },
-  "includeHolyDays": { "message": "<u>H</u>oly Days", "description": "choosing what to include in the listing" },
-  "startTimeOption": { "message": "Usual meeting time: ", "description": "above Events listing" },
+  "new_messages_1_4": { "message": "" },
 
-  "specialTime_1500S": { "message": "3 pm (Standard Time)", "description": "First day of Ridvan" },
-  "specialTime_SS2": { "message": "About 2 hours after sunset", "description": "Declaration of the Bab" },
-  "specialTime_0300S": { "message": "3 am (Standard Time)", "description": "Ascension of Baha'u'llah" },
-  "specialTime_1200S": { "message": "Noon (Standard Time)", "description": "Martyrdom of the Bab" },
-  "specialTime_0100S": { "message": "1 am (Standard Time)", "description": "Martyrdom of the Bab" },
+  "pick_pageEvents": {
+    "message": "Events",
+    "translation": "required",
+    "description": "showing Feast and Holy Days"
+  },
 
-  "eventTime": { "message": "{eventTime} {eventWeekdayShort} {eventMonthShort} {eventDay}, {eventYear}", "description": "show start time in Events listing" },
-  "evePartOfDay": { "message": "{startingSunsetDesc} {frag1WeekdayShort} {frag1MonthShort} {frag1Day}, {frag1Year}", "description": "show start time in Events listing" },
+  "specialDaysTitle": {
+    "message": "Feasts and Holy Days in {bYear}",
+    "translation": "required",
+    "description": ""
+  },
+  "dateHeading": {
+    "message": "Day",
+    "translation": "required",
+    "description": "heading in Events listing"
+  },
+  "suspendWorkHeading": {
+    "message": "Suspend Work",
+    "translation": "required",
+    "description": "heading in Events listing"
+  },
+  "eventTimeHeading1": {
+    "message": "Usual meeting time",
+    "translation": "required",
+    "description": "heading in Events listing (if not showing Holy Days)"
+  },
+  "eventTimeHeading2": {
+    "message": "Meeting/Special Time",
+    "translation": "required",
+    "description": "heading in Events listing (if showing Holy Days)"
+  },
+  "sunsetHeading": {
+    "message": "Start of Badí' Day",
+    "translation": "required",
+    "description": "heading in Events listing"
+  },
+
+  "includeThese": {
+    "message": "Show",
+    "translation": "required",
+    "description": "choosing what to include in the listing"
+  },
+  "includeFeasts": {
+    "message": "<u>F</u>easts",
+    "translation": "required",
+    "description": "choosing what to include in the listing"
+  },
+  "includeHolyDays": {
+    "message": "<u>H</u>oly Days",
+    "translation": "required",
+    "description": "choosing what to include in the listing"
+  },
+  "startTimeOption": {
+    "message": "Usual meeting time: ",
+    "translation": "required",
+    "description": "above Events listing"
+  },
+
+  "specialTime_1500S": {
+    "message": "3 pm (Standard Time)",
+    "translation": "required",
+    "description": "First day of Ridvan"
+  },
+  "specialTime_SS2": {
+    "message": "About 2 hours after sunset",
+    "translation": "required",
+    "description": "Declaration of the Bab"
+  },
+  "specialTime_0300S": {
+    "message": "3 am (Standard Time)",
+    "translation": "required",
+    "description": "Ascension of Baha'u'llah"
+  },
+  "specialTime_1200S": {
+    "message": "Noon (Standard Time)",
+    "translation": "required",
+    "description": "Martyrdom of the Bab"
+  },
+  "specialTime_0100S": {
+    "message": "1 am (Standard Time)",
+    "translation": "required",
+    "description": "Martyrdom of the Bab"
+  },
+
+  "eventTime": {
+    "message": "{eventTime} {eventWeekdayShort} {eventMonthShort} {eventDay}, {eventYear}",
+    "description": "show start time in Events listing"
+  },
+  "evePartOfDay": {
+    "message": "{startingSunsetDesc} {frag1WeekdayShort} {frag1MonthShort} {frag1Day}, {frag1Year}",
+    "description": "show start time in Events listing"
+  },
 
 
-  "pick_pageFast": { "message": "Fast" },
-  "fastDaysTitle": { "message": "Fasting Times in {bYear}", "description": "" },
-  "sunriseFastHeading": { "message": "Sunrise", "description": "heading in Fast days listing" },
-  "sunsetFastHeading": { "message": "Sunset", "description": "heading in Fast days listing" },
-  "fastGDate": { "message": "Date", "description": "heading in Fast days listing" },
-  "mainPartOfDay": { "message": "{frag2WeekdayShort} {frag2MonthShort} {frag2Day}, {frag2Year}", "description": "show start time in Events listing" },
-  
-  "ayyamIs0": { "message": "(Y M D) 0 = Ayyám-i-Há", "description": "(updated) in Badi date picker area" },
+  "pick_pageFast": {
+    "message": "Fast",
+    "translation": "required",
+    "description": ""
+  },
+  "fastDaysTitle": {
+    "message": "Fasting Times in {bYear}",
+    "translation": "required",
+    "description": ""
+  },
+  "sunriseFastHeading": {
+    "message": "Sunrise",
+    "translation": "required",
+    "description": "heading in Fast days listing"
+  },
+  "sunsetFastHeading": {
+    "message": "Sunset",
+    "translation": "required",
+    "description": "heading in Fast days listing"
+  },
+  "fastGDate": {
+    "message": "Date",
+    "translation": "required",
+    "description": "heading in Fast days listing"
+  },
+  "mainPartOfDay": {
+    "message": "{frag2WeekdayShort} {frag2MonthShort} {frag2Day}, {frag2Year}",
+    "description": "show start time in Events listing"
+  },
+
+  "ayyamIs0": {
+    "message": "(Y M D) 0 = Ayyám-i-Há",
+    "description": "(updated) in Badi date picker area"
+  },
 
 
   "x": {

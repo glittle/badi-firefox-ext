@@ -40,7 +40,7 @@ var Cal1 = function (di, host) {
 
     var gDate = holyDays.getGDate(di.bYear, month, day, di.bNow.eve);
 
-    _targetDate = gDate;
+    setFocusTime(gDate);
     refreshDateInfo();
     showInfo(_di);
   }

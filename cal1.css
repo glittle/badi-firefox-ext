@@ -7,7 +7,7 @@
 
 #months {
     margin: 2px 0 5px 0;
-    width: 742px;
+    width: 774px;
 }
 
 .month {
@@ -19,7 +19,7 @@
     transform: rotate(-90deg);
     transform-origin: top right;
     position: absolute;
-    top: 4px;
+    top: 1px;
     right: 14px;
     line-height: 13px;
     font-size: 11px;
@@ -36,47 +36,53 @@
     }
 
 .mGroup1 {
-    background-color: rgba(255, 0, 0, 0.1); /* fire of God */
+    background-color: rgb(255, 230, 230); /* fire of God */
 }
 
 .mGroup2 {
-    background-color: rgba(200, 200, 200, 0.1); /* air of eternity */
+    background-color: rgb(250, 250, 250); /* air of eternity */
 }
 
 .mGroup3 {
-    background-color: rgba(0, 0, 255, 0.1); /* water of Divine Unity */
+    background-color: rgb(230, 230, 255); /* water of Divine Unity */
 }
 
 .mGroup4 {
-    background-color: rgba(0, 255, 0, 0.1); /* earth */
+    background-color: rgb(230, 255, 230); /* earth */
 }
 
 .element.mGroup1 {
-    width: 72px;
+    width: 80px;
     color: rgba(255, 0, 0, 0.6);
+    z-index: 1;
 }
 
 .element.mGroup2 {
-    width: 97px;
+    width: 105px;
     color: rgba(100, 100, 100, .8);
+    z-index: 2;
 }
 
 .element.mGroup3 {
-    width: 147px;
+    width: 158px;
     color: rgba(0, 0, 255, .6);
+    z-index: 3;
 }
 
 .element.mGroup4 {
-    width: 172px;
+    width: 183px;
     color: rgba(0, 255, 0, 1);
+    z-index: 4;
 }
 
 
 .bd, .gd {
     display: inline-block;
-    width: 34px;
+    width: 35.7px;
     box-sizing: border-box;
     position: relative;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .bd {
@@ -136,6 +142,8 @@
     text-align: right;
     display: inline-block;
     font-weight: 500;
+    line-height: 10px;
+    overflow: hidden;
 }
 
 .gLast {
