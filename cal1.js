@@ -60,6 +60,7 @@ var Cal1 = function (di, host) {
   function showCalendar(newDi) {
     di = newDi;
     if (newDi.bYear !== _yearShown) {
+      holyDays.prepareDateInfos(newDi.bYear);
       buildCalendar();
     }
     highlightTargetDay();

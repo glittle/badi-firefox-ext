@@ -2,8 +2,9 @@
   "translation": {
     "name": "Glen Little",
     "email": "glen.little@gmail.com",
+    "mostRecentVersion": "1.6.0",
     "message": "en",
-    "description":  "(this is not shown in the tool)"
+    "description": "(this is not shown in the tool)"
   },
   "title": {
     "message": "Badí' Calendar",
@@ -14,7 +15,7 @@
     "description": "Used in the manifest"
   },
   "browserActionTitle": {
-    "message": "(Loading...)",
+    "message": "Loading...",
     "description": "Shown until the dynamic tip is created"
   },
   "bYearInVahidMeaning": {
@@ -299,11 +300,11 @@
     "description": "3 Jamál 172"
   },
   "sampleGroup1_2": {
-    "message": "{bMonthDayYear}",
+    "message": "{bMonthNameAr} {bDay}, {bYear}",
     "description": "Jamal 4, 172"
   },
   "sampleGroup1_3": {
-    "message": "{bMonthDayYear} ⇨ {endingSunsetDesc}",
+    "message": "{bMonthNameAr} {bDay}, {bYear} ⇨ {endingSunsetDesc}",
     "description": "Jamal 4, 172 -> 7:55pm"
   },
   "sampleGroup1_6": {
@@ -673,6 +674,31 @@
     "description": "(updated) in Badi date picker area"
   },
 
+
+  "new_messages_1_5_3": { "message": "" },
+  "keyToOpenInTab": {
+    "message": "T",
+    "description": "Press Shift+(this letter) to open into a tab"
+  },
+
+  "new_messages_1_6_0": { "message": "" },
+  "pick_pageCal2": {
+    "message": "Wheel",
+    "translation": "required",
+    "description": "tab name"
+  },
+
+  "showPointer": {
+    "message": "Show pointer",
+    "translation": "required",
+    "description": ""
+  },
+
+  "currentFocus": {
+    "message": "Current Day",
+    "translation": "required",
+    "description": "in wheel, points to today, or whatever day is currently selected"
+  },
 
   "x": {
     "message": "",

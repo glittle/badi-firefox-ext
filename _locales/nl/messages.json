@@ -2,8 +2,9 @@
   "translation": {
     "name": "Onno Vinkhuyzen",
     "email": "omv@xs4all.nl",
+    "mostRecentVersion": "1.6.0",
     "message": "nl",
-    "description":  "(this is not shown in the tool)"
+    "description": "(this is not shown in the tool)"
   },
   "title": {
     "message": "Badí' kalender",
@@ -14,7 +15,7 @@
     "description": "Used in the manifest"
   },
   "browserActionTitle": {
-    "message": "(Wordt geladen...)",
+    "message": "Wordt geladen...",
     "description": "Shown until the dynamic tip is created"
   },
   "bYearInVahidMeaning": {
@@ -625,6 +626,28 @@
     "description": "(updated) in Badi date picker area"
   },
 
+
+  "new_messages_1_5_3": { "message": "" },
+  "keyToOpenInTab": {
+    "message": "T",
+    "description": "Press Shift+(this letter) to open into a tab"
+  },
+
+  "new_messages_1_6_0": { "message": "" },
+  "pick_pageCal2": {
+    "message": "Rad",
+    "description": "tab name"
+  },
+
+  "showPointer": {
+    "message": "Toon huidige dag",
+    "description": ""
+  },
+
+  "currentFocus": {
+    "message": "Huidige dag",
+    "description": "in wheel, points to today, or whatever day is currently selected"
+  },
 
   "x": {
     "message": "",

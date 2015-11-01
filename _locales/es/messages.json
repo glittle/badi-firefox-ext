@@ -2,8 +2,9 @@
   "translation": {
     "name": "Lorena Reyes",
     "email": "lreyes09@msn.com",
+    "mostRecentVersion": "1.4.0",
     "message": "es",
-    "description":  "(this is not shown in the tool)"
+    "description": "(this is not shown in the tool)"
   },
   "title": {
     "message": "calendario Badí'",
@@ -14,7 +15,7 @@
     "description": "Usado en la manifeatacion"
   },
   "browserActionTitle": {
-    "message": "(Cargando...)",
+    "message": "Cargando...",
     "description": "Glen aparece hasta que la dinamica desparezca"
   },
   "bYearInVahidMeaning": {
@@ -640,6 +641,33 @@
     "description": "(updated) in Badi date picker area"
   },
 
+
+  "new_messages_1_5_3": { "message": "" },
+  "keyToOpenInTab": {
+    "message": "T",
+    "translation": "required",
+    "description": "Press Shift+(this letter) to open into a tab"
+  },
+
+
+  "new_messages_1_6_0": { "message": "" },
+  "pick_pageCal2": {
+    "message": "Wheel",
+    "translation": "required",
+    "description": "tab name"
+  },
+
+  "showPointer": {
+    "message": "Show pointer",
+    "translation": "required",
+    "description": ""
+  },
+
+  "currentFocus": {
+    "message": "Current Day",
+    "translation": "required",
+    "description": "in wheel, points to today, or whatever day is currently selected"
+  },
 
   "x": {
     "message": "",

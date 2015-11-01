@@ -2,6 +2,7 @@
   "translation": {
     "name": "Marco Oliveira",
     "email": "marco_oliv@yahoo.com",
+    "mostRecentVersion":  "1.6.1",
     "message": "pt_PT",
     "description":  "(this is not shown in the tool)"
   },
@@ -14,7 +15,7 @@
     "description": "Used in the manifest"
   },
   "browserActionTitle": {
-    "message": "(A carregar...)",
+    "message": "A carregar...",
     "description": "Shown until the dynamic tip is created"
   },
   "bYearInVahidMeaning": {
@@ -513,139 +514,166 @@
   "new_messages_1_4": { "message": "" },
 
   "pick_pageEvents": {
-    "message": "Events",
+    "message": "Eventos",
     "translation": "required",
-    "description": "showing Feast and Holy Days"
+    "description": "Mostrar Festas e Dias Sagrados"
   },
 
   "specialDaysTitle": {
-    "message": "Feasts and Holy Days in {bYear}",
+    "message": "Festas e Dis Sagrados em {bYear}",
     "translation": "required",
     "description": ""
   },
   "dateHeading": {
-    "message": "Day",
+    "message": "Dia",
     "translation": "required",
-    "description": "heading in Events listing"
+    "description": " na Lista de Eventos "
   },
   "suspendWorkHeading": {
-    "message": "Suspend Work",
+    "message": "Suspensão de trabalho",
     "translation": "required",
-    "description": "heading in Events listing"
+    "description": "na lista de Eventos"
   },
   "eventTimeHeading1": {
-    "message": "Usual meeting time",
+    "message": "Hora normal do encontro ",
     "translation": "required",
-    "description": "heading in Events listing (if not showing Holy Days)"
+    "description": "na Lista de Eventos (se não mostrar Dias Sagrados)"
   },
   "eventTimeHeading2": {
-    "message": "Meeting/Special Time",
+    "message": "Hora excepcional do encontro",
     "translation": "required",
-    "description": "heading in Events listing (if showing Holy Days)"
+    "description": "na lista de Eventos (se não mostrar Dias Sagrados)"
   },
   "sunsetHeading": {
-    "message": "Start of Badí' Day",
+    "message": "Início do Dia Badí'",
     "translation": "required",
-    "description": "heading in Events listing"
+    "description": "na Lista de Eventos "
   },
 
   "includeThese": {
-    "message": "Show",
+    "message": "Mostrar",
     "translation": "required",
-    "description": "choosing what to include in the listing"
+    "description": "escolher o que quer incluir na lista"
   },
   "includeFeasts": {
-    "message": "<u>F</u>easts",
+    "message": "<u>F</u>estas",
     "translation": "required",
-    "description": "choosing what to include in the listing"
+    "description": "escolher o que quer incluir na Lista"
   },
   "includeHolyDays": {
-    "message": "<u>H</u>oly Days",
+    "message": "<u>D</u>ias Sagrados",
     "translation": "required",
-    "description": "choosing what to include in the listing"
+    "description": "escolher o que quer incluir na lista"
   },
   "startTimeOption": {
-    "message": "Usual meeting time: ",
+    "message": "Hora normal da reunião: ",
     "translation": "required",
-    "description": "above Events listing"
+    "description": "na lista de Eventos"
   },
 
   "specialTime_1500S": {
-    "message": "3 pm (Standard Time)",
+    "message": "15H00  (GMT)",
     "translation": "required",
-    "description": "First day of Ridvan"
+    "description": "Primeiro Dia Ridvan"
   },
   "specialTime_SS2": {
-    "message": "About 2 hours after sunset",
+    "message": "Duas horas após pôr-do-sol",
     "translation": "required",
-    "description": "Declaration of the Bab"
+    "description": "Declaração do Bab"
   },
   "specialTime_0300S": {
-    "message": "3 am (Standard Time)",
+    "message": "03H00 (GMT)",
     "translation": "required",
-    "description": "Ascension of Baha'u'llah"
+    "description": "Ascensão de Baha'u'llah"
   },
   "specialTime_1200S": {
-    "message": "Noon (Standard Time)",
+    "message": "Meio-Dia (GMT)",
     "translation": "required",
-    "description": "Martyrdom of the Bab"
+    "description": "Martírio do Bab"
   },
   "specialTime_0100S": {
-    "message": "1 am (Standard Time)",
+    "message": "01H00 (GMT)",
     "translation": "required",
-    "description": "Martyrdom of the Bab"
+    "description": "Martírio do Bab"
   },
 
   "eventTime": {
     "message": "{eventTime} {eventWeekdayShort} {eventMonthShort} {eventDay}, {eventYear}",
     "translation": "required",
-    "description": "show start time in Events listing"
+    "description": "mostrar Hora de início na lista de Eventos"
   },
   "evePartOfDay": {
     "message": "{startingSunsetDesc} {frag1WeekdayShort} {frag1MonthShort} {frag1Day}, {frag1Year}",
     "translation": "required",
-    "description": "show start time in Events listing"
+    "description": "mostrar hora de início  lista de Eventos "
   },
 
 
   "pick_pageFast": {
-    "message": "Fast",
+    "message": "Jejum",
     "translation": "required",
     "description": ""
   },
   "fastDaysTitle": {
-    "message": "Fasting Times in {bYear}",
+    "message": "Horário do Jejum em {bYear}",
     "translation": "required",
     "description": ""
   },
   "sunriseFastHeading": {
-    "message": "Sunrise",
+    "message": "Nascer do Sol",
     "translation": "required",
-    "description": "heading in Fast days listing"
+    "description": "na lista dos Dias de Jejum"
   },
   "sunsetFastHeading": {
-    "message": "Sunset",
+    "message": "Pôr-do-Sol",
     "translation": "required",
-    "description": "heading in Fast days listing"
+    "description": "na lista dos Dias de Jejum"
   },
   "fastGDate": {
-    "message": "Date",
+    "message": "Data",
     "translation": "required",
-    "description": "heading in Fast days listing"
+    "description": "na Lista dos dias de Jejum"
   },
   "mainPartOfDay": {
     "message": "{frag2WeekdayShort} {frag2MonthShort} {frag2Day}, {frag2Year}",
-    "description": "show start time in Events listing"
+    "description": "Mostrar hora de início na lista de Eventos "
   },
 
   "ayyamIs0": {
     "message": "(Y M D) 0 = Ayyám-i-Há",
     "translation": "required - initials for Year Month Day",
-    "description": "(updated) in Badi date picker area"
+    "description": "(actualizado) na área de escolha de data Badi "
   },
 
 
-  "x": {
+ 
+  "new_messages_1_5_3": { "message": "" },
+  "keyToOpenInTab": {
+    "message": "T",
+    "translation": "required",
+    "description": "Press Shift+(letra) para abri num separador"
+  },
+
+  "new_messages_1_6_0": { "message": "" },
+  "pick_pageCal2": {
+    "message": "Roda",
+    "translation": "required",
+    "description": "Nome Separadortab name"
+  },
+
+  "showPointer": {
+    "message": "mostrar ponteiro",
+    "translation": "required",
+    "description": ""
+  },
+
+  "currentFocus": {
+    "message": "Dia Actual",
+    "translation": "required",
+    "description": "na roda aponta para hoje ou para o dia seleccionado"
+  },
+
+ "x": {
     "message": "",
     "description": ""
   }

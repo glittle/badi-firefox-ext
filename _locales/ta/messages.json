@@ -2,8 +2,9 @@
   "translation": {
     "name": "Ramasamy Palaniappan",
     "email": "prsamy@gmail.com",
+    "mostRecentVersion": "1.5.2",
     "message": "ta",
-    "description":  "(this is not shown in the tool)"
+    "description": "(this is not shown in the tool)"
   },
   "title": {
     "message": "படீ' நாள்காட்டி",
@@ -14,11 +15,11 @@
     "description": "Used in the manifest"
   },
   "browserActionTitle": {
-    "message": "(பதிவேற்றம்...)",
+    "message": "பதிவேற்றம்...",
     "description": "Shown until the dynamic tip is created"
   },
   "bYearInVahidMeaning": {
-    "message": ",அ,ப,தந்தை,ட,வாசல்,V,நித்தியம்,வள்ளன்மை,பேரொளி,அன்பு,மகிழ்ச்சிகரமான,பதில்,தனி,அபரிமிதம்,பாசம்,ஆரம்பம்,ஒளிர்வு,அதி ஒளிர்வு,ஒற்றுமை",
+    "message": ",அ,ப,தந்தை,ட,வாசல்,வ,நித்தியம்,வள்ளன்மை,பேரொளி,அன்பு,மகிழ்ச்சிகரமான,பதில்,தனி,அபரிமிதம்,பாசம்,ஆரம்பம்,ஒளிர்வு,அதி ஒளிர்வு,ஒற்றுமை",
     "description": "Vahid names, with leading , "
   },
   "bMonthMeaning": {
@@ -74,11 +75,11 @@
     "description": ""
   },
   "sampleFootnote": {
-    "message": "கிரேகோரிய தித்திகள் அஸ்தமனத்திற்கு முன்/பின் மாறும்",
+    "message": "கிரேகோரிய திததிகள் அஸ்தமனத்திற்கு முன்/பின் மாறும்",
     "description": ""
   },
   "pressToCopy": {
-    "message": "வடிவமைத்த திகதியை பலகையில் ஒட்ட, விசையை அழுத்துக",
+    "message": "வடிவமைத்திட்ட திகதியைப் பலகையில் ஒட்ட, விசையை அழுத்துக",
     "description": "Can click button with mouse, or press matching key on keyboard"
   },
   "afterSunset": {
@@ -114,8 +115,7 @@
     "description": ""
   },
   "webstore": {
-    "message": "Chrome Web Store",
-    "translation": "required?",
+    "message": "குரோம் இணைய அங்காடி",
     "description": ""
   },
   "upcomingTitle": {
@@ -178,23 +178,19 @@
     "description": "ALT for icon at bottom of page"
   },
   "shoghiExample": {
-    "message": "இது {bWeekdayNameAr} நாள், the day of {bDayNameAr} நாள், {bMonthNameAr} மாதம், {bYearInVahidNameAr} வருடம், {bVahidOrdinalName} வஹீட், {bKullishayOrdinalName} குல்-இ-ஷே.",
-    "translation": "required",
+    "message": "இது {bWeekdayNameAr} வாரநாள், {bDayNameAr} மாதநாள், {bMonthNameAr} மாதம், {bYearInVahidNameAr} வருடம், {bVahidOrdinalName} வஹீட், {bKullishayOrdinalName} குல்-இ-ஷே.",
     "description": "Example given by Shoghi Effendi"
   },
   "example2": {
-    "message": "{bMonthNameAr} {bDay} {dayStartedLower} at sunset (about {startingSunsetDesc}) on {frag1WeekdayLong}, {frag1MonthShort} {frag1Day} and {dayEndedLower} at sunset (about {endingSunsetDesc}) on {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.",
-    "translation": "required",
+    "message": "{bMonthNameAr} {bDay} {dayStartedLower} அஸ்தமனத்தில் (சுமார் {startingSunsetDesc}) அன்று {frag1WeekdayLong}, {frag1MonthShort} {frag1Day} மற்றும் {dayEndedLower} அஸ்தமனத்தில் (சுமார் {endingSunsetDesc}) அன்று {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.",
     "description": ""
   },
   "pressKeyOrClick": {
-    "message": "Click button or type {0}.",
-    "translation": "required",
+    "message": "பொத்தானை சொடுக்கவும் அல்லது {0} டைப் செய்யவும்.",
     "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press"
   },
   "copied": {
-    "message": "Copied!",
-    "translation": "required",
+    "message": "நகலெடுக்கப்பட்டுள்ளது!",
     "description": "short message that replaces sample format button text when button is clicked"
   },
 
@@ -202,21 +198,18 @@
   "new_messages_1_1_3": { "message": "" },
   "use24HourClock": {
     "message": "false",
-    "description": "use 'true' or 'false' to use 24 hour or 12 hour (am/pm) clock"
+    "description": "use 'true' or 'false' to use 24 hour or 12 hour (காலை/மாலை) clock"
   },
   "noLocationName": {
-    "message": "(Current Location)",
-    "translation": "required",
+    "message": "(தற்போதைய இடம்)",
     "description": "If the internet is not available, to get the name of the current location."
   },
   "noLocationAvailable": {
-    "message": "(Unknown Location - 6:30pm sunset times)",
-    "translation": "required",
+    "message": "(அறியப்படாத இடம் - மாலை 6:30 அஸ்தமன நேரங்கள்)",
     "description": "If the system does not know the location of this computer."
   },
   "locationError": {
-    "message": "Unable to determine your current location.\n\nThe extension will use 6:30pm for sunset on every date.",
-    "translation": "required",
+    "message": "உங்களின் தற்போதைய இடத்தைத் தீர்மானிக்க இயலவில்லை.\n\nவிரிவாக்கம், ஒவ்வொரு திகதியின் போதும் அஸ்தமனத்திற்கு 6:30-ஐயே பயன்படுத்தும்.",
     "description": "If the system cannot determine the location, this is shown in an alert window."
   },
   "HolyDay_NawRuz": {
@@ -521,8 +514,7 @@
   "new_messages_1_4": { "message": "" },
 
   "pick_pageEvents": {
-    "message": "Events",
-    "translation": "required",
+    "message": "நிகழ்ச்சிகள்",
     "description": "showing Feast and Holy Days"
   },
 
@@ -600,8 +592,7 @@
 
 
   "pick_pageFast": {
-    "message": "Fast",
-    "translation": "required",
+    "message": "நோன்பு",
     "description": ""
   },
   "fastDaysTitle": {
@@ -630,6 +621,33 @@
     "description": "(updated) in Badi date picker area"
   },
 
+
+  "new_messages_1_5_3": { "message": "" },
+  "keyToOpenInTab": {
+    "message": "T",
+    "translation": "required",
+    "description": "Press Shift+(this letter) to open into a tab"
+  },
+
+
+  "new_messages_1_6_0": { "message": "" },
+  "pick_pageCal2": {
+    "message": "Wheel",
+    "translation": "required",
+    "description": "tab name"
+  },
+
+  "showPointer": {
+    "message": "Show pointer",
+    "translation": "required",
+    "description": ""
+  },
+
+  "currentFocus": {
+    "message": "Current Day",
+    "translation": "required",
+    "description": "in wheel, points to today, or whatever day is currently selected"
+  },
 
   "x": {
     "message": "",

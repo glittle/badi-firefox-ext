@@ -7,6 +7,7 @@ var settings = {
   rememberFocusTimeMinutes: 5
 };
 
+var _languageCode = getMessage('translation');
 var _locationLat = localStorage.lat;
 var _locationLong = localStorage.long;
 var _focusTime = null;
@@ -15,6 +16,7 @@ var knownDateInfos = {};
 var _di = {};
 var _initialDi;
 var _firstLoad = true;
+var _firstPopup = false;
 
 // see messages.json for translations and local names
 var bYearInVahidNameAr = ",Alif,Bá’,Ab,Dál,Báb,Váv,Abad,Jád,Bahá',Ḥubb,Bahháj,Javáb,Aḥad,Vahháb,Vidád,Badí‘,Bahí,Abhá,Váḥid".split(',');
@@ -174,7 +176,7 @@ function getDateInfo(currentTime, skipUpcoming) {
   di.dayStartedLower = di.dayStarted.toLocaleLowerCase();
   di.dayEndedLower = di.dayEnded.toLocaleLowerCase();
 
-  di.bMonthDayYear = getMessage('gMonthDayYear', di);
+  // di.bMonthDayYear = getMessage('gMonthDayYear', di);
 
   if (di.frag1Year != di.frag2Year) {
     // Dec 31/Jan 1
@@ -198,9 +200,9 @@ function getDateInfo(currentTime, skipUpcoming) {
   di.stamp = JSON.stringify(di.bNow);// used to compare to other dates and for developer reference 
   di.stampDay = '{y}.{m}.{d}'.filledWith(di.bNow); // ignore eve/day
 
-  if (!skipUpcoming) {
-    getUpcoming(di);
-  }
+  //if (!skipUpcoming) {
+  //  getUpcoming(di);
+  //}
 
   knownDateInfos[currentTime] = di;
 
@@ -691,8 +693,10 @@ function installed(info) {
           url: 'https://sites.google.com/site/badicalendartools/home/chrome-extension/history?'
             + '{0}:{1}'.filledWith(
             chrome.runtime.getManifest().version_name,
-            getMessage('translation'))
+            _languageCode)
         });
+
+        setStorage('firstPopup', true);
 
         tracker.sendEvent('updated', getVersionInfo());
       }
@@ -705,7 +709,7 @@ function installed(info) {
 function getVersionInfo() {
   var info = '{0}:{1} ({2})'.filledWith(
             chrome.runtime.getManifest().version_name,
-            getMessage('translation'),
+            _languageCode,
             navigator.languages ? navigator.languages.slice(0, 2).join(',') : '');
   return info;
 }

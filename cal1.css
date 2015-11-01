@@ -21,8 +21,8 @@
     position: absolute;
     top: 1px;
     right: 14px;
-    line-height: 13px;
-    font-size: 11px;
+    line-height: 9.75pt;
+    font-size: 8.25pt;
     text-align: center;
 }
 
@@ -32,7 +32,7 @@
     .bm i {
         font-style: normal;
         padding-right: 2px;
-        font-size: 8px;
+        font-size: 6pt;
     }
 
 .mGroup1 {
@@ -89,8 +89,8 @@
     border-left: 1px solid rgba(0,0,0,.2);
     border-bottom: 1px solid rgba(0,0,0,.2);
     padding: 0 0 1px 2px;
-    font-size: 11px;
-    line-height: 10px;
+    font-size: 8.25pt;
+    line-height: 7.5pt;
 }
 
     .bd:hover {
@@ -126,8 +126,8 @@
     display: inline-block;
     width: 78px;
     margin-right: 3px;
-    font-size: 13px;
-    line-height: 10px;
+    font-size: 9.75pt;
+    line-height: 9.75pt;
     padding: 1px 0 1px 1px;
 }
 
@@ -142,7 +142,7 @@
     text-align: right;
     display: inline-block;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 7.5pt;
     overflow: hidden;
 }
 
@@ -153,20 +153,20 @@
 }
 
 .gm {
-    font-size: 8px;
-    margin-top: -1px;
+    font-size: 6pt;
+    margin-top: -4px;
+    margin-bottom: 2px;
 }
 
 .gd {
-    line-height: 10px;
-    margin-bottom: 0px;
+    line-height: 7.5pt;
+    margin-bottom: 0;
     border-left: 1px solid rgba(0,0,0,.2);
     padding-left: 1px;
 }
 
     .gd.gd1 {
         font-weight: bold;
-        /*color: rgba(83, 205, 0, 0.9);*/
     }
 
     .gd b {
@@ -219,22 +219,4 @@
 
 .hdHO {
     background: url(star12b.gif);
-}
-
-#btnClose {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-#btnReload {
-    position: absolute;
-    bottom: 0;
-    left: 150px;
-}
-
-#btnPrint {
-    position: absolute;
-    bottom: 0;
-    left: 250px;
 }

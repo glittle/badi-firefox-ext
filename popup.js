@@ -3,94 +3,106 @@
 /* global getMessage */
 /* global di */
 /* global chrome */
+/* global _languageCode */
 /* global $ */
-var samplesDiv = $('#samples');
 var _showingInfo = false;
 var _changingBDate = false;
 var _currentPageNum = 0;
 var _cal1 = null;
+var _cal2 = null;
 var _enableSampleKeys = true;
 var _enableDayKeys = true;
 var _pageHitTimeout = null;
 var tracker = null;
 var _currentPageId = null;
 var _initialStartupDone = false;
+var _loadingNum = 0;
+var _inTab = false;
+var _pageIdList = [];
 
-samplesDiv.on('click', 'button', copySample);
-$('.btnChangeDay').on('click', changeDay);
-$('.btnChangeYear').on('click', changeYear);
+function attachHandlers() {
+  $('#samples').on('click', 'button', copySample);
+  $('.btnChangeDay').on('click', changeDay);
+  $('.btnChangeYear').on('click', changeYear);
 
-$('.btnJumpTo').on('click', moveDays);
-$('.jumpTo').val(getStorage('jumpTo', '90'));
+  $('.btnJumpTo').on('click', moveDays);
+  $('.jumpTo').val(getStorage('jumpTo', '90'));
 
-$('.bDatePickerInputs input, .bYearPicker').on('change paste keydown keypress', changeToBDate);
-$('.bKullishayPicker, .bVahidPicker, .bYearInVahidPicker').on('change paste keydown keypress', changeInVahid);
+  $('.bDatePickerInputs input, .bYearPicker').on('change paste keydown keypress', changeToBDate);
+  $('.bKullishayPicker, .bVahidPicker, .bYearInVahidPicker').on('change paste keydown keypress', changeInVahid);
 
-$('#btnEveOrDay').on('click', toggleEveOrDay);
-$('#datePicker').on('change', jumpToDate);
-$('#eventStart').on('change', function () {
-  setStorage('eventStart', $(this).val());
+  $('#btnEveOrDay').on('click', toggleEveOrDay);
+  $('#datePicker').on('change', jumpToDate);
+  $('#eventStart').on('change', function () {
+    setStorage('eventStart', $(this).val());
 
-  _lastSpecialDaysYear = null;
-  BuildSpecialDaysTable(_di);
-  $('.eventTime').effect("highlight", 1000);
-});
-$('.includeThis').on('change, click', SetFiltersForSpecialDaysTable);
+    _lastSpecialDaysYear = null;
+    BuildSpecialDaysTable(_di);
+    $('.eventTime').effect("highlight", 1000);
+  });
+  $('.includeThis').on('change, click', SetFiltersForSpecialDaysTable);
 
-$('#btnRetry').on('click', function () {
-  $('#btnRetry').addClass('active');
-  registerHandlers();
-  setTimeout(function () {
-    $('#btnRetry').removeClass('active');
-  }, 1000);
-});
-$('#datePicker').on('keydown', function (ev) {
-  ev.stopPropagation();
-});
-$('.selectPages').on('click', 'button', changePage);
-$(document).on('keydown', keyPressed);
-//$('#btnCal1').on('click', showCal1);
-$('.iconArea a').click(function () {
-  chrome.tabs.create({ active: true, url: this.href });
-});
+  $('#btnRetry').on('click', function () {
+    $('#btnRetry').addClass('active');
+    registerHandlers();
+    setTimeout(function () {
+      $('#btnRetry').removeClass('active');
+    }, 1000);
+  });
+  $('#datePicker').on('keydown', function (ev) {
+    ev.stopPropagation();
+  });
+  $('.selectPages').on('click', 'button', changePage);
+  $(document).on('keydown', keyPressed);
+  $('.iconArea a').click(function () {
+    chrome.tabs.create({ active: true, url: this.href });
+  });
 
-chrome.alarms.onAlarm.addListener(function () {
-  showInfo(_di);
-});
+  $('#cbShowPointer').on('change', function () {
+    setStorage('showPointer', $(this).prop('checked'))
+    _cal2.showCalendar(_di);
+  });
 
+  //chrome.alarms.onAlarm.addListener(function (alarm) {
+  //  console.log(alarm.name);
+  //  console.log(new Date(alarm.scheduledTime));
+  //  chrome.alarms.clear(alarm.name, function (wasCleared) { console.log(wasCleared); });
+  //  refreshDateInfoAndShow();
+  //});
+
+  $('#btnOpen').click(openInTab);
+  $('#btnPrint').click(function () {
+    window.print();
+  });
+}
 var sampleNum = 0;
+var showInfoDelay = null;
 
 function showInfo(di) {
   _showingInfo = true;
 
-  var makeObj = function (key) {
-    return { name: getMessage(key), value: getMessage(key + 'Format', di) };
-  };
-  var dayDetails = [
-     makeObj('DayOfWeek')
-   , makeObj('DayOfMonth')
-   , { name: getMessage('Month'), value: getMessage(di.bMonth ? 'MonthFormatNormal' : "MonthFormatAyyam", di) }
-   , makeObj('YearOfVahid')
-   , makeObj('Vahid')
-   , makeObj('Kullishay')
-   , makeObj('YearOfEra')
-  ];
+  clearTimeout(showInfoDelay);
 
-  var explain1 = getMessage('shoghiExample', di);
-  var explain2 = getMessage('example2', di);
+  // show current page first, then the others
+  updatePageContent(_currentPageId, di);
 
+  updateSharedContent(di);
+
+  //showInfoDelay = setTimeout(function () {
+  //  $.each(_pageIdList, function (i, id) {
+  //    if (id != _currentPageId) {
+  //      updatePageContent(id, di);
+  //    }
+  //  });
+  //}, 500);
+
+  _showingInfo = false;
+}
+
+function updateSharedContent(di) {
   $('#day').html(getMessage('bTopDayDisplay', di));
   $('#sunset').html(di.nearestSunset);
   $('#gDay').html(getMessage('gTopDayDisplay', di));
-  //$('#gDayWithSunset').html(getMessage('gTopDayDisplay', di) + ' - ' + getMessage(di.bNow.eve ? 'startingSunsetDesc' : 'endingSunsetDesc', di));
-
-  $('#dayDetails').html('<dl>' + '<dt>{^name}</dt><dd>{^value}</dd>'.filledWithEach(dayDetails) + '</dl>');
-
-  $('#explain').html(explain1);
-  $('#explain2').html(explain2);
-
-  $('#gDate').html(getMessage('gregorianDateDisplay', di));
-  $('#gDateDesc').html('({^currentRelationToSunset})'.filledWith(di));
 
   if (!_changingBDate) {
     $('.bYearPicker').val(di.bYear);
@@ -100,8 +112,6 @@ function showInfo(di) {
     $('.bVahidPicker').val(di.bVahid);
     $('.bYearInVahidPicker').val(di.bYearInVahid);
   }
-
-  $('#datePicker').val(di.currentDateString);
 
   $('#special1').hide();
   $('#special2').hide();
@@ -114,32 +124,19 @@ function showInfo(di) {
   } else {
     $('#day').removeClass('withSpecial');
   }
-  $('#upcoming').html(di.upcomingHtml);
-
-  addSamples(di);
 
   var manifest = chrome.runtime.getManifest();
   $('#version').text(getMessage('version', manifest.version_name));
-  $('body')
-    .addClass(manifest.current_locale)
-    .addClass(manifest.current_locale.slice(0, 2));
 
-  $('button.today').toggleClass('notToday', di.stamp !== getStorage('originalStamp'));
-
-  if (_initialStartupDone) {
-    updateStatic(di);
-    BuildSpecialDaysTable(di);
-  }
+  //if (_initialStartupDone) {
+  //  BuildSpecialDaysTable(di);
+  //}
 
   if (getStorage('locationNameKnown', false)) {
     showLocation();
   } else {
     startGetLocationName();
   }
-
-  setFocusTime(di.currentTime);
-
-  _showingInfo = false;
 }
 
 function changePage(ev, delta) {
@@ -184,19 +181,27 @@ function showPage(id) {
   id = id || _currentPageId || 'pageDay';
   var pages = $('.page');
   var btns = $('.selectPages button');
+  var thisPage = pages.filter('#' + id);
 
-  pages.css({ visible: 'hidden' }); // reduce flicker?
+  pages.css({ visibility: 'hidden' }); // reduce flicker?
 
   var other = '.vahidInputs'; // don't fit on any page... likely need to remove it
   var pageDay = '#gDay, #showUpcoming, .explains, .normal, #show, .iconArea, #special';
   var pageEvents = '#yearSelector, .iconArea, #specialDaysTitle';
   var pageCal1 = '#yearSelector, .JumpDays, #show, #gDay';
+  var pageCal2 = '#yearSelector, #show, #gDay, #special, .iconArea';
   var pageLists = '#gDay, #show, .iconArea, #special';
   var pageFast = '#yearSelector, .iconArea';
 
-  $([other, pageDay, pageEvents, pageCal1, pageLists, pageFast].join(',')).hide();
+  $([other, pageDay, pageEvents, pageCal1, pageCal2, pageLists, pageFast].join(',')).hide();
 
   _currentPageId = id;
+
+  if (thisPage.data('diStamp') != _di.stamp) {
+    updatePageContent(_currentPageId, _di);
+    thisPage.data('diStamp', _di.stamp);
+  }
+
   $('body').attr('data-pageid', id);
   switch (id) {
     case 'pageDay':
@@ -217,6 +222,12 @@ function showPage(id) {
       _enableDayKeys = true;
       break;
 
+    case 'pageCal2':
+      $(pageCal2).show();
+      _enableSampleKeys = false;
+      _enableDayKeys = true;
+      break;
+
     case 'pageLists':
       $(pageLists).show();
       _enableSampleKeys = false;
@@ -233,9 +244,9 @@ function showPage(id) {
   btns.removeClass('showing');
   btns.filter('*[data-page="{0}"]'.filledWith(id)).addClass('showing');
 
-  pages.hide();
-  pages.filter('#' + id).show();
-  pages.css({ visible: 'visible' });
+  thisPage.show();
+  pages.not(thisPage).hide();
+  pages.css({ visibility: 'visible' });
 
   if (id == 'pageDay') {
     adjustHeight();
@@ -244,11 +255,86 @@ function showPage(id) {
   setStorage('focusPage', id);
 
   clearTimeout(_pageHitTimeout);
+
   // delay a bit, to ensure we are not just moving past this page
   if (tracker) {
     _pageHitTimeout = setTimeout(function () {
       tracker.sendAppView(id);
     }, 500);
+  }
+}
+
+
+function updatePageContent(id, di) {
+  console.log(id);
+  console.log(di);
+  switch (id) {
+    case 'pageDay':
+      var makeObj = function (key) {
+        return { name: getMessage(key), value: getMessage(key + 'Format', di) };
+      };
+      var dayDetails = [
+         makeObj('DayOfWeek')
+       , makeObj('DayOfMonth')
+       , { name: getMessage('Month'), value: getMessage(di.bMonth ? 'MonthFormatNormal' : "MonthFormatAyyam", di) }
+       , makeObj('YearOfVahid')
+       , makeObj('Vahid')
+       , makeObj('Kullishay')
+       , makeObj('YearOfEra')
+      ];
+      var explain1 = getMessage('shoghiExample', di);
+      var explain2 = getMessage('example2', di);
+
+      getUpcoming(di);
+      $('#upcoming').html(di.upcomingHtml);
+
+      $('#explain').html(explain1);
+      $('#explain2').html(explain2);
+
+      $('#dayDetails').html('<dl>' + '<dt>{^name}</dt><dd>{^value}</dd>'.filledWithEach(dayDetails) + '</dl>');
+
+      $('#gDate').html(getMessage('gregorianDateDisplay', di));
+      $('#gDateDesc').html('({^currentRelationToSunset})'.filledWith(di));
+      $('button.today').toggleClass('notToday', di.stamp !== getStorage('originalStamp'));
+      $('#datePicker').val(di.currentDateString);
+
+      addSamples(di);
+
+      break;
+
+    case 'pageEvents':
+      BuildSpecialDaysTable(_di);
+      break;
+
+    case 'pageCal1':
+      if (_cal1) {
+        _cal1.showCalendar(di);
+      }
+      break;
+
+    case 'pageCal2':
+      if (_cal2) {
+        _cal2.showCalendar(di);
+      }
+      break;
+
+    case 'pageLists':
+      $('#pageLists table tr.selected').removeClass('selected');
+      $('#pageLists table tr.selectedDay').removeClass('selectedDay');
+
+      $('.yearListNum{bYearInVahid}, .monthListNum{bMonth}'.filledWith(di)).addClass('selected');
+      if (di.bMonth !== 0) {
+        $('.dayListNum{bDay}, .weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
+      } else {
+        // ayyam-i-ha
+        $('.weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
+      }
+
+      break;
+
+    case 'pageFast':
+      BuildSpecialDaysTable(_di);
+      break;
   }
 }
 
@@ -420,7 +506,7 @@ function addSamples(di) {
 }
 
 function keyPressed(ev) {
-  if (ev.altKey || ev.ctrlKey) {
+  if (ev.altKey) {
     return;
   }
   var key = String.fromCharCode(ev.which) || '';
@@ -432,8 +518,12 @@ function keyPressed(ev) {
       if (ev.shiftKey) {
         changeYear(null, -1);
       } else {
-        if (_enableDayKeys) {
-          changeDay(null, -1);
+        if (ev.ctrlKey) {
+          changeDay(null, -7);
+        } else {
+          if (_enableDayKeys) {
+            changeDay(null, -1);
+          }
         }
       }
       ev.preventDefault();
@@ -442,8 +532,12 @@ function keyPressed(ev) {
       if (ev.shiftKey) {
         changeYear(null, 1);
       } else {
-        if (_enableDayKeys) {
-          changeDay(null, 1);
+        if (ev.ctrlKey) {
+          changeDay(null, 7);
+        } else {
+          if (_enableDayKeys) {
+            changeDay(null, 1);
+          }
         }
       }
       ev.preventDefault();
@@ -499,6 +593,10 @@ function keyPressed(ev) {
         }
       }
 
+      if (key == getMessage('keyToOpenInTab') && ev.shiftKey) {
+        openInTab();
+      }
+
       var pageNum = +key;
       var validPagePicker = key == pageNum;
 
@@ -536,7 +634,7 @@ function addSample(info, group) {
     $.extend(sample, info);
   }
   sample.currentNote = sample.currentTime ? ' *' : '';
-  samplesDiv.find('#sampleList' + group)
+  $('#samples').find('#sampleList' + group)
     .append(('<div><button title="{tooltip}"'
     + ' type=button data-letter={letter} id="key{letter}">{letter}{currentNote}</button>'
     + ' <span>{^value}</span></div>').filledWith(sample));
@@ -544,6 +642,7 @@ function addSample(info, group) {
 
 function clearSamples() {
   sampleNum = 0;
+  var samplesDiv = $('#samples');
   samplesDiv.find('#sampleList1').text('');
   samplesDiv.find('#sampleList2').text('');
 }
@@ -563,7 +662,9 @@ function copySample(ev) {
   setTimeout(function () {
     div.removeClass('copied');
     btn.text(btn.data('letter'));
-    window.close();
+    if (!_inTab) {
+      window.close();
+    }
   }, 1000);
 }
 function toggleEveOrDay(toEve) {
@@ -720,31 +821,24 @@ function fillEventStart() {
 }
 
 function updateStatic(di) {
-  $('#pageLists table tr.selected').removeClass('selected');
-  $('#pageLists table tr.selectedDay').removeClass('selectedDay');
-  $('.yearListNum{bYearInVahid}, .monthListNum{bMonth}'.filledWith(di)).addClass('selected');
-  if (di.bMonth !== 0) {
-    $('.dayListNum{bDay}, .weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
-  } else {
-    // ayyam-i-ha
-    $('.weekdayListNum{bWeekday}'.filledWith(di)).addClass('selectedDay');
-  }
-  if (_cal1) {
-    _cal1.showCalendar(di);
-  }
 }
 
 function SetFiltersForSpecialDaysTable(ev) {
   var includeFeasts = $('#includeFeasts').prop('checked');
   var includeHolyDays = $('#includeHolyDays').prop('checked');
 
-  if (!includeFeasts && !includeHolyDays && ev) {
-    // both turned off?  turn on the other one
-    var clicked = $(ev.target).closest('input').attr('id');
-    $(clicked == 'includeFeasts' ? '#includeHolyDays' : '#includeFeasts').prop('checked', true);
-
+  if (!includeFeasts && !includeHolyDays) {
+    if (ev) {
+      // both turned off?  turn on one
+      var clicked = $(ev.target).closest('input').attr('id');
+      $(clicked == 'includeFeasts' ? '#includeHolyDays' : '#includeFeasts').prop('checked', true);
+    } else {
+      //default to holy days
+      $('#includeHolyDays').prop('checked', true);
+    }
     includeFeasts = $('#includeFeasts').prop('checked');
     includeHolyDays = $('#includeHolyDays').prop('checked');
+
   }
 
 
@@ -758,6 +852,7 @@ var _lastSpecialDaysYear = 0;
 
 function BuildSpecialDaysTable(di) {
   var year = di.bNow.y;
+
   if (_lastSpecialDaysYear === year) {
     return;
   }
@@ -964,13 +1059,14 @@ function showCal1() {
 }
 
 function adjustHeight() {
+
   // try to ensure that the tabs are not longer than page1 content
-  var content = $('.mainMiddle');
-  var contentHeight = content.height();
-  var tabsHeight = $('.selectPages').prop('scrollHeight');
-  if (tabsHeight > contentHeight) {
-    content.css("min-height", (5 + tabsHeight) + 'px');
-  }
+  //var content = $('.mainMiddle');
+  //var contentHeight = content.height();
+  //var tabsHeight = $('.selectPages').prop('scrollHeight');
+  //if (tabsHeight > contentHeight) {
+  //  content.css("min-height", (5 + tabsHeight) + 'px');
+  //}
 }
 
 function prepareDefaults() {
@@ -984,6 +1080,12 @@ function prepareDefaults() {
 
   $('#includeFeasts').prop('checked', feasts || false);
   $('#includeHolyDays').prop('checked', holyDays || false);
+
+  var showPointer = getStorage('showPointer');
+  if (typeof showPointer === 'undefined') {
+    showPointer = true;
+  }
+  $('#cbShowPointer').prop('checked', showPointer);
 }
 
 function recallFocus() {
@@ -1012,56 +1114,154 @@ function recallFocus() {
         setFocusTime(time);
 
         setTimeout(function () {
-          $('#day,#gDay').effect("highlight", 4000);
+          $('#day,#gDay').effect("highlight", 6000);
         }, 150);
       }
     }
   }
 }
 
-$(function () {
-  recallFocus();
+function openInTab() {
+  if (_inTab) {
+    return;
+  }
+  var url = chrome.extension.getURL('popup.html');
 
-  showPage();
+  chrome.tabs.query({ url: url }, function (foundTabs) {
+    if (foundTabs[0]) {
+      chrome.tabs.update(foundTabs[0].id, {
+        active: true
+      });
+    } else {
+      chrome.tabs.create({ url: url });
+    }
+    window.close();
+  });
+
+}
+
+
+function prepare1() {
+  $('#loadingMsg').html(getMessage('browserActionTitle'));
+
+  $('body')
+  .addClass(_languageCode)
+  .addClass(_languageCode.slice(0, 2))
+  .attr('lang', _languageCode);
+
+  if (',fa,'.search(_languageCode) != -1) {
+    $('body').attr('dir', 'rtl');
+  }
+
+  recallFocus();
+  updateLoadProgress();
 
   refreshDateInfo();
+  updateLoadProgress();
 
   localizeHtml();
+  updateLoadProgress();
 
   showInfo(_di);
+  updateLoadProgress();
+
+  showPage();
+  updateLoadProgress();
 
   showShortcutKeys();
+  updateLoadProgress();
 
-  setTimeout(function () {
+  attachHandlers();
+  updateLoadProgress();
 
-    _initialStartupDone = true;
+  showBtnOpen();
+  updateLoadProgress();
 
-    prepareDefaults();
+  updateTabNames();
+  updateLoadProgress();
 
-    fillEventStart();
+  // delay if viewing first page
+  setTimeout(prepare2, _currentPageId == 'pageDay' ? 1000 : 0);
 
-    fillStatic();
-
-    BuildSpecialDaysTable(_di);
-
-    updateStatic(_di);
-
-    localizeHtml('#pageLists');
-
-    _initialDi = $.extend(true, {}, _di);
-
-    _cal1 = Cal1(_di);
-    _cal1.showCalendar(_di);
-
-    $('body').show();
-    adjustHeight();
-
-    prepareAnalytics();
-
-  }, _currentPageId == 'pageDay' ? 1000 : 0);
-
+  // if viewing first page, show now
   if (_currentPageId == 'pageDay') {
-    $('body').show();
     adjustHeight();
+    $('#initialCover').hide();
   }
+}
+
+function updateTabNames() {
+  $('.selectPages button').each(function (i, el) {
+    var tab = $(el);
+    tab.html((i + 1) + ' ' + tab.html());
+    _pageIdList.push(tab.data('page'));
+  });
+}
+
+function showBtnOpen() {
+  chrome.tabs.getCurrent(function (tab) {
+    if (tab) {
+      _inTab = true;
+      $('body').addClass('inTab');
+      $('#btnPrint').show();
+    } else {
+      $('#btnOpen').show();
+    }
+  });
+}
+
+function finishFirstPopup() {
+  $('.buttons').removeClass('fakeHover');
+  $('.buttons')
+    .off('mouseover', finishFirstPopup);
+  setStorage('firstPopup', false);
+}
+
+function prepare2() {
+
+  _initialStartupDone = true;
+
+  if (getStorage('firstPopup', false)) {
+    // first time popup is opened after upgrading to newest version
+    $('.buttons')
+      .addClass('fakeHover')
+      .on('mouseover', finishFirstPopup);
+    setTimeout(finishFirstPopup, 4000);
+  }
+
+  prepareDefaults();
+
+  fillEventStart();
+
+  fillStatic();
+
+  localizeHtml('#pageLists');
+
+  _initialDi = $.extend(true, {}, _di);
+
+  _cal1 = Cal1(_di);
+  _cal1.showCalendar(_di);
+
+  _cal2 = Cal2();
+  _cal2.showCalendar(_di);
+
+  if (_currentPageId != 'pageDay') {
+    adjustHeight();
+    $('#initialCover').hide();
+  }
+
+  prepareAnalytics();
+}
+
+function updateLoadProgress() {
+  _loadingNum++;
+  $('#loadingCount').text(new Array(_loadingNum + 1).join('.'));
+}
+
+// must be set immediately for tab managers to see this name
+$('#windowTitle').text(getMessage('title'));
+
+$(function () {
+  prepare1();
 });
+

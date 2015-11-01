@@ -1,9 +1,54 @@
 body {
     margin: 0;
+    font-family: Geneva, 'Segoe UI';
+    font-size: 9pt;
+    overflow: hidden;
+}
+
+#mainBody {
+    margin: 0 auto;
     width: 800px;
     font-family: Geneva, 'Segoe UI';
-    font-size: 12px;
+}
+
+
+#initialCover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*background: url('Sea of Fog.jpg') #fff no-repeat content-box;*/
+    background-color: white;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.initialMsgArea {
+    color: green;
+    margin: 0 auto;
+    font-size: 12pt;
+}
+
+#loadingMsg {
+}
+
+#loadingCount {
+}
+
+#btnOpen {
     display: none;
+    width: 26px;
+    height: 22px;
+    margin: 0 0 0 6px;
+}
+
+#btnPrint {
+    display: none;
+    width: 26px;
+    height: 22px;
+    margin: 0 3px 0 6px;
 }
 
 .mainTop {
@@ -28,9 +73,13 @@ body {
     width: 100%;
 }
 
-#pageEvents, #pageFast, #pageLists, #pageCal1 {
-    border: 1px solid green;
+#pageEvents, #pageFast, #pageLists, #pageCal1, #pageCal2 {
+    border: 1px solid #77b55a;
     border-radius: 3px;
+}
+
+#pageCal2 {
+    width: 100%;
 }
 
 #pageDay {
@@ -50,25 +99,33 @@ body {
     overflow: auto;
 }
 
+body.inTab #pageEvents {
+    max-height: none;
+}
+
+#pageCal2 {
+    height: 500px;
+}
+
 #show {
     /*width: 340px;*/
     /*display: table-cell;*/
     white-space: nowrap;
-    font-size: 16px;
+    font-size: 12pt;
     /*font-family: Geneva;*/
     text-align: center;
 }
 
 #day {
-    font-size: 18px;
+    font-size: 13.5pt;
     display: inline-block;
     margin-top: 14px;
     margin-bottom: 9px;
 }
 
     #day.withSpecial {
-        margin-top: 0;
-        margin-bottom: -1px;
+        margin-top: 1px;
+        margin-bottom: 0;
     }
 
 body[data-pageid=pageCal1] #day {
@@ -86,62 +143,103 @@ body[data-pageid=pageCal1] #day {
 }
 
 #special1 {
-    font-size: 17px;
+    font-size: 12.75pt;
     color: blue;
     display: none;
 }
 
 #special2 {
-    font-size: 16px;
+    font-size: 12pt;
     color: blue;
     display: none;
 }
 
 body.ta #sunset {
-    font-size: 13px;
+    font-size: 9.75pt;
 }
 
 div.selectPages {
-    width: 15px;
+    width: 20px;
+    z-index: 9;
 }
 
 .selectPages .buttons {
-    transform: rotate(-90deg);
-    transform-origin: left;
+    padding-top: 4px;
+    width: 20px;
     display: flex;
-    justify-content: flex-start;
-    flex-direction: row-reverse;
-    margin: 5px 0 0 7px;
+    flex-direction: column;
 }
 
+    .selectPages .buttons.fakeHover,
+    .selectPages .buttons:hover {
+        align-items: flex-end;
+        width: auto;
+    }
+
     .selectPages .buttons button {
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
         background-color: #b5775a;
-        border: 1px solid #8f4b29;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
+        border-radius: 2px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border: none;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
         display: block;
+        outline: none;
         cursor: pointer;
         color: #ffffff;
-        /*font-family: Geneva;*/
-        font-size: 12px;
-        transition: color 0.4s ease-out;
-        padding: 0 5px 1px;
-        margin-left: 3px;
+        font-size: 8.5pt;
+        padding: 2px 2px 2px 0;
+        box-sizing: border-box;
+        overflow: hidden;
+        width: 20px;
+        margin: -1px 0 0 0;
+        transition: width 0.2s ease-out;
         text-decoration: none;
         white-space: nowrap;
-        line-height: 13px;
+        position: relative;
     }
 
         .selectPages .buttons button.showing {
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+            border-top-left-radius: 2px;
+            border-bottom-left-radius: 2px;
             background-color: #77b55a;
-            border: 1px solid #4b8f29;
+            margin-left: -2px;
+            padding-left: 2px;
+            width: 22px;
         }
 
-        .selectPages .buttons button:focus {
-            outline: none;
+    .selectPages .buttons:hover button.showing:hover {
+        background-color: #77b55a;
+    }
+
+    .selectPages .buttons.fakeHover button,
+    .selectPages .buttons:hover button {
+        border-radius: 2px;
+        padding: 2px 6px 2px 7px;
+        width: auto;
+    }
+
+        .selectPages .buttons:hover button:hover {
+            background-color: rgb(187, 137, 114);
         }
+
+    .selectPages .buttons button:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        pointer-events: none;
+        background-image: linear-gradient(to right, rgba(255,255,255, 0), rgba(255,255,255, 1) 100%);
+        height: 100%;
+        width: 9px;
+    }
+
+    .selectPages .buttons.fakeHover button:after,
+    .selectPages .buttons:hover button:after {
+        z-index: -1;
+    }
 
 #ayyamIs0 {
     text-align: right;
@@ -149,18 +247,18 @@ div.selectPages {
 }
 
 #shortcutKeys {
+    font-size: 8.25pt;
+    color: #999;
     position: absolute;
     right: 2px;
     bottom: 2px;
-    font-size: 11px;
-    color: #999;
 }
 
 #tips {
     position: absolute;
     left: 2px;
     bottom: 2px;
-    font-size: 11px;
+    font-size: 8.25pt;
     color: #999;
 }
 
@@ -197,7 +295,7 @@ div.selectPages {
     }
 
 .place, #gDay {
-    font-size: 11px;
+    font-size: 8.25pt;
     color: gray;
 }
 
@@ -249,12 +347,12 @@ dd {
 .comment {
     color: green;
     opacity: 0.6;
-    font-size: 11px;
+    font-size: 8.25pt;
 }
 
 
 #samples {
-    font-size: 12px;
+    font-size: 9pt;
     border: 1px solid green;
     border-radius: 3px;
     padding: 5px;
@@ -343,7 +441,7 @@ body.pt_PT #sampleTitle {
 
 #specialDaysTitle {
     display: none;
-    font-size: 18px;
+    font-size: 13.5pt;
     text-align: center;
     margin: 0px 50px 0 0;
 }
@@ -352,6 +450,7 @@ body.pt_PT #sampleTitle {
     padding: 4px;
     white-space: nowrap;
     overflow: auto;
+    margin: 0 auto;
 }
 
 #specialListsTable {
@@ -413,7 +512,7 @@ body.pt_PT #sampleTitle {
     #specialListsTable caption {
         color: green;
         text-align: left;
-        font-size: 16px;
+        font-size: 12pt;
         margin: -2px 0px 2px 2px;
     }
 
@@ -469,7 +568,7 @@ body.ta #eventStartHolder {
 }
 
 #eventStartHolder select {
-    font-size: 12px;
+    font-size: 9pt;
 }
 
 #includeWhat {
@@ -478,7 +577,7 @@ body.ta #eventStartHolder {
 }
 
 #fastList {
-    font-size: 12px;
+    font-size: 9pt;
     padding: 5px;
     position: relative;
     vertical-align: top;
@@ -504,7 +603,7 @@ body.ta #eventStartHolder {
 
     #fastListTable caption {
         color: green;
-        font-size: 16px;
+        font-size: 12pt;
     }
 
 tr.FastSat td {
@@ -521,7 +620,7 @@ button.btnChangeDay, #btnEveOrDay, button.btnChangeYear, button.btnJumpTo {
     cursor: pointer;
     color: #ffffff;
     font-family: Geneva, 'Segoe UI';
-    font-size: 11px;
+    font-size: 8.25pt;
     line-height: 14px;
     transition: color 0.4s ease-out;
     padding: 1px 2px;
@@ -550,7 +649,7 @@ button.today.notToday {
     cursor: pointer;
     color: #ffffff;
     /*font-family: Geneva;*/
-    font-size: 9px;
+    font-size: 6.75pt;
     transition: color 0.4s ease-out;
     padding: 1px 2px;
     text-decoration: none;
@@ -645,7 +744,7 @@ button.today.notToday {
     float: right;
     color: #999;
     margin: 6px 0 0 0;
-    font-size: 11px;
+    font-size: 8.25pt;
 }
 
 #upcomingTitle {
@@ -683,7 +782,7 @@ body.ta #upcomingTitle {
     margin: 0 auto 2px auto;
     text-align: center;
     font-family: Geneva, 'Segoe UI';
-    font-size: 11px;
+    font-size: 8.25pt;
 }
 
 .textLink {
@@ -706,7 +805,7 @@ a.textLink {
 }
 
     .bDatePickerInputs input {
-        font-size: 11px;
+        font-size: 8.25pt;
         font-family: Geneva, 'Segoe UI';
         text-align: center;
         margin: 0;
@@ -732,7 +831,7 @@ input.bYearPicker {
     }
 
     #yearSelector input {
-        font-size: 11px;
+        font-size: 8.25pt;
         font-family: Geneva, 'Segoe UI';
         text-align: center;
         margin: 0;
@@ -770,4 +869,72 @@ input.bYearPicker {
 
 .nobreak {
     white-space: nowrap;
+}
+
+@media print {
+    #yearSelector, .selectPages, .iconArea {
+        display: none !important;
+    }
+
+    #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCal2 {
+        border: none;
+        padding: 20px 0 0 0;
+    }
+
+    #includeWhat {
+        display: none;
+    }
+
+    #eventStart {
+        -webkit-appearance: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #specialDaysTitle {
+        margin: 0;
+    }
+
+    #fastListTable caption {
+        margin-bottom: 20px;
+    }
+}
+
+@media (min-width: 900px) {
+
+    .selectPages .buttons {
+        width: auto;
+        align-items: flex-start;
+    }
+
+        .selectPages .buttons button:after {
+            z-index: -1;
+        }
+
+        .selectPages .buttons:hover {
+            align-items: flex-start;
+            width: auto;
+        }
+
+
+        .selectPages .buttons button {
+            border-radius: 2px;
+            padding: 2px 6px 2px 3px;
+            width: auto;
+        }
+
+        .selectPages .buttons:hover button {
+            border-radius: 2px;
+            padding: 2px 6px 2px 3px;
+        }
+
+        .selectPages .buttons button.showing {
+            width: auto;
+            border-top-left-radius: 2px;
+            border-bottom-left-radius: 2px;
+            background-color: #77b55a;
+            margin-left: -2px;
+            padding-left: 5px;
+        }
 }
