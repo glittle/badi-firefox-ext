@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "cal1.css",
+    "inputFile": "cal1.less"
+  },
+  {
+    "outputFile": "cal2.css",
+    "inputFile": "cal2.less"
+  },
+  {
+    "outputFile": "popup.css",
+    "inputFile": "popup.less"
+  },
+  {
+    "outputFile": "calGreg.css",
+    "inputFile": "calGreg.less"
+  }
+]

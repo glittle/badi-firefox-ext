@@ -700,6 +700,13 @@
     "description": "in wheel, points to today, or whatever day is currently selected"
   },
 
+  "new_messages_1_6_2": { "message": "" },
+  "pick_pageCalGreg": {
+    "message": "Gregorian Months",
+    "translation": "required",
+    "description": "tab name"
+  },
+
   "x": {
     "message": "",
     "description": ""

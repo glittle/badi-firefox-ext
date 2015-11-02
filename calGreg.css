@@ -1,0 +1,196 @@
+﻿body[data-pageid=pageCalGreg].inTab {
+  overflow-y: auto;
+}
+body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
+  max-height: none;
+}
+#pageCalGreg .calendar {
+  margin: 2px 0 5px 0;
+  overflow: auto;
+  max-height: 495px;
+  position: relative;
+}
+#pageCalGreg table.month {
+  margin: 10px auto 40px auto;
+  border-collapse: separate;
+  border-spacing: 1px;
+  page-break-inside: avoid;
+}
+#pageCalGreg table.month thead tr.caption th {
+  border: none;
+  font-size: 14pt;
+  font-weight: bold;
+}
+#pageCalGreg table.month thead tr.caption th span {
+  font-weight: normal;
+  padding-left: 20px;
+  font-size: 12pt;
+}
+#pageCalGreg table.month thead tr.placeName th {
+  border: none;
+  font-size: 9pt;
+  padding-bottom: 3px;
+}
+#pageCalGreg table.month thead th {
+  border: solid 1px #ccc;
+  padding: 0;
+  font-weight: normal;
+}
+#pageCalGreg table.month thead th .weekDay {
+  font-weight: bold;
+}
+#pageCalGreg table.month tr {
+  page-break-inside: avoid;
+}
+#pageCalGreg table.month td {
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+#pageCalGreg table.month td > div > div {
+  width: 100px;
+  position: relative;
+}
+#pageCalGreg table.month td .dayCell .morn {
+  color: #fff;
+  background-image: linear-gradient(to bottom, rgba(200, 200, 200, 0) 60%, #ffffff 100%);
+}
+#pageCalGreg table.month td .dayCell .morn .bDay {
+  position: absolute;
+  top: 0;
+  right: 1px;
+  font-weight: bold;
+}
+#pageCalGreg table.month td .dayCell .morn .gDay {
+  position: absolute;
+  top: 1px;
+  left: 3px;
+  font-size: 8pt;
+}
+#pageCalGreg table.month td .dayCell .aft {
+  background-color: white;
+}
+#pageCalGreg table.month td .dayCell .aft .sunrise {
+  position: absolute;
+  right: 1px;
+  top: 0;
+  font-size: 6pt;
+}
+#pageCalGreg table.month td .dayCell .aft > div {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+#pageCalGreg table.month td .dayCell .aft .sunset {
+  position: absolute;
+  bottom: 0;
+  right: 1px;
+  font-size: 6pt;
+}
+#pageCalGreg table.month td .dayCell .aft .monthName {
+  position: absolute;
+  bottom: 0;
+  left: 2px;
+  font-size: 9pt;
+}
+#pageCalGreg table.month td .dayCell .aft .monthName.first {
+  font-weight: bold;
+}
+#pageCalGreg table.month td .dayCell .eve {
+  background-image: linear-gradient(to top, rgba(200, 200, 200, 0) 60%, #ffffff 100%);
+}
+#pageCalGreg table.month td .dayCell .eve .sunset {
+  position: absolute;
+  right: 1px;
+  top: 0;
+  font-size: 7pt;
+  color: #fff;
+}
+#pageCalGreg table.month td.outside {
+  background-color: #fff;
+  color: #ddd;
+}
+#pageCalGreg table.month td.outside .gDay {
+  position: absolute;
+  top: 1px;
+  left: 3px;
+  font-size: 8pt;
+}
+#pageCalGreg table.month td.outside > div {
+  height: 95.8px;
+}
+#pageCalGreg .bMonth0 {
+  background-color: #02a7df;
+}
+#pageCalGreg .bMonth10 {
+  background-color: #ED312F;
+}
+#pageCalGreg .bMonth12 {
+  background-color: #ee732f;
+}
+#pageCalGreg .bMonth3 {
+  background-color: #f7ae23;
+}
+#pageCalGreg .bMonth14 {
+  background-color: #fce32b;
+}
+#pageCalGreg .bMonth5 {
+  background-color: #dade27;
+}
+#pageCalGreg .bMonth16 {
+  background-color: #98c546;
+}
+#pageCalGreg .bMonth7 {
+  background-color: #42b04d;
+}
+#pageCalGreg .bMonth18 {
+  background-color: #01a256;
+}
+#pageCalGreg .bMonth9 {
+  background-color: #00a16f;
+}
+#pageCalGreg .bMonth1 {
+  background-color: #01a29a;
+}
+#pageCalGreg .bMonth11 {
+  background-color: #00a4b8;
+}
+#pageCalGreg .bMonth2 {
+  background-color: #02a7df;
+}
+#pageCalGreg .bMonth13 {
+  background-color: #0097d0;
+}
+#pageCalGreg .bMonth4 {
+  background-color: #1165ab;
+}
+#pageCalGreg .bMonth15 {
+  background-color: #2f4197;
+}
+#pageCalGreg .bMonth6 {
+  background-color: #45328e;
+}
+#pageCalGreg .bMonth17 {
+  background-color: #74338d;
+}
+#pageCalGreg .bMonth8 {
+  background-color: #a12b8b;
+}
+#pageCalGreg .bMonth19 {
+  background-color: #ce2688;
+}
+@media print {
+  #pageCalGreg {
+    border: none;
+  }
+  #pageCalGreg .calendar {
+    max-height: none;
+  }
+  #pageCalGreg table.month {
+    margin: 50px auto 250px auto;
+  }
+  .mainTop {
+    display: none;
+  }
+}

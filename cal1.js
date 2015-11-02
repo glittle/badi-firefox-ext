@@ -20,16 +20,16 @@ var Cal1 = function (di, host) {
   }
 
   function attachHandlers() {
-    $('#btnClose').on('click', function () {
-      host.hideCal1();
-    });
-    $('#btnReload').on('click', function () {
-      window.location.reload();
-    });
-    $('#btnPrint').on('click', function () {
-      window.print();
-    });
-    $('#months').on('click', '.bd', clickBd);
+    //$('#btnClose').on('click', function () {
+    //  host.hideCal1();
+    //});
+    //$('#btnReload').on('click', function () {
+    //  window.location.reload();
+    //});
+    //$('#btnPrint').on('click', function () {
+    //  window.print();
+    //});
+    $('#pageCal1 .months').on('click', '.bd', clickBd);
   }
 
   function clickBd(ev) {
@@ -189,7 +189,7 @@ var Cal1 = function (di, host) {
       html.push(monthGroup.join('\n'));
     }
 
-    $('#months').html(html.join('\n'));
+    $('#pageCal1 .months').html(html.join('\n'));
   }
 
   function getHolyDay(m, d) {
@@ -222,9 +222,9 @@ var Cal1 = function (di, host) {
   };
 }
 
-if (top != window) {
-  $(function () {
-    var cal1 = Cal1();
-    cal1.showCalendar();
-  });
-}
+//if (top != window) {
+//  $(function () {
+//    var cal1 = Cal1();
+//    cal1.showCalendar();
+//  });
+//}

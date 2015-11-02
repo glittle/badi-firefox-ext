@@ -38,12 +38,12 @@ var elements = getMessage('elements').split(',');
 
 var use24HourClock = getMessage('use24HourClock') == 'true';
 
-function refreshDateInfo(skipUpcoming) {
-  return _di = getDateInfo(getFocusTime(), skipUpcoming);
+function refreshDateInfo() {
+  return _di = getDateInfo(getFocusTime());
 }
 
 
-function getDateInfo(currentTime, skipUpcoming) {
+function getDateInfo(currentTime) {
   if (isNaN(currentTime)) {
     //debugger;
   }
@@ -418,7 +418,7 @@ function noLocation(err) {
 
 function refreshDateInfoAndShow() {
   // also called from alarm, to update to the next day
-  var di = refreshDateInfo(_firstLoad);
+  var di = refreshDateInfo();
   _di = di;
   _firstLoad = false;
   setStorage('originalStamp', di.stamp);

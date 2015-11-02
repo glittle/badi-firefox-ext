@@ -1,0 +1,263 @@
+body[data-pageid=pageCalGreg].inTab {
+    #pageCalGreg {
+        .calendar {
+            max-height: none;
+        }
+    }
+
+    overflow-y: auto;
+}
+
+#pageCalGreg {
+
+    .calendar {
+        margin: 2px 0 5px 0;
+        overflow: auto;
+        max-height: 495px;
+        position: relative;
+    }
+
+    table.month {
+        margin: 10px auto 40px auto; // force print to one page per month
+        border-collapse: separate;
+        border-spacing: 1px;
+        page-break-inside: avoid;
+
+        thead {
+            tr.caption {
+                th {
+                    border: none;
+                    font-size: 14pt;
+                    font-weight: bold;
+
+                    span {
+                        font-weight: normal;
+                        padding-left: 20px;
+                        font-size: 12pt;
+                    }
+                }
+            }
+
+            tr.placeName {
+                th {
+                    border: none;
+                    font-size: 9pt;
+                    padding-bottom: 3px;
+                }
+            }
+
+            th {
+                border: solid 1px #ccc;
+                padding: 0;
+                font-weight: normal;
+
+                .weekDay {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
+
+        td {
+            padding: 0;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+
+            > div {
+                > div {
+                    width: 100px;
+                    position: relative;
+                }
+            }
+
+            .dayCell {
+
+                .morn {
+                    color: #fff;
+                    background-image: linear-gradient(to bottom, rgba(200,200,200, 0) 60%, rgba(255,255,255, 1) 100%);
+
+                    .bDay {
+                        position: absolute;
+                        top: 0;
+                        right: 1px;
+                        font-weight: bold;
+                    }
+
+                    .gDay {
+                        position: absolute;
+                        top: 1px;
+                        left: 3px;
+                        font-size: 8pt;
+                    }
+                }
+
+                .aft {
+                    background-color: white;
+
+                    .sunrise {
+                        position: absolute;
+                        right: 1px;
+                        top: 0;
+                        font-size: 6pt;
+                    }
+
+                    > div {
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                    }
+
+                    .sunset {
+                        //float: right;
+                        position: absolute;
+                        bottom: 0;
+                        right: 1px;
+                        font-size: 6pt;
+                    }
+
+                    .monthName {
+                        //float: left;
+                        position: absolute;
+                        bottom: 0;
+                        left: 2px;
+                        font-size: 9pt;
+
+                        &.first {
+                            font-weight: bold;
+                        }
+                    }
+                }
+
+                .eve {
+                    background-image: linear-gradient(to top, rgba(200,200,200, 0) 60%, rgba(255,255,255, 1) 100%);
+
+                    .sunset {
+                        position: absolute;
+                        right: 1px;
+                        top: 0;
+                        font-size: 7pt;
+                        color: #fff;
+                    }
+                }
+            }
+
+            &.outside {
+                background-color: #fff;
+                color: #ddd;
+
+                .gDay {
+                    position: absolute;
+                    top: 1px;
+                    left: 3px;
+                    font-size: 8pt;
+                }
+
+                > div {
+                    height: 95.8px; // match daycells
+                }
+            }
+        }
+    }
+
+    .bMonth0 {
+        background-color: #02a7df;
+    }
+
+    .bMonth10 {
+        background-color: #ED312F;
+    }
+
+    .bMonth12 {
+        background-color: #ee732f;
+    }
+
+    .bMonth3 {
+        background-color: #f7ae23;
+    }
+
+    .bMonth14 {
+        background-color: #fce32b;
+    }
+
+    .bMonth5 {
+        background-color: #dade27;
+    }
+
+    .bMonth16 {
+        background-color: #98c546;
+    }
+
+    .bMonth7 {
+        background-color: #42b04d;
+    }
+
+    .bMonth18 {
+        background-color: #01a256;
+    }
+
+    .bMonth9 {
+        background-color: #00a16f;
+    }
+
+    .bMonth1 {
+        background-color: #01a29a;
+    }
+
+    .bMonth11 {
+        background-color: #00a4b8;
+    }
+
+    .bMonth2 {
+        background-color: #02a7df;
+    }
+
+    .bMonth13 {
+        background-color: #0097d0;
+    }
+
+    .bMonth4 {
+        background-color: #1165ab;
+    }
+
+    .bMonth15 {
+        background-color: #2f4197;
+    }
+
+    .bMonth6 {
+        background-color: #45328e;
+    }
+
+    .bMonth17 {
+        background-color: #74338d;
+    }
+
+    .bMonth8 {
+        background-color: #a12b8b;
+    }
+
+    .bMonth19 {
+        background-color: #ce2688;
+    }
+}
+
+@media print {
+    #pageCalGreg {
+        border: none;
+
+        .calendar {
+            max-height: none;
+        }
+
+        table.month {
+            margin: 50px auto 250px auto; // force print to one page per month
+        }
+    }
+
+    .mainTop {
+        display: none;
+    }
+}
