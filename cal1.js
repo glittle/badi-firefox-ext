@@ -67,9 +67,10 @@ var Cal1 = function (di, host) {
   }
 
   function highlightTargetDay() {
-    $('.bd.selected, .gd.selected, .bm.selected').removeClass('selected');
+    var cal = $('#pageCal1 .months');
+    cal.find('.bd.selected, .gd.selected, .bm.selected').removeClass('selected');
     var sel = ('.bm{bMonth}, .bm{bMonth} .bd{bDay}, .g' + gDaySerial).filledWith(di);
-    $(sel).addClass('selected');
+    cal.find(sel).addClass('selected');
   }
 
   function buildCalendar() {

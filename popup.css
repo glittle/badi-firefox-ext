@@ -11,9 +11,8 @@
 }
 #initialCover {
   position: absolute;
-  width: 100%;
+  width: 900px;
   height: 100%;
-  /*background: url('Sea of Fog.jpg') #fff no-repeat content-box;*/
   background-color: white;
   z-index: 99999;
   display: flex;
@@ -23,7 +22,8 @@
 }
 .initialMsgArea {
   color: green;
-  margin: 0 auto;
+  width: 700px;
+  text-align: center;
   font-size: 12pt;
 }
 #btnOpen {
@@ -749,6 +749,9 @@ input.bYearPicker {
   }
 }
 @media (min-width: 900px) {
+  /*body {
+        background: url('Sea of Fog.jpg') #fff no-repeat center;
+    }*/
   .selectPages .buttons {
     width: auto;
     align-items: flex-start;

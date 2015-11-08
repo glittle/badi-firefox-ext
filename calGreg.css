@@ -7,8 +7,29 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
 #pageCalGreg .calendar {
   margin: 2px 0 5px 0;
   overflow: auto;
-  max-height: 495px;
+  max-height: 497px;
   position: relative;
+}
+#pageCalGreg .hdHS,
+#pageCalGreg .hdHO {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 2px -1px -8px;
+}
+#pageCalGreg .hdHS {
+  background: url(star12d.gif);
+}
+#pageCalGreg .hdHO {
+  background: url(star12b.gif);
+}
+#pageCalGreg .hdName {
+  font-weight: bold;
+  font-size: 87%;
+  margin: -2px 0 0 3px;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 #pageCalGreg table.month {
   margin: 10px auto 40px auto;
@@ -44,8 +65,6 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
 }
 #pageCalGreg table.month td {
   padding: 0;
-  border: 1px solid #ccc;
-  border-radius: 2px;
 }
 #pageCalGreg table.month td > div > div {
   width: 100px;
@@ -54,21 +73,42 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
 #pageCalGreg table.month td .dayCell .morn {
   color: #fff;
   background-image: linear-gradient(to bottom, rgba(200, 200, 200, 0) 60%, #ffffff 100%);
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
 }
 #pageCalGreg table.month td .dayCell .morn .bDay {
   position: absolute;
+  font-size: 8pt;
   top: 0;
-  right: 1px;
-  font-weight: bold;
+  left: calc(43%);
+  border-radius: 3px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  min-width: 14px;
+  padding: 0 4px 2px 3px;
+  text-align: center;
 }
 #pageCalGreg table.month td .dayCell .morn .gDay {
   position: absolute;
-  top: 1px;
-  left: 3px;
+  top: 0;
+  left: 0;
   font-size: 8pt;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 2px;
+  padding: 0 4px 2px 3px;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: black;
+  width: 14px;
+  text-align: center;
 }
 #pageCalGreg table.month td .dayCell .aft {
   background-color: white;
+  z-index: 1;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
 }
 #pageCalGreg table.month td .dayCell .aft .sunrise {
   position: absolute;
@@ -99,6 +139,10 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
 }
 #pageCalGreg table.month td .dayCell .eve {
   background-image: linear-gradient(to top, rgba(200, 200, 200, 0) 60%, #ffffff 100%);
+  border: 1px solid #ccc;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-top: none;
 }
 #pageCalGreg table.month td .dayCell .eve .sunset {
   position: absolute;
@@ -107,9 +151,41 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
   font-size: 7pt;
   color: #fff;
 }
+#pageCalGreg table.month td .dayCell .eve .bDay {
+  position: absolute;
+  color: #fff;
+  font-size: 8pt;
+  bottom: 0;
+  right: 2px;
+}
+#pageCalGreg table.month td.hdDayHS .morn {
+  border-color: red;
+  border-left-width: 3px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 2px;
+  margin: 0 -1px 0 -2px;
+  background-image: linear-gradient(to bottom, red 60%, #ffffff 100%) !important;
+}
+#pageCalGreg table.month td.hdDayHS .aft {
+  background-color: #ffcccc !important;
+  margin: 0 -2px 0 -2px;
+  border-left: 3px solid red;
+  border-right-color: red;
+}
+#pageCalGreg table.month td.hdEveHS .eve {
+  z-index: 2;
+  border-right-color: red;
+  border-bottom-color: red;
+  border-right-width: 3px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 2px;
+  margin: 0 -3px -1px 0;
+  background-image: linear-gradient(to top, red 60%, #ffffff 100%) !important;
+}
 #pageCalGreg table.month td.outside {
   background-color: #fff;
   color: #ddd;
+  border-color: #eee;
 }
 #pageCalGreg table.month td.outside .gDay {
   position: absolute;
@@ -117,70 +193,135 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
   left: 3px;
   font-size: 8pt;
 }
-#pageCalGreg table.month td.outside > div {
-  height: 95.8px;
-}
 #pageCalGreg .bMonth0 {
-  background-color: #02a7df;
+  background-color: #eee;
 }
-#pageCalGreg .bMonth10 {
-  background-color: #ED312F;
-}
-#pageCalGreg .bMonth12 {
-  background-color: #ee732f;
-}
-#pageCalGreg .bMonth3 {
-  background-color: #f7ae23;
-}
-#pageCalGreg .bMonth14 {
-  background-color: #fce32b;
-}
-#pageCalGreg .bMonth5 {
-  background-color: #dade27;
-}
-#pageCalGreg .bMonth16 {
-  background-color: #98c546;
-}
-#pageCalGreg .bMonth7 {
-  background-color: #42b04d;
-}
-#pageCalGreg .bMonth18 {
-  background-color: #01a256;
-}
-#pageCalGreg .bMonth9 {
-  background-color: #00a16f;
+#pageCalGreg .bMonth0 span {
+  color: black !important;
 }
 #pageCalGreg .bMonth1 {
-  background-color: #01a29a;
+  background-color: #ED312F;
 }
 #pageCalGreg .bMonth11 {
-  background-color: #00a4b8;
+  background-color: #ee732f;
 }
 #pageCalGreg .bMonth2 {
-  background-color: #02a7df;
+  background-color: #f7ae23;
+}
+#pageCalGreg .bMonth12 {
+  background-color: #fce32b;
+}
+#pageCalGreg .bMonth3 {
+  background-color: #dade27;
 }
 #pageCalGreg .bMonth13 {
-  background-color: #0097d0;
+  background-color: #98c546;
 }
 #pageCalGreg .bMonth4 {
-  background-color: #1165ab;
+  background-color: #42b04d;
+}
+#pageCalGreg .bMonth14 {
+  background-color: #01a256;
+}
+#pageCalGreg .bMonth5 {
+  background-color: #00a16f;
 }
 #pageCalGreg .bMonth15 {
-  background-color: #2f4197;
+  background-color: #01a29a;
 }
 #pageCalGreg .bMonth6 {
-  background-color: #45328e;
+  background-color: #00a4b8;
+}
+#pageCalGreg .bMonth16 {
+  background-color: #02a7df;
+}
+#pageCalGreg .bMonth7 {
+  background-color: #0097d0;
 }
 #pageCalGreg .bMonth17 {
-  background-color: #74338d;
+  background-color: #1165ab;
 }
 #pageCalGreg .bMonth8 {
-  background-color: #a12b8b;
+  background-color: #2f4197;
+}
+#pageCalGreg .bMonth18 {
+  background-color: #45328e;
+}
+#pageCalGreg .bMonth9 {
+  background-color: #74338d;
 }
 #pageCalGreg .bMonth19 {
+  background-color: #a12b8b;
+}
+#pageCalGreg .bMonth10 {
   background-color: #ce2688;
 }
+@media screen {
+  #pageCalGreg .gd.selected .morn .gDay {
+    font-weight: bold;
+  }
+  #pageCalGreg table.month td .today.morn {
+    border-color: gray;
+    border-left-width: 3px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 2px;
+    margin: 0 -1px 0 -2px;
+    background-image: linear-gradient(to bottom, gray 60%, #ffffff 100%) !important;
+  }
+  #pageCalGreg table.month td .today.aft {
+    background-color: #e6e6e6 !important;
+    margin: 0 -2px 0 -2px;
+    border-left: 3px solid gray;
+    border-right-color: gray;
+  }
+  #pageCalGreg table.month td .today.eve {
+    z-index: 2;
+    border-right-color: gray;
+    border-bottom-color: gray;
+    border-right-width: 3px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 2px;
+    margin: 0 -3px -1px 0;
+    background-image: linear-gradient(to top, gray 60%, #ffffff 100%) !important;
+  }
+  #pageCalGreg table.month td .selected.morn {
+    border-color: green;
+    border-left-width: 3px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 2px;
+    margin: 0 -1px 0 -2px;
+    background-image: linear-gradient(to bottom, green 60%, #ffffff 100%) !important;
+  }
+  #pageCalGreg table.month td .selected.morn .bDay {
+    font-weight: bold;
+  }
+  #pageCalGreg table.month td .selected.aft {
+    background-color: #4dff4d !important;
+    margin: 0 -2px 0 -2px;
+    border-left: 3px solid green;
+    border-right-color: green;
+  }
+  #pageCalGreg table.month td .selected.eve {
+    z-index: 2;
+    border-right-color: green;
+    border-bottom-color: green;
+    border-right-width: 3px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 2px;
+    margin: 0 -3px -1px 0;
+    background-image: linear-gradient(to top, green 60%, #ffffff 100%) !important;
+  }
+  #pageCalGreg table.month td .selected.eve .bDay {
+    font-weight: bold;
+  }
+  #pageCalGreg .eve {
+    margin-top: 0;
+  }
+}
 @media print {
+  @page {
+    margin: 30mm 20mm;
+  }
   #pageCalGreg {
     border: none;
   }
@@ -188,7 +329,7 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
     max-height: none;
   }
   #pageCalGreg table.month {
-    margin: 50px auto 250px auto;
+    margin: 0 auto 250px auto;
   }
   .mainTop {
     display: none;

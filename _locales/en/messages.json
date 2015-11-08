@@ -143,7 +143,7 @@
     "description": ""
   },
   "btnEveOrDay": {
-    "message": "Before &uarr; &darr; After Sunset",
+    "message": "Before / After Sunset",
     "description": ""
   },
   "version": {
@@ -521,7 +521,7 @@
     "description": "hints of how to use the tool"
   },
   "tipsText": {
-    "message": "Use PgUp/PgDn keys to select panels.\nUse Right/Left arrow keys to change days.\nUse Up/Down arrow keys to switch before/after sunset.",
+    "message": "Use PgUp/PgDn keys to select panels.\nUse Right/Left arrow keys to change days.\nUse / to switch before/after sunset.",
     "description": ""
   },
   "shortcutKeyTitle": {
@@ -700,9 +700,9 @@
     "description": "in wheel, points to today, or whatever day is currently selected"
   },
 
-  "new_messages_1_6_2": { "message": "" },
+  "new_messages_1_7_0": { "message": "" },
   "pick_pageCalGreg": {
-    "message": "Gregorian Months",
+    "message": "Gregorian Year",
     "translation": "required",
     "description": "tab name"
   },

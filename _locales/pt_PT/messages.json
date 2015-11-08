@@ -2,9 +2,9 @@
   "translation": {
     "name": "Marco Oliveira",
     "email": "marco_oliv@yahoo.com",
-    "mostRecentVersion":  "1.6.1",
+    "mostRecentVersion": "1.6.1",
     "message": "pt_PT",
-    "description":  "(this is not shown in the tool)"
+    "description": "(this is not shown in the tool)"
   },
   "title": {
     "message": "Calendário Badí",
@@ -143,7 +143,8 @@
     "description": ""
   },
   "btnEveOrDay": {
-    "message": "Antes &#8593; &#8595; Depois pôr-do-sol",
+    "message": "Antes / Depois pôr-do-sol",
+    "translation": "review",
     "description": ""
   },
   "version": {
@@ -468,7 +469,8 @@
     "description": "sugestões para uso desta ferramenta"
   },
   "tipsText": {
-    "message": "Usar teclas PgUp/PgDn para seleccionar paineis.\nUsar setas Esquerda/Direita para mudar os dias.\nUsar setas cima/Baixo para alternar entre antes/depois do pôr-do-sol.",
+    "message": "Usar teclas PgUp/PgDn para seleccionar paineis.\nUsar setas Esquerda/Direita para mudar os dias.\nUsar / para alternar entre antes/depois do pôr-do-sol.",
+    "translation": "review",
     "description": ""
   },
   "shortcutKeyTitle": {
@@ -646,7 +648,7 @@
   },
 
 
- 
+
   "new_messages_1_5_3": { "message": "" },
   "keyToOpenInTab": {
     "message": "T",
@@ -673,7 +675,14 @@
     "description": "na roda aponta para hoje ou para o dia seleccionado"
   },
 
- "x": {
+  "new_messages_1_7_0": { "message": "" },
+  "pick_pageCalGreg": {
+    "message": "Gregorian Year",
+    "translation": "required",
+    "description": "tab name"
+  },
+
+  "x": {
     "message": "",
     "description": ""
   }

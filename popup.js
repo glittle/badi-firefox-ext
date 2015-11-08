@@ -12,7 +12,9 @@ var _cal1 = null;
 var _cal2 = null;
 var _calGreg = null;
 var _enableSampleKeys = true;
-var _enableDayKeys = true;
+var _enableDayKeysLR = true;
+var _enableDayKeysUD = true;
+var _upDownKeyDelta = 0;
 var _pageHitTimeout = null;
 var tracker = null;
 var _currentPageId = null;
@@ -190,7 +192,7 @@ function showPage(id) {
   var pageEvents = '#yearSelector, .iconArea, #specialDaysTitle';
   var pageCal1 = '#yearSelector, .JumpDays, #show, #gDay';
   var pageCal2 = '#yearSelector, #show, #gDay, #special, .iconArea';
-  var pageCalGreg = '#yearSelector, #show, #gDay, #special, .iconArea';
+  var pageCalGreg = '#yearSelector, .JumpDays, #show, #gDay, #special, .iconArea';
   var pageLists = '#gDay, #show, .iconArea, #special';
   var pageFast = '#yearSelector, .iconArea';
 
@@ -214,43 +216,52 @@ function showPage(id) {
     case 'pageDay':
       $(pageDay).show();
       _enableSampleKeys = true;
-      _enableDayKeys = true;
+      _enableDayKeysLR = true;
+      _enableDayKeysUD = false;
       break;
 
     case 'pageEvents':
       $(pageEvents).show();
       _enableSampleKeys = false;
-      _enableDayKeys = false;
+      _enableDayKeysLR = false;
+      _enableDayKeysUD = false;
       break;
 
     case 'pageCal1':
       $(pageCal1).show();
       _enableSampleKeys = false;
-      _enableDayKeys = true;
+      _enableDayKeysLR = true;
+      _enableDayKeysUD = true;
+      _upDownKeyDelta = 19;
       break;
 
     case 'pageCal2':
       $(pageCal2).show();
       _enableSampleKeys = false;
-      _enableDayKeys = true;
+      _enableDayKeysLR = true;
+      _enableDayKeysUD = false;
       break;
 
     case 'pageCalGreg':
       $(pageCalGreg).show();
       _enableSampleKeys = false;
-      _enableDayKeys = true;
+      _enableDayKeysLR = true;
+      _enableDayKeysUD = true;
+      _upDownKeyDelta = 7;
       break;
 
     case 'pageLists':
       $(pageLists).show();
       _enableSampleKeys = false;
-      _enableDayKeys = true;
+      _enableDayKeysLR = true;
+      _enableDayKeysUD = false;
       break;
 
     case 'pageFast':
       $(pageFast).show();
       _enableSampleKeys = false;
-      _enableDayKeys = false;
+      _enableDayKeysLR = false;
+      _enableDayKeysUD = false;
       break;
   }
 
@@ -261,9 +272,7 @@ function showPage(id) {
   pages.not(thisPage).hide();
   pages.css({ visibility: 'visible' });
 
-  if (id == 'pageDay') {
-    adjustHeight();
-  }
+  updatePageContentWhenVisible(_currentPageId, _di);
 
   setStorage('focusPage', id);
   setStorage('focusTimeAsOf', new Date());
@@ -278,6 +287,20 @@ function showPage(id) {
   }
 }
 
+function updatePageContentWhenVisible(id, di) {
+  switch (id) {
+    case 'pageDay':
+      adjustHeight();
+      break;
+
+    case 'pageCalGreg':
+      if (_calGreg) {
+        _calGreg.scrollToMonth(di.currentMonth);
+      }
+      break;
+  }
+
+}
 
 function updatePageContent(id, di) {
   switch (id) {
@@ -539,7 +562,7 @@ function keyPressed(ev) {
         if (ev.ctrlKey) {
           changeDay(null, -7);
         } else {
-          if (_enableDayKeys) {
+          if (_enableDayKeysLR) {
             changeDay(null, -1);
           }
         }
@@ -553,7 +576,7 @@ function keyPressed(ev) {
         if (ev.ctrlKey) {
           changeDay(null, 7);
         } else {
-          if (_enableDayKeys) {
+          if (_enableDayKeysLR) {
             changeDay(null, 1);
           }
         }
@@ -562,14 +585,18 @@ function keyPressed(ev) {
       return;
 
     case 38: //up
-      if (_enableDayKeys) {
-        toggleEveOrDay(false);
+      if (_enableDayKeysUD) {
+        if (_upDownKeyDelta) {
+          changeDay(null, 0 - _upDownKeyDelta);
+        }
         ev.preventDefault();
       }
       return;
     case 40: //down
-      if (_enableDayKeys) {
-        toggleEveOrDay(true);
+      if (_enableDayKeysUD) {
+        if (_upDownKeyDelta) {
+          changeDay(null, _upDownKeyDelta);
+        }
         ev.preventDefault();
       }
       return;
@@ -588,7 +615,14 @@ function keyPressed(ev) {
       ev.preventDefault();
       return;
 
+    case 191: // slash
+      toggleEveOrDay(!_di.bNow.eve);
+      ev.preventDefault();
+      return;
+
     default:
+      console.log(ev.which);
+
       if (_enableSampleKeys) {
         try {
           var sample = $('#key' + key);
@@ -1162,13 +1196,16 @@ function openInTab() {
 function prepare1() {
   $('#loadingMsg').html(getMessage('browserActionTitle'));
 
+  var langCode = _languageCode.slice(0, 2);
   $('body')
   .addClass(_languageCode)
-  .addClass(_languageCode.slice(0, 2))
+  .addClass(langCode)
   .attr('lang', _languageCode);
 
-  if (',fa,'.search(_languageCode) != -1) {
+  if (',fa,'.search(langCode) != -1) {
     $('body').attr('dir', 'rtl');
+  } else {
+    $('body').attr('dir', 'ltr');
   }
 
   recallFocus();

@@ -143,7 +143,8 @@
     "description": ""
   },
   "btnEveOrDay": {
-    "message": "Voor &uarr; &darr; na zonsondergang",
+    "message": "Voor / na zonsondergang",
+    "translation": "review",
     "description": ""
   },
   "version": {
@@ -474,7 +475,8 @@
     "description": "hints of how to use the tool"
   },
   "tipsText": {
-    "message": "Gebruik PgUp/PgDn toetsen om tussen pagina's te wisselen.\nGebruik pijl naar rechts/links om van dag te veranderen.\nGebruik pijl naar boven/beneden om te wisselen tussen voor/na zonsondergang.",
+    "message": "Gebruik PgUp/PgDn toetsen om tussen pagina's te wisselen.\nGebruik pijl naar rechts/links om van dag te veranderen.\nGebruik / te wisselen tussen voor/na zonsondergang.",
+    "translation": "review",
     "description": ""
   },
   "shortcutKeyTitle": {
@@ -647,6 +649,13 @@
   "currentFocus": {
     "message": "Huidige dag",
     "description": "in wheel, points to today, or whatever day is currently selected"
+  },
+
+  "new_messages_1_7_0": { "message": "" },
+  "pick_pageCalGreg": {
+    "message": "Gregorian Year",
+    "translation": "required",
+    "description": "tab name"
   },
 
   "x": {

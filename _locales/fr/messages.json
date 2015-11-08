@@ -143,7 +143,8 @@
     "description": ""
   },
   "btnEveOrDay": {
-    "message": "Avant &#8593; &#8595; Après le coucher du soleil",
+    "message": "Avant / Après le coucher du soleil",
+    "translation": "review",
     "description": ""
   },
   "version": {
@@ -475,7 +476,7 @@
     "description": "hints of how to use the tool"
   },
   "tipsText": {
-    "message": "Use PgUp/PgDn keys to select panels.\nUse Right/Left arrow keys to change days.\nUse Up/Down arrow keys to switch before/after sunset.",
+    "message": "Use PgUp/PgDn keys to select panels.\nUse Right/Left arrow keys to change days.\nUse / to switch before/after sunset.",
     "translation": "required",
     "description": ""
   },
@@ -683,6 +684,13 @@
     "message": "Current Day",
     "translation": "required",
     "description": "in wheel, points to today, or whatever day is currently selected"
+  },
+
+  "new_messages_1_7_0": { "message": "" },
+  "pick_pageCalGreg": {
+    "message": "Gregorian Year",
+    "translation": "required",
+    "description": "tab name"
   },
 
   "x": {

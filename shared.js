@@ -113,6 +113,7 @@ function getDateInfo(currentTime) {
     bMonth: bNow.m,
     bYear: bNow.y,
     bVahid: Math.floor(1 + (bNow.y - 1) / 19),
+    bDateCode: bNow.m + '.' + bNow.d,
 
     bDayNameAr: bMonthNameAr[bNow.d],
     bDayMeaning: bMonthMeaning[bNow.d],

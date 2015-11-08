@@ -143,7 +143,8 @@
     "description": "glen"
   },
   "btnEveOrDay": {
-    "message": "antes y despues &uarr; &darr; de la puesta del sol",
+    "message": "antes y despues / de la puesta del sol",
+    "translation": "review",
     "description": ""
   },
   "version": {
@@ -468,7 +469,8 @@
     "description": "glen hints of how to use the tool"
   },
   "tipsText": {
-    "message": "Use PgUp/PgDn teclas para seleccionar paneles.\nUse derecha/iaquierda teclas con flechas para cambiar los dias.\nUse teclas con flechas arriba/abajo para cambiar antes/despues ocaso.",
+    "message": "Use PgUp/PgDn teclas para seleccionar paneles.\nUse derecha/iaquierda teclas con flechas para cambiar los dias.\nUse / para cambiar antes/despues ocaso.",
+    "translation": "review",
     "description": ""
   },
   "shortcutKeyTitle": {
@@ -667,6 +669,13 @@
     "message": "Current Day",
     "translation": "required",
     "description": "in wheel, points to today, or whatever day is currently selected"
+  },
+
+  "new_messages_1_7_0": { "message": "" },
+  "pick_pageCalGreg": {
+    "message": "Gregorian Year",
+    "translation": "required",
+    "description": "tab name"
   },
 
   "x": {

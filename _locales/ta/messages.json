@@ -143,7 +143,8 @@
     "description": ""
   },
   "btnEveOrDay": {
-    "message": "&uarr; முன் &darr; அஸ்தமனத்திற்குப் பிறகு",
+    "message": "/ அஸ்தமனத்திற்குப் பிறகு",
+    "translation": "review",
     "description": ""
   },
   "version": {
@@ -468,7 +469,8 @@
     "description": "hints of how to use the tool"
   },
   "tipsText": {
-    "message": "பலகத்தைத் தேர்வு செய்ய பக்.மேல்/பக்.கீழ் விசைகளைப் பயன்படுத்துக. \nநாள்களை மாற்ற வலம்/இடம் அம்புவிசைகளைப் பயன்படுத்துக.அஸ்தமனத்திற்கு முன்/பின் \nமேல்/கீழ் அம்புவிசைகளைப் பயன்படுத்துக.",
+    "message": "பலகத்தைத் தேர்வு செய்ய பக்.மேல்/பக்.கீழ் விசைகளைப் பயன்படுத்துக. \nநாள்களை மாற்ற வலம்/இடம் அம்புவிசைகளைப் பயன்படுத்துக.அஸ்தமனத்திற்கு முன்/பின் \n / அம்புவிசைகளைப் பயன்படுத்துக.",
+    "translation": "review",
     "description": ""
   },
   "shortcutKeyTitle": {
@@ -647,6 +649,13 @@
     "message": "Current Day",
     "translation": "required",
     "description": "in wheel, points to today, or whatever day is currently selected"
+  },
+
+  "new_messages_1_7_0": { "message": "" },
+  "pick_pageCalGreg": {
+    "message": "Gregorian Year",
+    "translation": "required",
+    "description": "tab name"
   },
 
   "x": {

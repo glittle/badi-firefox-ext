@@ -81,6 +81,7 @@ var HolyDays = function () {
                   dateInfo.BMonthDay.d = 1;
                 }
               }
+              dateInfo.BDateCode = dateInfo.BMonthDay.m + '.' + dateInfo.BMonthDay.d;
             } else {
               console.log('Twin Holy Birthdays unknown for year ' + bYear);
               console.log(dateInfo);
