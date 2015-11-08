@@ -100,11 +100,11 @@ var CalWheel = function () {
 }
 
 
-//var pageWheel = Cal2();
+//var pageCalWheel = Cal2();
 
 //if (top == window) {
 //  $(function () {
 //    refreshDateInfo();
-//    pageWheel.showCalendar();
+//    pageCalWheel.showCalendar();
 //  });
 //}

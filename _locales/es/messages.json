@@ -653,7 +653,7 @@
 
 
   "new_messages_1_6_0": { "message": "" },
-  "pick_pageWheel": {
+  "pick_pageCalWheel": {
     "message": "Wheel",
     "translation": "required",
     "description": "tab name"

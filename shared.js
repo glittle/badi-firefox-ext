@@ -687,8 +687,8 @@ function installed(info) {
     setTimeout(function () {
       var newVersion = chrome.runtime.getManifest().version_name;
       var oldVersion = localStorage.updateVersion;
-      console.log(oldVersion + ' --> ' + newVersion);
       if (newVersion != oldVersion) {
+        console.log(oldVersion + ' --> ' + newVersion);
         localStorage.updateVersion = newVersion;
         chrome.tabs.create({
           url: 'https://sites.google.com/site/badicalendartools/home/chrome-extension/history?'
@@ -700,6 +700,8 @@ function installed(info) {
         setStorage('firstPopup', true);
 
         tracker.sendEvent('updated', getVersionInfo());
+      } else {
+        console.log(newVersion);
       }
     }, 1000);
   } else {

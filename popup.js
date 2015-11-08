@@ -9,7 +9,7 @@ var _showingInfo = false;
 var _changingBDate = false;
 var _currentPageNum = 0;
 var _cal1 = null;
-var _pageWheel = null;
+var _pageCalWheel = null;
 var _calGreg = null;
 var _enableSampleKeys = true;
 var _enableDayKeysLR = true;
@@ -63,7 +63,7 @@ function attachHandlers() {
 
   $('#cbShowPointer').on('change', function () {
     setStorage('showPointer', $(this).prop('checked'))
-    _pageWheel.showCalendar(_di);
+    _pageCalWheel.showCalendar(_di);
   });
 
   //chrome.alarms.onAlarm.addListener(function (alarm) {
@@ -191,12 +191,12 @@ function showPage(id) {
   var pageDay = '#gDay, #showUpcoming, .explains, .normal, #show, .iconArea, #special';
   var pageEvents = '#yearSelector, .iconArea, #specialDaysTitle';
   var pageCal1 = '#yearSelector, .JumpDays, #show, #gDay';
-  var pageWheel = '#yearSelector, #show, #gDay, #special, .iconArea';
+  var pageCalWheel = '#yearSelector, #show, #gDay, #special, .iconArea';
   var pageCalGreg = '#yearSelector, .JumpDays, #show, #gDay, #special, .iconArea';
   var pageLists = '#gDay, #show, .iconArea, #special';
   var pageFast = '#yearSelector, .iconArea';
 
-  $([other, pageDay, pageEvents, pageCal1, pageWheel, pageCalGreg, pageLists, pageFast].join(',')).hide();
+  $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageLists, pageFast].join(',')).hide();
 
   _currentPageId = id;
   btns.each(function (i, el) {
@@ -235,8 +235,8 @@ function showPage(id) {
       _upDownKeyDelta = 19;
       break;
 
-    case 'pageWheel':
-      $(pageWheel).show();
+    case 'pageCalWheel':
+      $(pageCalWheel).show();
       _enableSampleKeys = false;
       _enableDayKeysLR = true;
       _enableDayKeysUD = false;
@@ -347,9 +347,9 @@ function updatePageContent(id, di) {
       }
       break;
 
-    case 'pageWheel':
-      if (_pageWheel) {
-        _pageWheel.showCalendar(di);
+    case 'pageCalWheel':
+      if (_pageCalWheel) {
+        _pageCalWheel.showCalendar(di);
       }
       break;
 
@@ -621,7 +621,7 @@ function keyPressed(ev) {
       return;
 
     default:
-      console.log(ev.which);
+      //console.log(ev.which);
 
       if (_enableSampleKeys) {
         try {
@@ -1159,7 +1159,7 @@ function recallFocus() {
     if (stored) {
       var time = new Date(stored);
 
-      if (now.toDateString() != time.toDateString()) {
+      if (!isNaN(time) && now.toDateString() != time.toDateString()) {
 
         console.log('reuse focus time: ' + time);
 
@@ -1297,8 +1297,8 @@ function prepare2() {
   _cal1 = Cal1(_di);
   _cal1.showCalendar(_di);
 
-  _pageWheel = CalWheel();
-  _pageWheel.showCalendar(_di);
+  _pageCalWheel = CalWheel();
+  _pageCalWheel.showCalendar(_di);
 
   _calGreg = CalGreg();
   _calGreg.showCalendar(_di);
