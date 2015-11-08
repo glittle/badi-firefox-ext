@@ -16,12 +16,26 @@ var CalGreg = function (di, host) {
   }
 
   function attachHandlers() {
-    _calendarDiv.on('click', 'td.gd', function (ev) {
-      var id = this.id.substring(2).split('_');
+    _calendarDiv.on('click', '.morn, .aft, .outside', function (ev) {
+      var cell = $(this).closest('.outside, .gd');
+      var id = cell.attr('id').substring(3).split('_');
       var month = +id[0];
       var day = +id[1];
 
       var target = new Date(_yearShown, month, day);
+      setFocusTime(target);
+      refreshDateInfo();
+      showInfo(_di);
+    });
+    _calendarDiv.on('click', '.eve', function (ev) {
+      var cell = $(this).closest('.gd');
+      debugger;
+      var id = cell.attr('id').substring(3).split('_');
+      var month = +id[0];
+      var day = +id[1];
+
+      var target = new Date(_yearShown, month, day);
+      target.setDate(target.getDate() + 1);
       setFocusTime(target);
       refreshDateInfo();
       showInfo(_di);
@@ -55,7 +69,6 @@ var CalGreg = function (di, host) {
     _calendarDiv.find(sel).addClass('today');
 
     if (_scrollToMonth != di.frag2Month) {
-      console.log('scroll');
       scrollToMonth(di.frag2Month);
     }
   }
@@ -86,12 +99,6 @@ var CalGreg = function (di, host) {
     } else {
       _calendarDiv.scrollTop(_calendarDiv.scrollTop() + monthTop);
     }
-
-    // - scrollContainer.offset().top
-
-    //calendarDiv.animate({
-    //  scrollTop: $('#m{0}'.filledWith(gMonth)).offset().top - calendarDiv.offset().top
-    //}, 1000);
   }
 
   function buildMonth(gYear, gMonth) {
@@ -222,9 +229,10 @@ var CalGreg = function (di, host) {
 
       thisDayInfo.classesInner = thisDayInfo.classesInner.join(' ');
       thisDayInfo.classesOuter = thisDayInfo.classesOuter.join(' ');
+      thisDayInfo.zIndex = 35 - gDay;
 
       if (!outside) {
-        week.push(['<td class="{classesOuter}" id={cellId}><div class="dayCell {classesInner}">'
+        week.push(['<div class="{classesOuter}" id=i{cellId}><div class="dayCell {classesInner}">'
           , '<div class="morn bMonth{bMonth} bDay{bDay}" style="height:{mornSize}px">'
              + '<span class=bDay>{^holyDayAftStar}{bDay}</span>'
              + '<span class="gDay">{frag2Day}</span></div>'
@@ -238,22 +246,22 @@ var CalGreg = function (di, host) {
           , '</div><div class="eve bMonth{tomorrowMonth} bDay{tomorrowDay}" style="height:{eveSize}px">'
             + '<span class="bDay{hdEveClass}">{^holyDayEveStar}{tomorrowDay}</span>'
             + '</div>'
-          , '</div></td>'].join('').filledWith(thisDayInfo))
+          , '</div></div>'].join('').filledWith(thisDayInfo))
       } else {
         thisDayInfo.outsideHeight = total.toFixed(3);
-        week.push(['<td class="outside"><div style="{outsideHeight}px">'
+        week.push(['<div class="outside" id=o{cellId}><div style="height:{outsideHeight}px">'
           , '<div class=morn>'
              + '<span class=gDay>{frag2Day}</span></div>'
           , '<div class=aft></div>'
           , '<div class=eve></div>'
-          , '</div></td>'].join('').filledWith(thisDayInfo))
+          , '</div></div>'].join('').filledWith(thisDayInfo))
       }
 
       gDay++;
     }
 
     if (week.length) {
-      week.push('</tr>');
+      //week.push('</tr>');
       weeks.push(week.join(''));
     }
 
@@ -268,12 +276,12 @@ var CalGreg = function (di, host) {
 
     // tried to use real caption, but gets messed on on some print pages
     var html = [
-      '<table class=month id=m{0}><thead>'.filledWith(focusMonth),
-      '<tr class=caption><th colspan=7>{0} {1} <span>({2})</span></tr>'.filledWith(gMonthLong[focusMonth], focusDate.getFullYear(), bMonthsInMonth.join(', ')),
-      '<tr class=placeName><th colspan=7>{0}</th></tr>'.filledWith(localStorage.locationName),
-      '<tr>{^0}</tr>'.filledWith('<th><div>{gDayName}</div><div class=weekDay>{arDayName}</div></th>'.filledWithEach(dayHeaders)),
-      '</thead><tbody>{^0}</tbody>'.filledWith(weeks.join('\n')),
-      '</table>'
+      '<div class=month id=m{0}>'.filledWith(focusMonth),
+      '<div class=caption>{0} {1} <span>({2})</span></div>'.filledWith(gMonthLong[focusMonth], focusDate.getFullYear(), bMonthsInMonth.join(', ')),
+      '<div class=placeName>{0}</div>'.filledWith(localStorage.locationName),
+      '{^0}'.filledWith('<div class=colName><div>{gDayName}</div><div class=weekDay>{arDayName}</div></div>'.filledWithEach(dayHeaders)),
+      '{^0}'.filledWith(weeks.join('\n')),
+      '</div>'
     ];
 
     _calendarDiv.append(html.join('\n'));

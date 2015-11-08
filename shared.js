@@ -19,9 +19,9 @@ var _firstLoad = true;
 var _firstPopup = false;
 
 // see messages.json for translations and local names
-var bYearInVahidNameAr = ",Alif,Bá’,Ab,Dál,Báb,Váv,Abad,Jád,Bahá',Ḥubb,Bahháj,Javáb,Aḥad,Vahháb,Vidád,Badí‘,Bahí,Abhá,Váḥid".split(',');
-var bMonthNameAr = "Ayyám-i-Há,Bahá,Jalál,Jamál,`Azamat,Núr,Rahmat,Kalimát,Kamál,Asmá’,`Izzat,Mashíyyat,`Ilm,Qudrat,Qawl,Masá'il,Sharaf,Sultán,Mulk,`Alá’".split(',');
-var bWeekdayNameAr = ",Jalál,Jamál,Kamál,Fiḍál,‘Idál,Istijlál,Istiqlál".split(','); // from Saturday
+var bMonthNameAr = getMessage("bMonthNameAr").split(',');
+var bWeekdayNameAr = getMessage("bWeekdayNameAr").split(','); // from Saturday
+var bYearInVahidNameAr = getMessage("bYearInVahidNameAr").split(',');
 
 var bYearInVahidMeaning = getMessage("bYearInVahidMeaning").split(',');
 var bMonthMeaning = getMessage("bMonthMeaning").split(',');

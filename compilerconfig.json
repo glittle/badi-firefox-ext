@@ -4,8 +4,8 @@
     "inputFile": "cal1.less"
   },
   {
-    "outputFile": "cal2.css",
-    "inputFile": "cal2.less"
+    "outputFile": "pageWheel.css",
+    "inputFile": "pageWheel.less"
   },
   {
     "outputFile": "popup.css",

@@ -18,6 +18,18 @@
     "message": "Loading...",
     "description": "Shown until the dynamic tip is created"
   },
+  "bMonthNameAr": {
+    "message":  "Ayyám-i-Há,Bahá,Jalál,Jamál,`Azamat,Núr,Rahmat,Kalimát,Kamál,Asmá’,`Izzat,Mashíyyat,`Ilm,Qudrat,Qawl,Masá'il,Sharaf,Sultán,Mulk,`Alá’",
+    "description": "month names, start with Ayyam-i-Ha" 
+  },
+  "bWeekdayNameAr": {
+    "message":  ",Jalál,Jamál,Kamál,Fiḍál,‘Idál,Istijlál,Istiqlál",
+    "description": "weekday names, with leading , " 
+  },
+  "bYearInVahidNameAr": {
+    "message":  ",Alif,Bá’,Ab,Dál,Báb,Váv,Abad,Jád,Bahá',Ḥubb,Bahháj,Javáb,Aḥad,Vahháb,Vidád,Badí‘,Bahí,Abhá,Váḥid",
+    "description": "Arabic names of years in a Vahid, with leading , "
+  },
   "bYearInVahidMeaning": {
     "message": ",A,B,Father,D,Gate,V,Eternity,Generosity,Splendour,Love,Delightful,Answer,Single,Bountiful,Affection,Beginning,Luminous,Most Luminous,Unity",
     "description": "Vahid names, with leading , "
@@ -682,7 +694,7 @@
   },
 
   "new_messages_1_6_0": { "message": "" },
-  "pick_pageCal2": {
+  "pick_pageWheel": {
     "message": "Wheel",
     "translation": "required",
     "description": "tab name"

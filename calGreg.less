@@ -15,24 +15,29 @@ body[data-pageid=pageCalGreg].inTab {
     border-left-width: @borderWidth;
     border-top-left-radius: 6px;
     border-top-right-radius: 2px;
-    margin: 0 -1px 0 -(@borderWidth - 1px);
+    margin: 0 0 0 -(@borderWidth - 1px);
     background-image: linear-gradient(to bottom, @color 60%, #ffffff 100%) !important;
+    //width: ~'calc(100% - 2px)';
 }
 
 .aftBorder(@color) {
     background-color: lighten(@color,40%) !important;
-    margin: 0 -2px 0 -(@borderWidth - 1px);
+    margin: 0 0 0 -(@borderWidth - 1px);
     border-left: @borderWidth solid @color;
     border-right-color: @color;
+    //width: ~'calc(100% - 2px)';
 }
 
 .eveBorder(@color) {
     border-right-color: @color;
     border-bottom-color: @color;
+    border-left: none;
     border-right-width: @borderWidth;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 2px;
-    margin: 0 -@borderWidth -1px 0;
+    border-top-left-radius: 2px;
+    //width: ~'calc(100% - 2px)';
+    margin: 0 -(@borderWidth - 1px) 0 0;
     background-image: linear-gradient(to top, @color 60%, #ffffff 100%) !important;
 }
 
@@ -40,7 +45,7 @@ body[data-pageid=pageCalGreg].inTab {
 #pageCalGreg {
 
     .calendar {
-        margin: 2px 0 5px 0;
+        margin-left: 5px;
         overflow: auto;
         max-height: 497px;
         position: relative;
@@ -72,65 +77,61 @@ body[data-pageid=pageCalGreg].inTab {
     }
 
 
-    table.month {
-        margin: 10px auto 40px auto; // force print to one page per month
-        border-collapse: separate;
-        border-spacing: 1px;
+    .month {
+        @cellWidth: 104px;
+
         page-break-inside: avoid;
+        //border: solid 1px #ccc;
+        //border-radius: 2px;
+        display: flex;
+        flex-flow: wrap;
+        width: calc(7 * (@cellWidth + 4px));
+        margin: 0 0 50px 0;
 
-        thead {
-            tr.caption {
-                th {
-                    border: none;
-                    font-size: 14pt;
-                    font-weight: bold;
+        .caption {
+            width: 100%;
+            font-size: 14pt;
+            font-weight: bold;
+            text-align: center;
 
-                    span {
-                        font-weight: normal;
-                        padding-left: 20px;
-                        font-size: 12pt;
-                    }
-                }
-            }
-
-            tr.placeName {
-                th {
-                    border: none;
-                    font-size: 9pt;
-                    padding-bottom: 3px;
-                }
-            }
-
-            th {
-                border: solid 1px #ccc;
-                padding: 0;
+            span {
                 font-weight: normal;
-
-                .weekDay {
-                    font-weight: bold;
-                }
+                padding-left: 20px;
+                font-size: 12pt;
             }
         }
 
-        tr {
-            page-break-inside: avoid;
+        .placeName {
+            font-size: 9pt;
+            padding-bottom: 3px;
+            width: 100%;
+            text-align: center;
         }
 
-        td {
-            padding: 0;
+        .colName {
+            text-align: center;
+            width: @cellWidth;
+            margin: 0 1px 1px 0;
+
+            .weekDay {
+                font-weight: bold;
+            }
+
+            border: solid 1px #ccc;
+        }
 
 
+        .gd, .outside {
+            width: @cellWidth + 2;
+            margin: 0 1px 1px 0;
+            cursor: pointer;
+        }
 
-            > div {
-
+        .gd {
+            .dayCell {
                 > div {
-                    width: 100px;
                     position: relative;
                 }
-            }
-
-
-            .dayCell {
 
                 .morn {
                     color: #fff;
@@ -250,22 +251,23 @@ body[data-pageid=pageCalGreg].inTab {
 
             &.hdEveHS {
                 .eve {
-                    z-index: 2;
+                    //z-index: 2;
                     .eveBorder(@hdBorderColor);
                 }
             }
+        }
 
-            &.outside {
-                background-color: #fff;
-                color: #ddd;
-                border-color: #eee;
+        .outside {
+            background-color: #fff;
+            color: #ddd;
+            border-color: #eee;
+            position: relative;
 
-                .gDay {
-                    position: absolute;
-                    top: 1px;
-                    left: 3px;
-                    font-size: 8pt;
-                }
+            .gDay {
+                position: absolute;
+                top: 1px;
+                left: 3px;
+                font-size: 8pt;
             }
         }
     }
@@ -370,11 +372,11 @@ body[data-pageid=pageCalGreg].inTab {
         }
 
 
-        table.month {
-            td {
+        .month {
+            .gd {
 
                 .today {
-                    @todayBorderColor: gray;
+                    @todayBorderColor: #ccc;
 
                     &.morn {
                         .mornBorder(@todayBorderColor);
@@ -385,7 +387,7 @@ body[data-pageid=pageCalGreg].inTab {
                     }
 
                     &.eve {
-                        z-index: 2;
+                        //z-index: 2;
                         .eveBorder(@todayBorderColor);
                     }
                 }
@@ -406,7 +408,7 @@ body[data-pageid=pageCalGreg].inTab {
                     }
 
                     &.eve {
-                        z-index: 2;
+                        //z-index: 2;
                         .eveBorder(@bdayBorderColor);
 
                         .bDay {
@@ -435,7 +437,7 @@ body[data-pageid=pageCalGreg].inTab {
             max-height: none;
         }
 
-        table.month {
+        .month {
             margin: 0 auto 250px auto; // force print to one page per month
         }
     }

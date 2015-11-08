@@ -5,7 +5,7 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
   max-height: none;
 }
 #pageCalGreg .calendar {
-  margin: 2px 0 5px 0;
+  margin-left: 5px;
   overflow: auto;
   max-height: 497px;
   position: relative;
@@ -31,46 +31,49 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
   left: 0;
   right: 0;
 }
-#pageCalGreg table.month {
-  margin: 10px auto 40px auto;
-  border-collapse: separate;
-  border-spacing: 1px;
+#pageCalGreg .month {
   page-break-inside: avoid;
+  display: flex;
+  flex-flow: wrap;
+  width: calc(756px);
+  margin: 0 0 50px 0;
 }
-#pageCalGreg table.month thead tr.caption th {
-  border: none;
+#pageCalGreg .month .caption {
+  width: 100%;
   font-size: 14pt;
   font-weight: bold;
+  text-align: center;
 }
-#pageCalGreg table.month thead tr.caption th span {
+#pageCalGreg .month .caption span {
   font-weight: normal;
   padding-left: 20px;
   font-size: 12pt;
 }
-#pageCalGreg table.month thead tr.placeName th {
-  border: none;
+#pageCalGreg .month .placeName {
   font-size: 9pt;
   padding-bottom: 3px;
+  width: 100%;
+  text-align: center;
 }
-#pageCalGreg table.month thead th {
+#pageCalGreg .month .colName {
+  text-align: center;
+  width: 104px;
+  margin: 0 1px 1px 0;
   border: solid 1px #ccc;
-  padding: 0;
-  font-weight: normal;
 }
-#pageCalGreg table.month thead th .weekDay {
+#pageCalGreg .month .colName .weekDay {
   font-weight: bold;
 }
-#pageCalGreg table.month tr {
-  page-break-inside: avoid;
+#pageCalGreg .month .gd,
+#pageCalGreg .month .outside {
+  width: 106px;
+  margin: 0 1px 1px 0;
+  cursor: pointer;
 }
-#pageCalGreg table.month td {
-  padding: 0;
-}
-#pageCalGreg table.month td > div > div {
-  width: 100px;
+#pageCalGreg .month .gd .dayCell > div {
   position: relative;
 }
-#pageCalGreg table.month td .dayCell .morn {
+#pageCalGreg .month .gd .dayCell .morn {
   color: #fff;
   background-image: linear-gradient(to bottom, rgba(200, 200, 200, 0) 60%, #ffffff 100%);
   border: 1px solid #ccc;
@@ -78,7 +81,7 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
 }
-#pageCalGreg table.month td .dayCell .morn .bDay {
+#pageCalGreg .month .gd .dayCell .morn .bDay {
   position: absolute;
   font-size: 8pt;
   top: 0;
@@ -91,7 +94,7 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
   padding: 0 4px 2px 3px;
   text-align: center;
 }
-#pageCalGreg table.month td .dayCell .morn .gDay {
+#pageCalGreg .month .gd .dayCell .morn .gDay {
   position: absolute;
   top: 0;
   left: 0;
@@ -104,90 +107,92 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
   width: 14px;
   text-align: center;
 }
-#pageCalGreg table.month td .dayCell .aft {
+#pageCalGreg .month .gd .dayCell .aft {
   background-color: white;
   z-index: 1;
   border-right: 1px solid #ccc;
   border-left: 1px solid #ccc;
 }
-#pageCalGreg table.month td .dayCell .aft .sunrise {
+#pageCalGreg .month .gd .dayCell .aft .sunrise {
   position: absolute;
   right: 1px;
   top: 0;
   font-size: 6pt;
 }
-#pageCalGreg table.month td .dayCell .aft > div {
+#pageCalGreg .month .gd .dayCell .aft > div {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
 }
-#pageCalGreg table.month td .dayCell .aft .sunset {
+#pageCalGreg .month .gd .dayCell .aft .sunset {
   position: absolute;
   bottom: 0;
   right: 1px;
   font-size: 6pt;
 }
-#pageCalGreg table.month td .dayCell .aft .monthName {
+#pageCalGreg .month .gd .dayCell .aft .monthName {
   position: absolute;
   bottom: 0;
   left: 2px;
   font-size: 9pt;
 }
-#pageCalGreg table.month td .dayCell .aft .monthName.first {
+#pageCalGreg .month .gd .dayCell .aft .monthName.first {
   font-weight: bold;
 }
-#pageCalGreg table.month td .dayCell .eve {
+#pageCalGreg .month .gd .dayCell .eve {
   background-image: linear-gradient(to top, rgba(200, 200, 200, 0) 60%, #ffffff 100%);
   border: 1px solid #ccc;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
   border-top: none;
 }
-#pageCalGreg table.month td .dayCell .eve .sunset {
+#pageCalGreg .month .gd .dayCell .eve .sunset {
   position: absolute;
   right: 1px;
   top: 0;
   font-size: 7pt;
   color: #fff;
 }
-#pageCalGreg table.month td .dayCell .eve .bDay {
+#pageCalGreg .month .gd .dayCell .eve .bDay {
   position: absolute;
   color: #fff;
   font-size: 8pt;
   bottom: 0;
   right: 2px;
 }
-#pageCalGreg table.month td.hdDayHS .morn {
+#pageCalGreg .month .gd.hdDayHS .morn {
   border-color: red;
   border-left-width: 3px;
   border-top-left-radius: 6px;
   border-top-right-radius: 2px;
-  margin: 0 -1px 0 -2px;
+  margin: 0 0 0 -2px;
   background-image: linear-gradient(to bottom, red 60%, #ffffff 100%) !important;
 }
-#pageCalGreg table.month td.hdDayHS .aft {
+#pageCalGreg .month .gd.hdDayHS .aft {
   background-color: #ffcccc !important;
-  margin: 0 -2px 0 -2px;
+  margin: 0 0 0 -2px;
   border-left: 3px solid red;
   border-right-color: red;
 }
-#pageCalGreg table.month td.hdEveHS .eve {
-  z-index: 2;
+#pageCalGreg .month .gd.hdEveHS .eve {
   border-right-color: red;
   border-bottom-color: red;
+  border-left: none;
   border-right-width: 3px;
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 2px;
-  margin: 0 -3px -1px 0;
+  border-top-left-radius: 2px;
+  margin: 0 -2px 0 0;
   background-image: linear-gradient(to top, red 60%, #ffffff 100%) !important;
 }
-#pageCalGreg table.month td.outside {
+#pageCalGreg .month .outside {
   background-color: #fff;
   color: #ddd;
   border-color: #eee;
+  position: relative;
 }
-#pageCalGreg table.month td.outside .gDay {
+#pageCalGreg .month .outside .gDay {
   position: absolute;
   top: 1px;
   left: 3px;
@@ -260,58 +265,60 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
   #pageCalGreg .gd.selected .morn .gDay {
     font-weight: bold;
   }
-  #pageCalGreg table.month td .today.morn {
-    border-color: gray;
+  #pageCalGreg .month .gd .today.morn {
+    border-color: #ccc;
     border-left-width: 3px;
     border-top-left-radius: 6px;
     border-top-right-radius: 2px;
-    margin: 0 -1px 0 -2px;
-    background-image: linear-gradient(to bottom, gray 60%, #ffffff 100%) !important;
+    margin: 0 0 0 -2px;
+    background-image: linear-gradient(to bottom, #ccc 60%, #ffffff 100%) !important;
   }
-  #pageCalGreg table.month td .today.aft {
-    background-color: #e6e6e6 !important;
-    margin: 0 -2px 0 -2px;
-    border-left: 3px solid gray;
-    border-right-color: gray;
+  #pageCalGreg .month .gd .today.aft {
+    background-color: #ffffff !important;
+    margin: 0 0 0 -2px;
+    border-left: 3px solid #ccc;
+    border-right-color: #ccc;
   }
-  #pageCalGreg table.month td .today.eve {
-    z-index: 2;
-    border-right-color: gray;
-    border-bottom-color: gray;
+  #pageCalGreg .month .gd .today.eve {
+    border-right-color: #ccc;
+    border-bottom-color: #ccc;
+    border-left: none;
     border-right-width: 3px;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 2px;
-    margin: 0 -3px -1px 0;
-    background-image: linear-gradient(to top, gray 60%, #ffffff 100%) !important;
+    border-top-left-radius: 2px;
+    margin: 0 -2px 0 0;
+    background-image: linear-gradient(to top, #ccc 60%, #ffffff 100%) !important;
   }
-  #pageCalGreg table.month td .selected.morn {
+  #pageCalGreg .month .gd .selected.morn {
     border-color: green;
     border-left-width: 3px;
     border-top-left-radius: 6px;
     border-top-right-radius: 2px;
-    margin: 0 -1px 0 -2px;
+    margin: 0 0 0 -2px;
     background-image: linear-gradient(to bottom, green 60%, #ffffff 100%) !important;
   }
-  #pageCalGreg table.month td .selected.morn .bDay {
+  #pageCalGreg .month .gd .selected.morn .bDay {
     font-weight: bold;
   }
-  #pageCalGreg table.month td .selected.aft {
+  #pageCalGreg .month .gd .selected.aft {
     background-color: #4dff4d !important;
-    margin: 0 -2px 0 -2px;
+    margin: 0 0 0 -2px;
     border-left: 3px solid green;
     border-right-color: green;
   }
-  #pageCalGreg table.month td .selected.eve {
-    z-index: 2;
+  #pageCalGreg .month .gd .selected.eve {
     border-right-color: green;
     border-bottom-color: green;
+    border-left: none;
     border-right-width: 3px;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 2px;
-    margin: 0 -3px -1px 0;
+    border-top-left-radius: 2px;
+    margin: 0 -2px 0 0;
     background-image: linear-gradient(to top, green 60%, #ffffff 100%) !important;
   }
-  #pageCalGreg table.month td .selected.eve .bDay {
+  #pageCalGreg .month .gd .selected.eve .bDay {
     font-weight: bold;
   }
   #pageCalGreg .eve {
@@ -328,7 +335,7 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
   #pageCalGreg .calendar {
     max-height: none;
   }
-  #pageCalGreg table.month {
+  #pageCalGreg .month {
     margin: 0 auto 250px auto;
   }
   .mainTop {

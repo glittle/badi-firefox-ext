@@ -1,143 +1,143 @@
-﻿#pageCal2 #templateSlice {
+﻿#pageWheel #templateSlice {
   display: none;
 }
-#pageCal2 #wheelHolder {
+#pageWheel #wheelHolder {
   position: relative;
   zoom: 0.75;
   width: 685px;
   margin: 0 auto;
 }
-#pageCal2 #wheel {
+#pageWheel #wheel {
   transform-origin: 344px 334px;
   transform: rotate(0deg);
 }
-#pageCal2 #wheelYearHolder {
+#pageWheel #wheelYearHolder {
   z-index: 22;
 }
-#pageCal2 #wheelYear {
+#pageWheel #wheelYear {
   font-size: 24pt;
   font-weight: 500;
   fill: #999;
 }
-#pageCal2 #pointerToday {
+#pageWheel #pointerToday {
   position: absolute;
   left: 300px;
   top: 0;
   font-size: 15pt;
   z-index: 21;
 }
-#pageCal2 #pointerToday text {
+#pageWheel #pointerToday text {
   stroke: #999;
   fill: #999;
 }
-#pageCal2 #pointerToday line {
+#pageWheel #pointerToday line {
   stroke: #333;
 }
-#pageCal2 .slice {
+#pageWheel .slice {
   position: absolute;
   left: 300px;
   top: 0;
 }
-#pageCal2 svg .monthNum {
+#pageWheel svg .monthNum {
   text-anchor: middle;
   font-size: 20pt;
   fill: #fff;
   stroke: #fff;
   stroke-width: .5px;
 }
-#pageCal2 svg .firstDayG {
+#pageWheel svg .firstDayG {
   text-anchor: middle;
   font-size: 15pt;
   fill: #fff;
   stroke: #fff;
   stroke-width: .5px;
 }
-#pageCal2 svg .firstDayWk {
+#pageWheel svg .firstDayWk {
   text-anchor: middle;
   font-size: 11pt;
   fill: #fff;
   stroke: #fff;
   stroke-width: .5px;
 }
-#pageCal2 svg .firstDayYr {
+#pageWheel svg .firstDayYr {
   text-anchor: middle;
   font-size: 13pt;
   fill: #fff;
   stroke: #fff;
   stroke-width: .5px;
 }
-#pageCal2 svg .monthNameAr {
+#pageWheel svg .monthNameAr {
   text-anchor: start;
   font-size: 24pt;
   fill: #fff;
   stroke: #fff;
   stroke-width: .5px;
 }
-#pageCal2 svg .monthName {
+#pageWheel svg .monthName {
   text-anchor: start;
   font-size: 16pt;
   fill: #fff;
   stroke: #fff;
   stroke-width: .5px;
 }
-#pageCal2 #slice1 {
+#pageWheel #slice1 {
   fill: #ED312F;
 }
-#pageCal2 #slice2 {
+#pageWheel #slice2 {
   fill: #ee732f;
 }
-#pageCal2 #slice3 {
+#pageWheel #slice3 {
   fill: #f7ae23;
 }
-#pageCal2 #slice4 {
+#pageWheel #slice4 {
   fill: #fce32b;
 }
-#pageCal2 #slice5 {
+#pageWheel #slice5 {
   fill: #dade27;
 }
-#pageCal2 #slice6 {
+#pageWheel #slice6 {
   fill: #98c546;
 }
-#pageCal2 #slice7 {
+#pageWheel #slice7 {
   fill: #42b04d;
 }
-#pageCal2 #slice8 {
+#pageWheel #slice8 {
   fill: #01a256;
 }
-#pageCal2 #slice9 {
+#pageWheel #slice9 {
   fill: #00a16f;
 }
-#pageCal2 #slice10 {
+#pageWheel #slice10 {
   fill: #01a29a;
 }
-#pageCal2 #slice11 {
+#pageWheel #slice11 {
   fill: #00a4b8;
 }
-#pageCal2 #slice12 {
+#pageWheel #slice12 {
   fill: #02a7df;
 }
-#pageCal2 #slice13 {
+#pageWheel #slice13 {
   fill: #0097d0;
 }
-#pageCal2 #slice14 {
+#pageWheel #slice14 {
   fill: #1165ab;
 }
-#pageCal2 #slice15 {
+#pageWheel #slice15 {
   fill: #2f4197;
 }
-#pageCal2 #slice16 {
+#pageWheel #slice16 {
   fill: #45328e;
 }
-#pageCal2 #slice17 {
+#pageWheel #slice17 {
   fill: #74338d;
 }
-#pageCal2 #slice18 {
+#pageWheel #slice18 {
   fill: #a12b8b;
 }
-#pageCal2 #slice19 {
+#pageWheel #slice19 {
   fill: #ce2688;
 }
-#pageCal2 #askShowPointer {
+#pageWheel #askShowPointer {
   float: right;
   margin: 2px 5px 0 0;
 }

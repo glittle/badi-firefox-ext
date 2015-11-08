@@ -4,7 +4,7 @@
 /* global chrome */
 /* global $ */
 
-var Cal2 = function () {
+var CalWheel = function () {
   var _yearShown = null;
 
   // this page replicates a common format
@@ -100,11 +100,11 @@ var Cal2 = function () {
 }
 
 
-//var cal2 = Cal2();
+//var pageWheel = Cal2();
 
 //if (top == window) {
 //  $(function () {
 //    refreshDateInfo();
-//    cal2.showCalendar();
+//    pageWheel.showCalendar();
 //  });
 //}

@@ -9,7 +9,7 @@ var _showingInfo = false;
 var _changingBDate = false;
 var _currentPageNum = 0;
 var _cal1 = null;
-var _cal2 = null;
+var _pageWheel = null;
 var _calGreg = null;
 var _enableSampleKeys = true;
 var _enableDayKeysLR = true;
@@ -63,7 +63,7 @@ function attachHandlers() {
 
   $('#cbShowPointer').on('change', function () {
     setStorage('showPointer', $(this).prop('checked'))
-    _cal2.showCalendar(_di);
+    _pageWheel.showCalendar(_di);
   });
 
   //chrome.alarms.onAlarm.addListener(function (alarm) {
@@ -191,12 +191,12 @@ function showPage(id) {
   var pageDay = '#gDay, #showUpcoming, .explains, .normal, #show, .iconArea, #special';
   var pageEvents = '#yearSelector, .iconArea, #specialDaysTitle';
   var pageCal1 = '#yearSelector, .JumpDays, #show, #gDay';
-  var pageCal2 = '#yearSelector, #show, #gDay, #special, .iconArea';
+  var pageWheel = '#yearSelector, #show, #gDay, #special, .iconArea';
   var pageCalGreg = '#yearSelector, .JumpDays, #show, #gDay, #special, .iconArea';
   var pageLists = '#gDay, #show, .iconArea, #special';
   var pageFast = '#yearSelector, .iconArea';
 
-  $([other, pageDay, pageEvents, pageCal1, pageCal2, pageCalGreg, pageLists, pageFast].join(',')).hide();
+  $([other, pageDay, pageEvents, pageCal1, pageWheel, pageCalGreg, pageLists, pageFast].join(',')).hide();
 
   _currentPageId = id;
   btns.each(function (i, el) {
@@ -235,8 +235,8 @@ function showPage(id) {
       _upDownKeyDelta = 19;
       break;
 
-    case 'pageCal2':
-      $(pageCal2).show();
+    case 'pageWheel':
+      $(pageWheel).show();
       _enableSampleKeys = false;
       _enableDayKeysLR = true;
       _enableDayKeysUD = false;
@@ -347,9 +347,9 @@ function updatePageContent(id, di) {
       }
       break;
 
-    case 'pageCal2':
-      if (_cal2) {
-        _cal2.showCalendar(di);
+    case 'pageWheel':
+      if (_pageWheel) {
+        _pageWheel.showCalendar(di);
       }
       break;
 
@@ -1297,8 +1297,8 @@ function prepare2() {
   _cal1 = Cal1(_di);
   _cal1.showCalendar(_di);
 
-  _cal2 = Cal2();
-  _cal2.showCalendar(_di);
+  _pageWheel = CalWheel();
+  _pageWheel.showCalendar(_di);
 
   _calGreg = CalGreg();
   _calGreg.showCalendar(_di);

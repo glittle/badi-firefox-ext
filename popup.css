@@ -64,12 +64,12 @@
 #pageFast,
 #pageLists,
 #pageCal1,
-#pageCal2,
+#pageWheel,
 #pageCalGreg {
   border: 1px solid #77b55a;
   border-radius: 3px;
 }
-#pageCal2,
+#pageWheel,
 #pageCalGreg {
   width: 100%;
 }
@@ -90,7 +90,7 @@
 body.inTab #pageEvents {
   max-height: none;
 }
-#pageCal2 {
+#pageWheel {
   height: 500px;
 }
 #show {
@@ -728,7 +728,7 @@ input.bYearPicker {
   #pageFast,
   #pageLists,
   #pageCal1,
-  #pageCal2 {
+  #pageWheel {
     border: none;
     padding: 20px 0 0 0;
   }
