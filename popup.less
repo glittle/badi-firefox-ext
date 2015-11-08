@@ -67,23 +67,19 @@ body {
     flex-direction: column;
 }
 
-#pageDay, #pageEvents, #pageFast, #pageLists, #pageCal1 {
+#pageDay, #pageEvents, #pageFast, #pageLists, #pageCal1, #pageReminders {
     display: flex;
     justify-content: flex-end;
     width: 100%;
 }
 
-#pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageCalGreg {
+#pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageCalGreg, #pageReminders {
     border: 1px solid #77b55a;
     border-radius: 3px;
 }
 
 #pageCalWheel, #pageCalGreg {
     width: 100%;
-}
-
-#pageDay {
-    display: flex;
 }
 
 #pageDay > div {
@@ -439,11 +435,18 @@ body.pt_PT #sampleTitle {
     color: #9a710c;
 }
 
+#remindersTitle{
+    display: none;
+    font-size: 13.5pt;
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+
 #specialDaysTitle {
     display: none;
     font-size: 13.5pt;
     text-align: center;
-    margin: 0px 50px 0 0;
+    margin: 0 50px 0 0;
 }
 
 #specialLists {
@@ -867,6 +870,15 @@ input.bYearPicker {
     display: block;
 }
 
+.pageHeader{
+    font-size: 12pt;
+    text-align: center;
+}
+
+
+
+
+
 .nobreak {
     white-space: nowrap;
 }
@@ -876,7 +888,7 @@ input.bYearPicker {
         display: none !important;
     }
 
-    #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel {
+    #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageReminders {
         border: none;
         padding: 20px 0 0 0;
     }

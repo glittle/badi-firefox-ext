@@ -55,7 +55,8 @@
 #pageEvents,
 #pageFast,
 #pageLists,
-#pageCal1 {
+#pageCal1,
+#pageReminders {
   display: flex;
   justify-content: flex-end;
   width: 100%;
@@ -65,16 +66,14 @@
 #pageLists,
 #pageCal1,
 #pageCalWheel,
-#pageCalGreg {
+#pageCalGreg,
+#pageReminders {
   border: 1px solid #77b55a;
   border-radius: 3px;
 }
 #pageCalWheel,
 #pageCalGreg {
   width: 100%;
-}
-#pageDay {
-  display: flex;
 }
 #pageDay > div {
   margin-left: 4px;
@@ -369,11 +368,17 @@ body.pt_PT #sampleTitle {
   background-color: #ddd;
   color: #9a710c;
 }
+#remindersTitle {
+  display: none;
+  font-size: 13.5pt;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
 #specialDaysTitle {
   display: none;
   font-size: 13.5pt;
   text-align: center;
-  margin: 0px 50px 0 0;
+  margin: 0 50px 0 0;
 }
 #specialLists {
   padding: 4px;
@@ -715,6 +720,10 @@ input.bYearPicker {
 .vahidInputs > div > span {
   display: block;
 }
+.pageHeader {
+  font-size: 12pt;
+  text-align: center;
+}
 .nobreak {
   white-space: nowrap;
 }
@@ -728,7 +737,8 @@ input.bYearPicker {
   #pageFast,
   #pageLists,
   #pageCal1,
-  #pageCalWheel {
+  #pageCalWheel,
+  #pageReminders {
     border: none;
     padding: 20px 0 0 0;
   }

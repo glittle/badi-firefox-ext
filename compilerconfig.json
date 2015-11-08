@@ -14,5 +14,9 @@
   {
     "outputFile": "calGreg.css",
     "inputFile": "calGreg.less"
+  },
+  {
+    "outputFile": "reminders.css",
+    "inputFile": "reminders.less"
   }
 ]

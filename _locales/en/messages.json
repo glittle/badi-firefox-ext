@@ -719,6 +719,12 @@
     "description": "tab name"
   },
 
+  "pick_pageReminders": {
+    "message": "Reminders",
+    "translation": "required",
+    "description": "tab name"
+  },
+
   "x": {
     "message": "",
     "description": ""

@@ -14,12 +14,14 @@
       "suncalc.js",
       "holydays.js",
       "moment.js",
+      "reminders.js", 
       "shared.js", 
       "startup.js" ]
   },
   "permissions": [
     "alarms",
     "storage",
+    "notifications",
     "geolocation",
     "clipboardWrite",
     "https://www.google-analytics.com/",

@@ -9,7 +9,7 @@ var _showingInfo = false;
 var _changingBDate = false;
 var _currentPageNum = 0;
 var _cal1 = null;
-var _pageCalWheel = null;
+var _calWheel = null;
 var _calGreg = null;
 var _enableSampleKeys = true;
 var _enableDayKeysLR = true;
@@ -63,7 +63,7 @@ function attachHandlers() {
 
   $('#cbShowPointer').on('change', function () {
     setStorage('showPointer', $(this).prop('checked'))
-    _pageCalWheel.showCalendar(_di);
+    _calWheel.showCalendar(_di);
   });
 
   //chrome.alarms.onAlarm.addListener(function (alarm) {
@@ -195,8 +195,9 @@ function showPage(id) {
   var pageCalGreg = '#yearSelector, .JumpDays, #show, #gDay, #special, .iconArea';
   var pageLists = '#gDay, #show, .iconArea, #special';
   var pageFast = '#yearSelector, .iconArea';
+  var pageReminders = '.iconArea, #remindersTitle';
 
-  $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageLists, pageFast].join(',')).hide();
+  $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageLists, pageFast, pageReminders].join(',')).hide();
 
   _currentPageId = id;
   btns.each(function (i, el) {
@@ -259,6 +260,13 @@ function showPage(id) {
 
     case 'pageFast':
       $(pageFast).show();
+      _enableSampleKeys = false;
+      _enableDayKeysLR = false;
+      _enableDayKeysUD = false;
+      break;
+
+    case 'pageReminders':
+      $(pageReminders).show();
       _enableSampleKeys = false;
       _enableDayKeysLR = false;
       _enableDayKeysUD = false;
@@ -348,14 +356,20 @@ function updatePageContent(id, di) {
       break;
 
     case 'pageCalWheel':
-      if (_pageCalWheel) {
-        _pageCalWheel.showCalendar(di);
+      if (_calWheel) {
+        _calWheel.showCalendar(di);
       }
       break;
 
     case 'pageCalGreg':
       if (_calGreg) {
         _calGreg.showCalendar(di);
+      }
+      break;
+
+    case 'pageReminders':
+      if (_reminders) {
+        _reminders.showPage();
       }
       break;
 
@@ -1297,8 +1311,8 @@ function prepare2() {
   _cal1 = Cal1(_di);
   _cal1.showCalendar(_di);
 
-  _pageCalWheel = CalWheel();
-  _pageCalWheel.showCalendar(_di);
+  _calWheel = CalWheel();
+  _calWheel.showCalendar(_di);
 
   _calGreg = CalGreg();
   _calGreg.showCalendar(_di);

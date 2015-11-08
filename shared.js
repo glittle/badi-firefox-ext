@@ -437,10 +437,10 @@ function setAlarmForNextUpdate(currentTime, sunset, inEvening) {
   if (inEvening) {
     // in eve, after sunset, so update after midnight
     var midnight = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate() + 1).getTime();
-    chrome.alarms.create('midnight', { when: midnight + 1000 }); // to be safe, set at least 1 second after midnight 
+    chrome.alarms.create('refresh', { when: midnight + 1000 }); // to be safe, set at least 1 second after midnight 
   } else {
     // in the day, so update right at the sunset
-    chrome.alarms.create('sunset', { when: sunset.getTime() });
+    chrome.alarms.create('refresh', { when: sunset.getTime() });
   }
 
   // debug - show alarm that was set
