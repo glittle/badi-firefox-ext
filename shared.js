@@ -344,6 +344,24 @@ function determineDaysAway(di, moment1, moment2, sameDay) {
 }
 
 
+Date.prototype.showTime = function (hoursType) {
+  var show24hour = hoursType == 24;
+  var pm = this.getHours() >= 12;
+  var hours = this.getHours() > 12 && !show24hour ? this.getHours() - 12 : this.getHours();
+  var minutes = this.getMinutes();
+  var time = hours + ':' + ('0' + minutes).slice(-2);
+  if (!show24hour) {
+    if (hours == 12 && minutes == 0) {
+      time = getMessage('noon');
+    } else {
+      time = getMessage('timeFormat12').filledWith({
+        time: time,
+        ampm:  pm ? getMessage('pm') : getMessage('am')
+      });
+    }
+  }
+  return time;
+};
 
 
 
@@ -433,15 +451,28 @@ function refreshDateInfoAndShow() {
   setAlarmForNextUpdate(di.currentTime, di.frag2SunTimes.sunset, di.bNow.eve);
 }
 
+var refreshAlarms = {};
+
 function setAlarmForNextUpdate(currentTime, sunset, inEvening) {
+  var whenTime;
   if (inEvening) {
     // in eve, after sunset, so update after midnight
     var midnight = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate() + 1).getTime();
-    chrome.alarms.create('refresh', { when: midnight + 1000 }); // to be safe, set at least 1 second after midnight 
+    whenTime = midnight + 1000; // to be safe, set at least 1 second after midnight 
   } else {
     // in the day, so update right at the sunset
-    chrome.alarms.create('refresh', { when: sunset.getTime() });
+    whenTime = sunset.getTime();
   }
+
+  // odd bug... sometimes gets called many times over - is alarm being set in the past?
+  if (refreshAlarms[whenTime]) {
+    // already set before
+    return;
+  }
+
+  refreshAlarms[whenTime] = true;
+
+  chrome.alarms.create('refresh', { when: whenTime });
 
   // debug - show alarm that was set
   chrome.alarms.getAll(function (alarms) {
@@ -621,8 +652,8 @@ function getFocusTime() {
 
 function setFocusTime(t) {
   _focusTime = t;
-  setStorage('focusTime', t);
-  setStorage('focusTimeAsOf', new Date());
+  setStorage('focusTime', t.getTime());
+  setStorage('focusTimeAsOf', new Date().getTime());
 }
 
 function localizeHtml(host) {

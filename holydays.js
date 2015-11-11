@@ -2186,22 +2186,6 @@ Date.prototype.dayOfYear = function () {
   j1.setMonth(0, 0);
   return Math.round((this - j1) / 8.64e7);
 };
-Date.prototype.showTime = function (hoursType) {
-  //var time = ('0' + this.getHours()).slice(-2) + ':' + ('0' + this.getMinutes()).slice(-2);
-  var show24hour = hoursType == 24;
-  var pm = this.getHours() >= 12;
-  var hours = this.getHours() > 12 && !show24hour ? this.getHours() - 12 : this.getHours();
-  var minutes = this.getMinutes();
-  var time = hours + ':' + ('0' + minutes).slice(-2) + (!show24hour ? (pm ? ' pm' : ' am') : '');
-  if (hours == 12 && minutes == 0 && !show24hour) {
-    time = '12:00 noon';
-  }
-//  if(includeHtml){
-//  return '<span title="' + this + '">' + time + '</span>';
-//  }
-  return time;
-  //return time;
-};
 Date.prototype.getEveDate = function () {
   var x = new Date(this.getTime());
   x.setDate(x.getDate() - 1);

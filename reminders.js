@@ -1,5 +1,19 @@
-﻿var Reminders = function () {
-  // at midnight or startup, set alarms for this day
+﻿var _remindersEnabled = false;
+
+//"options_ui": {
+//  "page": "options.html",
+//  "chrome_style":  true
+//},
+
+//chrome.notifications.getPermissionLevel(function (level) {
+//  // ensure flag is off if user has disabled them
+//  if (level !== 'granted') {
+//    _remindersEnabled = false;
+//  }
+//});
+
+
+var ReminderModule = function () {
 
   var _reminderInfoShown = null;
   var _storedAlarms = {};
@@ -11,32 +25,32 @@
         trigger: 'sunset',
         before: 10,
         units: 'minutes',
-        message: 'Hi there'
-      },
-      {
-        trigger: 'feast',
-        before: 1.5,
-        units: 'days',
-        message: 'Feast soon!'
+        title: 'Sunset in 10 minutes'
       },
       {
         trigger: 'noon',
         before: 10 + (40 / 60),
         units: 'hours',
-        message: 'Noon is a ways away'
+        title: 'Reminder'
       },
       {
         trigger: 'now',
-        before: -3,
+        before: -3, // negative is after
         units: 'seconds',
         title: 'Yeah!',
         message: 'Reminders are active...'
       },
       {
+        trigger: 'feast',
+        before: 1.5, // days
+        alertTime: '2350',
+        title: 'Feast soon!'
+      },
+      {
         trigger: 'holyday',
-        before: 2,
-        units: 'days',
-        message: 'Holy Day soon!'
+        before: 2, // days
+        alertTime: '0300',
+        title: 'Holy Day soon!'
       }
     ];
   }
@@ -85,11 +99,21 @@
     alarmInfo.eventTime = eventTime.getTime();
     var triggerTime = new Date(alarmInfo.eventTime);
     adjustTime(triggerTime, alarmInfo);
-    alarmInfo.triggerTime = triggerTime.getTime();
-    chrome.alarms.create('reminder_' + storeAlarmReminder(alarmInfo), { when: alarmInfo.triggerTime });
+
+    // only activate if it will go off between now and next midnight
+    var now = new Date();
+    if (now.format('YYYY-M-DD') == triggerTime.format('YYYY-M-DD') && triggerTime > now) {
+      alarmInfo.triggerTime = triggerTime.getTime();
+      chrome.alarms.create('reminder_' + storeAlarmReminder(alarmInfo), { when: alarmInfo.triggerTime });
+    }
   }
 
   var addAlarmFor = {
+    'now': function (reminder) {
+      console.log('add now');
+      var eventTime = new Date();
+      addAlarm(eventTime, reminder);
+    },
     'sunset': function (reminder) {
       console.log('add sunset');
       var eventTime = _di.frag2SunTimes.sunset;
@@ -105,19 +129,37 @@
       var eventTime = _di.frag2;
       addAlarm(eventTime, reminder);
     },
-    'now': function (reminder) {
-      console.log('add now');
-      var eventTime = new Date();
-      addAlarm(eventTime, reminder);
-    },
     'feast': function (reminder) {
-      console.log('add feast - to do');
+      console.log('add feast (delta from noon/sunset) - to do');
+      var events = getEvents('M', reminder.before);
     },
     'holyday': function (reminder) {
-      console.log('add holyday - to do');
+      console.log('add holyday (delta from noon/sunset) - to do');
+    },
+    'dayOfWeek': function (reminder) {
+      console.log('add day of week (delta from noon/sunset) - to do');
+    },
+    'dayOfBMonth': function (reminder) {
+      console.log('add day of Badi month (delta from noon/sunset) - to do');
+    },
+    'dayOfGMonth': function (reminder) {
+      console.log('add day of Gregorian month (delta from noon) - to do');
     }
   };
 
+  function getEvents() {
+    var testNoon = new Date();
+    testNoon.setHours(12, 0, 0, 0);
+
+
+    if (!_specialDays[tomorrowDayInfo.bYear]) {
+      _specialDays[tomorrowDayInfo.bYear] = holyDays.prepareDateInfos(tomorrowDayInfo.bYear);
+    }
+
+    var holyDayInfo = $.grep(_specialDays[thisDayInfo.bYear], function (el, i) {
+      return !outside && el.Type.substring(0, 1) == 'H' && el.BDateCode == thisDayInfo.bDateCode;
+    });
+  }
 
   function doReminder(alarmName) {
     if (!alarmName.startsWith('reminder_')) {
@@ -146,16 +188,12 @@
   }
 
   function activateForToday() {
-    chrome.notifications.getPermissionLevel(function (level) {
-      if (level === 'granted') {
         activateAlarms();
-      } else {
-        console.log('permission not granted for notifications');
-      }
-    });
   }
 
   function activateAlarms() {
+    if (!_remindersEnabled) return;
+
     for (var i = 0; i < _reminders.length; i++) {
       var reminder = _reminders[i];
       addAlarmFor[reminder.trigger](reminder);
@@ -172,55 +210,57 @@
 
   }
 
-  function showPage() {
-    // may be called twice... only show if changed
-    //if (_reminders == _reminderInfoShown) {
-    //  return;
-    //}
+  //function showPage() {
+  //  // may be called twice... only show if changed
+  //  //if (_reminders == _reminderInfoShown) {
+  //  //  return;
+  //  //}
 
-    //_reminderInfoShown = _reminders;
+  //  //_reminderInfoShown = _reminders;
 
-    var page = $('#pageReminders');
-    var listing = page.find('.reminders');
-    listing.html('<div>{trigger}... {before} {units}</div>'.filledWithEach(_reminders));
+  //  var page = $('#pageReminders');
+  //  var listing = page.find('.reminders');
+  //  listing.html('<div>{trigger}... {before} {units}</div>'.filledWithEach(_reminders));
 
-    var alarmList = page.find('.alarms');
-    alarmList.html('');
+  //  var alarmList = page.find('.alarms');
+  //  alarmList.html('');
 
-    chrome.alarms.getAll(function (alarms) {
-      for (var i = 0; i < alarms.length; i++) {
-        var alarm = alarms[i];
-        alarmList.append('<div>{0} {1}</div>'.filledWith(alarm.name, new Date(alarm.scheduledTime)));
-      }
-    });
+  //  chrome.alarms.getAll(function (alarms) {
+  //    for (var i = 0; i < alarms.length; i++) {
+  //      var alarm = alarms[i];
+  //      alarmList.append('<div>{0} {1}</div>'.filledWith(alarm.name, new Date(alarm.scheduledTime)));
+  //    }
+  //  });
 
-  }
+  //}
 
   function loadReminders() {
     console.log('loading');
-    chrome.storage.sync.get('reminders', function (items) {
+    chrome.storage.sync.get({
+      reminders: []
+    }, function (items) {
       console.log('loaded');
       if (items.reminders) {
         console.log('loaded from storage');
         _reminders = items.reminders;
       }
-      if (!items.reminders || !items.reminders.length)
-      {
+      if (!items.reminders || !items.reminders.length) {
         console.log('loading samples');
         loadSamples();
       }
     });
   }
 
-  loadReminders();
+  if (_remindersEnabled) {
+    loadReminders();
+  }
 
   return {
-    showPage: showPage,
     activateForToday: activateForToday,
     doReminder: doReminder,
-    loadSamples: loadSamples,
+    _loadSamples: loadSamples,
     _storedAlarms: _storedAlarms
   }
 }
 
-var _reminders = new Reminders();
+// var _reminderModule = new ReminderModule();

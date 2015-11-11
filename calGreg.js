@@ -122,6 +122,7 @@ var CalGreg = function (di, host) {
     var weekNum = 0;
     var inFinalWeek = false;
     var bMonthsInMonth = [];
+    var activeBadiYear = 0;
     var bYear = 0;
 
     while (true) {
@@ -164,13 +165,27 @@ var CalGreg = function (di, host) {
       var sunsetHr = (sunset.getHours() + sunset.getMinutes() / 60);
       var outside = gMonth != focusMonth;
 
+      var fnRecordMonth = function (di) {
+        // don't list ayyam-i-ha
+        if (di.bMonth === 0) {
+          return;
+        }
+        bMonthToShow = di.bMonthNameAr;
+        bYear = di.bYear;
+        if (activeBadiYear && activeBadiYear != bYear) {
+          bMonthsInMonth[bMonthsInMonth.length - 1] += ' ' + activeBadiYear;
+        }
+        bMonthsInMonth.push(bMonthToShow);
+        activeBadiYear = bYear;
+      }
+
       if (!outside) {
+        var bMonthToShow;
+        // record badi month
         if (tomorrowDayInfo.bDay == 1) {
-          bMonthsInMonth.push((bYear == tomorrowDayInfo.bYear ? '' : tomorrowDayInfo.bYear + ' ') + tomorrowDayInfo.bMonthNameAr);
-          bYear = tomorrowDayInfo.bYear;
+          fnRecordMonth(tomorrowDayInfo);
         } else if (gDay == 1) {
-          bMonthsInMonth.push((bYear == thisDayInfo.bYear ? '' : thisDayInfo.bYear + ' ') + thisDayInfo.bMonthNameAr);
-          bYear = thisDayInfo.bYear;
+          fnRecordMonth(thisDayInfo);
         }
       }
 
@@ -243,7 +258,7 @@ var CalGreg = function (di, host) {
                 + '<span class="monthName {isFirst}">{^monthName}</span>'
                 + '<span class=sunset>{endingSunsetDesc}</span>'
              + '</div>'
-          , '</div><div class="eve bMonth{tomorrowMonth} bDay{tomorrowDay}" style="height:{eveSize}px">'
+          , '</div><div class="eve bMonth{tomorrowMonth} bDay{tomorrowDay}" style="height:{eveSize}px; z-index:{zIndex}">'
             + '<span class="bDay{hdEveClass}">{^holyDayEveStar}{tomorrowDay}</span>'
             + '</div>'
           , '</div></div>'].join('').filledWith(thisDayInfo))
@@ -274,10 +289,16 @@ var CalGreg = function (di, host) {
       });
     }
 
+    var monthTitleInfo = {
+      gMonthName: gMonthLong[focusMonth],
+      gYear: focusDate.getFullYear(),
+      bMonths: bMonthsInMonth.join(', ') + ' ' + activeBadiYear
+    };
+
     // tried to use real caption, but gets messed on on some print pages
     var html = [
       '<div class=month id=m{0}>'.filledWith(focusMonth),
-      '<div class=caption>{0} {1} <span>({2})</span></div>'.filledWith(gMonthLong[focusMonth], focusDate.getFullYear(), bMonthsInMonth.join(', ')),
+      '<div class=caption>{gMonthName} {gYear} <span>({bMonths})</span></div>'.filledWith(monthTitleInfo),
       '<div class=placeName>{0}</div>'.filledWith(localStorage.locationName),
       '{^0}'.filledWith('<div class=colName><div>{gDayName}</div><div class=weekDay>{arDayName}</div></div>'.filledWithEach(dayHeaders)),
       '{^0}'.filledWith(weeks.join('\n')),

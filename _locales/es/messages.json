@@ -4,6 +4,7 @@
     "email": "lreyes09@msn.com",
     "mostRecentVersion": "1.4.0",
     "message": "es",
+    "nameInEnglish":  "Spanish",
     "description": "(this is not shown in the tool)"
   },
   "title": {
@@ -673,8 +674,8 @@
 
   "new_messages_1_7_0": { "message": "" },
   "pick_pageCalGreg": {
-    "message": "Gregorian Year",
-    "translation": "required",
+    "message": "Calendario Cristiano",
+    "translation": "done by email",
     "description": "tab name"
   },
 

@@ -653,8 +653,7 @@
 
   "new_messages_1_7_0": { "message": "" },
   "pick_pageCalGreg": {
-    "message": "Gregorian Year",
-    "translation": "required",
+    "message": "Gregoriaans jaar",
     "description": "tab name"
   },
 

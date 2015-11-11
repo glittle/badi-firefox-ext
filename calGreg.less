@@ -86,7 +86,7 @@ body[data-pageid=pageCalGreg].inTab {
         display: flex;
         flex-flow: wrap;
         width: calc(7 * (@cellWidth + 4px));
-        margin: 0 0 50px 0;
+        margin: 0 0 50px 2px;
 
         .caption {
             width: 100%;
@@ -427,7 +427,7 @@ body[data-pageid=pageCalGreg].inTab {
 
 @media print {
     @page {
-        margin: 30mm 20mm;
+        margin: 15mm 15mm;
     }
 
     #pageCalGreg {
@@ -438,7 +438,8 @@ body[data-pageid=pageCalGreg].inTab {
         }
 
         .month {
-            margin: 0 auto 250px auto; // force print to one page per month
+            margin: 0 auto 0 auto; 
+            page-break-inside: avoid;
         }
     }
 

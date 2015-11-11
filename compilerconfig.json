@@ -18,5 +18,9 @@
   {
     "outputFile": "reminders.css",
     "inputFile": "reminders.less"
+  },
+  {
+    "outputFile": "options.css",
+    "inputFile": "options.less"
   }
 ]

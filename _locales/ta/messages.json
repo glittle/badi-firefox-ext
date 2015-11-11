@@ -658,6 +658,33 @@
     "description": "tab name"
   },
 
+  
+  "new_messages_1_7_2": { "message": "" },
+  "noon": {
+    "message": "12:00",
+    "translation": "required",
+    "description": "nice way to say noon"
+  },
+  
+  "timeFormat12": {
+    "message": "{ampm} {time}",
+    "translation": "required",
+    "description": "used when use24HourClock is set to false"
+  },
+
+  "am": {
+    "message": "காலை",
+    "translation": "by email",
+    "description": "displayed in 'timeFormat12' if not using 24 hours clock"
+  },
+
+  "pm": {
+    "message": "மாலை",
+    "translation": "by email",
+    "description": "displayed in 'timeFormat12' if not using 24 hours clock"
+  },
+
+  
   "x": {
     "message": "",
     "description": ""

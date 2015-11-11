@@ -517,123 +517,100 @@
 
   "pick_pageEvents": {
     "message": "Eventos",
-    "translation": "required",
     "description": "Mostrar Festas e Dias Sagrados"
   },
 
   "specialDaysTitle": {
     "message": "Festas e Dis Sagrados em {bYear}",
-    "translation": "required",
     "description": ""
   },
   "dateHeading": {
     "message": "Dia",
-    "translation": "required",
     "description": " na Lista de Eventos "
   },
   "suspendWorkHeading": {
     "message": "Suspensão de trabalho",
-    "translation": "required",
     "description": "na lista de Eventos"
   },
   "eventTimeHeading1": {
     "message": "Hora normal do encontro ",
-    "translation": "required",
     "description": "na Lista de Eventos (se não mostrar Dias Sagrados)"
   },
   "eventTimeHeading2": {
     "message": "Hora excepcional do encontro",
-    "translation": "required",
     "description": "na lista de Eventos (se não mostrar Dias Sagrados)"
   },
   "sunsetHeading": {
     "message": "Início do Dia Badí'",
-    "translation": "required",
     "description": "na Lista de Eventos "
   },
 
   "includeThese": {
     "message": "Mostrar",
-    "translation": "required",
     "description": "escolher o que quer incluir na lista"
   },
   "includeFeasts": {
     "message": "<u>F</u>estas",
-    "translation": "required",
     "description": "escolher o que quer incluir na Lista"
   },
   "includeHolyDays": {
     "message": "<u>D</u>ias Sagrados",
-    "translation": "required",
     "description": "escolher o que quer incluir na lista"
   },
   "startTimeOption": {
     "message": "Hora normal da reunião: ",
-    "translation": "required",
     "description": "na lista de Eventos"
   },
 
   "specialTime_1500S": {
     "message": "15H00  (GMT)",
-    "translation": "required",
     "description": "Primeiro Dia Ridvan"
   },
   "specialTime_SS2": {
     "message": "Duas horas após pôr-do-sol",
-    "translation": "required",
     "description": "Declaração do Bab"
   },
   "specialTime_0300S": {
     "message": "03H00 (GMT)",
-    "translation": "required",
     "description": "Ascensão de Baha'u'llah"
   },
   "specialTime_1200S": {
     "message": "Meio-Dia (GMT)",
-    "translation": "required",
     "description": "Martírio do Bab"
   },
   "specialTime_0100S": {
     "message": "01H00 (GMT)",
-    "translation": "required",
     "description": "Martírio do Bab"
   },
 
   "eventTime": {
     "message": "{eventTime} {eventWeekdayShort} {eventMonthShort} {eventDay}, {eventYear}",
-    "translation": "required",
     "description": "mostrar Hora de início na lista de Eventos"
   },
   "evePartOfDay": {
     "message": "{startingSunsetDesc} {frag1WeekdayShort} {frag1MonthShort} {frag1Day}, {frag1Year}",
-    "translation": "required",
     "description": "mostrar hora de início  lista de Eventos "
   },
 
 
   "pick_pageFast": {
     "message": "Jejum",
-    "translation": "required",
     "description": ""
   },
   "fastDaysTitle": {
     "message": "Horário do Jejum em {bYear}",
-    "translation": "required",
     "description": ""
   },
   "sunriseFastHeading": {
     "message": "Nascer do Sol",
-    "translation": "required",
     "description": "na lista dos Dias de Jejum"
   },
   "sunsetFastHeading": {
     "message": "Pôr-do-Sol",
-    "translation": "required",
     "description": "na lista dos Dias de Jejum"
   },
   "fastGDate": {
     "message": "Data",
-    "translation": "required",
     "description": "na Lista dos dias de Jejum"
   },
   "mainPartOfDay": {
@@ -652,33 +629,29 @@
   "new_messages_1_5_3": { "message": "" },
   "keyToOpenInTab": {
     "message": "T",
-    "translation": "required",
     "description": "Press Shift+(letra) para abri num separador"
   },
 
   "new_messages_1_6_0": { "message": "" },
   "pick_pageCalWheel": {
     "message": "Roda",
-    "translation": "required",
     "description": "Nome Separadortab name"
   },
 
   "showPointer": {
     "message": "mostrar ponteiro",
-    "translation": "required",
     "description": ""
   },
 
   "currentFocus": {
     "message": "Dia Actual",
-    "translation": "required",
     "description": "na roda aponta para hoje ou para o dia seleccionado"
   },
 
   "new_messages_1_7_0": { "message": "" },
   "pick_pageCalGreg": {
-    "message": "Gregorian Year",
-    "translation": "required",
+    "message": "Ano Gregoriano",
+    "translation": "done by email",
     "description": "tab name"
   },
 

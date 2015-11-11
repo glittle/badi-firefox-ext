@@ -19,15 +19,15 @@
     "description": "Shown until the dynamic tip is created"
   },
   "bMonthNameAr": {
-    "message":  "Ayyám-i-Há,Bahá,Jalál,Jamál,`Azamat,Núr,Rahmat,Kalimát,Kamál,Asmá’,`Izzat,Mashíyyat,`Ilm,Qudrat,Qawl,Masá'il,Sharaf,Sultán,Mulk,`Alá’",
-    "description": "month names, start with Ayyam-i-Ha" 
+    "message": "Ayyám-i-Há,Bahá,Jalál,Jamál,`Azamat,Núr,Rahmat,Kalimát,Kamál,Asmá’,`Izzat,Mashíyyat,`Ilm,Qudrat,Qawl,Masá'il,Sharaf,Sultán,Mulk,`Alá’",
+    "description": "month names, start with Ayyam-i-Ha"
   },
   "bWeekdayNameAr": {
-    "message":  ",Jalál,Jamál,Kamál,Fiḍál,‘Idál,Istijlál,Istiqlál",
-    "description": "weekday names, with leading , " 
+    "message": ",Jalál,Jamál,Kamál,Fiḍál,‘Idál,Istijlál,Istiqlál",
+    "description": "weekday names, with leading , "
   },
   "bYearInVahidNameAr": {
-    "message":  ",Alif,Bá’,Ab,Dál,Báb,Váv,Abad,Jád,Bahá',Ḥubb,Bahháj,Javáb,Aḥad,Vahháb,Vidád,Badí‘,Bahí,Abhá,Váḥid",
+    "message": ",Alif,Bá’,Ab,Dál,Báb,Váv,Abad,Jád,Bahá',Ḥubb,Bahháj,Javáb,Aḥad,Vahháb,Vidád,Badí‘,Bahí,Abhá,Váḥid",
     "description": "Arabic names of years in a Vahid, with leading , "
   },
   "bYearInVahidMeaning": {
@@ -719,11 +719,34 @@
     "description": "tab name"
   },
 
-  "pick_pageReminders": {
-    "message": "Reminders",
+  "new_messages_1_7_2": { "message": "" },
+  "noon": {
+    "message": "12:00 noon",
     "translation": "required",
-    "description": "tab name"
+    "description": "nice way to say noon"
   },
+  
+  "timeFormat12": {
+    "message": "{time} {ampm}",
+    "translation": "required",
+    "description": "used when use24HourClock is set to false"
+  },
+
+  "am": {
+    "message": "am",
+    "translation": "required",
+    "description": "displayed in 'timeFormat12' if not using 24 hours clock"
+  },
+
+  "pm": {
+    "message": "pm",
+    "translation": "required",
+    "description": "displayed in 'timeFormat12' if not using 24 hours clock"
+  },
+
+  
+
+  "new_messages_2_0_0": { "message": "" },
 
   "x": {
     "message": "",

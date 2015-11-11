@@ -8,14 +8,10 @@ function prepare() {
       refreshDateInfoAndShow();
     }
     else if (alarm.name.startsWith('reminder')) {
-      _reminders.doReminder(alarm.name);
+      //_reminderModule.doReminder(alarm.name);
     }
   });
   chrome.runtime.onInstalled.addListener(installed);
-
-  setTimeout(function () {
-    _reminders.activateForToday();
-  }, 1000);
 }
 
 prepare();

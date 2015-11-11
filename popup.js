@@ -283,7 +283,7 @@ function showPage(id) {
   updatePageContentWhenVisible(_currentPageId, _di);
 
   setStorage('focusPage', id);
-  setStorage('focusTimeAsOf', new Date());
+  setStorage('focusTimeAsOf', new Date().getTime());
 
   clearTimeout(_pageHitTimeout);
 
@@ -364,12 +364,6 @@ function updatePageContent(id, di) {
     case 'pageCalGreg':
       if (_calGreg) {
         _calGreg.showCalendar(di);
-      }
-      break;
-
-    case 'pageReminders':
-      if (_reminders) {
-        _reminders.showPage();
       }
       break;
 
@@ -1155,11 +1149,12 @@ function prepareDefaults() {
 }
 
 function recallFocus() {
-  var storedAsOf = getStorage('focusTimeAsOf');
+  var storedAsOf = +getStorage('focusTimeAsOf');
   if (!storedAsOf) {
     return;
   }
   var focusTimeAsOf = new Date(storedAsOf);
+  var timeSet = false;
 
   var now = new Date();
   if (now - focusTimeAsOf < settings.rememberFocusTimeMinutes * 60000) {
@@ -1169,7 +1164,7 @@ function recallFocus() {
       _currentPageId = focusPage;
     }
 
-    var stored = getStorage('focusTime');
+    var stored = +getStorage('focusTime');
     if (stored) {
       var time = new Date(stored);
 
@@ -1178,12 +1173,16 @@ function recallFocus() {
         console.log('reuse focus time: ' + time);
 
         setFocusTime(time);
+        timeSet = true;
 
         setTimeout(function () {
           $('#day,#gDay').effect("highlight", 6000);
         }, 150);
       }
     }
+  }
+  if (!timeSet) {
+    setFocusTime(new Date());
   }
 }
 
