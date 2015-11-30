@@ -29,7 +29,6 @@ var CalGreg = function (di, host) {
     });
     _calendarDiv.on('click', '.eve', function (ev) {
       var cell = $(this).closest('.gd');
-      debugger;
       var id = cell.attr('id').substring(3).split('_');
       var month = +id[0];
       var day = +id[1];
@@ -79,7 +78,7 @@ var CalGreg = function (di, host) {
     _yearShown = gYear;
 
     var gMonth = _di.frag2Month;
-    //console.log(_yearShown + ' ' + gYear + ' ' + gMonth);
+    //log(_yearShown + ' ' + gYear + ' ' + gMonth);
 
     _calendarDiv.html('');
 
@@ -133,7 +132,7 @@ var CalGreg = function (di, host) {
       gDay = gDate.getDate();
       dow = gDate.getDay();
 
-      //console.log(gDate.toDateString() + ' ' + gDay + ' ' + dow);
+      //log(gDate.toDateString() + ' ' + gDay + ' ' + dow);
       if (gDate.getDate() != desiredDay && gMonth != focusMonth) {
         inFinalWeek = true;
       }
@@ -213,7 +212,7 @@ var CalGreg = function (di, host) {
 
       if (thisDayInfo.bMonth == 19) {
         $.extend(thisDayInfo, {
-          sunriseDesc: '<span class=sunrise>{0}</span>'.filledWith(sunrise.showTime(use24HourClock ? 24 : 0))
+          sunriseDesc: '<span class=sunrise>{0}</span>'.filledWith(sunrise.showTime())
         });
       }
 

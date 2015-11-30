@@ -11,6 +11,13 @@
   transform-origin: 344px 334px;
   transform: rotate(0deg);
 }
+#pageCalWheel #wheel.rotating {
+  -webkit-animation-name: spinner;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-duration: .25s;
+  -webkit-animation-fill-mode: forwards;
+}
 #pageCalWheel #wheelYearHolder {
   z-index: 22;
 }

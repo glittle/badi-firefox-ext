@@ -16,7 +16,7 @@ var HolyDays = function () {
     if(cached){
       return _dateInfos = cached;
     }
-//    console.log('prepare ' + bYear);
+//    log('prepare ' + bYear);
 
     // add fast times
     for (var d = 1; d <= 19; d++) {
@@ -34,7 +34,7 @@ var HolyDays = function () {
 //          Time: ('0' + _now.getHours()).slice(-2) + ('0' + _now.getMinutes()).slice(-2)
 //        }
 //      );
-//      //console.log(_dateInfos[_dateInfos.length-1]);
+//      //log(_dateInfos[_dateInfos.length-1]);
 //    }
 
     for (var i = 0; i < _dateInfos.length; i++) {
@@ -83,8 +83,8 @@ var HolyDays = function () {
               }
               dateInfo.BDateCode = dateInfo.BMonthDay.m + '.' + dateInfo.BMonthDay.d;
             } else {
-              console.log('Twin Holy Birthdays unknown for year ' + bYear);
-              console.log(dateInfo);
+              log('Twin Holy Birthdays unknown for year ' + bYear);
+              log(dateInfo);
               dateInfo.BMonthDay = makeBMonthDay(12, 2);
             }
             break;
@@ -97,8 +97,8 @@ var HolyDays = function () {
 
             var lastAyyamiHa = new Date(getGDateYMD(bYear, 19, 1).getTime());
             lastAyyamiHa.setDate(lastAyyamiHa.getDate() - 1);
-//console.log('last #2')
-//console.log(lastAyyamiHa);
+//log('last #2')
+//log(lastAyyamiHa);
             var numDaysInAyyamiHa = 1 + Math.round(Math.abs((firstAyyamiHa.getTime() - lastAyyamiHa.getTime()) / _msInDay));
             dateInfo.BMonthDayTo = makeBMonthDay(0, numDaysInAyyamiHa);
 
@@ -154,8 +154,8 @@ var HolyDays = function () {
       // if(a.Sort == b.Sort) debugger;
       // }
       // }catch(e){
-      // console.log(e);
-      // console.log(a);
+      // log(e);
+      // log(a);
       // }
       if (!b.BMonthDay) {
         return -1;
@@ -226,7 +226,7 @@ var HolyDays = function () {
         || dateInfo.Type === 'OtherRange' && dateInfo.Special && dateInfo.Special.slice(0,5) === 'AYYAM'
         ){
           upcoming.push(dateInfo);
-          //console.log(dateInfo);
+          //log(dateInfo);
           added++;
           targetDate.setDate(1 + targetDate.getDate());
         }
@@ -370,11 +370,11 @@ var HolyDays = function () {
         firstAyyamiHa.setDate(firstAyyamiHa.getDate() + 1);
         var lastAyyamiHa = new Date(getGDateYMD(bYear, 19, 1).getTime());
         lastAyyamiHa.setDate(lastAyyamiHa.getDate() - 1);
-//console.log('first ' + firstAyyamiHa);
-//console.log('last #1')
-//console.log('last ' + lastAyyamiHa);
+//log('first ' + firstAyyamiHa);
+//log('last #1')
+//log('last ' + lastAyyamiHa);
         var numDaysInAyyamiHa = daysBetween(firstAyyamiHa, lastAyyamiHa);
-//console.log(numDaysInAyyamiHa);
+//log(numDaysInAyyamiHa);
 //debugger;
         if (bDay > numDaysInAyyamiHa) {
           if(fix){
@@ -402,7 +402,7 @@ var HolyDays = function () {
       pmSunset = sunCalculator.getTimes(pmSunset, _locationLat, _locationLong).sunset;
     }
 //    else {
-//      console.log('unknown sunset - ' + sunCalcReady + ' ' + latReady);
+//      log('unknown sunset - ' + sunCalcReady + ' ' + latReady);
 //      pmSunset.setHours(18,30,0,0);
 //    }
     if (d.getTime() > pmSunset.getTime()) {

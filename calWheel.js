@@ -6,6 +6,9 @@
 
 var CalWheel = function () {
   var _yearShown = null;
+  var _lastAngle = null;
+  var _rotateTimeout = null;
+  var _rotating = null;
 
   // this page replicates a common format
   // don't know where the original is from
@@ -78,13 +81,40 @@ var CalWheel = function () {
       }
       var pctOfYear = dayOfYear / 361;
 
-      //console.log(pctOfYear);
+      //log(pctOfYear);
 
       var magicAdjustment = 0.434;
 
       offsetAngle = 90 - 360 * pctOfYear + magicAdjustment * angle1;
 
-      wheel.css({transform: 'rotate({0}deg)'.filledWith(offsetAngle)})
+      var s = $('style#specialStyle');
+      if (s.length == 0) {
+        var style = document.createElement('style');
+        style.id = 'specialStyle';
+        $('head').append(style);
+        s = $('style#specialStyle');
+      }
+
+      if (_lastAngle === null) {
+        _lastAngle = offsetAngle;
+      }
+
+      var keyframes = '@-webkit-keyframes spinner {from {-webkit-transform:rotateZ(' + _lastAngle + 'deg)} '
+        + ' to {-webkit-transform:rotateZ(' + offsetAngle + 'deg)}}';
+
+      wheel.css({ transform: 'rotate({0}deg)'.filledWith(_lastAngle) })
+      wheel.removeClass('rotating');
+
+      s.html(keyframes);
+
+      clearTimeout(_rotateTimeout);
+      _rotateTimeout = setTimeout(function () {
+        wheel.addClass('rotating');
+        _lastAngle = offsetAngle;
+      }, 0);
+
+      //wheel.css({ transform: 'rotate({0}deg)'.filledWith(offsetAngle) })
+
     } else {
       wheel.css({ transform: 'rotate(0)' })
     }
@@ -94,8 +124,44 @@ var CalWheel = function () {
     return ("0" + (Number(d).toString(16))).slice(-2).toUpperCase();
   }
 
+  function gotoYear(year) {
+    year = year || 173;
+    var gDate = holyDays.getGDate(+year, 1, 1, true);
+    setFocusTime(gDate);
+    refreshDateInfo();
+    showInfo(_di);
+  }
+
+  function rotateYear(year, speed) {
+    year = year || 173;
+    speed = speed || 100;
+    var gDate = holyDays.getGDate(+year, 1, 1, true);
+
+    $('#cbShowPointer').prop('checked', true);
+    $('#askShowPointer').hide();
+
+    var show = function () {
+      var di = getDateInfo(gDate);
+      if (di.bYear != year) {
+        return;
+      }
+
+      showCalendar(di);
+      gDate.setDate(gDate.getDate() + 1);
+      _rotating = setTimeout(show, speed);
+    }
+
+    show();
+  }
+
+
   return {
-    showCalendar: showCalendar
+    showCalendar: showCalendar,
+    gotoYear: gotoYear,
+    rotateYear: rotateYear,
+    stopRotation: function () {
+      clearTimeout(_rotating);
+    }
   };
 }
 

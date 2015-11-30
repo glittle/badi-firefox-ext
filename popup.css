@@ -11,7 +11,8 @@
 }
 #initialCover {
   position: absolute;
-  width: 900px;
+  left: 0;
+  right: 0;
   height: 100%;
   background-color: white;
   z-index: 99999;
@@ -25,18 +26,6 @@
   width: 700px;
   text-align: center;
   font-size: 12pt;
-}
-#btnOpen {
-  display: none;
-  width: 26px;
-  height: 22px;
-  margin: 0 0 0 6px;
-}
-#btnPrint {
-  display: none;
-  width: 26px;
-  height: 22px;
-  margin: 0 3px 0 6px;
 }
 .mainTop {
   display: flex;
@@ -66,14 +55,90 @@
 #pageLists,
 #pageCal1,
 #pageCalWheel,
-#pageCalGreg,
-#pageReminders {
+#pageCalGreg {
   border: 1px solid #77b55a;
   border-radius: 3px;
 }
 #pageCalWheel,
 #pageCalGreg {
   width: 100%;
+}
+#pageReminders > div {
+  border: 1px solid #77b55a;
+  border-radius: 3px;
+  margin-left: 4px;
+  justify-content: flex-end;
+  flex: 0 1 100%;
+  padding: 5px;
+}
+#pageReminders > div::first {
+  border-color: rgba(0, 3, 255, 0.67);
+}
+#pageReminders #reminderTrigger {
+  margin-bottom: 9px;
+}
+#pageReminders .reminderEdit {
+  margin: 0 5px 25px 10px;
+  position: relative;
+}
+#pageReminders .reminderEdit .reminder_num {
+  width: 3em;
+}
+#pageReminders .reminderEdit textarea {
+  display: block;
+  margin-left: 20px;
+  width: 80%;
+}
+#pageReminders .reminderEdit div {
+  margin: 3px 0 3px 0;
+}
+#pageReminders .reminderModel {
+  display: none;
+  margin: 1px 0 1px 20px;
+}
+#pageReminders .reminderShared {
+  margin: 6px 0 1px 20px;
+}
+#pageReminders .reminders > div {
+  margin-bottom: 1px;
+}
+#pageReminders .reminders > div button {
+  margin-right: 5px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+#pageReminders .reminders > div.inEdit {
+  background: red;
+}
+#pageReminders .reminder_iftttEvent {
+  width: 10em;
+}
+#pageReminders #reminderAction_ifttt {
+  border: 1px solid #ddd;
+  background-color: #eee;
+  padding: 1px 5px;
+  margin-left: 10px;
+}
+#pageReminders div.reminderComment {
+  margin-left: 20px;
+}
+#pageReminders .reminderAction {
+  display: none;
+}
+#pageReminders #btnReminderSave {
+  display: none;
+}
+#pageReminders #btnReminderDelete {
+  position: absolute;
+  right: 2px;
+  margin-top: 3px;
+}
+#pageReminders div.reminderSaveBtns {
+  margin: 10px 30px 0 0;
+  line-height: 21px;
+}
+#pageReminders #btnReminderCancel {
+  margin-right: 20px;
 }
 #pageDay > div {
   margin-left: 4px;
@@ -215,13 +280,20 @@ div.selectPages {
   font-size: 8.25pt;
   color: #999;
   position: absolute;
-  right: 2px;
-  bottom: 2px;
+  right: 25px;
+  bottom: 7px;
+}
+#btnOpen,
+#btnPrint {
+  display: none;
+  width: 26px;
+  height: 22px;
+  margin-left: 60px;
 }
 #tips {
   position: absolute;
   left: 2px;
-  bottom: 2px;
+  bottom: 7px;
   font-size: 8.25pt;
   color: #999;
 }
@@ -368,7 +440,7 @@ body.pt_PT #sampleTitle {
   background-color: #ddd;
   color: #9a710c;
 }
-#remindersTitle {
+#otherPageTitle {
   display: none;
   font-size: 13.5pt;
   text-align: center;
@@ -510,10 +582,13 @@ body.ta #eventStartHolder {
 tr.FastSat td {
   border-top: solid 1px #ddd;
 }
-button.btnChangeDay,
-#btnEveOrDay,
-button.btnChangeYear,
-button.btnJumpTo {
+h2 {
+  color: green;
+  font-size: 12pt;
+  margin: 0 0 6px 0;
+  font-weight: normal;
+}
+button.button {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
   background-color: #77b55a;
   border-radius: 4px;

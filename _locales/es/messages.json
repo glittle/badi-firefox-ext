@@ -4,24 +4,24 @@
     "email": "lreyes09@msn.com",
     "mostRecentVersion": "1.4.0",
     "message": "es",
-    "nameInEnglish": "Spanish",
-    "description": "(this is not shown in the tool)"
+    "nameInEnglish": "Spanish"
   },
   "title": {
     "message": "calendario Badí'",
-    "description": "El titulo de la extension. aparece en varias partes."
+    "description": "The title of the extension. Shown in a number of locations.",
+    "comment": "test"
   },
   "titleDesc": {
     "message": "ensena el dia de hoy en el calendario Badí', el calendario oficial de La Fe Bahá'í.",
-    "description": "Usado en la manifeatacion"
+    "description": "Used in the manifest"
   },
   "browserActionTitle": {
     "message": "Cargando...",
-    "description": "Glen aparece hasta que la dinamica desparezca"
+    "description": "Shown until the dynamic tip is created"
   },
   "bYearInVahidMeaning": {
     "message": ",A,B,Padre,D,portal,V,Eternidad,Generosidad,Esplendor,amor,Delicia,respuesta,unico,Benevolente,Affecto,principio,Luminoso,Mas Luminoso,Unidad",
-    "description": " Nombres Vahid, que conducen , "
+    "description": "Vahid names, with leading , "
   },
   "bMonthMeaning": {
     "message": "Dias intercalares,Esplendor,Gloria,Belleza,Grandeza,Luz,Misericordia,palabras,Perfecion,Nombres,fuerza,voluntad,concimiento,Poder,discurso,pregunta,Honor,Soverania,Dominio,sublimidad",
@@ -29,7 +29,7 @@
   },
   "bWeekDayMeaning": {
     "message": ",Gloria,Belleza,Perfeccion,Gracia,Justicia,Majestad,Independencia",
-    "description": "empieza con Sabado"
+    "description": "start with Saturday"
   },
   "gWeekdayLong": {
     "message": "Domingo,Lunes,Martes,Miercoles,Jueves,Viernes,Sabado",
@@ -61,7 +61,7 @@
   },
   "eraAbbrev": {
     "message": "E.B.",
-    "description": "glen"
+    "description": ""
   },
   "eraShort": {
     "message": "Ser",
@@ -133,15 +133,15 @@
   },
   "prev": {
     "message": "&larr; Previo",
-    "description": "glen"
+    "description": ""
   },
   "gotoNow": {
     "message": "Ahora",
-    "description": "glen"
+    "description": ""
   },
   "next": {
     "message": "Próximo &rarr;",
-    "description": "glen"
+    "description": ""
   },
   "btnEveOrDay": {
     "message": "antes y despues / de la puesta del sol",
@@ -150,11 +150,8 @@
   },
   "version": {
     "message": "Versión {0}",
-    "description": "glen"
+    "description": ""
   },
-
-
-  "new_messages_1_1_2": { "message": "" },
   "formatIconToolTip": {
     "message": "{bDay} {bMonthNameAr} {bYear}",
     "description": "text when mouse is over the extension icon"
@@ -194,13 +191,6 @@
   "copied": {
     "message": "Copiado!",
     "description": "short message that replaces sample format button text when button is clicked"
-  },
-
-
-  "new_messages_1_1_3": { "message": "" },
-  "use24HourClock": {
-    "message": "false",
-    "description": "use 'true' or 'false' to use 24 hour or 12 hour (am/pm) clock"
   },
   "noLocationName": {
     "message": "(localidad actual)",
@@ -264,7 +254,7 @@
   },
   "Intercalary": {
     "message": "Dias Intercalarios",
-    "description": "glen"
+    "description": ""
   },
   "FeastOf": {
     "message": "Fiesta de {0}",
@@ -290,14 +280,6 @@
     "message": "en {0} dias",
     "description": ""
   },
-
-
-  "new_messages_1_1_4": { "message": "" },
-  "sampleGroupTranslationHelp": {
-    "message": "",
-    "description": "Samples usually don't need translating. If needed, copy from the 'en' file and modify. When creating samples, can use any of the properties shown when _di is shown when inspecting the popup"
-  },
-
   "DayOfWeek": {
     "message": "dia de la semana",
     "description": ""
@@ -358,7 +340,6 @@
     "message": "{bKullishay}",
     "description": ""
   },
-
   "bTopDayDisplay": {
     "message": "{bDay} {bMonthNameAr} {bYear}",
     "description": "top right corner"
@@ -375,20 +356,14 @@
     "message": "{bMonthNameAr} {bDay} ({gCombined})",
     "description": "upcoming list"
   },
-
   "nextRefreshAlarm": {
     "message": "Siguiente refresh schedule {0}: {1}",
     "description": "only shown in the debug console"
   },
-
-
-  "new_messages_1_1_5": { "message": "" },
-
   "gMonthDayYear": {
     "message": "{bMonthNameAr} {bDay}, {bYear}",
     "description": ""
   },
-
   "gCombined_1": {
     "message": "{frag1MonthShort} {frag1Day}/{frag2Day}",
     "description": "day in same gregorian month"
@@ -413,42 +388,34 @@
     "message": "{frag1MonthShort} {frag1Day}, {frag1Year}/{frag2MonthShort} {frag2Day}, {frag2Year}",
     "description": "with year"
   },
-
-
-  "new_messages_1_1_8": { "message": "" },
   "bDatePickerTitle": {
     "message": "Elegir la fecha <u>B</u>adí'",
-    "description": "glen added <u></u> - should have one letter between <u> and </u>"
+    "description": "added <u></u> - should have one letter between <u> and </u>"
   },
-
-
-  "new_messages_1_2_0": { "message": "" },
   "weekDayNames": {
     "message": "Nombres de los dias de la semana",
-    "description": "on page 2 - table caption"
+    "description": "on List page - table caption"
   },
   "monthNames": {
     "message": "Nombres del Mes/Dia",
-    "description": "on page 2 - table caption"
+    "description": "on List page - table caption"
   },
   "num": {
     "message": "#",
-    "description": "on page 2 - table heading"
+    "description": "on List page - table heading"
   },
   "arabic": {
     "message": "Nombre",
-    "description": "on page 2 - table heading"
+    "description": "on List page - table heading"
   },
   "meaning": {
     "message": "Significado",
-    "description": "on page 2 - table heading"
+    "description": "on List page - table heading"
   },
   "equiv": {
     "message": "Equivalente",
-    "description": "on page 2 - table heading"
+    "description": "on List page - table heading"
   },
-
-  "new_messages_1_3": { "message": "" },
   "pick_pageDay": {
     "message": "Dia",
     "description": ""
@@ -467,7 +434,7 @@
   },
   "tips": {
     "message": "Consejo",
-    "description": "glen hints of how to use the tool"
+    "description": "hints of how to use the tool"
   },
   "tipsText": {
     "message": "Use PgUp/PgDn teclas para seleccionar paneles.\nUse derecha/iaquierda teclas con flechas para cambiar los dias.\nUse / para cambiar antes/despues ocaso.",
@@ -478,9 +445,6 @@
     "message": "Presione esta combinacion de teclados para abrir el calendario  desde cualquier parte en Chrome.",
     "description": ""
   },
-
-
-  "new_messages_1_3_3": { "message": "" },
   "prevYear": {
     "message": "Años Anteriores",
     "description": "hold Shift and press left arrow key"
@@ -497,8 +461,6 @@
     "message": "Presione Shift + Right flecha para mirar el año siguiente",
     "description": "hold Shift and press right arrow key"
   },
-
-  "new_messages_1_3_6": { "message": "" },
   "jumpTo": {
     "message": "<u>J</u>ump ± dias",
     "description": "user can enter a day after/before currently selected day"
@@ -511,16 +473,11 @@
     "message": "regresar or avanzar de acuerdo al nuero de dias",
     "description": "tooltip"
   },
-
-
-  "new_messages_1_4": { "message": "" },
-
   "pick_pageEvents": {
     "message": "Events",
     "translation": "required",
     "description": "showing Feast and Holy Days"
   },
-
   "specialDaysTitle": {
     "message": "Feasts and Holy Days in {bYear}",
     "translation": "required",
@@ -551,7 +508,6 @@
     "translation": "required",
     "description": "heading in Events listing"
   },
-
   "includeThese": {
     "message": "Show",
     "translation": "required",
@@ -572,7 +528,6 @@
     "translation": "required",
     "description": "above Events listing"
   },
-
   "specialTime_1500S": {
     "message": "3 pm (Standard Time)",
     "translation": "required",
@@ -598,7 +553,6 @@
     "translation": "required",
     "description": "Martyrdom of the Bab"
   },
-
   "eventTime": {
     "message": "{eventTime} {eventWeekdayShort} {eventMonthShort} {eventDay}, {eventYear}",
     "description": "show start time in Events listing"
@@ -607,8 +561,6 @@
     "message": "{startingSunsetDesc} {frag1WeekdayShort} {frag1MonthShort} {frag1Day}, {frag1Year}",
     "description": "show start time in Events listing"
   },
-
-
   "pick_pageFast": {
     "message": "Fast",
     "translation": "required",
@@ -638,49 +590,33 @@
     "message": "{frag2WeekdayShort} {frag2MonthShort} {frag2Day}, {frag2Year}",
     "description": "show start time in Events listing"
   },
-
   "ayyamIs0": {
     "message": "(Y M D) 0 = Ayyám-i-Há",
     "description": "(updated) in Badi date picker area"
   },
-
-
-  "new_messages_1_5_3": { "message": "" },
   "keyToOpenInTab": {
     "message": "T",
     "translation": "required",
     "description": "Press Shift+(this letter) to open into a tab"
   },
-
-
-  "new_messages_1_6_0": { "message": "" },
   "pick_pageCalWheel": {
     "message": "Wheel",
     "translation": "required",
     "description": "tab name"
   },
-
   "showPointer": {
     "message": "Show pointer",
     "translation": "required",
     "description": ""
   },
-
   "currentFocus": {
     "message": "Current Day",
     "translation": "required",
     "description": "in wheel, points to today, or whatever day is currently selected"
   },
-
-  "new_messages_1_7_0": { "message": "" },
   "pick_pageCalGreg": {
     "message": "Calendario Cristiano",
     "translation": "done by email",
     "description": "tab name"
-  },
-
-  "x": {
-    "message": "",
-    "description": ""
   }
 }

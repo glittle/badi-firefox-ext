@@ -2,6 +2,7 @@
 /* global getStorage */
 /* global getMessage */
 /* global di */
+/* global _initialDi */
 /* global chrome */
 /* global _languageCode */
 /* global $ */
@@ -11,17 +12,20 @@ var _currentPageNum = 0;
 var _cal1 = null;
 var _calWheel = null;
 var _calGreg = null;
+var _pageReminders = null;
 var _enableSampleKeys = true;
 var _enableDayKeysLR = true;
 var _enableDayKeysUD = true;
 var _upDownKeyDelta = 0;
 var _pageHitTimeout = null;
-var tracker = null;
 var _currentPageId = null;
 var _initialStartupDone = false;
 var _loadingNum = 0;
 var _inTab = false;
 var _pageIdList = [];
+var _inPopupPage = true;
+
+var _remindersEnabled = true; // local copy of background var
 
 function attachHandlers() {
   $('#samples').on('click', 'button', copySample);
@@ -47,7 +51,7 @@ function attachHandlers() {
 
   $('#btnRetry').on('click', function () {
     $('#btnRetry').addClass('active');
-    registerHandlers();
+    startGettingLocation();
     setTimeout(function () {
       $('#btnRetry').removeClass('active');
     }, 1000);
@@ -62,14 +66,14 @@ function attachHandlers() {
   });
 
   $('#cbShowPointer').on('change', function () {
-    setStorage('showPointer', $(this).prop('checked'))
+    setStorage('showPointer', $(this).prop('checked'));
     _calWheel.showCalendar(_di);
   });
 
   //chrome.alarms.onAlarm.addListener(function (alarm) {
-  //  console.log(alarm.name);
-  //  console.log(new Date(alarm.scheduledTime));
-  //  chrome.alarms.clear(alarm.name, function (wasCleared) { console.log(wasCleared); });
+  //  log(alarm.name);
+  //  log(new Date(alarm.scheduledTime));
+  //  chrome.alarms.clear(alarm.name, function (wasCleared) { log(wasCleared); });
   //  refreshDateInfoAndShow();
   //});
 
@@ -154,7 +158,7 @@ function changePage(ev, delta) {
     showPage(id);
   }
   else {
-    var pageButtons = $('.selectPages button');
+    var pageButtons = $('.selectPages button').filter(':visible');
     var lastPageNum = pageButtons.length - 1;
     var num = _currentPageNum;
 
@@ -182,7 +186,7 @@ function changePage(ev, delta) {
 function showPage(id) {
   id = id || _currentPageId || 'pageDay';
   var pages = $('.page');
-  var btns = $('.selectPages button');
+  var btns = $('.selectPages button').filter(':visible');
   var thisPage = pages.filter('#' + id);
 
   pages.css({ visibility: 'hidden' }); // reduce flicker?
@@ -195,7 +199,7 @@ function showPage(id) {
   var pageCalGreg = '#yearSelector, .JumpDays, #show, #gDay, #special, .iconArea';
   var pageLists = '#gDay, #show, .iconArea, #special';
   var pageFast = '#yearSelector, .iconArea';
-  var pageReminders = '.iconArea, #remindersTitle';
+  var pageReminders = '.iconArea, #otherPageTitle';
 
   $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageLists, pageFast, pageReminders].join(',')).hide();
 
@@ -306,6 +310,13 @@ function updatePageContentWhenVisible(id, di) {
         _calGreg.scrollToMonth(di.currentMonth);
       }
       break;
+
+    case 'pageReminders':
+      $('#otherPageTitle').html(getMessage('pick_pageReminders'));
+      if (_pageReminders) {
+        _pageReminders.showReminders();
+      }
+      break;
   }
 
 }
@@ -383,6 +394,13 @@ function updatePageContent(id, di) {
 
     case 'pageFast':
       BuildSpecialDaysTable(_di);
+      break;
+
+    case 'pageReminders':
+      //if (_pageReminders) {
+      //  log('show reminders')
+      //  _pageReminders.showReminders();
+      //}
       break;
   }
 }
@@ -516,7 +534,7 @@ function changeToBDate(ev) {
     _changingBDate = false;
 
   } catch (error) {
-    console.log(error);
+    log(error);
   }
 
 }
@@ -629,7 +647,7 @@ function keyPressed(ev) {
       return;
 
     default:
-      //console.log(ev.which);
+      //log(ev.which);
 
       if (_enableSampleKeys) {
         try {
@@ -657,19 +675,22 @@ function keyPressed(ev) {
         openInTab();
       }
 
-      var pageNum = +key;
-      var validPagePicker = key == pageNum;
+      if (ev.target.tagName !== 'INPUT' && ev.target.tagName !== 'TEXTAREA') {
 
-      if (!validPagePicker && (key >= 'a' && key <= 'i')) {
-        pageNum = key.charCodeAt(0) - 96;
-        validPagePicker = true;
-      }
+        var pageNum = +key;
+        var validPagePicker = key == pageNum;
 
-      if (validPagePicker) {
-        var pageButtons = $('.selectPages button');
-        if (pageNum > 0 && pageNum <= pageButtons.length) {
-          var id = pageButtons.eq(pageNum - 1).data('page');
-          showPage(id);
+        if (!validPagePicker && (key >= 'a' && key <= 'i')) {
+          pageNum = key.charCodeAt(0) - 96;
+          validPagePicker = true;
+        }
+
+        if (validPagePicker) {
+          var pageButtons = $('.selectPages button').filter(':visible');
+          if (pageNum > 0 && pageNum <= pageButtons.length) {
+            var id = pageButtons.eq(pageNum - 1).data('page');
+            showPage(id);
+          }
         }
       }
 
@@ -869,7 +890,7 @@ function fillEventStart() {
   for (var h = 1800; h <= 2000; h += 100) {
     for (var m = 0; m <= 30; m += 30) {
       startTime.setHours(h / 100, m);
-      startTimes.push({ v: h + m, t: startTime.showTime(use24HourClock ? 24 : 0) });
+      startTimes.push({ v: h + m, t: startTime.showTime() });
       if (h === 2000) {
         break; // to end at 8pm
       }
@@ -878,9 +899,6 @@ function fillEventStart() {
   $('#eventStart')
     .html('<option value={v}>{t}</option>'.filledWithEach(startTimes))
     .val(getStorage('eventStart') || '1930');
-}
-
-function updateStatic(di) {
 }
 
 function SetFiltersForSpecialDaysTable(ev) {
@@ -979,7 +997,7 @@ function BuildSpecialDaysTable(di) {
 
     if (dayInfo.Type === 'Fast') {
       var sunrise = targetDi.frag2SunTimes.sunrise;
-      dayInfo.Sunrise = sunrise ? sunrise.showTime(use24HourClock ? 24 : 0) : '?';
+      dayInfo.Sunrise = sunrise ? sunrise.showTime() : '?';
       dayInfo.FastDay = getMessage('mainPartOfDay', targetDi);
       if (targetDi.frag2Weekday == 6) {
         dayInfo.RowClass = 'FastSat';
@@ -1016,7 +1034,7 @@ function BuildSpecialDaysTable(di) {
 
       dayInfo.Event = { time: date };
 
-      dayInfo.StartTime = dayInfo.Event.time.showTime(use24HourClock ? 24 : 0);
+      dayInfo.StartTime = dayInfo.Event.time.showTime();
       eventEventTime(dayInfo.Event);
       dayInfo.EventTime = getMessage('eventTime', dayInfo.Event);
     }
@@ -1066,21 +1084,6 @@ function BuildSpecialDaysTable(di) {
   $('#fastDaysTitle').html(getMessage('fastDaysTitle', di));
 }
 
-function eventEventTime(obj) {
-  var eventTime = obj.time;
-
-  obj.eventYear = eventTime.getFullYear();
-  obj.eventMonth = eventTime.getMonth(); // 0 based
-  obj.eventDay = eventTime.getDate();
-  obj.eventWeekday = eventTime.getDay();
-
-  obj.eventMonthLong = gMonthLong[obj.eventMonth];
-  obj.eventMonthShort = gMonthShort[obj.eventMonth];
-  obj.eventWeekdayLong = gWeekdayLong[obj.eventWeekday];
-  obj.eventWeekdayShort = gWeekdayShort[obj.eventWeekday];
-
-  obj.eventTime = eventTime.showTime(use24HourClock ? 24 : 0)
-}
 function showShortcutKeys() {
   if (chrome.commands) {
     chrome.commands.getAll(function (cmd) {
@@ -1148,44 +1151,6 @@ function prepareDefaults() {
   $('#cbShowPointer').prop('checked', showPointer);
 }
 
-function recallFocus() {
-  var storedAsOf = +getStorage('focusTimeAsOf');
-  if (!storedAsOf) {
-    return;
-  }
-  var focusTimeAsOf = new Date(storedAsOf);
-  var timeSet = false;
-
-  var now = new Date();
-  if (now - focusTimeAsOf < settings.rememberFocusTimeMinutes * 60000) {
-
-    var focusPage = getStorage('focusPage');
-    if (focusPage) {
-      _currentPageId = focusPage;
-    }
-
-    var stored = +getStorage('focusTime');
-    if (stored) {
-      var time = new Date(stored);
-
-      if (!isNaN(time) && now.toDateString() != time.toDateString()) {
-
-        console.log('reuse focus time: ' + time);
-
-        setFocusTime(time);
-        timeSet = true;
-
-        setTimeout(function () {
-          $('#day,#gDay').effect("highlight", 6000);
-        }, 150);
-      }
-    }
-  }
-  if (!timeSet) {
-    setFocusTime(new Date());
-  }
-}
-
 function openInTab() {
   if (_inTab) {
     return;
@@ -1201,6 +1166,7 @@ function openInTab() {
       chrome.tabs.create({ url: url });
     }
     window.close();
+    tracker.sendEvent('openInTab');
   });
 
 }
@@ -1213,13 +1179,8 @@ function prepare1() {
   $('body')
   .addClass(_languageCode)
   .addClass(langCode)
-  .attr('lang', _languageCode);
-
-  if (',fa,'.search(langCode) != -1) {
-    $('body').attr('dir', 'rtl');
-  } else {
-    $('body').attr('dir', 'ltr');
-  }
+  .attr('lang', _languageCode)
+  .attr('dir', _languageDir);
 
   recallFocus();
   updateLoadProgress();
@@ -1259,7 +1220,7 @@ function prepare1() {
 }
 
 function updateTabNames() {
-  $('.selectPages button').each(function (i, el) {
+  $('.selectPages button').filter(':visible').each(function (i, el) {
     var tab = $(el);
     tab.html((i + 1) + ' ' + tab.html());
     _pageIdList.push(tab.data('page'));
@@ -1289,6 +1250,8 @@ function prepare2() {
 
   _initialStartupDone = true;
 
+  prepareAnalytics();
+
   if (getStorage('firstPopup', false)) {
     // first time popup is opened after upgrading to newest version
     $('.buttons')
@@ -1316,12 +1279,15 @@ function prepare2() {
   _calGreg = CalGreg();
   _calGreg.showCalendar(_di);
 
+  _pageReminders = PageReminders();
+  $('#btnPageReminders').toggle(_remindersEnabled);
+  //log(_remindersEnabled);
+
   if (_currentPageId != 'pageDay') {
     adjustHeight();
     $('#initialCover').hide();
   }
 
-  prepareAnalytics();
 }
 
 function updateLoadProgress() {

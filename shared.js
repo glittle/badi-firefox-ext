@@ -2,12 +2,16 @@
 /* global HolyDays */
 /* global moment */
 
+var tracker = null;
+
 var settings = {
   // eventually move to a settings page?
   rememberFocusTimeMinutes: 5
 };
 
 var _languageCode = getMessage('translation');
+var _languageDir = ',fa,'.search(_languageCode) != -1 ? 'rtl' : 'ltr';
+
 var _locationLat = localStorage.lat;
 var _locationLong = localStorage.long;
 var _focusTime = null;
@@ -278,7 +282,7 @@ function draw(line1, line2, line2Alignment) {
   return context.getImageData(0, 0, 19, 19);
 }
 
-function registerHandlers() {
+function startGettingLocation() {
   // geo
   var positionOptions = {
     enableHighAccuracy: false,
@@ -344,19 +348,22 @@ function determineDaysAway(di, moment1, moment2, sameDay) {
 }
 
 
-Date.prototype.showTime = function (hoursType) {
-  var show24hour = hoursType == 24;
+Date.prototype.showTime = function () {
+  var hoursType = use24HourClock ? 24 : 0;
+  var show24Hour = hoursType == 24;
   var pm = this.getHours() >= 12;
-  var hours = this.getHours() > 12 && !show24hour ? this.getHours() - 12 : this.getHours();
+  var hours = this.getHours() > 12 && !show24Hour ? this.getHours() - 12 : this.getHours();
   var minutes = this.getMinutes();
   var time = hours + ':' + ('0' + minutes).slice(-2);
-  if (!show24hour) {
+  if (!show24Hour) {
     if (hours == 12 && minutes == 0) {
       time = getMessage('noon');
+    } else if (hours == 0 && minutes == 0) {
+      time = getMessage('midnight');
     } else {
       time = getMessage('timeFormat12').filledWith({
         time: time,
-        ampm:  pm ? getMessage('pm') : getMessage('am')
+        ampm: pm ? getMessage('pm') : getMessage('am')
       });
     }
   }
@@ -396,12 +403,12 @@ function startGetLocationName() {
                || getMessage('noLocationName');
 
       setStorage('locationNameKnown', true);
-      console.log(localStorage.locationName);
+      log(localStorage.locationName);
 
-      //console.log('got location name ' + (new Date().getSeconds() + new Date().getMilliseconds() / 1000));
+      //log('got location name ' + (new Date().getSeconds() + new Date().getMilliseconds() / 1000));
 
       // if popup is showing...
-      if (typeof showLocation !== 'undefined') {
+      if (typeof _inPopupPage !== 'undefined') {
         showLocation();
       }
     }
@@ -435,8 +442,56 @@ function noLocation(err) {
   refreshDateInfoAndShow();
 }
 
-function refreshDateInfoAndShow() {
+function recallFocus() {
+  var storedAsOf = +getStorage('focusTimeAsOf');
+  if (!storedAsOf) {
+    return;
+  }
+  var focusTimeAsOf = new Date(storedAsOf);
+  var timeSet = false;
+
+  var now = new Date();
+  if (now - focusTimeAsOf < settings.rememberFocusTimeMinutes * 60000) {
+
+    var focusPage = getStorage('focusPage');
+    if (focusPage && typeof _currentPageId !== 'undefined') {
+      _currentPageId = focusPage;
+    }
+
+    var stored = +getStorage('focusTime');
+    if (stored) {
+      var time = new Date(stored);
+
+      if (!isNaN(time) && now.toDateString() != time.toDateString()) {
+
+        log('reuse focus time: ' + time);
+
+        setFocusTime(time);
+        timeSet = true;
+
+        setTimeout(function () {
+          // effective when called in popup
+          $('#day,#gDay').effect("highlight", 6000);
+        }, 150);
+      }
+    }
+  }
+  if (!timeSet) {
+    setFocusTime(new Date());
+  }
+}
+
+
+
+function refreshDateInfoAndShow(resetToNow) {
   // also called from alarm, to update to the next day
+  if (resetToNow) {
+    setFocusTime(new Date());
+  } else {
+    // will reset to now after a few minutes
+    recallFocus();
+  }
+  log('refreshDateInfoAndShow at ' + new Date());
   var di = refreshDateInfo();
   _di = di;
   _firstLoad = false;
@@ -455,30 +510,42 @@ var refreshAlarms = {};
 
 function setAlarmForNextUpdate(currentTime, sunset, inEvening) {
   var whenTime;
+  var alarmName;
   if (inEvening) {
     // in eve, after sunset, so update after midnight
     var midnight = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate() + 1).getTime();
     whenTime = midnight + 1000; // to be safe, set at least 1 second after midnight 
+    alarmName = 'refresh_midnight';
   } else {
     // in the day, so update right at the sunset
     whenTime = sunset.getTime();
+    alarmName = 'refresh_sunset';
   }
 
   // odd bug... sometimes gets called many times over - is alarm being set in the past?
-  if (refreshAlarms[whenTime]) {
-    // already set before
+  //if (refreshAlarms[whenTime]) {
+  //  // already set before
+  //  return;
+  //}
+
+  if (whenTime < new Date().getTime()) {
+    log('ignored attempt to set {0} alarm in the past'.filledWith(alarmName));
     return;
   }
 
   refreshAlarms[whenTime] = true;
 
-  chrome.alarms.create('refresh', { when: whenTime });
+  chrome.alarms.create(alarmName, { when: whenTime });
 
   // debug - show alarm that was set
   chrome.alarms.getAll(function (alarms) {
     for (var i = 0; i < alarms.length; i++) {
       var alarm = alarms[i];
-      console.log(getMessage('nextRefreshAlarm').filledWith(alarm.name, new Date(alarm.scheduledTime)));
+      if (alarm.name.startsWith('refresh_')) {
+        log(alarm.name, new Date(alarm.scheduledTime));
+      } else {
+        log(alarm.name);
+      }
     }
   });
 }
@@ -576,8 +643,8 @@ String.prototype.filledWith = function () {
       }
 
       catch (err) {
-        console.log('filledWithError:\n' + err + '\ntoken:' + token + '\nvalue:' + value + '\ntemplate:' + input + '\nall values:\n');
-        console.log(values);
+        log('filledWithError:\n' + err + '\ntoken:' + token + '\nvalue:' + value + '\ntemplate:' + input + '\nall values:\n');
+        log(values);
         throw 'Error in Filled With';
       }
       return (typeof value == 'undefined' || value == null ? '' : ('' + value));
@@ -642,6 +709,23 @@ function getOrdinal(num) {
 function getOrdinalName(num) {
   return ordinalNames[num];
 }
+
+function eventEventTime(obj) {
+  var eventTime = obj.time;
+
+  obj.eventYear = eventTime.getFullYear();
+  obj.eventMonth = eventTime.getMonth(); // 0 based
+  obj.eventDay = eventTime.getDate();
+  obj.eventWeekday = eventTime.getDay();
+
+  obj.eventMonthLong = gMonthLong[obj.eventMonth];
+  obj.eventMonthShort = gMonthShort[obj.eventMonth];
+  obj.eventWeekdayLong = gWeekdayLong[obj.eventWeekday];
+  obj.eventWeekdayShort = gWeekdayShort[obj.eventWeekday];
+
+  obj.eventTime = eventTime.showTime();
+}
+
 
 function getFocusTime() {
   if (!_focusTime) {
@@ -713,33 +797,6 @@ function localizeHtml(host) {
 }
 
 
-function installed(info) {
-  if (info.reason == 'update') {
-    setTimeout(function () {
-      var newVersion = chrome.runtime.getManifest().version_name;
-      var oldVersion = localStorage.updateVersion;
-      if (newVersion != oldVersion) {
-        console.log(oldVersion + ' --> ' + newVersion);
-        localStorage.updateVersion = newVersion;
-        chrome.tabs.create({
-          url: 'https://sites.google.com/site/badicalendartools/home/chrome-extension/history?'
-            + '{0}:{1}'.filledWith(
-            chrome.runtime.getManifest().version_name,
-            _languageCode)
-        });
-
-        setStorage('firstPopup', true);
-
-        tracker.sendEvent('updated', getVersionInfo());
-      } else {
-        console.log(newVersion);
-      }
-    }, 1000);
-  } else {
-    console.log(info);
-  }
-}
-
 function getVersionInfo() {
   var info = '{0}:{1} ({2})'.filledWith(
             chrome.runtime.getManifest().version_name,
@@ -752,23 +809,32 @@ function timeNow(msg) {
   // for debugging
   var now = new Date();
   var time = now.getMilliseconds() / 1000 + now.getSeconds();
-  console.log(time + ' ' + msg)
+  log(time + ' ' + msg);
+}
+
+function log() {
+  // add a timestamp to console log entries
+  var a = [];
+  a.push(new moment().format('DD H:mm:ss'));
+  a.push('\n ');
+  for (var x in log.arguments) {
+    if (log.arguments.hasOwnProperty(x)) {
+      a.push(log.arguments[x]);
+    }
+  }
+  console.log.apply(console, a);
 }
 
 // google analytics
 function prepareAnalytics() {
   if (typeof tracker !== 'undefined') {
     var service = analytics.getService('BadiCal');
-    service.getConfig().addCallback(initAnalyticsConfig);
+    service.getConfig().addCallback(function (config) {
+      tracker.sendEvent('opened', getVersionInfo());
+    });
     tracker = service.getTracker('UA-1312528-10');
     tracker.set('appVersion', chrome.runtime.getManifest().version_name);
     tracker.set('language', navigator.language);
-
   }
 }
-function initAnalyticsConfig(config) {
-  tracker.sendEvent('opened', getVersionInfo());
 
-  //var d = analytics.EventBuilder.builder().dimension(1, info)
-  //tracker.send(d);
-}

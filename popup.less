@@ -1,34 +1,36 @@
+@green: #77b55a;
+
 body {
-    margin: 0;
-    font-family: Geneva, 'Segoe UI';
-    font-size: 9pt;
-    overflow: hidden;
+  margin: 0;
+  font-family: Geneva, 'Segoe UI';
+  font-size: 9pt;
+  overflow: hidden;
 }
 
 #mainBody {
-    margin: 0 auto;
-    width: 800px;
-    font-family: Geneva, 'Segoe UI';
+  margin: 0 auto;
+  width: 800px;
+  font-family: Geneva, 'Segoe UI';
 }
 
-
 #initialCover {
-    position: absolute;
-    width: 900px;
-    height: 100%;
-    background-color: white;
-    z-index: 99999;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-color: white;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .initialMsgArea {
-    color: green;
-    width: 700px;
-    text-align: center;
-    font-size: 12pt;
+  color: green;
+  width: 700px;
+  text-align: center;
+  font-size: 12pt;
 }
 
 #loadingMsg {
@@ -37,842 +39,946 @@ body {
 #loadingCount {
 }
 
-#btnOpen {
-    display: none;
-    width: 26px;
-    height: 22px;
-    margin: 0 0 0 6px;
-}
-
-#btnPrint {
-    display: none;
-    width: 26px;
-    height: 22px;
-    margin: 0 3px 0 6px;
-}
-
 .mainTop {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .mainMiddle {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .mainBottom {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #pageDay, #pageEvents, #pageFast, #pageLists, #pageCal1, #pageReminders {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
-#pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageCalGreg, #pageReminders {
-    border: 1px solid #77b55a;
-    border-radius: 3px;
+#pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageCalGreg {
+  border: 1px solid @green;
+  border-radius: 3px;
 }
 
 #pageCalWheel, #pageCalGreg {
-    width: 100%;
+  width: 100%;
 }
 
-#pageDay > div {
+#pageReminders {
+  > div {
+    border: 1px solid @green;
+    border-radius: 3px;
     margin-left: 4px;
     justify-content: flex-end;
     flex: 0 1 100%;
+    padding: 5px;
+
+    &::first {
+      border-color: rgba(0, 3, 255, 0.67);
+    }
+  }
+
+  #reminderTrigger {
+    margin-bottom: 9px;
+  }
+
+  .reminderEdit {
+    margin: 0 5px 25px 10px;
+    position: relative;
+
+    .reminder_num {
+      width: 3em;
+    }
+
+    textarea {
+      display: block;
+      margin-left: 20px;
+      width: 80%;
+    }
+
+    div {
+      margin: 3px 0 3px 0;
+    }
+  }
+
+  .reminderModel {
+    display: none;
+    margin: 1px 0 1px 20px;
+  }
+
+  .reminderShared {
+    margin: 6px 0 1px 20px;
+  }
+
+  .reminders {
+    > div {
+      margin-bottom: 1px;
+
+      button {
+        margin-right: 5px;
+        padding-left: 3px;
+        padding-right: 3px;
+      }
+
+      &.inEdit {
+        background: red;
+      }
+    }
+  }
+
+  .reminder_iftttEvent{
+      width: 10em;
+  }
+
+  #reminderAction_ifttt{
+      border: 1px solid #ddd;
+      background-color: #eee;
+      padding: 1px 5px;
+      margin-left: 10px;
+  }
+
+  div.reminderComment {
+    margin-left: 20px;
+  }
+
+  .reminderAction {
+    display: none;
+  }
+
+  #btnReminderSave {
+    display: none;
+  }
+
+  #btnReminderDelete {
+    position: absolute;
+    right: 2px;
+    margin-top: 3px;
+  }
+
+  div.reminderSaveBtns {
+    margin: 10px 30px 0 0;
+    line-height: 21px; // for when they wrap
+  }
+
+  #btnReminderCancel {
+    margin-right: 20px;
+  }
+}
+
+#pageDay {
+  > div {
+    margin-left: 4px;
+    justify-content: flex-end;
+    flex: 0 1 100%;
+  }
 }
 
 #pageEvents {
-    display: flex;
-    align-items: flex-start;
-    max-height: 500px;
-    overflow: auto;
+  display: flex;
+  align-items: flex-start;
+  max-height: 500px;
+  overflow: auto;
 }
 
 body.inTab #pageEvents {
-    max-height: none;
+  max-height: none;
 }
 
 #pageCalWheel {
-    height: 500px;
+  height: 500px;
 }
 
 #show {
-    /*width: 340px;*/
-    /*display: table-cell;*/
-    white-space: nowrap;
-    font-size: 12pt;
-    /*font-family: Geneva;*/
-    text-align: center;
+  /*width: 340px;*/
+  /*display: table-cell;*/
+  white-space: nowrap;
+  font-size: 12pt;
+  /*font-family: Geneva;*/
+  text-align: center;
 }
 
 #day {
-    font-size: 13.5pt;
-    display: inline-block;
-    margin-top: 14px;
-    margin-bottom: 9px;
+  font-size: 13.5pt;
+  display: inline-block;
+  margin-top: 14px;
+  margin-bottom: 9px;
 }
 
 #day.withSpecial {
-    margin-top: 1px;
-    margin-bottom: 0;
+  margin-top: 1px;
+  margin-bottom: 0;
 }
 
 body[data-pageid=pageCal1] #day {
-    margin-top: 1px;
-    margin-bottom: 2px;
+  margin-top: 1px;
+  margin-bottom: 2px;
 }
 
 body[data-pageid=pageCal1] #day.withSpecial {
-    margin-top: 1px;
-    margin-bottom: 2px;
+  margin-top: 1px;
+  margin-bottom: 2px;
 }
 
 #special {
-    margin-top: -1px;
+  margin-top: -1px;
 }
 
 #special1 {
-    font-size: 12.75pt;
-    color: blue;
-    display: none;
+  font-size: 12.75pt;
+  color: blue;
+  display: none;
 }
 
 #special2 {
-    font-size: 12pt;
-    color: blue;
-    display: none;
+  font-size: 12pt;
+  color: blue;
+  display: none;
 }
 
 body.ta #sunset {
-    font-size: 9.75pt;
+  font-size: 9.75pt;
 }
 
 div.selectPages {
-    width: 20px;
-    z-index: 9;
+  width: 20px;
+  z-index: 9;
 }
 
 .selectPages .buttons {
-    padding-top: 4px;
-    width: 20px;
-    display: flex;
-    flex-direction: column;
+  padding-top: 4px;
+  width: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .selectPages .buttons.fakeHover,
 .selectPages .buttons:hover {
-    align-items: flex-end;
-    width: auto;
+  align-items: flex-end;
+  width: auto;
 }
 
 .selectPages .buttons button {
-    background-color: #b5775a;
-    border-radius: 2px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border: none;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    display: block;
-    outline: none;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 8.5pt;
-    padding: 2px 2px 2px 0;
-    box-sizing: border-box;
-    overflow: hidden;
-    width: 20px;
-    margin: -1px 0 0 0;
-    transition: width 0.2s ease-out;
-    text-decoration: none;
-    white-space: nowrap;
-    position: relative;
+  background-color: #b5775a;
+  border-radius: 2px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border: none;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  display: block;
+  outline: none;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 8.5pt;
+  padding: 2px 2px 2px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 20px;
+  margin: -1px 0 0 0;
+  transition: width 0.2s ease-out;
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
 }
 
 .selectPages .buttons button.showing {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-    background-color: #77b55a;
-    margin-left: -2px;
-    padding-left: 2px;
-    width: 22px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  background-color: @green;
+  margin-left: -2px;
+  padding-left: 2px;
+  width: 22px;
 }
 
 .selectPages .buttons:hover button.showing:hover {
-    background-color: #77b55a;
+  background-color: @green;
 }
 
 .selectPages .buttons.fakeHover button,
 .selectPages .buttons:hover button {
-    border-radius: 2px;
-    padding: 2px 6px 2px 7px;
-    width: auto;
+  border-radius: 2px;
+  padding: 2px 6px 2px 7px;
+  width: auto;
 }
 
 .selectPages .buttons:hover button:hover {
-    background-color: rgb(187, 137, 114);
+  background-color: rgb(187, 137, 114);
 }
 
 .selectPages .buttons button:after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    pointer-events: none;
-    background-image: linear-gradient(to right, rgba(255,255,255, 0), rgba(255,255,255, 1) 100%);
-    height: 100%;
-    width: 9px;
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to right, rgba(255,255,255, 0), rgba(255,255,255, 1) 100%);
+  height: 100%;
+  width: 9px;
 }
 
 .selectPages .buttons.fakeHover button:after,
 .selectPages .buttons:hover button:after {
-    z-index: -1;
+  z-index: -1;
 }
 
 #ayyamIs0 {
-    text-align: right;
-    padding-right: 9px;
+  text-align: right;
+  padding-right: 9px;
 }
 
 #shortcutKeys {
-    font-size: 8.25pt;
-    color: #999;
-    position: absolute;
-    right: 2px;
-    bottom: 2px;
+  font-size: 8.25pt;
+  color: #999;
+  position: absolute;
+  right: 25px;
+  bottom: 7px;
+}
+
+
+#btnOpen,
+#btnPrint {
+  display: none;
+  width: 26px;
+  height: 22px;
+  margin-left: 60px;
 }
 
 #tips {
-    position: absolute;
-    left: 2px;
-    bottom: 2px;
-    font-size: 8.25pt;
-    color: #999;
+  position: absolute;
+  left: 2px;
+  bottom: 7px;
+  font-size: 8.25pt;
+  color: #999;
 }
 
 #locationErrorHolder {
-    display: none;
-    background: #ad0000;
-    color: white;
-    padding: 2px 2px 3px 2px;
-    margin: 6px 1px -11px 3px;
-    white-space: normal;
-    font-size: 9pt;
-    border-radius: 3px;
+  display: none;
+  background: #ad0000;
+  color: white;
+  padding: 2px 2px 3px 2px;
+  margin: 6px 1px -11px 3px;
+  white-space: normal;
+  font-size: 9pt;
+  border-radius: 3px;
 }
 
 #locationError {
-    margin-left: 30px;
-    display: block;
-    text-align: left;
+  margin-left: 30px;
+  display: block;
+  text-align: left;
 }
 
 #btnRetry {
-    background: url(./ajax-loader-img.gif) no-repeat;
-    cursor: pointer;
-    border: none;
-    width: 16px;
-    height: 16px;
-    float: left;
-    margin-top: 5px;
-    margin-left: 5px;
+  background: url(./ajax-loader-img.gif) no-repeat;
+  cursor: pointer;
+  border: none;
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-top: 5px;
+  margin-left: 5px;
 }
 
 #btnRetry.active {
-    background: url(./ajax-loader.gif) no-repeat;
+  background: url(./ajax-loader.gif) no-repeat;
 }
 
 .place, #gDay {
-    font-size: 8.25pt;
-    color: gray;
+  font-size: 8.25pt;
+  color: gray;
 }
 
 #gDay {
-    margin-bottom: 3px;
+  margin-bottom: 3px;
 }
 
 #showUpcoming {
 }
 
 tr.M {
-    color: darkgoldenrod;
+  color: darkgoldenrod;
 }
 
 tr.HS {
-    color: darkblue;
+  color: darkblue;
 }
 
 tr.OtherRange {
-    color: gray;
+  color: gray;
 }
 
 #dayDetails {
-    border: 1px solid rgba(0, 3, 255, 0.67);
-    border-radius: 3px;
-    padding: 5px;
-    /*display: table-cell;*/
-    vertical-align: top;
+  border: 1px solid rgba(0, 3, 255, 0.67);
+  border-radius: 3px;
+  padding: 5px;
+  /*display: table-cell;*/
+  vertical-align: top;
 }
 
 
 dl {
-    text-align: left;
-    margin: 0;
-    width: 160px;
+  text-align: left;
+  margin: 0;
+  width: 160px;
 }
 
 dt {
-    color: green;
-    opacity: 0.7;
-    white-space: nowrap;
+  color: green;
+  opacity: 0.7;
+  white-space: nowrap;
 }
 
 dd {
-    margin-left: 9px;
-    margin-bottom: .4em;
+  margin-left: 9px;
+  margin-bottom: .4em;
 }
 
 .comment {
-    color: green;
-    opacity: 0.6;
-    font-size: 8.25pt;
+  color: green;
+  opacity: 0.6;
+  font-size: 8.25pt;
 }
 
 
 #samples {
-    font-size: 9pt;
-    border: 1px solid green;
-    border-radius: 3px;
-    padding: 5px;
-    position: relative;
-    /*display: table-cell;*/
-    vertical-align: top;
-    white-space: nowrap;
+  font-size: 9pt;
+  border: 1px solid green;
+  border-radius: 3px;
+  padding: 5px;
+  position: relative;
+  /*display: table-cell;*/
+  vertical-align: top;
+  white-space: nowrap;
 }
 
 #samplesList div {
-    margin: 2px auto;
+  margin: 2px auto;
 }
 
 #sampleTitle {
-    color: green;
-    opacity: 0.7;
-    width: 370px;
-    white-space: normal;
+  color: green;
+  opacity: 0.7;
+  width: 370px;
+  white-space: normal;
 }
 
 body.pt_PT #sampleTitle {
-    width: 410px;
+  width: 410px;
 }
 
 #sampleFootnote {
-    color: green;
-    opacity: 0.7;
-    margin-top: 5px;
-    padding-left: 3px;
+  color: green;
+  opacity: 0.7;
+  margin-top: 5px;
+  padding-left: 3px;
 }
 
 #sampleCopy {
-    position: absolute;
-    top: -500px;
+  position: absolute;
+  top: -500px;
 }
 
 #pageLists {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #pageLists table {
-    border-spacing: 0;
-    border-collapse: collapse;
-    display: inline-block;
-    margin: 2px 15px 5px 15px;
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: inline-block;
+  margin: 2px 15px 5px 15px;
 }
 
 #pageLists table caption {
-    color: green;
-    opacity: .7;
-    text-align: left;
+  color: green;
+  opacity: .7;
+  text-align: left;
 }
 
 #pageLists table th {
-    text-align: left;
+  text-align: left;
 }
 
 #pageLists table th,
 #pageLists table td {
-    padding: 0 6px 0 4px;
+  padding: 0 6px 0 4px;
 }
 
 #pageLists table tr td:first-child,
 #pageLists table tr th:first-child {
-    text-align: right;
+  text-align: right;
 }
 
 #pageLists table tr.selectedDay td {
-    color: blue;
+  color: blue;
 }
 
 #pageLists table tr.selectedDay {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 #pageLists table #monthListBody tr.selected {
-    background-color: #ddd;
-    color: green;
+  background-color: #ddd;
+  color: green;
 }
 
 #pageLists table #yearListBody tr.selected {
-    background-color: #ddd;
-    color: #9a710c;
+  background-color: #ddd;
+  color: #9a710c;
 }
 
-#remindersTitle{
-    display: none;
-    font-size: 13.5pt;
-    text-align: center;
-    margin: 10px 0 10px 0;
+#otherPageTitle {
+  display: none;
+  font-size: 13.5pt;
+  text-align: center;
+  margin: 10px 0 10px 0;
 }
 
 #specialDaysTitle {
-    display: none;
-    font-size: 13.5pt;
-    text-align: center;
-    margin: 0 50px 0 0;
+  display: none;
+  font-size: 13.5pt;
+  text-align: center;
+  margin: 0 50px 0 0;
 }
 
 #specialLists {
-    padding: 4px;
-    white-space: nowrap;
-    overflow: auto;
-    margin: 0 auto;
+  padding: 4px;
+  white-space: nowrap;
+  overflow: auto;
+  margin: 0 auto;
 }
 
 #specialListsTable {
-    width: 99.9%;
-    border-spacing: 1px 0px;
-    border-collapse: collapse;
+  width: 99.9%;
+  border-spacing: 1px 0px;
+  border-collapse: collapse;
 }
 
 #specialListsTable tbody tr {
-    display: none;
+  display: none;
 }
 
 #specialListsTable.Feasts tbody tr.M {
-    display: table-row;
+  display: table-row;
 }
 
 #specialListsTable.HolyDays tbody tr.H {
-    display: table-row;
-    background-color: rgb(250, 250, 250);
+  display: table-row;
+  background-color: rgb(250, 250, 250);
 }
 
 #specialListsTable .forHD {
-    display: none;
+  display: none;
 }
 
 #specialListsTable.HolyDays .forHD {
-    display: table-cell;
+  display: table-cell;
 }
 
 #specialListsTable.HolyDays .forFeast {
-    display: none;
+  display: none;
 }
 
 
 #specialListsTable td.eventTime {
-    white-space: normal;
+  white-space: normal;
 }
 
 #specialListsTable tr.SpecialTime td.eventTime {
-    color: blue;
-    font-style: italic;
-    padding-left: 20px;
+  color: blue;
+  font-style: italic;
+  padding-left: 20px;
 }
 
 #specialListsTable .forHD.time {
-    font-style: normal;
-    margin-left: -20px;
-    display: block;
+  font-style: normal;
+  margin-left: -20px;
+  display: block;
 }
 
 #specialListsTable th {
-    text-align: left;
+  text-align: left;
 }
 
 #specialListsTable td {
-    vertical-align: top;
+  vertical-align: top;
 }
 
 #specialListsTable caption {
-    color: green;
-    text-align: left;
-    font-size: 12pt;
-    margin: -2px 0px 2px 2px;
+  color: green;
+  text-align: left;
+  font-size: 12pt;
+  margin: -2px 0px 2px 2px;
 }
 
 #specialListsTable TD {
-    color: black;
-    border-top: solid 1px #ddd;
+  color: black;
+  border-top: solid 1px #ddd;
 }
 
 #specialListsTable .HS td {
-    color: black;
+  color: black;
 }
 
 #specialListsTable td.name {
-    white-space: normal;
+  white-space: normal;
 }
 
 #specialListsTable .HS .name {
-    color: blue;
-    background-image: url(./star12c.gif);
-    background-repeat: no-repeat;
-    background-position: 2px 3px;
-    padding-left: 18px;
+  color: blue;
+  background-image: url(./star12c.gif);
+  background-repeat: no-repeat;
+  background-position: 2px 3px;
+  padding-left: 18px;
 }
 
 #specialListsTable .HO td {
-    color: black;
+  color: black;
 }
 
 #specialListsTable .HO .name {
-    color: blue;
-    background: url(star12b.gif);
-    background-repeat: no-repeat;
-    background-position: 2px 3px;
-    padding-left: 17px;
+  color: blue;
+  background: url(star12b.gif);
+  background-repeat: no-repeat;
+  background-position: 2px 3px;
+  padding-left: 17px;
 }
 
 #specialListsTable .Today {
-    color: #070;
+  color: #070;
 }
 
 #specialListsTable tr.Default td.eventTime {
-    color: #777;
+  color: #777;
 }
 
 #eventStartHolder {
-    float: right;
-    margin: 0 0 10px 0;
+  float: right;
+  margin: 0 0 10px 0;
 }
 
 body.ta #eventStartHolder {
-    position: relative;
-    float: right;
+  position: relative;
+  float: right;
 }
 
 #eventStartHolder select {
-    font-size: 9pt;
+  font-size: 9pt;
 }
 
 #includeWhat {
-    margin-right: 20px;
-    display: inline-block;
+  margin-right: 20px;
+  display: inline-block;
 }
 
 #fastList {
-    font-size: 9pt;
-    padding: 5px;
-    position: relative;
-    vertical-align: top;
-    white-space: nowrap;
-    width: 100%;
+  font-size: 9pt;
+  padding: 5px;
+  position: relative;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 100%;
 }
 
 #fastListTable {
-    /*border-spacing: 15px 2px;*/
-    border-collapse: collapse;
-    margin: 0 auto 5px auto;
+  /*border-spacing: 15px 2px;*/
+  border-collapse: collapse;
+  margin: 0 auto 5px auto;
 }
 
 #fastListTable th {
-    text-align: left;
+  text-align: left;
 }
 
 #fastListTable td,
 #fastListTable th {
-    padding: 2px 9px;
+  padding: 2px 9px;
 }
 
 
 #fastListTable caption {
-    color: green;
-    font-size: 12pt;
+  color: green;
+  font-size: 12pt;
 }
 
 tr.FastSat td {
-    border-top: solid 1px #ddd;
+  border-top: solid 1px #ddd;
 }
 
+h2 {
+  color: green;
+  font-size: 12pt;
+  margin: 0 0 6px 0;
+  font-weight: normal;
+}
 
-button.btnChangeDay, #btnEveOrDay, button.btnChangeYear, button.btnJumpTo {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
-    background-color: #77b55a;
-    border-radius: 4px;
-    border: 1px solid #4b8f29;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    font-family: Geneva, 'Segoe UI';
-    font-size: 8.25pt;
-    line-height: 14px;
-    transition: color 0.4s ease-out;
-    padding: 1px 2px;
-    text-decoration: none;
-    min-width: 15px;
+button.button {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @green), color-stop(1, #72b352));
+  background-color: @green;
+  border-radius: 4px;
+  border: 1px solid #4b8f29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Geneva, 'Segoe UI';
+  font-size: 8.25pt;
+  line-height: 14px;
+  transition: color 0.4s ease-out;
+  padding: 1px 2px;
+  text-decoration: none;
+  min-width: 15px;
 }
 
 #btnEveOrDay {
-    display: block;
-    margin: 3px auto 0 auto;
+  display: block;
+  margin: 3px auto 0 auto;
 }
 
 button.today.notToday {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
-    background-color: #b5775a;
-    border: 1px solid #8f4b29;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
+  background-color: #b5775a;
+  border: 1px solid #8f4b29;
 }
 
 #samples button {
-    vertical-align: text-bottom;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
-    background-color: #77b55a;
-    border-radius: 4px;
-    border: 1px solid #4b8f29;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    /*font-family: Geneva;*/
-    font-size: 6.75pt;
-    transition: color 0.4s ease-out;
-    padding: 1px 2px;
-    text-decoration: none;
-    min-width: 15px;
+  vertical-align: text-bottom;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @green), color-stop(1, #72b352));
+  background-color: @green;
+  border-radius: 4px;
+  border: 1px solid #4b8f29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  /*font-family: Geneva;*/
+  font-size: 6.75pt;
+  transition: color 0.4s ease-out;
+  padding: 1px 2px;
+  text-decoration: none;
+  min-width: 15px;
 }
 
 #samples button:hover {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, #77b55a));
-    background: -webkit-linear-gradient(top, #72b352 5%, #77b55a 100%);
-    background: linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
-    background-color: #72b352;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, @green));
+  background: -webkit-linear-gradient(top, #72b352 5%, @green 100%);
+  background: linear-gradient(to bottom, #72b352 5%, @green 100%);
+  background-color: #72b352;
 }
 
 #samples button:active {
-    position: relative;
-    top: 1px;
+  position: relative;
+  top: 1px;
 }
 
 #samples div.copied button {
-    background: #b2f392;
-    color: #4b8f29;
-    transition: color 0.4s ease-out;
+  background: #b2f392;
+  color: #4b8f29;
+  transition: color 0.4s ease-out;
 }
 
 #samples div.copied button:hover {
-    background: #b2f392;
-    color: #4b8f29;
+  background: #b2f392;
+  color: #4b8f29;
 }
 
 .iconArea {
-    margin: 3px 0 0 0;
-    text-align: center;
-    position: relative;
-    clear: both;
+  margin: 3px 0 0 0;
+  text-align: center;
+  position: relative;
+  clear: both;
 }
 
 #googlePlus img {
-    margin: 0 0 3px 5px;
+  margin: 0 0 3px 5px;
 }
 
 #facebook img {
-    margin: 0 5px 3px 0;
+  margin: 0 5px 3px 0;
 }
 
 #logo {
-    width: 22px;
-    height: 24px;
+  width: 22px;
+  height: 24px;
 }
 
 .explains {
-    text-align: center;
-    clear: both;
+  text-align: center;
+  clear: both;
 }
 
 .centered {
-    text-align: center;
+  text-align: center;
 }
 
 #explain {
-    margin: 6px 6px 0 0;
+  margin: 6px 6px 0 0;
 }
 
 #explain2 {
-    margin: 3px 6px 15px 0;
+  margin: 3px 6px 15px 0;
 }
 
 #gDatePicker {
-    border: 1px solid #daaaaa;
-    border-radius: 3px;
-    padding: 5px;
+  border: 1px solid #daaaaa;
+  border-radius: 3px;
+  padding: 5px;
 }
 
 #gDatePickerTitle {
-    color: green;
-    opacity: 0.7;
-    width: 150px;
+  color: green;
+  opacity: 0.7;
+  width: 150px;
 }
 
 #gDatePickerTitle2 {
-    color: green;
-    opacity: 0.7;
-    margin: 6px 0 0 0;
+  color: green;
+  opacity: 0.7;
+  margin: 6px 0 0 0;
 }
 
 #bDatePickerTitle {
-    color: green;
-    opacity: 0.7;
-    margin: 6px 0 0 0;
+  color: green;
+  opacity: 0.7;
+  margin: 6px 0 0 0;
 }
 
 #bDatePickerTitleTip {
-    float: right;
-    color: #999;
-    margin: 6px 0 0 0;
-    font-size: 8.25pt;
+  float: right;
+  color: #999;
+  margin: 6px 0 0 0;
+  font-size: 8.25pt;
 }
 
 #upcomingTitle {
-    color: green;
-    text-decoration: underline;
+  color: green;
+  text-decoration: underline;
 }
 
 body.ta #upcomingTitle {
 }
 
 #upcoming {
-    width: 100%;
-    border-spacing: 1px 0px;
+  width: 100%;
+  border-spacing: 1px 0px;
 }
 
 #upcoming td {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .gDateButtons {
-    text-align: center;
+  text-align: center;
 }
 
 #gDate {
-    margin: 0 3px 0 9px;
-    white-space: nowrap;
+  margin: 0 3px 0 9px;
+  white-space: nowrap;
 }
 
 #gDateDesc {
-    margin: 0 3px 0 9px;
+  margin: 0 3px 0 9px;
 }
 
 #datePicker {
-    display: block;
-    margin: 0 auto 2px auto;
-    text-align: center;
-    font-family: Geneva, 'Segoe UI';
-    font-size: 8.25pt;
+  display: block;
+  margin: 0 auto 2px auto;
+  text-align: center;
+  font-family: Geneva, 'Segoe UI';
+  font-size: 8.25pt;
 }
 
 .textLink {
-    color: darkblue;
-    vertical-align: top;
-    display: inline-block;
-    margin: 3px 9px 0 6px;
+  color: darkblue;
+  vertical-align: top;
+  display: inline-block;
+  margin: 3px 9px 0 6px;
 }
 
 a.textLink {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a.textLink:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .bDatePickerInputs {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .bDatePickerInputs input {
-    font-size: 8.25pt;
-    font-family: Geneva, 'Segoe UI';
-    text-align: center;
-    margin: 0;
-    width: 33px;
+  font-size: 8.25pt;
+  font-family: Geneva, 'Segoe UI';
+  text-align: center;
+  margin: 0;
+  width: 33px;
 }
 
 input.bYearPicker {
-    width: 50px;
+  width: 50px;
 }
 
 
 #yearSelector {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #yearSelector > div {
-    margin: 2px 5px;
-    background-color: rgb(237, 246, 233);
-    padding: 2px;
-    border-radius: 5px;
-    border: 1px solid rgb(237, 246, 233);
+  margin: 2px 5px;
+  background-color: rgb(237, 246, 233);
+  padding: 2px;
+  border-radius: 5px;
+  border: 1px solid rgb(237, 246, 233);
 }
 
 #yearSelector input {
-    font-size: 8.25pt;
-    font-family: Geneva, 'Segoe UI';
-    text-align: center;
-    margin: 0;
+  font-size: 8.25pt;
+  font-family: Geneva, 'Segoe UI';
+  text-align: center;
+  margin: 0;
 }
 
 .JumpDays {
-    display: block;
-    text-align: center;
+  display: block;
+  text-align: center;
 }
 
 .yearPicker {
 }
 
 #yearSelector input.jumpTo {
-    width: 45px;
-    text-align: right;
+  width: 45px;
+  text-align: right;
 }
 
 .bVahidPicker, .bYearInVahidPicker {
-    width: 40px;
+  width: 40px;
 }
 
 .vahidInputs {
-    text-align: center;
-    display: block;
+  text-align: center;
+  display: block;
 }
 
 .vahidInputs > div {
-    display: inline-block;
+  display: inline-block;
 }
 
 .vahidInputs > div > span {
-    display: block;
+  display: block;
 }
 
-.pageHeader{
-    font-size: 12pt;
-    text-align: center;
+.pageHeader {
+  font-size: 12pt;
+  text-align: center;
 }
 
 
@@ -880,77 +986,77 @@ input.bYearPicker {
 
 
 .nobreak {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 @media print {
-    #yearSelector, .selectPages, .iconArea {
-        display: none !important;
-    }
+  #yearSelector, .selectPages, .iconArea {
+    display: none !important;
+  }
 
-    #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageReminders {
-        border: none;
-        padding: 20px 0 0 0;
-    }
+  #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageReminders {
+    border: none;
+    padding: 20px 0 0 0;
+  }
 
-    #includeWhat {
-        display: none;
-    }
+  #includeWhat {
+    display: none;
+  }
 
-    #eventStart {
-        -webkit-appearance: none;
-        border: none;
-        padding: 0;
-        margin: 0;
-    }
+  #eventStart {
+    -webkit-appearance: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
 
-    #specialDaysTitle {
-        margin: 0;
-    }
+  #specialDaysTitle {
+    margin: 0;
+  }
 
-    #fastListTable caption {
-        margin-bottom: 20px;
-    }
+  #fastListTable caption {
+    margin-bottom: 20px;
+  }
 }
 
 @media (min-width: 900px) {
 
-    /*body {
+  /*body {
         background: url('Sea of Fog.jpg') #fff no-repeat center;
     }*/
 
-    .selectPages .buttons {
-        width: auto;
-        align-items: flex-start;
-    }
+  .selectPages .buttons {
+    width: auto;
+    align-items: flex-start;
+  }
 
-    .selectPages .buttons button:after {
-        z-index: -1;
-    }
+  .selectPages .buttons button:after {
+    z-index: -1;
+  }
 
-    .selectPages .buttons:hover {
-        align-items: flex-start;
-        width: auto;
-    }
+  .selectPages .buttons:hover {
+    align-items: flex-start;
+    width: auto;
+  }
 
 
-    .selectPages .buttons button {
-        border-radius: 2px;
-        padding: 2px 6px 2px 3px;
-        width: auto;
-    }
+  .selectPages .buttons button {
+    border-radius: 2px;
+    padding: 2px 6px 2px 3px;
+    width: auto;
+  }
 
-    .selectPages .buttons:hover button {
-        border-radius: 2px;
-        padding: 2px 6px 2px 3px;
-    }
+  .selectPages .buttons:hover button {
+    border-radius: 2px;
+    padding: 2px 6px 2px 3px;
+  }
 
-    .selectPages .buttons button.showing {
-        width: auto;
-        border-top-left-radius: 2px;
-        border-bottom-left-radius: 2px;
-        background-color: #77b55a;
-        margin-left: -2px;
-        padding-left: 5px;
-    }
+  .selectPages .buttons button.showing {
+    width: auto;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    background-color: @green;
+    margin-left: -2px;
+    padding-left: 5px;
+  }
 }
