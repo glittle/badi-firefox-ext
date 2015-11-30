@@ -263,14 +263,16 @@ var ReminderModule = function () {
       return;
     }
 
-    if (alarmInfo.eventTime < new Date().getTime()) {
-      log('reminder requested, but past time.', alarmInfo);
+    if (alarmInfo.triggerTime + 1000 < new Date().getTime()) {
+      log('reminder requested, but past trigger.', alarmInfo);
       return;
     }
 
     triggerAlarmInternal(alarmInfo, alarmName);
 
     localStorage.removeItem(alarmName);
+
+    activateForToday();
   }
 
   function showTestAlarm(alarmInfo) {
@@ -395,11 +397,11 @@ var ReminderModule = function () {
   function activateForToday(initialLoad) {
     // clear, then set again
     clearReminderAlarms(function () {
-      activateAlarms(initialLoad);
+      activateInternal(initialLoad);
     });
   }
 
-  function activateAlarms(initialLoad) {
+  function activateInternal(initialLoad) {
     if (!_remindersEnabled) return;
 
     var now = new Date();
