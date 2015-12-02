@@ -1,4 +1,6 @@
-﻿//"options_ui": {
+﻿/* global getMessage */
+
+//"options_ui": {
 //  "_page": "options.html",
 //  "chrome_style":  true
 //},
@@ -33,20 +35,20 @@ var PageReminders = function () {
         case 'sunrise':
         case 'midnight':
         case 'noon':
-          lines.push('{num} {units} {deltaText}'.filledWith(r));
+          lines.push(getMessage('reminderList_time', r));
           break;
 
         case 'feast':
         case 'holyday':
-          lines.push('{num} day(s) {deltaText}, at {alertTime}'.filledWith(r));
+          lines.push(getMessage('reminderList_holyday', r));
           break;
 
         case 'bday':
-          lines.push('Day {num}, at {alertTime}'.filledWith(r));
+          lines.push(getMessage('reminderList_bday', r));
           break;
 
         case 'load':
-          lines.push('{num} {units} after'.filledWith(r));
+          lines.push(getMessage('reminderList_onload', r));
           break;
 
         default:
@@ -57,7 +59,8 @@ var PageReminders = function () {
         lines.push(' ({0})'.filledWith(getMessage('reminderAction_' + r.action)));
       }
 
-      html.push('<div id=r_{0}><button class=button data-id={0}>Edit</button>{0} - {^1} - {^2}</div>'.filledWith(r.displayId, getMessage('reminderTrigger_' + r.trigger), lines.join('')));
+      html.push('<div id=r_{0}><button class=button data-id={0}>{3}</button>{0} - {^1} - {^2}</div>'.filledWith(
+        r.displayId, getMessage('reminderTrigger_' + r.trigger), lines.join(''), getMessage('EditBtn')));
     });
 
     listing.html(html.join('\n'));
@@ -91,11 +94,13 @@ var PageReminders = function () {
             continue;
           }
 
-          alarmList.append('<li>At {0}, remind about {1} {2} at {3}</li>'
-            .filledWith(new Date(alarm.scheduledTime).showTime(),
-            getMessage('reminderTrigger_' + details.trigger),
-            details.delta == -1 ? 'coming' : 'that was',
-            showEventTime(details)));
+          var info = {
+            scheduledTime: new Date(alarm.scheduledTime).showTime(),
+            event: getMessage('reminderTrigger_' + details.trigger),
+            pastFuture: details.delta == -1 ? getMessage('alarmShowingFuture') : getMessage('alarmShowingPast'),
+            eventTime: showEventTime(details)
+          };
+          alarmList.append('<li>{0}</li>'.filledWith(getMessage('alarmListItem', info)));
         }
       }
     });
@@ -155,9 +160,9 @@ var PageReminders = function () {
 
     var r = buildReminder(_currentEditId);
 
-    if (r.iftttId) {
+    if (r.iftttKey) {
       // store this, for other reminders to use
-      setStorage('iftttId', r.iftttId);
+      setStorage('iftttKey', r.iftttKey);
     }
 
     var saveToBackground = true;
@@ -230,10 +235,13 @@ var PageReminders = function () {
       if (input[0].tagName === 'SELECT') {
         r[prop + 'Display'] = input.find(':selected').text();
       }
-
+      if (input[0].id === 'reminder_trigger') {
+        var selectedOption = input.find(':selected');
+        r.model = selectedOption.data('model') || selectedOption.closest('optgroup').data('model')
+      }
     });
 
-    r.deltaText = r.delta === -1 ? 'before' : 'after';
+    r.deltaText = r.delta === -1 ? getMessage('alarmShowingBefore') : getMessage('alarmShowingAfter');
 
     switch (r.trigger) {
       case 'feast':
@@ -272,9 +280,9 @@ var PageReminders = function () {
       _page.find(`#reminderAction_${action}`).show().find(':input').each(function (i, input) { $(input).prop('disabled', false) });
       switch (action) {
         case 'ifttt':
-          var id = $('.reminder_iftttId');
+          var id = $('.reminder_iftttKey');
           if (!id.val()) {
-            id.val(getStorage('iftttId', ''));
+            id.val(getStorage('iftttKey', ''));
           }
           var eventName = $('.reminder_iftttEvent');
           if (!eventName.val()) {

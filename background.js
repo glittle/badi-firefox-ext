@@ -51,7 +51,12 @@ var BackgroundModule = function () {
   //    log('message received: ' + request.code);
   //  }
 
-
+  function showErrors() {
+    var msg = chrome.runtime.lastError;
+    if (msg) {
+      log(msg);
+    }
+  }
   function prepare() {
 
     startGettingLocation();
@@ -63,6 +68,44 @@ var BackgroundModule = function () {
     chrome.alarms.clearAll();
     chrome.alarms.onAlarm.addListener(alarmHandler);
     chrome.runtime.onInstalled.addListener(installed);
+
+    chrome.contextMenus.create({
+      'id': 'openInTab',
+      'title': getMessage('browserMenuOpen'),
+      'contexts': ['browser_action']
+    }, showErrors);
+    //chrome.contextMenus.create({
+    //  'id': 'paste',
+    //  'title': 'Insert Badí Date',
+    //  'contexts': ['editable']
+    //}, showErrors);
+
+    chrome.contextMenus.onClicked.addListener(function (info, tab) {
+      switch (info.menuItemId) {
+        //case 'paste':
+        //  log(info, tab);
+        //  chrome.tabs.executeScript(tab.id, {code: 'document.targetElement.value = "help"'}, showErrors);
+        //  break;
+
+        case 'openInTab':
+          var url = chrome.extension.getURL('popup.html');
+          chrome.tabs.query({ url: url }, function (foundTabs) {
+            if (foundTabs[0]) {
+              chrome.tabs.update(foundTabs[0].id, {
+                active: true
+              });
+            } else {
+              chrome.tabs.create({ url: url });
+            }
+            if (tracker) {
+              // not working...
+              tracker.sendEvent('openInTabContextMenu');
+            }
+          });
+
+          break;
+      }
+    });
 
     log('prepared background');
   }

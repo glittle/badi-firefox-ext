@@ -26,6 +26,7 @@
     "storage",
     "notifications",
     "geolocation",
+    "contextMenus",
     "clipboardWrite",
     "https://www.google-analytics.com/",
     "http://maps.googleapis.com/",
@@ -42,6 +43,7 @@
   "author": "Glen Little",
   "short_name": "BadiCal",
   "manifest_version": 2,
+  "incognito": "split",
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {

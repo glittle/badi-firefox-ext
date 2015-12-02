@@ -242,7 +242,7 @@
           <h2 data-msg="reminderAddEdit"></h2>
           <form class="reminderEdit">
             <div>
-              <span>Type</span>
+              <span data-msg="reminderType"></span>
               <select id="reminder_trigger" name="x1" data-default="">
                 <option value="" data-msg="reminderSelectTrigger"></option>
 
@@ -277,14 +277,14 @@
               </div>
               <div id="model_day" class="reminderModel">
                 <div>
-                  <input type="number" name="x5" class="reminder_num" min="0" max="365" step="1" value="1" data-type="num" data-default="3" required />
-                  days
-                  <select class="reminder_delta" name="x6" data-type="num" data-default="-1">
-                    <option value="-1" data-msg="reminderBefore"></option>
-                    <option value="1" data-msg="reminderAfter"></option>
-                  </select>
-                  each
-                  <span class="modelTriggerEcho"></span>
+                  <span data-msg="reminderDayWhen">
+                    <input data-child="num" type="number" name="x5" class="reminder_num" min="0" max="365" step="1" value="1" data-type="num" data-default="3" required />
+                    <select data-child="beforeAfter" class="reminder_delta" name="x6" data-type="num" data-default="-1">
+                      <option value="-1" data-msg="reminderBefore"></option>
+                      <option value="1" data-msg="reminderAfter"></option>
+                    </select>
+                    <span data-child="event" class="modelTriggerEcho"></span>
+                  </span>
                 </div>
                 <div>
                   <span data-msg="showReminderAt"></span>
@@ -296,9 +296,10 @@
               </div>
               <div id="model_bday" class="reminderModel">
                 <div>
-                  Day
-                  <input type="number" class="reminder_num" name="x8" min="1" max="19" step="1" value="1" data-type="num" data-default="1" required />
-                  of the Badí' month
+                  <span data-msg="reminderDayOfMonth">
+                    <input data-child="num" type="number" class="reminder_num" name="x8" min="1" max="19" step="1" value="1" data-type="num" data-default="1" required />
+                  </span>
+                  
                 </div>
                 <div>
                   <span data-msg="showReminderAt"></span>
@@ -329,22 +330,22 @@
                   </select>
                 </div>
                 <div>
-                  <span data-msgx="xx">Additional actions</span>
+                  <span data-msg="reminder_actions"></span>
                   <select id="reminder_action" data-default="" name="x13">
-                    <option value="" data-msgx="xx">none</option>
+                    <option value="" data-msg="reminder_nullAction"></option>
                     <option value="ifttt" data-msg="reminderAction_ifttt"></option>
                   </select>
                 </div>
                 <div id="reminderAction_ifttt" class="reminderAction">
                   <div>
-                    <span data-msgx="xx">IFTTT Maker Channel ID</span>
-                    <input type="text" name="if1" class="reminder_iftttId" required>
+                    <span data-msg="iftttKey"></span>
+                    <input type="text" name="if1" class="reminder_iftttKey" required>
                   </div>
                   <div>
-                    <span data-msgx="xx">IFTTT Event Name</span>
+                    <span data-msg="iftttEvent"></span>
                     <input type="text" name="if2" class="reminder_iftttEvent" required>
                   </div>
-                  <div class="reminderComment">For details or to sign up, see <a href="https://ifttt.com/maker" target="ifttt">IFTTT Maker Channel</a>.</div>
+                  <div class="reminderComment" data-msg="iftttInfo"></div>
                 </div>
                 <!--<label>
                     <span data-msg="reminderMsg"></span>

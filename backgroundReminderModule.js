@@ -290,10 +290,15 @@ var ReminderModule = function () {
         + (alarmInfo.body || '');
     var tagLine = getMessage('reminderTagline').filledWith(info);
 
-    var triggerDisplayName = getMessage('reminderTitleFormat', {
+    var nameInfo = {
       event: getMessage('reminderTrigger_' + alarmInfo.trigger),
       time: alarmInfo.eventTime ? new Date(alarmInfo.eventTime).showTime() : '___'
-    });
+    };
+
+    var nameType = alarmInfo.model === 'time' ? 'Time' : 'Event';    
+    var nameTemplate = 'reminderTitle' + nameType + (alarmInfo.delta == -1 ? 'Future' : 'Past');
+    var triggerDisplayName = getMessage(nameTemplate, nameInfo);
+
     var api = alarmInfo.api || 'html';
     switch (api) {
       case 'chrome':
@@ -337,7 +342,7 @@ var ReminderModule = function () {
   function doAdditionalActions(alarmInfo, title, body, tag) {
     switch (alarmInfo.action) {
       case 'ifttt':
-        var url = 'https://maker.ifttt.com/trigger/{iftttEvent}/with/key/{iftttId}'.filledWith(alarmInfo);
+        var url = 'https://maker.ifttt.com/trigger/{iftttEvent}/with/key/{iftttKey}'.filledWith(alarmInfo);
         var content = {
           'value1': title,
           'value2': body,
@@ -356,7 +361,9 @@ var ReminderModule = function () {
               });
             },
             error: function (request, error) {
-              alert("Request: " + JSON.stringify(request));
+              var msg = "Request: " + JSON.stringify(request);
+              log(msg);
+              alert(msg);
             }
           });
 
