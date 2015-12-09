@@ -746,12 +746,55 @@
 
 
 
-  "new_messages_1_8_0": { "message": "" },
+  "new_messages_1_7_9": { "message": "add menu to open in a tab" },
+
+  "browserMenuOpen": {
+    "message": "Open in a tab",
+    "translation": "required",
+    "description": "shown as menu item when right-clicking on the browser icon "
+  },
+
+  "new_messages_1_8_0": { "message": "adding Reminders" },
 
   "pick_pageReminders": {
     "message": "Reminders",
     "translation": "required",
-    "description": "tab name and page title"
+    "description": "page tab name and page title"
+  },
+  "remindersDefined": {
+    "message": "Your Reminders",
+    "translation": "required",
+    "description": "title on right side"
+  },
+  "noReminders": {
+    "message": "(None defined!)",
+    "translation": "required",
+    "description": "shown if there are no reminders"
+  },
+  "reminderAddEdit": {
+    "message": "Add/Edit Reminder",
+    "translation": "required",
+    "description": "title on left side"
+  },
+  "reminderType": {
+    "message": "Event",
+    "translation": "required",
+    "description": "in front of the dropdown"
+  },
+  "reminderSelectTrigger": {
+    "message": "Add a reminder...",
+    "translation": "required",
+    "description": "in dropdown, when no trigger is selected"
+  },
+  "reminderShowAt": {
+    "message": "Show at",
+    "translation": "required",
+    "description": "in front of time of day input"
+  },
+  "remindersScheduled": {
+    "message": "Scheduled today from {time} until midnight",
+    "translation": "required",
+    "description": "title on left side"
   },
 
   "reminderTriggerGroup_time": {
@@ -763,6 +806,11 @@
     "message": "Special Days",
     "translation": "required",
     "description": "a group of triggers - feast, holy day, Badi day"
+  },
+  "reminderTriggerGroup_load": {
+    "message": "Other Events",
+    "translation": "required",
+    "description": "a group of triggers - for other types of events"
   },
 
   "reminderTrigger_sunrise": {
@@ -783,7 +831,6 @@
     "translation": "required",
     "description": "what this reminder is triggered on"
   },
-
   "reminderTrigger_feast": {
     "message": "Start of Feast day",
     "translation": "required",
@@ -804,82 +851,47 @@
     "translation": "required",
     "description": "what this reminder is triggered on (left out the the apostrophe after Badí since it breaks when displayed)"
   },
-
-  "reminderTriggerGroup_load": {
-    "message": "Other Events",
-    "translation": "required",
-    "description": "name of trigger"
-  },
-
   "reminderTrigger_load": {
     "message": "On Load",
     "translation": "required",
     "description": "what this reminder is triggered on"
   },
 
-  "reminderTagline": {
-    "message": "(shown at {when})",
+  "btnReminderEdit": {
+    "message": "Edit",
     "translation": "required",
-    "description": "shown on the bottom of each reminder popoup"
-  },
-
-  "reminderMsg": {
-    "message": "Extra message to show",
-    "translation": "required",
-    "description": "ask user to enter extra wording to be shown (optional)"
-  },
-
-  "reminderAddEdit": {
-    "message": "Add/Edit Reminder",
-    "translation": "required",
-    "description": "title in page"
-  },
-
-
-  "reminderSelectTrigger": {
-    "message": "Add a reminder...",
-    "translation": "required",
-    "description": "in dropdown, when no trigger is selected"
-  },
-  "remindersDefined": {
-    "message": "Your Reminders",
-    "translation": "required",
-    "description": ""
-  },
-  "noReminders": {
-    "message": "(None defined!)",
-    "translation": "required",
-    "description": ""
-  },
-  "remindersScheduled": {
-    "message": "Scheduled today from {time} until midnight",
-    "translation": "required",
-    "description": ""
+    "description": "shown next to each reminder. Click to edit the reminder."
   },
   "btnReminderSave": {
     "message": "<u>S</u>ave",
     "translation": "required",
-    "description": "when updating an existing reminder"
+    "description": "Save the changes and close the edit area"
   },
   "btnReminderSaveNew": {
     "message": "Save as New Reminder",
     "translation": "required",
-    "description": "when making a new reminder"
+    "description": "Save the changes as a new reminder and close the edit area. The original reminder is not affected."
   },
   "btnReminderCancel": {
     "message": "Cancel",
     "translation": "required",
-    "description": "when making a new reminder"
+    "description": "cancel changes and close the edit area"
   },
   "btnReminderTest": {
     "message": "Test Now",
     "translation": "required",
-    "description": "to show the reminder now"
+    "description": "show a sample of the reminder now"
   },
+  "btnReminderDelete": {
+    "message": "Delete",
+    "translation": "required",
+    "description": "delete a reminder"
+  },
+
   "reminderApiTitle": {
     "message": "Reminder shows",
     "translation": "required",
-    "description": ""
+    "description": "when asking how long to show the reminder"
   },
   "reminderApiPersistent": {
     "message": "until I click on it",
@@ -891,66 +903,27 @@
     "translation": "required",
     "description": "in dropdown - if chosen, reminders will stay only for a few seconds, then disappear"
   },
+
+  "reminderTagline": {
+    "message": "(shown at {when})",
+    "translation": "required",
+    "description": "shown on the bottom of each reminder popoup"
+  },
+
+  "reminder_actions": {
+    "message": "Additional Action",
+    "translation": "required",
+    "description": "prompt for other actions"
+  },
+  "reminder_nullAction": {
+    "message": "none",
+    "translation": "required",
+    "description": "in dropdown list, for when no other action is chosen"
+  },
   "reminderAction_ifttt": {
     "message": "trigger IFTTT recipe",
     "translation": "required",
-    "description": ""
-  },
-
-  "reminderNumSeconds": {
-    "message": "second(s)",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderNumHours": {
-    "message": "hour(s)",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderNumMinutes": {
-    "message": "minute(s)",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderBefore": {
-    "message": "before",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderAfter": {
-    "message": "after",
-    "translation": "required",
-    "description": ""
-  },
-  "midnight": {
-    "message": "12:00 midnight",
-    "translation": "required",
-    "description": "nice way to say noon"
-  },
-  "reminderTitleTimeFuture": {
-    "message": "{event} will be at {time}",
-    "translation": "required",
-    "description": "for example:   Sunset at 18:33"
-  },
-  "reminderTitleTimePast": {
-    "message": "{event} was at {time}",
-    "translation": "required",
-    "description": "for example:   Sunset at 18:33"
-  },
-  "reminderTitleEventFuture": {
-    "message": "{event} will start at {time}",
-    "translation": "required",
-    "description": "for example:   Sunset at 18:33"
-  },
-  "reminderTitleEventPast": {
-    "message": "{event} started at {time}",
-    "translation": "required",
-    "description": "for example:   Sunset at 18:33"
-  },
-  "btnReminderDelete": {
-    "message": "Delete",
-    "translation": "required",
-    "description": "to delete a reminder"
+    "description": "in dropdown list, to choose to use IFTTT"
   },
   "iftttKey": {
     "message": "IFTTT Maker Channel Key",
@@ -965,140 +938,162 @@
   "iftttInfo": {
     "message": "For details or to sign up, see <a href='https://ifttt.com/maker' target=ifttt>IFTTT Maker Channel</a>.",
     "translation": "required",
-    "description": "info and link to ifff page"
+    "description": "info and link to ifttt page"
   },
-  "reminder_actions": {
-    "message": "Additional Action",
-    "translation": "required",
-    "description": "title"
-  },
-  "reminder_nullAction": {
-    "message": "none",
-    "translation": "required",
-    "description": "in dropdown list, for when no action is chosen"
-  },
-  "reminderDayOfMonth": {
-    "message": "On day {num} of the Badí' month",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderDayWhen": {
-    "message": "When {num} day(s) {beforeAfter} each {event}",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderList_timeRelative": {
-    "message": "{num} {units} {deltaText}",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderList_timeAbsolute": {
-    "message": "remind at {triggerTimeRawDisplay}",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderList_dayEvent": {
-    "message": "{num} day(s) {deltaText}, at {triggerTimeRawDisplay}",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderList_bday": {
-    "message": "at {triggerTimeRawDisplay}",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderList_onload": {
-    "message": "{num} {units} after",
-    "translation": "required",
-    "description": ""
-  },
-  "EditBtn": {
-    "message": "Edit",
-    "translation": "required",
-    "description": ""
-  },
-  "alarmListItem": {
-    "message": "At {scheduledTime}, remind about {event} {pastFuture} {eventTime}",
-    "translation": "required",
-    "description": ""
-  },
-  "alarmShowingPastTime": {
-    "message": "that was at",
-    "translation": "required",
-    "description": "to be used in 'alarmListItem' for 'pastFuture'"
-  },
-  "alarmShowingFutureTime": {
-    "message": "coming at",
-    "translation": "required",
-    "description": "to be used in 'alarmListItem' for 'pastFuture'"
-  },
-  "alarmShowingPastEvent": {
-    "message": "that started at",
-    "translation": "required",
-    "description": "to be used in 'alarmListItem' for 'pastFuture'"
-  },
-  "alarmShowingFutureEvent": {
-    "message": "starting at",
-    "translation": "required",
-    "description": "to be used in 'alarmListItem' for 'pastFuture'"
-  },
-  "browserMenuOpen": {
-    "message": "Open in a tab",
-    "translation": "required",
-    "description": ""
-  },
-  "alarmShowingBefore": {
-    "message": "before",
-    "translation": "required",
-    "description": ""
-  },
-  "alarmShowingAfter": {
-    "message": "after",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderType": {
-    "message": "Event",
-    "translation": "required",
-    "description": ""
-  },
-  "reminderTitleFuture": {
-    "message": "",
-    "translation": "required",
-    "description": ""
-  },
-  "timeInputs": {
+
+  "reminderTimeInputStructure": {
     "message": "Show {num} {units} {delta}",
     "translation": "required",
-    "description": ""
+    "description": "in edit area when asking for a relative time"
   },
+
   "reminderCalcType": {
     "message": "Show reminder {calcTypeInput}",
     "translation": "required",
-    "description": ""
+    "description": "in edit area when asking when to show the reminder"
   },
   "reminderCalcTypeRelative": {
     "message": "relative to <span class=modelTriggerEcho></span>",
     "translation": "required",
-    "description": ""
+    "description": "in dropdown"
   },
   "reminderCalcTypeAbsolute": {
     "message": "at specific time",
     "translation": "required",
-    "description": ""
+    "description": "in dropdown"
   },
-  "showAtTime": {
-    "message": "Show at",
+
+  "reminderNumDays": {
+    "message": "day(s)",
+    "translation": "required",
+    "description": "0, 1 or more days"
+  },
+  "reminderNumHours": {
+    "message": "hour(s)",
     "translation": "required",
     "description": ""
   },
-  "x": {
-    "message": "Show reminder {calc}",
+  "reminderNumMinutes": {
+    "message": "minute(s)",
     "translation": "required",
     "description": ""
   },
-  "x": {
-    "message": "Show reminder {calc}",
+  "reminderNumSeconds": {
+    "message": "second(s)",
+    "translation": "required",
+    "description": ""
+  },
+  "midnight": {
+    "message": "12:00 midnight",
+    "translation": "required",
+    "description": "nice way to say midnight"
+  },
+
+  "reminderDayOfMonth": {
+    "message": "On day {num} of the Badí' month",
+    "translation": "required",
+    "description": "in list of defined reminders"
+  },
+  "reminderDayWhen": {
+    "message": "When {num} day(s) {beforeAfter} each {event}",
+    "translation": "required",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_dayEvent": {
+    "message": "{num} day(s) {deltaText}, at {triggerTimeRawDisplay}",
+    "translation": "required",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_bday": {
+    "message": "at {triggerTimeRawDisplay}",
+    "translation": "required",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_onload": {
+    "message": "{num} {units} after",
+    "translation": "required",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_timeRelative": {
+    "message": "{num} {units} {deltaText}",
+    "translation": "required",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_timeAbsolute": {
+    "message": "remind at {triggerTimeRawDisplay}",
+    "translation": "required",
+    "description": "in list of defined reminders"
+  },
+
+  "reminderBefore": {
+    "message": "before",
+    "translation": "required",
+    "description": ""
+  },
+  "reminderAfter": {
+    "message": "after",
+    "translation": "required",
+    "description": ""
+  },
+
+  "alarmListItem": {
+    "message": "At {scheduledTime}, remind about {event} {pastFuture} {eventTime} ({num} {units})",
+    "translation": "required",
+    "description": "used in the list of reminders to be shown from now until midnight"
+  },
+  "alarmShowingTimePast": {
+    "message": "that was at",
+    "translation": "required",
+    "description": "to be used in 'alarmListItem' for 'pastFuture'"
+  },
+  "alarmShowingTimeFuture": {
+    "message": "coming at",
+    "translation": "required",
+    "description": "to be used in 'alarmListItem' for 'pastFuture'"
+  },
+  "alarmShowingEventPast": {
+    "message": "that started at",
+    "translation": "required",
+    "description": "to be used in 'alarmListItem' for 'pastFuture'"
+  },
+  "alarmShowingEventFuture": {
+    "message": "starting at",
+    "translation": "required",
+    "description": "to be used in 'alarmListItem' for 'pastFuture'"
+  },
+
+  "reminderTitleTimeFuture": {
+    "message": "{event} will be at {time}",
+    "translation": "required",
+    "description": "for example: Sunset will be at 18:33"
+  },
+  "reminderTitleTimePast": {
+    "message": "{event} was at {time}",
+    "translation": "required",
+    "description": "for example: Sunset was at 18:33"
+  },
+  "reminderTitleEventFuture": {
+    "message": "{event} will start at {time} on {date}",
+    "translation": "required",
+    "description": "for example: Holy Day will start at 18:33 on Sept 14"
+  },
+  "reminderTitleEventPast": {
+    "message": "{event} started at {time} on {date}",
+    "translation": "required",
+    "description": "for example: Holy Day started at 18:33 on Aug 15"
+  },
+
+
+
+
+
+  "x1": {
+    "message": "",
+    "translation": "required",
+    "description": ""
+  },
+  "x2": {
+    "message": "",
     "translation": "required",
     "description": ""
   },

@@ -61,7 +61,7 @@ var HolyDays = function () {
       }
 
       if (dateInfo.Type == 'M') {
-        dateInfo.BMonthDay = makeBMonthDay(dateInfo.MonthNum, 1);
+        var bm = dateInfo.BMonthDay = makeBMonthDay(dateInfo.MonthNum, 1);
         dateInfo.BMonthDayTo = makeBMonthDay(dateInfo.MonthNum, 19);
       }
 
@@ -143,6 +143,10 @@ var HolyDays = function () {
 
       if (dateInfo.BMonthDayTo) {
         dateInfo.GDateTo = getGDateYBDate(bYear, dateInfo.BMonthDayTo);
+      }
+
+      if (!dateInfo.BDateCode) {
+        dateInfo.BDateCode = bm.m + '.' + bm.d;
       }
 
       dateInfo.Sort = (dateInfo.BMonthDay.m == 0 ? 1850 : dateInfo.BMonthDay.m * 100) + dateInfo.BMonthDay.d;

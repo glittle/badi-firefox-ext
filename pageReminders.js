@@ -106,9 +106,12 @@ var PageReminders = function () {
             scheduledTime: new Date(alarm.scheduledTime).showTime(),
             event: getMessage('reminderTrigger_' + details.trigger, details),
             pastFuture: details.eventTime > details.triggerTime ? getMessage('alarmShowing{0}Future'.filledWith(details.eventType)) : getMessage('alarmShowing{0}Past'.filledWith(details.eventType)),
-            eventTime: details.eventTimeDisplay
+            eventTime: details.eventTimeDisplay,
+            num: details.num,
+            units: details.units
+            // todo add delta, num, units and date
           };
-          alarmList.append('<li>{0}</li>'.filledWith(getMessage('alarmListItem', info)));
+          alarmList.append('<li>{0} {1}</li>'.filledWith(getMessage('alarmListItem', info), JSON.stringify(details).replace(/,/g,' ')));
         }
       }
     });
@@ -258,6 +261,7 @@ var PageReminders = function () {
       case 'feast':
       case 'holyday':
         r.eventType = 'Event';
+        r.unitsDisplay = getMessage('reminderNumDays');
         break;
 
       case 'bday':

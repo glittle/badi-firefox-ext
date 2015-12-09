@@ -351,8 +351,12 @@ function determineDaysAway(di, moment1, moment2, sameDay) {
 Date.prototype.showTime = function () {
   var hoursType = use24HourClock ? 24 : 0;
   var show24Hour = hoursType == 24;
-  var pm = this.getHours() >= 12;
-  var hours = this.getHours() > 12 && !show24Hour ? this.getHours() - 12 : this.getHours();
+  var hours24 = this.getHours();
+  var pm = hours24 >= 12;
+  var hours = show24Hour ? hours24
+    : hours24 > 12 ? hours24 - 12
+        : hours24 == 0 ? 12
+        : hours24;
   var minutes = this.getMinutes();
   var time = hours + ':' + ('0' + minutes).slice(-2);
   if (!show24Hour) {
