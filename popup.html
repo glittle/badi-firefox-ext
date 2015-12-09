@@ -254,44 +254,51 @@
                 </optgroup>
                 <optgroup label="x" data-msg="label:reminderTriggerGroup_day">
                   <option value="holyday" data-model="day" data-msg="reminderTrigger_holyday"></option>
-                  <option value="bday" data-model="bday" data-msg="reminderTrigger_bday"></option>
+                  <option value="feast" data-model="day" data-msg="reminderTrigger_feast"></option>
+                  <!--<option value="bday" data-model="bday" data-msg="reminderTrigger_bdayNoNum"></option>-->
                 </optgroup>
-                <optgroup label="x" data-msg="label:reminderTriggerGroup_load" data-model="load">
-                  <option value="load" data-msg="reminderTrigger_load"></option>
+                <optgroup label="x" data-msg="label:reminderTriggerGroup_load">
+                  <option value="load" data-model="load" data-msg="reminderTrigger_load"></option>
                 </optgroup>
               </select>
             </div>
             <div class="reminderEditInputs">
               <div id="model_time" class="reminderModel">
-                <input type="number" name="x2" class="reminder_num" min="0" max="500" step="1" value="1" data-type="num" data-default="10" required />
-                <select class="reminder_units" name="x3" data-default="minutes">
-                  <option value="minutes" data-msg="reminderNumMinutes"></option>
-                  <option value="hours" data-msg="reminderNumHours"></option>
-                  <option value="seconds" data-msg="reminderNumSeconds"></option>
-                </select>
-                <select class="reminder_delta" name="x4" data-type="num" data-default="-1">
-                  <option value="-1" data-msg="reminderBefore"></option>
-                  <option value="1" data-msg="reminderAfter"></option>
-                </select>
-                <span class="modelTriggerEcho"></span>
+                <div data-msg="reminderCalcType">
+                  <select data-child="calcTypeInput" class="reminder_calcType" name="x3a" data-default="Relative">
+                    <option value="Relative" data-msg="reminderCalcTypeRelative"></option>
+                    <option value="Absolute" data-msg="reminderCalcTypeAbsolute"></option>
+                  </select>
+                </div>
+                <div id="reminderCalcTypeAbsolute" class="reminderCalcType">
+                  <span data-msg="reminderShowAt"></span>
+                  <input id="reminder_triggerTimeRaw" name="x7" value="10:00" data-default="10:00" type="time" required />
+                </div>
+                <div id="reminderCalcTypeRelative" data-msg="reminderTimeInputStructure" class="reminderCalcType">
+                  <input data-child="num" type="number" name="x2" class="reminder_num" min="0" max="500" step="1" value="1" data-type="num" data-default="10" required />
+                  <select data-child="units" class="reminder_units" name="x3" data-default="minutes">
+                    <option value="minutes" data-msg="reminderNumMinutes"></option>
+                    <option value="hours" data-msg="reminderNumHours"></option>
+                    <option value="seconds" data-msg="reminderNumSeconds"></option>
+                  </select>
+                  <select data-child="delta" class="reminder_delta" name="x4" data-type="num" data-default="-1">
+                    <option value="-1" data-msg="reminderBefore"></option>
+                    <option value="1" data-msg="reminderAfter"></option>
+                  </select>
+                </div>
               </div>
               <div id="model_day" class="reminderModel">
-                <div>
-                  <span data-msg="reminderDayWhen">
-                    <input data-child="num" type="number" name="x5" class="reminder_num" min="0" max="365" step="1" value="1" data-type="num" data-default="3" required />
-                    <select data-child="beforeAfter" class="reminder_delta" name="x6" data-type="num" data-default="-1">
-                      <option value="-1" data-msg="reminderBefore"></option>
-                      <option value="1" data-msg="reminderAfter"></option>
-                    </select>
-                    <span data-child="event" class="modelTriggerEcho"></span>
-                  </span>
+                <div data-msg="reminderDayWhen">
+                  <input data-child="num" type="number" name="x5" class="reminder_num" min="0" max="365" step="1" value="1" data-type="num" data-default="3" required />
+                  <select data-child="beforeAfter" class="reminder_delta" name="x6" data-type="num" data-default="-1">
+                    <option value="-1" data-msg="reminderBefore"></option>
+                    <option value="1" data-msg="reminderAfter"></option>
+                  </select>
+                  <span data-child="event" class="modelTriggerEcho"></span>
                 </div>
                 <div>
-                  <span data-msg="showReminderAt"></span>
-                  <input id="reminder_alertTime" name="x7" value="12:00" data-default="12:00" type="time" required />
-                  <!--<select id="reminder_alertAtHr" data-type="num" data-default="12"></select>
-                  <span>:</span>
-                  <select id="reminder_alertAtMin" data-type="num" data-default="0"></select>-->
+                  <span data-msg="reminderShowAt"></span>
+                  <input id="reminder_triggerTimeRaw" name="x7" value="10:00" data-default="10:00" type="time" required />
                 </div>
               </div>
               <div id="model_bday" class="reminderModel">
@@ -299,14 +306,14 @@
                   <span data-msg="reminderDayOfMonth">
                     <input data-child="num" type="number" class="reminder_num" name="x8" min="1" max="19" step="1" value="1" data-type="num" data-default="1" required />
                   </span>
-                  
+
                 </div>
                 <div>
-                  <span data-msg="showReminderAt"></span>
-                  <input id="reminder_alertTime" value="12:00" name="x9" data-default="12:00" type="time" required />
+                  <span data-msg="reminderShowAt"></span>
+                  <input id="reminder_triggerTimeRaw" value="10:00" name="x9" data-default="10:00" type="time" required />
                   <!--<select id="reminder_alertAtHr" data-type="num" data-default="12"></select>
-                  <span>:</span>
-                  <select id="reminder_alertAtMin" data-type="num" data-default="0"></select>-->
+          <span>:</span>
+          <select id="reminder_alertAtMin" data-type="num" data-default="0"></select>-->
                 </div>
               </div>
               <div id="model_load" class="reminderModel">
@@ -347,13 +354,9 @@
                   </div>
                   <div class="reminderComment" data-msg="iftttInfo"></div>
                 </div>
-                <!--<label>
-                    <span data-msg="reminderMsg"></span>
-                    <textarea rows="2" class="reminder_body" data-default=""></textarea>
-                </label>-->
               </div>
               <div class="reminderSaveBtns">
-                <button type="submit" class="button" id="btnReminderSave" data-msg="_id_"></button>
+                <button type="submit" class="button" id="btnReminderSave" data-msg="_id_,extractAccessKeyFor:btnReminderSave"></button>
                 <button type="submit" class="button" id="btnReminderSaveNew" data-msg="_id_"></button>
                 <button type="button" class="button" id="btnReminderCancel" data-msg="_id_"></button>
                 <button type="submit" class="button" id="btnReminderTest" data-msg="_id_"></button>

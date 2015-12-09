@@ -107,7 +107,7 @@ body {
         }
 
         div {
-            margin: 3px 0 3px 0;
+            margin: 3px 0 3px 10px;
         }
     }
 
@@ -116,8 +116,8 @@ body {
         margin: 1px 0 1px 20px;
     }
 
-    .reminderShared {
-        margin: 6px 0 1px 20px;
+    div.reminderShared {
+        margin: 20px 0 5px -10px;
     }
 
     .reminders {
@@ -131,7 +131,7 @@ body {
             }
 
             &.inEdit {
-                background: red;
+                background: #eee;
             }
         }
     }
@@ -158,9 +158,10 @@ body {
     #btnReminderSave {
         display: none;
     }
-
     #btnReminderDelete {
         position: absolute;
+        background: red;
+        border-color: red;
         right: 2px;
         margin-top: 3px;
     }
@@ -172,6 +173,8 @@ body {
 
     #btnReminderCancel {
         margin-right: 20px;
+        background: coral;
+        border-color: coral;
     }
 }
 

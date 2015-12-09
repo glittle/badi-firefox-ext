@@ -746,7 +746,7 @@
 
 
 
-  "new_messages_2_0_0": { "message": "" },
+  "new_messages_1_8_0": { "message": "" },
 
   "pick_pageReminders": {
     "message": "Reminders",
@@ -754,11 +754,15 @@
     "description": "tab name and page title"
   },
 
-
   "reminderTriggerGroup_time": {
     "message": "Time of Day",
     "translation": "required",
     "description": "a group of triggers - sunset sunrise noon midnight"
+  },
+  "reminderTriggerGroup_day": {
+    "message": "Special Days",
+    "translation": "required",
+    "description": "a group of triggers - feast, holy day, Badi day"
   },
 
   "reminderTrigger_sunrise": {
@@ -780,32 +784,31 @@
     "description": "what this reminder is triggered on"
   },
 
-  "reminderTriggerGroup_day": {
-    "message": "Special Days",
-    "translation": "required",
-    "description": "a group of triggers - feast, holy day, Badi day"
-  },
-
   "reminderTrigger_feast": {
-    "message": "Feast",
+    "message": "Start of Feast day",
     "translation": "required",
     "description": "what this reminder is triggered on"
   },
   "reminderTrigger_holyday": {
-    "message": "Holy Day",
+    "message": "Start of Holy Day",
     "translation": "required",
     "description": "what this reminder is triggered on"
   },
-  "reminderTrigger_bday": {
-    "message": "Day of Badí' month",
+  "reminderTrigger_bdayNoNum": {
+    "message": "Day of the Badí month",
     "translation": "required",
-    "description": "what this reminder is triggered on"
+    "description": "what this reminder is triggered on (did not use the apostrophe after Badí since it breaks when displayed)"
+  },
+  "reminderTrigger_bday": {
+    "message": "Start of day {num} of the Badí month",
+    "translation": "required",
+    "description": "what this reminder is triggered on (left out the the apostrophe after Badí since it breaks when displayed)"
   },
 
   "reminderTriggerGroup_load": {
-    "message": "Testing",
+    "message": "Other Events",
     "translation": "required",
-    "description": "a group of triggers - feast, holy day, Badi day"
+    "description": "name of trigger"
   },
 
   "reminderTrigger_load": {
@@ -854,7 +857,7 @@
     "description": ""
   },
   "btnReminderSave": {
-    "message": "Save",
+    "message": "<u>S</u>ave",
     "translation": "required",
     "description": "when updating an existing reminder"
   },
@@ -877,11 +880,6 @@
     "message": "Reminder shows",
     "translation": "required",
     "description": ""
-  },
-  "showReminderAt": {
-    "message": "Show reminder at ",
-    "translation": "required",
-    "description": "what time of day to show the reminder - for Holy Days, etc"
   },
   "reminderApiPersistent": {
     "message": "until I click on it",
@@ -985,22 +983,27 @@
     "description": ""
   },
   "reminderDayWhen": {
-    "message": "When {num} days {beforeAfter} each {event}",
+    "message": "When {num} day(s) {beforeAfter} each {event}",
     "translation": "required",
     "description": ""
   },
-  "reminderList_time": {
+  "reminderList_timeRelative": {
     "message": "{num} {units} {deltaText}",
     "translation": "required",
     "description": ""
   },
-  "reminderList_holyday": {
-    "message": "{num} day(s) {deltaText}, at {alertTime}",
+  "reminderList_timeAbsolute": {
+    "message": "remind at {triggerTimeRawDisplay}",
+    "translation": "required",
+    "description": ""
+  },
+  "reminderList_dayEvent": {
+    "message": "{num} day(s) {deltaText}, at {triggerTimeRawDisplay}",
     "translation": "required",
     "description": ""
   },
   "reminderList_bday": {
-    "message": "day {num}, at {alertTime}",
+    "message": "at {triggerTimeRawDisplay}",
     "translation": "required",
     "description": ""
   },
@@ -1019,13 +1022,23 @@
     "translation": "required",
     "description": ""
   },
-  "alarmShowingPast": {
+  "alarmShowingPastTime": {
     "message": "that was at",
     "translation": "required",
     "description": "to be used in 'alarmListItem' for 'pastFuture'"
   },
-  "alarmShowingFuture": {
+  "alarmShowingFutureTime": {
     "message": "coming at",
+    "translation": "required",
+    "description": "to be used in 'alarmListItem' for 'pastFuture'"
+  },
+  "alarmShowingPastEvent": {
+    "message": "that started at",
+    "translation": "required",
+    "description": "to be used in 'alarmListItem' for 'pastFuture'"
+  },
+  "alarmShowingFutureEvent": {
+    "message": "starting at",
     "translation": "required",
     "description": "to be used in 'alarmListItem' for 'pastFuture'"
   },
@@ -1045,7 +1058,7 @@
     "description": ""
   },
   "reminderType": {
-    "message": "Type",
+    "message": "Event",
     "translation": "required",
     "description": ""
   },
@@ -1054,13 +1067,38 @@
     "translation": "required",
     "description": ""
   },
-"xx": {
-    "message": "",
+  "timeInputs": {
+    "message": "Show {num} {units} {delta}",
     "translation": "required",
     "description": ""
   },
-"xx": {
-    "message": "",
+  "reminderCalcType": {
+    "message": "Show reminder {calcTypeInput}",
+    "translation": "required",
+    "description": ""
+  },
+  "reminderCalcTypeRelative": {
+    "message": "relative to <span class=modelTriggerEcho></span>",
+    "translation": "required",
+    "description": ""
+  },
+  "reminderCalcTypeAbsolute": {
+    "message": "at specific time",
+    "translation": "required",
+    "description": ""
+  },
+  "showAtTime": {
+    "message": "Show at",
+    "translation": "required",
+    "description": ""
+  },
+  "x": {
+    "message": "Show reminder {calc}",
+    "translation": "required",
+    "description": ""
+  },
+  "x": {
+    "message": "Show reminder {calc}",
     "translation": "required",
     "description": ""
   },

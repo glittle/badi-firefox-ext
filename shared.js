@@ -469,10 +469,12 @@ function recallFocus() {
         setFocusTime(time);
         timeSet = true;
 
-        setTimeout(function () {
-          // effective when called in popup
-          $('#day,#gDay').effect("highlight", 6000);
-        }, 150);
+        if (typeof $ !== 'undefined') {
+          setTimeout(function () {
+            // effective when called in popup
+            $('#day,#gDay').effect("highlight", 6000);
+          }, 150);
+        }
       }
     }
   }
@@ -696,7 +698,21 @@ String.prototype.filledWithEach = function (arr) {
 function getMessage(key, obj, defaultValue) {
   var rawMsg = chrome.i18n.getMessage(key);
   var msg = rawMsg || defaultValue || '{' + key + '}';
-  return typeof obj === 'undefined' ? msg : msg.filledWith(obj);
+  if (typeof obj === 'undefined') {
+    return msg;
+  } else {
+    var before = msg;
+    var repeats = 0;
+    while (repeats < 5) {
+      msg = msg.filledWith(obj);
+      if (msg == before) {
+        return msg;
+      }
+      before = msg;
+      repeats++;
+    }
+    return 
+  }
 }
 
 function digitPad2(num) {
@@ -781,6 +797,7 @@ function localizeHtml(host) {
       }
       else if (target === 'text') {
         el.text(value);
+        text = value;
       }
       else {
         el.attr(target, value);

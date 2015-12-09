@@ -93,14 +93,14 @@
   width: 80%;
 }
 #pageReminders .reminderEdit div {
-  margin: 3px 0 3px 0;
+  margin: 3px 0 3px 10px;
 }
 #pageReminders .reminderModel {
   display: none;
   margin: 1px 0 1px 20px;
 }
-#pageReminders .reminderShared {
-  margin: 6px 0 1px 20px;
+#pageReminders div.reminderShared {
+  margin: 20px 0 5px -10px;
 }
 #pageReminders .reminders > div {
   margin-bottom: 1px;
@@ -111,7 +111,7 @@
   padding-right: 3px;
 }
 #pageReminders .reminders > div.inEdit {
-  background: red;
+  background: #eee;
 }
 #pageReminders .reminder_iftttEvent {
   width: 10em;
@@ -133,6 +133,8 @@
 }
 #pageReminders #btnReminderDelete {
   position: absolute;
+  background: red;
+  border-color: red;
   right: 2px;
   margin-top: 3px;
 }
@@ -142,6 +144,8 @@
 }
 #pageReminders #btnReminderCancel {
   margin-right: 20px;
+  background: coral;
+  border-color: coral;
 }
 #pageDay > div {
   margin-left: 4px;

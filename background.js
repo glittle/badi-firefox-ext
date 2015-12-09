@@ -6,6 +6,7 @@ var _reminderModule;
 var BackgroundModule = function () {
 
   var alarmHandler = function (alarm) {
+    log('ALARM: ' + alarm.name);
     if (alarm.name.startsWith('refresh')) {
       refreshDateInfoAndShow();
       _reminderModule.activateForToday();
