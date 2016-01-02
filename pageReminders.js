@@ -7,13 +7,280 @@
 
 
 var PageReminders = function () {
-  var _reminderPrefix = 'reminder_';
+  var _reminderPrefix = 'alarm_';
 
   var _reminderModulePort = {};
   var _reminders = [];
 
+  var BEFORE = -1;
+  var AFTER = 1;
+
   var _page = $('#pageReminders');
   var _currentEditId = 0;
+
+
+  function editReminder(id) {
+    var matchingReminders = $.grep(_reminders, function (r, i) {
+      return r.displayId == id;
+    });
+    if (!matchingReminders.length) {
+      return;
+    }
+    var reminder = matchingReminders[0];
+
+    resetInputs();
+
+    setAsCurrentDisplay(id);
+
+    //log(reminder);
+
+    _page.find('#btnReminderSave').show();
+
+    reminder.delta = reminder.delta || BEFORE;
+
+    for (var prop in reminder) {
+      if (reminder.hasOwnProperty(prop)) {
+        // do id and class
+        _page.find('#reminder_{0}, .reminder_{0}'.filledWith(prop)).val(reminder[prop]);
+      }
+    }
+
+    updateEditArea();
+  }
+
+  function save(mode) {
+    // mode: 1=normal; 2=new; 3=test
+    if (!_page.find('form')[0].checkValidity()) {
+      return;
+    }
+
+    if (!_currentEditId || mode == 2) {
+      _currentEditId = _reminders.length;
+      mode = 2;
+      log('new reminder');
+    }
+
+    var r = buildReminder(_currentEditId);
+
+    if (r.triggerTimeRaw) {
+      r.triggerTimeRawDisplay = determineTriggerTimeToday(r).showTime();
+    }
+
+    if (r.iftttKey) {
+      // store this, for other reminders to use
+      setStorage('iftttKey', r.iftttKey);
+    }
+    if (r.zapierWebhook) {
+      // store this, for other reminders to use
+      setStorage('zapierWebhook', r.zapierWebhook);
+    }
+
+
+    var saveToBackground = true;
+    var resetAfter = true;
+
+    switch (mode) {
+      case 1: // normal
+        // find and replace
+        $.each(_reminders, function (i, el) {
+          if (el.displayId === r.displayId) {
+            _reminders[i] = r;
+            return false; // done
+          }
+        });
+        break;
+
+      case 2: // create new
+        // add to the list
+        _reminders.push(r);
+        break;
+
+      case 3: // test
+        _reminderModulePort.postMessage({
+          code: "showTestAlarm",
+          reminder: r
+        });
+        resetAfter = false;
+        saveToBackground = false;
+        break;
+    }
+
+    if (saveToBackground) {
+      try {
+        tracker.sendEvent('saveReminder', r.trigger, r.delta * r.num + ' ' + r.units);
+      }
+      catch (e) {
+        log('Error', e);
+      }
+      _reminderModulePort.postMessage({ code: "saveAllReminders", reminders: _reminders });
+    }
+    if (resetAfter) {
+      resetInputs();
+    }
+  }
+
+  function buildReminder(id) {
+    var r = {
+      displayId: id
+    };
+
+    _page.find('#reminder_trigger, .reminderEditInputs *[id^="reminder_"]:input, .reminderEditInputs *[class*="reminder_"]:input')
+      .filter(function (i, el) { return $(el).parent().is(':visible') })
+      .each(function (i, el) {
+      var input = $(el);
+      var name = '';
+      if (el.id.startsWith('reminder_')) {
+        name = el.id;
+      }
+      else {
+        var classes = $.grep(el.className.split(' '), function (n, g) {
+          return n.startsWith('reminder_');
+        });
+        if (classes.length) {
+          name = classes[0];
+        }
+      }
+
+      var prop = name.split('_')[1];
+      var value = input.val();
+      if (input[0].type == 'hidden') {
+        value = input.data('default');
+      };
+      if (input.data('type') == 'num') {
+        value = +value;
+      }
+      r[prop] = value;
+
+      if (input[0].tagName === 'SELECT') {
+        r[prop + 'Display'] = input.find(':selected').text();
+      }
+      if (input[0].id === 'reminder_trigger') {
+        var selectedOption = input.find(':selected');
+        r.model = selectedOption.data('model') || selectedOption.closest('optgroup').data('model');
+      }
+    });
+
+    switch (r.trigger) {
+      case 'sunset':
+      case 'sunrise':
+      case 'midnight':
+      case 'noon':
+        r.eventType = 'Time';
+        break;
+
+      case 'load':
+        r.eventType = 'Time';
+        r.delta = AFTER;
+        break;
+
+      case 'feast':
+      case 'holyday':
+        r.eventType = 'Event';
+        r.unitsDisplay = getMessage('reminderNum_days'); //TODO...
+        break;
+
+      case 'bday':
+        r.delta = 0;
+        r.eventType = 'Event';
+        break;
+    }
+
+    r.delta = r.delta || BEFORE;
+    r.deltaText = r.delta === BEFORE ? getMessage('reminderBefore') : getMessage('reminderAfter');
+    r.api = r.api || 'html';
+
+    //log(r);
+
+    return r;
+  }
+
+
+  function updateEditArea() {
+    // turn everything off
+    _page.find('.reminderModel, .reminderEditInputs, .reminderAction, .reminderCalcType').hide();
+    _page.find('.reminderModel :input').each(function (i, input) { $(input).prop('disabled', true) });
+    _page.find('.reminderAction').find(':input').each(function (i, input) { $(input).prop('disabled', true) });
+
+    // find what model to show
+    var selectedOption = _page.find('#reminder_trigger option:selected');
+    var model = selectedOption.data('model') || selectedOption.closest('optgroup').data('model');
+
+    if (model) {
+      var modelArea = _page.find('#model_{0}'.filledWith(model));
+
+      if (model == 'sun') {
+        var calcType = modelArea.find('.reminder_calcType').val();
+        modelArea.find('#reminderCalcType' + calcType).show();
+      }
+
+      modelArea.show().find(':input').each(function (i, input) { $(input).prop('disabled', false) });
+
+      // deal with Action area
+      var action = $('#reminder_action').val();
+      _page.find('#reminderAction_{0}'.filledWith(action)).show().find(':input').each(function (i, input) { $(input).prop('disabled', false) });
+      switch (action) {
+        case 'ifttt':
+          var id = $('.reminder_iftttKey');
+          if (!id.val()) {
+            id.val(getStorage('iftttKey', ''));
+          }
+          var eventName = $('.reminder_iftttEvent');
+          if (!eventName.val()) {
+            eventName.val(_page.find('#reminder_trigger').val());
+          }
+          break;
+        case 'zapier':
+          var url = $('.reminder_zapierWebhook');
+          if (!url.val()) {
+            url.val(getStorage('zapierWebhook', ''));
+          }
+          break;
+      }
+
+      _page.find('.modelTriggerEcho').html(selectedOption.html());
+      _page.find('.reminderEditInputs').show();
+    }
+  }
+
+  function getAndShowReminders() {
+    log('sending msg');
+
+    _reminderModulePort.postMessage({
+      code: "getReminders"
+    });
+  }
+
+  function setAsCurrentDisplay(id) {
+    _currentEditId = id;
+    _page.find('.reminders > div, .alarms > li').removeClass('inEdit');
+    _page.find('#r_' + id).addClass('inEdit');
+    _page.find('#a_' + id).addClass('inEdit');
+  }
+
+//  function showEventTime(details) {
+//    switch (details.trigger) {
+//      case 'sunset':
+//      case 'sunrise':
+//      case 'midnight':
+//      case 'noon':
+//      case 'load':
+//        return new Date(details.eventTime).showTime();
+//
+//      case 'feast':
+//      case 'holyday':
+//      case 'bday':
+//        var testInfo = {
+//          time: new Date(details.eventTime)
+//        };
+//        addEventTime(testInfo);
+//        return getMessage('eventTime', testInfo);
+//
+//      default:
+//        log('time for?', details);
+//    }
+//
+//    return '';
+//  }
 
 
   function showReminders() {
@@ -28,8 +295,7 @@ var PageReminders = function () {
       r.displayId = displayId;
       displayId++;
 
-      r.delta = r.delta || -1;
-
+      r.delta = r.delta || BEFORE;
       switch (r.trigger) {
         case 'sunset':
         case 'sunrise':
@@ -67,7 +333,7 @@ var PageReminders = function () {
         lines.push(' ({0})'.filledWith(getMessage('reminderAction_' + r.action)));
       }
 
-      html.push('<div id=r_{0}><button class=button data-id={0}>{2}</button>{0} - {^1}</div>'.filledWith(
+      html.push('<div id=r_{0} class=reminderInfo><span class=reminderNum>{0}</span> <button class=button data-id={0}>{2}</button> <div>{^1}</div></div>'.filledWith(
         r.displayId, lines.join(''), getMessage('btnReminderEdit')));
     });
 
@@ -77,7 +343,6 @@ var PageReminders = function () {
 
     setAsCurrentDisplay(_currentEditId);
   }
-
 
   function showActiveAlarms() {
 
@@ -96,270 +361,23 @@ var PageReminders = function () {
       for (var i = 0; i < alarms.length; i++) {
         var alarm = alarms[i];
         if (alarm.name.startsWith(_reminderPrefix)) {
-          var details = getStorage(alarm.name);
-          if (!details) {
-            log('No details for ' + alarm.name);
+          var alarmInfo = getStorage(alarm.name);
+          if (!alarmInfo) {
+            log('No alarmInfo for ' + alarm.name);
             continue;
           }
 
-          var info = {
-            scheduledTime: new Date(alarm.scheduledTime).showTime(),
-            event: getMessage('reminderTrigger_' + details.trigger, details),
-            pastFuture: details.eventTime > details.triggerTime ? getMessage('alarmShowing{0}Future'.filledWith(details.eventType)) : getMessage('alarmShowing{0}Past'.filledWith(details.eventType)),
-            eventTime: details.eventTimeDisplay,
-            num: details.num,
-            units: details.units
-            // todo add delta, num, units and date
-          };
-          alarmList.append('<li>{0} {1}</li>'.filledWith(getMessage('alarmListItem', info), JSON.stringify(details).replace(/,/g,' ')));
+          //log(alarmInfo);
+          //alarmList.append('<li id=a_{2}>{0} --> {1} <button class=button data-id={2}>{3}</button></li>'.filledWith(alarmInfo.triggerTimeDisplay, alarmInfo.messageBody, alarmInfo.displayId, getMessage('btnReminderEdit')));
+
+          alarmList.append('<li id=a_{1} class=alarmInfo><button class=button data-id={1}>{2}</button> {0}</li>'.filledWith(
+            getMessage('reminderAlarm', alarmInfo),
+            alarmInfo.displayId, getMessage('btnReminderEdit')));
         }
       }
     });
   }
 
-  function editReminder(id) {
-    var matchingReminders = $.grep(_reminders, function (r, i) {
-      return r.displayId == id;
-    });
-    if (!matchingReminders.length) {
-      return;
-    }
-    var reminder = matchingReminders[0];
-
-    resetInputs();
-
-    setAsCurrentDisplay(id);
-
-    //log(reminder);
-
-    _page.find('#btnReminderSave').show();
-
-    reminder.delta = reminder.delta || -1;
-
-    for (var prop in reminder) {
-      if (reminder.hasOwnProperty(prop)) {
-        // do id and class
-        _page.find('#reminder_{0}, .reminder_{0}'.filledWith(prop)).val(reminder[prop]);
-      }
-    }
-
-    updateEditArea();
-  }
-
-  function save(mode) {
-    // mode: 1=normal; 2=new; 3=test
-    if (!_page.find('form')[0].checkValidity()) {
-      return;
-    }
-
-    if (!_currentEditId || mode == 2) {
-      _currentEditId = _reminders.length;
-      mode = 2;
-      log('new reminder');
-    }
-
-    var r = buildReminder(_currentEditId);
-
-    if (r.triggerTimeRaw) {
-      r.triggerTimeRawDisplay = determineTriggerTimeToday(r).showTime();
-    }
-
-    if (r.iftttKey) {
-      // store this, for other reminders to use
-      setStorage('iftttKey', r.iftttKey);
-    }
-
-    var saveToBackground = true;
-    var resetAfter = true;
-
-    switch (mode) {
-      case 1: // normal
-        // find and replace
-        $.each(_reminders, function (i, el) {
-          if (el.displayId === r.displayId) {
-            _reminders[i] = r;
-            return false; // done
-          }
-        });
-        break;
-
-      case 2: // create new
-        // add to the list
-        _reminders.push(r);
-        break;
-
-      case 3: // test
-        _reminderModulePort.postMessage({
-          code: "showTestAlarm",
-          reminder: r
-        });
-        resetAfter = false;
-        saveToBackground = false;
-        break;
-    }
-
-    if (saveToBackground) {
-      try {
-        tracker.sendEvent('saveReminder', r.trigger, r.delta * r.num + ' ' + r.units);
-      } catch (e) {
-        log('Error', e);
-      }
-      _reminderModulePort.postMessage({ code: "saveAllReminders", reminders: _reminders });
-    }
-    if (resetAfter) {
-      resetInputs();
-    }
-  }
-
-  function buildReminder(id) {
-    var r = {
-      displayId: id
-    };
-
-    _page.find('*[id^="reminder_"]:visible, *[class*="reminder_"]:visible').each(function (i, el) {
-      var input = $(el);
-      var name = '';
-      if (el.id.startsWith('reminder_')) {
-        name = el.id;
-      } else {
-        var classes = $.grep(el.className.split(' '), function (n, g) {
-          return n.startsWith('reminder_');
-        });
-        if (classes.length) {
-          name = classes[0];
-        }
-      }
-      var prop = name.split('_')[1];
-      var value = input.val();
-      if (input.data('type') == 'num') {
-        value = +value;
-      }
-      r[prop] = value;
-
-      if (input[0].tagName === 'SELECT') {
-        r[prop + 'Display'] = input.find(':selected').text();
-      }
-      if (input[0].id === 'reminder_trigger') {
-        var selectedOption = input.find(':selected');
-        r.model = selectedOption.data('model') || selectedOption.closest('optgroup').data('model')
-      }
-    });
-
-    switch (r.trigger) {
-      case 'sunset':
-      case 'sunrise':
-      case 'midnight':
-      case 'noon':
-        r.eventType = 'Time';
-        break;
-
-      case 'load':
-        r.eventType = 'Time';
-        r.delta = 1;
-        break;
-
-      case 'feast':
-      case 'holyday':
-        r.eventType = 'Event';
-        r.unitsDisplay = getMessage('reminderNumDays');
-        break;
-
-      case 'bday':
-        r.delta = -1;
-        r.eventType = 'Event';
-        break;
-    }
-
-    r.deltaText = r.delta === -1 ? getMessage('reminderBefore') : getMessage('reminderAfter');
-    r.api = r.api || 'html';
-    r.delta = r.delta || -1;
-
-    //log(r);
-
-    return r;
-  }
-
-
-  function updateEditArea() {
-    // turn everything off
-    _page.find('.reminderModel, .reminderEditInputs, .reminderAction, .reminderCalcType').hide();
-    _page.find('.reminderModel :input').each(function (i, input) { $(input).prop('disabled', true) });
-    _page.find('.reminderAction').find(':input').each(function (i, input) { $(input).prop('disabled', true) });
-
-    // find what model to show
-    var selectedOption = _page.find('#reminder_trigger option:selected');
-    var model = selectedOption.data('model') || selectedOption.closest('optgroup').data('model');
-
-    if (model) {
-      var modelArea = _page.find('#model_{0}'.filledWith(model));
-
-      if (model == 'time') {
-        var calcType = modelArea.find('.reminder_calcType').val();
-        modelArea.find('#reminderCalcType' + calcType).show();
-      }
-
-      modelArea.show().find(':input').each(function (i, input) { $(input).prop('disabled', false) });
-
-      // deal with Action area
-      var action = $('#reminder_action').val();
-      _page.find(`#reminderAction_${action}`).show().find(':input').each(function (i, input) { $(input).prop('disabled', false) });
-      switch (action) {
-        case 'ifttt':
-          var id = $('.reminder_iftttKey');
-          if (!id.val()) {
-            id.val(getStorage('iftttKey', ''));
-          }
-          var eventName = $('.reminder_iftttEvent');
-          if (!eventName.val()) {
-            eventName.val(_page.find('#reminder_trigger').val());
-          }
-          break;
-      }
-
-      _page.find('.modelTriggerEcho').html(selectedOption.html());
-      _page.find('.reminderEditInputs').show();
-    }
-  }
-
-
-  function getAndShowReminders() {
-    log('sending msg');
-
-    _reminderModulePort.postMessage({
-      code: "getReminders"
-    });
-  }
-
-  function setAsCurrentDisplay(id) {
-    _currentEditId = id;
-    _page.find('.reminders > div').removeClass('inEdit');
-    _page.find('#r_' + id).addClass('inEdit');
-  }
-
-  function showEventTime(details) {
-    switch (details.trigger) {
-      case 'sunset':
-      case 'sunrise':
-      case 'midnight':
-      case 'noon':
-      case 'load':
-        return new Date(details.eventTime).showTime();
-
-      case 'feast':
-      case 'holyday':
-      case 'bday':
-        var testInfo = {
-          time: new Date(details.eventTime)
-        };
-        eventEventTime(testInfo);
-        return getMessage('eventTime', testInfo);
-
-      default:
-        log('time for?', details);
-    }
-
-    return '';
-  }
 
   function reminderSort(a, b) {
     return reminderOrder(a) < reminderOrder(b) ? -1 : 1;
@@ -370,7 +388,7 @@ var PageReminders = function () {
       return r.sortOrder;
     }
 
-    var delta = r.delta || -1;
+    var delta = r.delta || BEFORE;
     var result;
 
     switch (r.trigger) {
@@ -392,12 +410,10 @@ var PageReminders = function () {
 
       case 'holyday':
         result = '05';
-        delta *= -1;
         break;
 
       case 'feast':
         result = '06';
-        delta *= -1;
         break;
 
       case 'bday':
@@ -415,7 +431,7 @@ var PageReminders = function () {
     }
 
 
-    result += delta < 0 ? 'A' : 'B';
+    // result += delta == BEFORE ? 'A' : 'B';
 
     switch (r.units) {
       case 'seconds':
@@ -430,12 +446,17 @@ var PageReminders = function () {
         result += 'C';
         break;
 
-      case 'days':
+      default:
         result += 'D';
         break;
     }
 
-    result += ('00000' + (delta < 0 ? 99999 - r.num : r.num)).slice(-5);
+    var num = +(r.num || 0);
+    result += ('000' + (500 + delta * num)).slice(-3);
+
+    if (r.triggerTimeRaw) {
+      result += r.triggerTimeRaw;
+    }
 
     r.sortOrder = result;
     return result;
@@ -469,35 +490,47 @@ var PageReminders = function () {
       .on('click', '.reminders button', function (ev) {
         editReminder(+$(ev.target).data('id'));
       })
-    .on('click', '#btnReminderSave', function () {
-      save(1);
-    })
-    .on('click', '#btnReminderSaveNew', function () {
-      save(2);
-    })
-    .on('click', '#btnReminderTest', function () {
-      save(3);
-    })
-    .on('click', '#btnReminderCancel', function () {
-      resetInputs();
-    })
-    .on('click', '#btnReminderDelete', function () {
-      if (_currentEditId) {
-        var deleted = false;
-        $.each(_reminders, function (i, r) {
-          if (r.displayId === _currentEditId) {
-            _reminders.splice(i, 1);
-            deleted = true;
-            _currentEditId = 0;
-            return false;
-          }
-        });
-        if (deleted) {
-          _reminderModulePort.postMessage({ code: "saveAllReminders", reminders: _reminders });
-          resetInputs();
+      .on('click', '.alarms button', function (ev) {
+        editReminder(+$(ev.target).data('id'));
+      })
+      .on('mouseover', '.alarmInfo, .reminderInfo', function (ev) {
+        $('.reminderInfo, .alarmInfo').removeClass('tempHover');
+        var id = $(ev.target).closest('.alarmInfo, .reminderInfo')[0].id;
+        var num = id.split('_')[1];
+        var matched = $('#a_{0},#r_{0}'.filledWith(num));
+        if(matched.length > 1){
+          matched.addClass('tempHover');
         }
-      }
-    });
+      })
+      .on('click', '#btnReminderSave', function () {
+        save(1);
+      })
+      .on('click', '#btnReminderSaveNew', function () {
+        save(2);
+      })
+      .on('click', '#btnReminderTest', function () {
+        save(3);
+      })
+      .on('click', '#btnReminderCancel', function () {
+        resetInputs();
+      })
+      .on('click', '#btnReminderDelete', function () {
+        if (_currentEditId) {
+          var deleted = false;
+          $.each(_reminders, function (i, r) {
+            if (r.displayId === _currentEditId) {
+              _reminders.splice(i, 1);
+              deleted = true;
+              _currentEditId = 0;
+              return false;
+            }
+          });
+          if (deleted) {
+            _reminderModulePort.postMessage({ code: "saveAllReminders", reminders: _reminders });
+            resetInputs();
+          }
+        }
+      });
   }
 
   function resetInputs() {

@@ -1035,7 +1035,7 @@ function BuildSpecialDaysTable(di) {
       dayInfo.Event = { time: date };
 
       dayInfo.StartTime = dayInfo.Event.time.showTime();
-      eventEventTime(dayInfo.Event);
+      addEventTime(dayInfo.Event);
       dayInfo.EventTime = getMessage('eventTime', dayInfo.Event);
     }
 

@@ -198,10 +198,12 @@ body[data-pageid=pageCalGreg].inTab #pageCalGreg .calendar {
   left: 3px;
   font-size: 8pt;
 }
-#pageCalGreg .bMonth0 {
+#pageCalGreg .bMonth0,
+#pageCalGreg .bMonth {
   background-color: #eee;
 }
-#pageCalGreg .bMonth0 span {
+#pageCalGreg .bMonth0 span,
+#pageCalGreg .bMonth span {
   color: black !important;
 }
 #pageCalGreg .bMonth1 {

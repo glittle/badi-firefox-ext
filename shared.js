@@ -231,7 +231,8 @@ function getElementNum(monthNum) {
   return 1;
 }
 
-function showIcon(dateInfo) {
+function showIcon() {
+  var dateInfo = getDateInfo(new Date());
   var tipLines = [];
 
   tipLines.push(getMessage('formatIconToolTip', dateInfo));
@@ -246,7 +247,7 @@ function showIcon(dateInfo) {
   tipLines.push(dateInfo.nearestSunset);
   tipLines.push('');
   tipLines.push(getMessage('formatIconClick'));
-
+  
   chrome.browserAction.setTitle({ title: tipLines.join('\n') });
   chrome.browserAction.setIcon({
     imageData: draw(dateInfo.bMonthNameAr, dateInfo.bDay, 'center')
@@ -360,9 +361,9 @@ Date.prototype.showTime = function () {
   var minutes = this.getMinutes();
   var time = hours + ':' + ('0' + minutes).slice(-2);
   if (!show24Hour) {
-    if (hours == 12 && minutes == 0) {
+    if (hours24 == 12 && minutes == 0) {
       time = getMessage('noon');
-    } else if (hours == 0 && minutes == 0) {
+    } else if (hours24 == 0 && minutes == 0) {
       time = getMessage('midnight');
     } else {
       time = getMessage('timeFormat12').filledWith({
@@ -473,7 +474,7 @@ function recallFocus() {
         setFocusTime(time);
         timeSet = true;
 
-        if (typeof $ !== 'undefined') {
+        if (typeof $().effect !== 'undefined') {
           setTimeout(function () {
             // effective when called in popup
             $('#day,#gDay').effect("highlight", 6000);
@@ -503,7 +504,7 @@ function refreshDateInfoAndShow(resetToNow) {
   _firstLoad = false;
   setStorage('originalStamp', di.stamp);
 
-  showIcon(di);
+  showIcon();
   if (typeof showInfo !== 'undefined') {
     // are we inside the open popup?
     showInfo(di);
@@ -644,7 +645,9 @@ String.prototype.filledWith = function () {
         }
         else {
           var toEscape = values[token];
-          value = typeof toEscape == 'undefined' || toEscape === null ? '' : ('' + toEscape).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;').replace(/{/g, '&#123;');
+          //value = typeof toEscape == 'undefined' || toEscape === null ? '' : ('' + toEscape).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;').replace(/{/g, '&#123;');
+          //Never escape HTML in this Chrome Extension
+          value = toEscape || '';
         }
       }
 
@@ -730,7 +733,7 @@ function getOrdinalName(num) {
   return ordinalNames[num];
 }
 
-function eventEventTime(obj) {
+function addEventTime(obj) {
   var eventTime = obj.time;
 
   obj.eventYear = eventTime.getFullYear();

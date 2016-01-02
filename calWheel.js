@@ -71,7 +71,7 @@ var CalWheel = function () {
 
     var offsetAngle = 0;
     if (showPointer) {
-      $('#wheelDay').html('{bDay} {bMonthNameAr}'.filledWith(di));
+      $('#wheelDay').html('{bDay} {^bMonthNameAr}'.filledWith(di));
 
       var dayOfYear = (di.bMonth - 1) * 19 + di.bDay - 1;
       if (di.bMonth === 0) {

@@ -1,7 +1,7 @@
 /* Code by Glen Little */
 
 var _isBackgroundPage = true;
-var _reminderModule;
+var _backgroundReminderEngine = {};
 
 var BackgroundModule = function () {
 
@@ -9,10 +9,10 @@ var BackgroundModule = function () {
     log('ALARM: ' + alarm.name);
     if (alarm.name.startsWith('refresh')) {
       refreshDateInfoAndShow();
-      _reminderModule.activateForToday();
+      _backgroundReminderEngine.setAlarmsForRestOfToday();
     }
-    else if (alarm.name.startsWith('reminder_')) {
-      _reminderModule.triggerAlarmNow(alarm.name);
+    else if (alarm.name.startsWith('alarm_')) {
+      _backgroundReminderEngine.triggerAlarmNow(alarm.name);
     }
   };
 
@@ -62,8 +62,8 @@ var BackgroundModule = function () {
 
     startGettingLocation();
 
-    if (_remindersEnabled) {
-      _reminderModule = new ReminderModule();
+    if (_notificationsEnabled) {
+      _backgroundReminderEngine = new BackgroundReminderEngine();
     }
 
     chrome.alarms.clearAll();

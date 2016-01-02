@@ -796,6 +796,11 @@
     "translation": "required",
     "description": "title on left side"
   },
+  "reminderAlarm": {
+    "message": "At {triggerTimeDisplay} --> {messageBody}",
+    "translation": "required",
+    "description": "used when showing list of alarms scheduled today"
+  },
 
   "reminderTriggerGroup_time": {
     "message": "Time of Day",
@@ -832,24 +837,19 @@
     "description": "what this reminder is triggered on"
   },
   "reminderTrigger_feast": {
-    "message": "Start of Feast day",
+    "message": "Feast day",
     "translation": "required",
     "description": "what this reminder is triggered on"
   },
   "reminderTrigger_holyday": {
-    "message": "Start of Holy Day",
+    "message": "Holy Day",
     "translation": "required",
     "description": "what this reminder is triggered on"
   },
-  "reminderTrigger_bdayNoNum": {
-    "message": "Day of the Badí month",
+  "reminderTrigger_bday": {
+    "message": "Badí' Day",
     "translation": "required",
     "description": "what this reminder is triggered on (did not use the apostrophe after Badí since it breaks when displayed)"
-  },
-  "reminderTrigger_bday": {
-    "message": "Start of day {num} of the Badí month",
-    "translation": "required",
-    "description": "what this reminder is triggered on (left out the the apostrophe after Badí since it breaks when displayed)"
   },
   "reminderTrigger_load": {
     "message": "On Load",
@@ -905,9 +905,14 @@
   },
 
   "reminderTagline": {
-    "message": "(shown at {when})",
+    "message": "(displayed at {when})",
     "translation": "required",
     "description": "shown on the bottom of each reminder popoup"
+  },
+  "reminderTestTagline": {
+    "message": "(to be displayed at {when})",
+    "translation": "required",
+    "description": "shown on the bottom of popoup when tested"
   },
 
   "reminder_actions": {
@@ -919,6 +924,11 @@
     "message": "none",
     "translation": "required",
     "description": "in dropdown list, for when no other action is chosen"
+  },
+  "reminderAction_speak": {
+    "message": "read aloud",
+    "translation": "required",
+    "description": "in dropdown list, to choose to read the alert"
   },
   "reminderAction_ifttt": {
     "message": "trigger IFTTT recipe",
@@ -940,7 +950,27 @@
     "translation": "required",
     "description": "info and link to ifttt page"
   },
+  "reminderAction_zapier": {
+    "message": "trigger Zapier Webhook",
+    "translation": "required",
+    "description": "in dropdown list, to choose to use Zapier"
+  },
+  "zapierKey": {
+    "message": "Zapier Webhook",
+    "translation": "required",
+    "description": "url for Zapier"
+  },
+  "zapierInfo": {
+    "message": "For details or to sign up, see <a href='https://zapier.com/zapbook/webhook/' target=zapier>Zapier Webhook</a>. The Zap will contain these fields: title, body, tag, time",
+    "translation": "required",
+    "description": "info and link to Zapier"
+  },
 
+  "actionSpeakDesc": {
+    "message": "The reminder will be read aloud using the current voice settings for Chrome.",
+    "translation": "required",
+    "description": "in edit area when asking for a relative time"
+  },
   "reminderTimeInputStructure": {
     "message": "Show {num} {units} {delta}",
     "translation": "required",
@@ -963,23 +993,43 @@
     "description": "in dropdown"
   },
 
-  "reminderNumDays": {
+  "reminderNum_days": {
     "message": "day(s)",
     "translation": "required",
     "description": "0, 1 or more days"
   },
-  "reminderNumHours": {
+  "reminderNum_days_1_more": {
+    "message": "day;days",
+    "translation": "required",
+    "description": "0, 1 or more days"
+  },
+  "reminderNum_hours": {
     "message": "hour(s)",
     "translation": "required",
     "description": ""
   },
-  "reminderNumMinutes": {
+  "reminderNum_hours_1_more": {
+    "message": "hour;hours",
+    "translation": "required",
+    "description": ""
+  },
+  "reminderNum_minutes": {
     "message": "minute(s)",
     "translation": "required",
     "description": ""
   },
-  "reminderNumSeconds": {
+  "reminderNum_minutes_1_more": {
+    "message": "minute;minutes",
+    "translation": "required",
+    "description": ""
+  },
+  "reminderNum_seconds": {
     "message": "second(s)",
+    "translation": "required",
+    "description": ""
+  },
+  "reminderNum_seconds_1_more": {
+    "message": "second;seconds",
     "translation": "required",
     "description": ""
   },
@@ -988,6 +1038,7 @@
     "translation": "required",
     "description": "nice way to say midnight"
   },
+
 
   "reminderDayOfMonth": {
     "message": "On day {num} of the Badí' month",
@@ -1005,7 +1056,7 @@
     "description": "in list of defined reminders"
   },
   "reminderList_bday": {
-    "message": "at {triggerTimeRawDisplay}",
+    "message": "day {num} at {triggerTimeRawDisplay}",
     "translation": "required",
     "description": "in list of defined reminders"
   },
@@ -1020,11 +1071,16 @@
     "description": "in list of defined reminders"
   },
   "reminderList_timeAbsolute": {
-    "message": "remind at {triggerTimeRawDisplay}",
+    "message": "announce at {triggerTimeRawDisplay}",
     "translation": "required",
     "description": "in list of defined reminders"
   },
 
+  "reminderTitle": {
+    "message": "{0} Reminder",
+    "translation": "required",
+    "description": "displayed as the title of each reminder shown"
+  },
   "reminderBefore": {
     "message": "before",
     "translation": "required",
@@ -1036,63 +1092,108 @@
     "description": ""
   },
 
-  "alarmListItem": {
-    "message": "At {scheduledTime}, remind about {event} {pastFuture} {eventTime} ({num} {units})",
-    "translation": "required",
-    "description": "used in the list of reminders to be shown from now until midnight"
-  },
-  "alarmShowingTimePast": {
-    "message": "that was at",
-    "translation": "required",
-    "description": "to be used in 'alarmListItem' for 'pastFuture'"
-  },
-  "alarmShowingTimeFuture": {
-    "message": "coming at",
-    "translation": "required",
-    "description": "to be used in 'alarmListItem' for 'pastFuture'"
-  },
-  "alarmShowingEventPast": {
-    "message": "that started at",
-    "translation": "required",
-    "description": "to be used in 'alarmListItem' for 'pastFuture'"
-  },
-  "alarmShowingEventFuture": {
-    "message": "starting at",
-    "translation": "required",
-    "description": "to be used in 'alarmListItem' for 'pastFuture'"
-  },
 
-  "reminderTitleTimeFuture": {
-    "message": "{event} will be at {time}",
-    "translation": "required",
-    "description": "for example: Sunset will be at 18:33"
-  },
-  "reminderTitleTimePast": {
-    "message": "{event} was at {time}",
-    "translation": "required",
-    "description": "for example: Sunset was at 18:33"
-  },
-  "reminderTitleEventFuture": {
-    "message": "{event} will start at {time} on {date}",
-    "translation": "required",
-    "description": "for example: Holy Day will start at 18:33 on Sept 14"
-  },
-  "reminderTitleEventPast": {
-    "message": "{event} started at {time} on {date}",
-    "translation": "required",
-    "description": "for example: Holy Day started at 18:33 on Aug 15"
-  },
-
-
-
-
-
-  "x1": {
-    "message": "",
+  "future_DeltaTime": {
+    "message": "will be in {numUnits} at {time}",
     "translation": "required",
     "description": ""
   },
-  "x2": {
+  "past_DeltaTime": {
+    "message": "was {numUnits} ago at {time}",
+    "translation": "required",
+    "description": ""
+  },
+  "future_StartDeltaTime": {
+    "message": "will start in {numUnits} at {time}",
+    "translation": "required",
+    "description": ""
+  },
+  "past_StartDeltaTime": {
+    "message": "started {numUnits} ago at {time}",
+    "translation": "required",
+    "description": ""
+  },
+
+  "future_Delta": {
+    "message": "will be in {numUnits}",
+    "translation": "required",
+    "description": ""
+  },
+  "past_Delta": {
+    "message": "was {numUnits} ago",
+    "translation": "required",
+    "description": ""
+  },
+
+  "future_Time": {
+    "message": "will be at {time}",
+    "translation": "required",
+    "description": ""
+  },
+  "past_Time": {
+    "message": "was at {time}",
+    "translation": "required",
+    "description": ""
+  },
+  "future_StartTime": {
+    "message": "will start at {time}",
+    "translation": "required",
+    "description": ""
+  },
+  "past_StartTime": {
+    "message": "started at {time}",
+    "translation": "required",
+    "description": ""
+  },
+  "future_Day": {
+    "message": "starts at {time}",
+    "translation": "required",
+    "description": "shown in the eve of the day"
+  },
+  "past_Day": {
+    "message": "started at {time}",
+    "translation": "required",
+    "description": "shown after midnight of the day"
+  },
+
+  "numUnits": {
+    "message": "{num} {units}",
+    "translation": "required",
+    "description": "eg. 5 days, 1 minute, 3 hours"
+  },
+  
+  "messageBody": {
+    "message": "{triggerDisplayName} {desc}",
+    "translation": "required",
+    "description": ""
+  },
+
+  "reminderBDay": {
+    "message": "Day {num} of the Badí' month",
+    "translation": "required",
+    "description": "what this reminder is triggered on (left out the the apostrophe after Badí since it breaks when displayed)"
+  },
+
+  "reminderHolyDay": {
+    "message": "The Holy Day, \"{0}\",",
+    "translation": "required",
+    "description": ""
+  },
+  "reminderFeast": {
+    "message": "The Feast of {ar}, {meaning},",
+    "translation": "required",
+    "description": ""
+  },
+   "reminderDayDetails": {
+    "message": "{eventTime} on {eventWeekdayLong}, {eventMonthLong} {eventDay}.",
+    "description": "show Holy Day start time in Reminders"
+  },
+   "reminderDayDetailsTest": {
+    "message": "{eventTime} on {eventMonthShort} {eventDay}",
+    "description": "show Holy Day start time in Reminders"
+  },
+
+   "x2": {
     "message": "",
     "translation": "required",
     "description": ""
