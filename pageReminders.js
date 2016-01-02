@@ -45,7 +45,7 @@ var PageReminders = function () {
       }
     }
 
-    updateEditArea();
+    updateEditArea(true);
   }
 
   function save(mode) {
@@ -195,7 +195,7 @@ var PageReminders = function () {
   }
 
 
-  function updateEditArea() {
+  function updateEditArea(focusOnFirstInput) {
     // turn everything off
     _page.find('.reminderModel, .reminderEditInputs, .reminderAction, .reminderCalcType').hide();
     _page.find('.reminderModel :input').each(function (i, input) { $(input).prop('disabled', true) });
@@ -239,6 +239,8 @@ var PageReminders = function () {
 
       _page.find('.modelTriggerEcho').html(selectedOption.html());
       _page.find('.reminderEditInputs').show();
+
+      _page.find('.reminderEditInputs :input:visible').eq(0).focus();
     }
   }
 

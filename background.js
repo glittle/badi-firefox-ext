@@ -6,8 +6,8 @@ var _backgroundReminderEngine = {};
 var BackgroundModule = function () {
 
   var alarmHandler = function (alarm) {
-    log('ALARM: ' + alarm.name);
     if (alarm.name.startsWith('refresh')) {
+      log('ALARM: ' + alarm.name);
       refreshDateInfoAndShow();
       _backgroundReminderEngine.setAlarmsForRestOfToday();
     }

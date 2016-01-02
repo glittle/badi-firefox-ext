@@ -37,7 +37,6 @@ var BackgroundReminderEngine = function () {
   function setAlarmsForRestOfToday(initialLoad) {
     // clear, then set again
     clearReminderAlarms(function () {
-      log('-----------------alarms cleared----------------------')
       setAlarmsInternal(initialLoad);
     });
   }
@@ -211,7 +210,7 @@ var BackgroundReminderEngine = function () {
       return;
     }
 
-    var testDate = new Date(_nowNoon);
+    var testDate = new Date(triggerDate);
     var testDI = getDateInfo(testDate);
 
     if (testDI.bDay !== reminder.num) {
@@ -436,9 +435,9 @@ var BackgroundReminderEngine = function () {
     }
   }
 
-  var saveAllReminders = function (newSetOfReminders, fnAfter) {
+  var saveAllReminders = function (newSetOfReminders) {
     _remindersDefined = newSetOfReminders;
-    storeReminders(fnAfter);
+    storeReminders();
   }
 
 
@@ -494,8 +493,9 @@ var BackgroundReminderEngine = function () {
     var api = alarmInfo.api || 'html';
 
     alarmInfo.tagLine = tagLine;
+    alarmInfo.alarmName = alarmName;
 
-    log('DISPLAYED {api} reminder: {messageBody} '.filledWith(alarmInfo));
+    log('DISPLAYED {alarmName}: {messageBody} '.filledWith(alarmInfo));
     //log(alarmInfo);
 
     api = 'chrome'; // for now, ONLY use Chrome
@@ -708,16 +708,13 @@ var BackgroundReminderEngine = function () {
     return clone;
   }
 
-  function storeReminders(fnAfter) {
+  function storeReminders() {
     chrome.storage.local.set({
       reminders: _remindersDefined
     }, function () {
       log('stored reminders with local');
       if (chrome.runtime.lastError) {
         log(chrome.runtime.lastError);
-      }
-      if (fnAfter) {
-        fnAfter();
       }
     });
     chrome.storage.sync.set({
@@ -727,13 +724,10 @@ var BackgroundReminderEngine = function () {
       if (chrome.runtime.lastError) {
         log(chrome.runtime.lastError);
       }
-      if (fnAfter) {
-        fnAfter();
-      }
     });
   }
 
-  function loadReminders(fnAfter) {
+  function loadReminders() {
     chrome.storage.sync.get({
       reminders: []
     }, function (items) {
@@ -749,10 +743,8 @@ var BackgroundReminderEngine = function () {
       if (_remindersDefined.length != 0) {
         setAlarmsForRestOfToday(true);
 
-        if (fnAfter) {
-          fnAfter();
-        }
       } else {
+
         chrome.storage.local.get({
           reminders: []
         }, function (items) {
@@ -766,16 +758,6 @@ var BackgroundReminderEngine = function () {
           }
 
           setAlarmsForRestOfToday(true);
-
-          if (fnAfter) {
-            fnAfter();
-          }
-
-          //if (!items.reminders || !items.reminders.length) {
-          //  log('loading samples');
-          //  loadSamples();
-          //}
-
         });
       }
     });
