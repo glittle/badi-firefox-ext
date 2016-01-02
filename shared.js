@@ -710,7 +710,7 @@ function getMessage(key, obj, defaultValue) {
   } else {
     var before = msg;
     var repeats = 0;
-    while (repeats < 5) {
+    while (repeats < 5) { // failsafe
       msg = msg.filledWith(obj);
       if (msg == before) {
         return msg;

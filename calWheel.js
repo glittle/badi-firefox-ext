@@ -26,11 +26,12 @@ var CalWheel = function () {
 
     var sameYear = newDi.bYear === _yearShown;
 
-    if (sameYear && !showPointer) {
+    if (sameYear && !showPointer && _lastAngle === null) {
       return;
     }
 
     di = newDi;
+    _yearShown = newDi.bYear;
 
     var wheel = $('#wheel');
 
@@ -116,7 +117,9 @@ var CalWheel = function () {
       //wheel.css({ transform: 'rotate({0}deg)'.filledWith(offsetAngle) })
 
     } else {
-      wheel.css({ transform: 'rotate(0)' })
+      _lastAngle = null;
+      wheel.css({ transform: 'rotate(0deg)' })
+      wheel.removeClass('rotating');
     }
   }
 

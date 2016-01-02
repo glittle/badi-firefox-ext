@@ -779,7 +779,7 @@
   "reminderType": {
     "message": "Event",
     "translation": "required",
-    "description": "in front of the dropdown"
+    "description": "in front of the trigger selector"
   },
   "reminderSelectTrigger": {
     "message": "Add a reminder...",
@@ -849,7 +849,7 @@
   "reminderTrigger_bday": {
     "message": "Badí' Day",
     "translation": "required",
-    "description": "what this reminder is triggered on (did not use the apostrophe after Badí since it breaks when displayed)"
+    "description": "what this reminder is triggered on"
   },
   "reminderTrigger_load": {
     "message": "On Load",
@@ -886,22 +886,6 @@
     "message": "Delete",
     "translation": "required",
     "description": "delete a reminder"
-  },
-
-  "reminderApiTitle": {
-    "message": "Reminder shows",
-    "translation": "required",
-    "description": "when asking how long to show the reminder"
-  },
-  "reminderApiPersistent": {
-    "message": "until I click on it",
-    "translation": "required",
-    "description": "in dropdown - if chosen, reminders will stay until clicked on"
-  },
-  "reminderApiBrief": {
-    "message": "for a few seconds",
-    "translation": "required",
-    "description": "in dropdown - if chosen, reminders will stay only for a few seconds, then disappear"
   },
 
   "reminderTagline": {
@@ -946,7 +930,7 @@
     "description": "name of 'Event' for IFTTT Maker channel"
   },
   "iftttInfo": {
-    "message": "For details or to sign up, see <a href='https://ifttt.com/maker' target=ifttt>IFTTT Maker Channel</a>.",
+    "message": "For details or to sign up, see <a href='https://ifttt.com/maker' target=ifttt>IFTTT Maker Channel</a>. The event will contain these fields: title, body, tag",
     "translation": "required",
     "description": "info and link to ifttt page"
   },
@@ -996,12 +980,12 @@
   "reminderNum_days": {
     "message": "day(s)",
     "translation": "required",
-    "description": "0, 1 or more days"
+    "description": "unknown number of days"
   },
   "reminderNum_days_1_more": {
     "message": "day;days",
     "translation": "required",
-    "description": "0, 1 or more days"
+    "description": "single;plural"
   },
   "reminderNum_hours": {
     "message": "hour(s)",
