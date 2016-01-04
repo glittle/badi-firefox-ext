@@ -60,7 +60,11 @@ var BackgroundReminderEngine = function () {
         continue;
       }
 
-      tryAddAlarmFor[reminder.trigger](reminder);
+      try {
+        tryAddAlarmFor[reminder.trigger](reminder);
+      } catch (e) {
+        log(e.message);
+      }
     }
 
     broadcast({ code: 'alarmsUpdated' });
@@ -436,7 +440,7 @@ var BackgroundReminderEngine = function () {
   }
 
   var saveAllReminders = function (newSetOfReminders) {
-    _remindersDefined = newSetOfReminders;
+    _remindersDefined = newSetOfReminders || [];
     storeReminders();
   }
 
@@ -544,12 +548,15 @@ var BackgroundReminderEngine = function () {
   function doAdditionalActions(alarmInfo) {
     switch (alarmInfo.action) {
       case 'speak':
+        var options = {
+          //'lang': _languageCode,
+          'voiceName': alarmInfo.speakVoice,
+          'enqueue': true
+        };
+        log(options);
         chrome.tts.speak(
           '{title}.\n\n {messageBody}'.filledWith(alarmInfo),
-          {
-            'lang': _languageCode,
-            'enqueue': true
-          },
+          options,
           function () {
             if (chrome.runtime.lastError) {
               log('Error: ' + chrome.runtime.lastError);
@@ -737,7 +744,7 @@ var BackgroundReminderEngine = function () {
 
       if (items.reminders) {
         log('reminders loaded from sync: ' + items.reminders.length);
-        _remindersDefined = items.reminders;
+        _remindersDefined = items.reminders || [];
       }
 
       if (_remindersDefined.length != 0) {
@@ -754,7 +761,7 @@ var BackgroundReminderEngine = function () {
 
           if (items.reminders) {
             log('reminders loaded from local: ' + items.reminders.length);
-            _remindersDefined = items.reminders;
+            _remindersDefined = items.reminders || [];
           }
 
           setAlarmsForRestOfToday(true);
@@ -763,61 +770,39 @@ var BackgroundReminderEngine = function () {
     });
   }
 
-  //function loadSamples() {
-  //  _remindersDefined = [
-  //    {
-  //      trigger: 'load',
-  //      num: 3, // negative is after
-  //      units: 'seconds',
-  //      delta: 1, // 1==after, -1==before (default)
-  //      api: 'chrome',
-  //      body: 'Yeah!\nReminders are active...'
-  //    },
-  //    {
-  //      trigger: 'sunset',
-  //      num: 10,
-  //      units: 'minutes',
-  //      body: 'Sunset in 10 minutes'
-  //    },
-  //    {
-  //      trigger: 'noon',
-  //      num: 1,
-  //      units: 'hours',
-  //      body: 'Reminder'
-  //    },
-  //    {
-  //      trigger: 'midnight',
-  //      num: 10,
-  //      units: 'minutes',
-  //      body: 'Midnight in 10 minutes'
-  //    },
-  //    {
-  //      trigger: 'feast',
-  //      num: 2,
-  //      triggerTimeRaw: '23:50',
-  //      //alertAtHr: 23,
-  //      //alertAtMin: 50,
-  //      body: 'Feast soon!'
-  //    },
-  //    {
-  //      trigger: 'holyday',
-  //      num: 2,
-  //      triggerTimeRaw: '22:35',
-  //      //alertAtHr: 22,
-  //      //alertAtMin: 35,
-  //      body: 'Holy Day soon!'
-  //    },
-  //    {
-  //      trigger: 'bday',
-  //      day: 11,
-  //      triggerTimeRaw: '06:00',
-  //      //alertAtHr: 6,
-  //      //alertAtMin: 0,
-  //      body: 'Badi Day'
-  //    }
-  //  ];
-  //  storeReminders();
-  //}
+  function makeSamples() {
+    _remindersDefined = [
+      {
+        "calcType": "Relative",
+        "delta": -1,
+        "num": 5,
+        "trigger": "sunrise",
+        "units": "minutes"
+      },
+      {
+        "calcType": "Absolute",
+        "delta": -1,
+        "trigger": "sunset",
+        "triggerTimeRaw": "15:00"
+      },
+      {
+        "action": "speak",
+        "calcType": "Relative",
+        "delta": -1,
+        "num": 15,
+        "trigger": "sunset",
+        "units": "minutes"
+      },
+      {
+        "delta": -1,
+        "model": "day",
+        "num": 3,
+        "trigger": "feast",
+        "triggerTimeRaw": "10:00",
+        "units": "days"
+      }];
+    storeReminders();
+  }
 
   function connectToPort() {
     log('listening for new ports');
@@ -864,6 +849,13 @@ var BackgroundReminderEngine = function () {
           case 'showTestAlarm':
             showTestAlarm(msg.reminder);
             break;
+
+          case 'makeSamples':
+            makeSamples();
+
+            msg.reminders = _remindersDefined;
+            port.postMessage(msg);
+            break;
         }
 
       });
@@ -897,6 +889,9 @@ var BackgroundReminderEngine = function () {
     saveAllReminders: saveAllReminders,
     _specialDays: _specialDays, // testing
     makeBadiNum: makeBadiNum,
+    eraseReminders: function () {
+      saveAllReminders();
+    },
     getReminders: function () {
       return _remindersDefined;
     }

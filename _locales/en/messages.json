@@ -2,7 +2,7 @@
   "translation": {
     "name": "Glen Little",
     "email": "glen.little@gmail.com",
-    "mostRecentVersion": "1.6.0",
+    "mostRecentVersion": "1.8.0",
     "message": "en",
     "description": "(this is not shown in the tool)"
   },
@@ -767,10 +767,11 @@
     "description": "title on right side"
   },
   "noReminders": {
-    "message": "(None defined!)",
+    "message": "Add Sample Reminders",
     "translation": "required",
     "description": "shown if there are no reminders"
   },
+  
   "reminderAddEdit": {
     "message": "Add/Edit Reminder",
     "translation": "required",
@@ -949,9 +950,9 @@
     "translation": "required",
     "description": "info and link to Zapier"
   },
-
+  
   "actionSpeakDesc": {
-    "message": "The reminder will be read aloud using the current voice settings for Chrome.",
+    "message": "The reminder will be read aloud using this Chrome voice: ",
     "translation": "required",
     "description": "in edit area when asking for a relative time"
   },
@@ -1170,18 +1171,14 @@
   },
    "reminderDayDetails": {
     "message": "{eventTime} on {eventWeekdayLong}, {eventMonthLong} {eventDay}.",
-    "description": "show Holy Day start time in Reminders"
+    "description": ""
   },
    "reminderDayDetailsTest": {
     "message": "{eventTime} on {eventMonthShort} {eventDay}",
-    "description": "show Holy Day start time in Reminders"
-  },
-
-   "x2": {
-    "message": "",
-    "translation": "required",
     "description": ""
   },
+
+
 
 
 

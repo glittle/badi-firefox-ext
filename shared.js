@@ -10,7 +10,7 @@ var settings = {
 };
 
 var _languageCode = getMessage('translation');
-var _languageDir = ',fa,'.search(_languageCode) != -1 ? 'rtl' : 'ltr';
+var _languageDir = ',fa'.search(_languageCode) != -1 ? 'rtl' : 'ltr';
 
 var _locationLat = localStorage.lat;
 var _locationLong = localStorage.long;

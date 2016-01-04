@@ -9,6 +9,13 @@
 var PageReminders = function () {
   var _reminderPrefix = 'alarm_';
 
+  var saveMode = {
+    save: 1,
+    saveNew: 2,
+    test: 3,
+    saveFast: 4
+  }
+
   var _reminderModulePort = {};
   var _reminders = [];
 
@@ -17,7 +24,6 @@ var PageReminders = function () {
 
   var _page = $('#pageReminders');
   var _currentEditId = 0;
-
 
   function editReminder(id) {
     var matchingReminders = $.grep(_reminders, function (r, i) {
@@ -49,14 +55,12 @@ var PageReminders = function () {
   }
 
   function save(mode) {
-    // mode: 1=normal; 2=new; 3=test
     if (!_page.find('form')[0].checkValidity()) {
       return;
     }
-
-    if (!_currentEditId || mode == 2) {
+    if (!_currentEditId || mode == saveMode.saveNew) {
+      mode = saveMode.saveNew;
       _currentEditId = _reminders.length;
-      mode = 2;
       log('new reminder');
     }
 
@@ -80,7 +84,8 @@ var PageReminders = function () {
     var resetAfter = true;
 
     switch (mode) {
-      case 1: // normal
+      case saveMode.save:
+      case saveMode.saveFast:
         // find and replace
         $.each(_reminders, function (i, el) {
           if (el.displayId === r.displayId) {
@@ -88,14 +93,18 @@ var PageReminders = function () {
             return false; // done
           }
         });
+
+        if (mode === saveMode.saveFast) {
+          saveToBackground = false;
+        }
         break;
 
-      case 2: // create new
+      case saveMode.saveNew:
         // add to the list
         _reminders.push(r);
         break;
 
-      case 3: // test
+      case saveMode.test:
         _reminderModulePort.postMessage({
           code: "showTestAlarm",
           reminder: r
@@ -127,38 +136,38 @@ var PageReminders = function () {
     _page.find('#reminder_trigger, .reminderEditInputs *[id^="reminder_"]:input, .reminderEditInputs *[class*="reminder_"]:input')
       .filter(function (i, el) { return $(el).parent().is(':visible') })
       .each(function (i, el) {
-      var input = $(el);
-      var name = '';
-      if (el.id.startsWith('reminder_')) {
-        name = el.id;
-      }
-      else {
-        var classes = $.grep(el.className.split(' '), function (n, g) {
-          return n.startsWith('reminder_');
-        });
-        if (classes.length) {
-          name = classes[0];
+        var input = $(el);
+        var name = '';
+        if (el.id.startsWith('reminder_')) {
+          name = el.id;
         }
-      }
+        else {
+          var classes = $.grep(el.className.split(' '), function (n, g) {
+            return n.startsWith('reminder_');
+          });
+          if (classes.length) {
+            name = classes[0];
+          }
+        }
 
-      var prop = name.split('_')[1];
-      var value = input.val();
-      if (input[0].type == 'hidden') {
-        value = input.data('default');
-      };
-      if (input.data('type') == 'num') {
-        value = +value;
-      }
-      r[prop] = value;
+        var prop = name.split('_')[1];
+        var value = input.val();
+        if (input[0].type == 'hidden') {
+          value = input.data('default');
+        };
+        if (input.data('type') == 'num') {
+          value = +value;
+        }
+        r[prop] = value;
 
-      if (input[0].tagName === 'SELECT') {
-        r[prop + 'Display'] = input.find(':selected').text();
-      }
-      if (input[0].id === 'reminder_trigger') {
-        var selectedOption = input.find(':selected');
-        r.model = selectedOption.data('model') || selectedOption.closest('optgroup').data('model');
-      }
-    });
+        if (input[0].tagName === 'SELECT') {
+          r[prop + 'Display'] = input.find(':selected').text();
+        }
+        if (input[0].id === 'reminder_trigger') {
+          var selectedOption = input.find(':selected');
+          r.model = selectedOption.data('model') || selectedOption.closest('optgroup').data('model');
+        }
+      });
 
     switch (r.trigger) {
       case 'sunset':
@@ -259,30 +268,30 @@ var PageReminders = function () {
     _page.find('#a_' + id).addClass('inEdit');
   }
 
-//  function showEventTime(details) {
-//    switch (details.trigger) {
-//      case 'sunset':
-//      case 'sunrise':
-//      case 'midnight':
-//      case 'noon':
-//      case 'load':
-//        return new Date(details.eventTime).showTime();
-//
-//      case 'feast':
-//      case 'holyday':
-//      case 'bday':
-//        var testInfo = {
-//          time: new Date(details.eventTime)
-//        };
-//        addEventTime(testInfo);
-//        return getMessage('eventTime', testInfo);
-//
-//      default:
-//        log('time for?', details);
-//    }
-//
-//    return '';
-//  }
+  //  function showEventTime(details) {
+  //    switch (details.trigger) {
+  //      case 'sunset':
+  //      case 'sunrise':
+  //      case 'midnight':
+  //      case 'noon':
+  //      case 'load':
+  //        return new Date(details.eventTime).showTime();
+  //
+  //      case 'feast':
+  //      case 'holyday':
+  //      case 'bday':
+  //        var testInfo = {
+  //          time: new Date(details.eventTime)
+  //        };
+  //        addEventTime(testInfo);
+  //        return getMessage('eventTime', testInfo);
+  //
+  //      default:
+  //        log('time for?', details);
+  //    }
+  //
+  //    return '';
+  //  }
 
 
   function showReminders() {
@@ -338,6 +347,10 @@ var PageReminders = function () {
       html.push('<div id=r_{0} class=reminderInfo><span class=reminderNum>{0}</span> <button class=button data-id={0}>{2}</button> <div>{^1}</div></div>'.filledWith(
         r.displayId, lines.join(''), getMessage('btnReminderEdit')));
     });
+
+    if (html.length === 0) {
+      html.push('<button class=button id=makeSamples>{0}</button>'.filledWith(getMessage('noReminders')));
+    }
 
     listing.html(html.join('\n'));
 
@@ -495,23 +508,26 @@ var PageReminders = function () {
       .on('click', '.alarms button', function (ev) {
         editReminder(+$(ev.target).data('id'));
       })
+      .on('click', '#makeSamples', function (ev) {
+        _reminderModulePort.postMessage({ code: "makeSamples" });
+      })
       .on('mouseover', '.alarmInfo, .reminderInfo', function (ev) {
         $('.reminderInfo, .alarmInfo').removeClass('tempHover');
         var id = $(ev.target).closest('.alarmInfo, .reminderInfo')[0].id;
         var num = id.split('_')[1];
         var matched = $('#a_{0},#r_{0}'.filledWith(num));
-        if(matched.length > 1){
+        if (matched.length > 1) {
           matched.addClass('tempHover');
         }
       })
       .on('click', '#btnReminderSave', function () {
-        save(1);
+        save(saveMode.save);
       })
       .on('click', '#btnReminderSaveNew', function () {
-        save(2);
+        save(saveMode.saveNew);
       })
       .on('click', '#btnReminderTest', function () {
-        save(3);
+        save(saveMode.test);
       })
       .on('click', '#btnReminderCancel', function () {
         resetInputs();
@@ -557,7 +573,7 @@ var PageReminders = function () {
       // these are return call in response to our matching request
       switch (msg.code) {
         case 'getReminders':
-          _reminders = msg.reminders;
+          _reminders = msg.reminders || [];
           showReminders();
           break;
 
@@ -566,10 +582,22 @@ var PageReminders = function () {
           break;
 
         case 'saveAllReminders':
-          _reminders = msg.reminders;
+          _reminders = msg.reminders || [];
           showReminders();
           break;
 
+        case 'makeSamples':
+          _reminders = msg.reminders || [];
+          showReminders();
+
+          // need to "edit" each of the samples to get all the settings!
+          $.each(_reminders, function (i, r) {
+            editReminder(r.displayId);
+            _currentEditId = r.displayId;
+            save(saveMode.saveFast);
+          });
+          _reminderModulePort.postMessage({ code: "saveAllReminders", reminders: _reminders });
+          break;
       }
 
 
@@ -582,7 +610,43 @@ var PageReminders = function () {
     return date;
   }
 
+  function loadVoices() {
+    chrome.tts.getVoices(
+          function (voices) {
+            var options = [];
+            for (var i = 0; i < voices.length; i++) {
+              var voice = voices[i];
+              if (voice.lang) {
+                options.push('<option data-lang="{lang}">{voiceName}</option>'.filledWith(voice));
+              }
+              // https://developer.chrome.com/extensions/tts
+            }
+            var ddl = $('#speakVoice');
+            ddl.html(options.join(''));
+
+            // pre-select best match
+            //full match
+            var match = $.grep(voices, function (v) {
+              return v.lang === _languageCode
+            });
+            if (match.length == 0) {
+              match = $.grep(voices, function (v) {
+                return v.lang && v.lang.startsWith(_languageCode);
+              })
+              if (match.length == 0) {
+                match = $.grep(voices, function (v) {
+                  return v.lang && v.lang.startsWith('en');
+                })
+              }
+            }
+            if (match.length) {
+              ddl.data('default', match[0].voiceName);
+            }
+          });
+  }
+
   function startup() {
+    loadVoices();
     establishPortToBackground();
     getAndShowReminders();
     attachHandlers();
@@ -593,6 +657,5 @@ var PageReminders = function () {
 
   return {
     showReminders: showReminders
-
   }
 }
