@@ -763,10 +763,11 @@ function setFocusTime(t) {
   setStorage('focusTimeAsOf', new Date().getTime());
 }
 
-function localizeHtml(host) {
+function localizeHtml(host, fnOnEach) {
   // parse data-msg...  target:value,target,target,target:value
   // if no value given in one pair, use the element's ID
   // if the target element has child elements, they will be deleted. However, if a child has data-child='x' and resource text has {x}, {y}, etc. the children will be inserted in those spaces.
+  // fnOnEach is passed the value and must return an updated value
   var accessKeyList = [];
   $(host || document).find('[data-msg]').each(function (domNum, dom) {
     var el = $(dom);
@@ -792,6 +793,9 @@ function localizeHtml(host) {
         }
         target = detail[0];
         value = getMessage(detail[1]);
+      }
+      if (fnOnEach) {
+        value = fnOnEach(value);
       }
       if (target === 'html') {
         $.each(children, function (i, c) {

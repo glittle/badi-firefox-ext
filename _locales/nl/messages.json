@@ -4,7 +4,7 @@
     "email": "omv@xs4all.nl",
     "mostRecentVersion": "1.6.0",
     "message": "nl",
-    "description": "(this is not shown in the tool)"
+    "nameInEnglish": "Dutch"
   },
   "title": {
     "message": "Badí' kalender",
@@ -151,9 +151,6 @@
     "message": "Versie {0}",
     "description": ""
   },
-
-
-  "new_messages_1_1_2": { "message": "" },
   "formatIconToolTip": {
     "message": "{bDay} {bMonthNameAr} {bYear}",
     "description": "text when mouse is over the extension icon"
@@ -194,9 +191,6 @@
     "message": "Gekopiëerd!",
     "description": "short message that replaces sample format button text when button is clicked"
   },
-
-
-  "new_messages_1_1_3": { "message": "" },
   "use24HourClock": {
     "message": "true",
     "description": "use 'true' or 'false' to use 24 hour or 12 hour (am/pm) clock"
@@ -290,19 +284,10 @@
     "message": "over {0} dagen",
     "description": ""
   },
-
-
-  "new_messages_1_1_4": { "message": "" },
-  "sampleGroupTranslationHelp": {
-    "message": "",
-    "description": "Samples usually don't need translating. If needed, copy from the 'en' file and modify. When creating samples, can use any of the properties shown when _di is shown when inspecting the popup"
-  },
-
   "sampleGroup1_8": {
     "message": "{bWeekdayNameAr} / {bDayNameAr}, {bDay} {bMonthNameAr} {bYear}",
     "description": "Jamál / Bahá, 1st ‘Aẓamat     or [weekday] / [monthday], [day no.] [month] - james@19months.com"
   },
-
   "DayOfWeek": {
     "message": "Weekdag",
     "description": ""
@@ -363,7 +348,6 @@
     "message": "{bKullishay}",
     "description": ""
   },
-
   "bTopDayDisplay": {
     "message": "{bDay} {bMonthNameAr} {bYear}",
     "description": "top right corner"
@@ -380,20 +364,14 @@
     "message": "{bDay} {bMonthNameAr} ({gCombined})",
     "description": "upcoming list"
   },
-
   "nextRefreshAlarm": {
     "message": "Next refresh scheduled after {0}: {1}",
     "description": "only shown in the debug console"
   },
-
-
-  "new_messages_1_1_5": { "message": "" },
-
   "gMonthDayYear": {
     "message": "{bDay} {bMonthNameAr} {bYear}",
     "description": ""
   },
-
   "gCombined_1": {
     "message": "{frag1Day}/{frag2Day} {frag1MonthShort}",
     "description": "day in same gregorian month"
@@ -418,16 +396,10 @@
     "message": "{frag1Day} {frag1MonthShort} {frag1Year}/{frag2Day} {frag2MonthShort} {frag2Year}",
     "description": "with year"
   },
-
-
-  "new_messages_1_1_8": { "message": "" },
   "bDatePickerTitle": {
     "message": "Kies een <u>B</u>adí' datum",
     "description": "added <u></u> - should have one letter between <u> and </u>"
   },
-
-
-  "new_messages_1_2_0": { "message": "" },
   "weekDayNames": {
     "message": "Namen van de weekdagen",
     "description": "on List page - table caption"
@@ -452,8 +424,6 @@
     "message": "Equivalent",
     "description": "on List page - table heading"
   },
-
-  "new_messages_1_3": { "message": "" },
   "pick_pageDay": {
     "message": "Dag",
     "description": ""
@@ -483,9 +453,6 @@
     "message": "Druk deze toetscombinatie in om de kalender op ieder gewenst moment binnen Chrome te openen.",
     "description": ""
   },
-
-
-  "new_messages_1_3_3": { "message": "" },
   "prevYear": {
     "message": "Jaar terug",
     "description": "hold Shift and press left arrow key"
@@ -502,8 +469,6 @@
     "message": "Toets shift + pijl naar rechts in om het volgend jaar te zien",
     "description": "hold Shift and press right arrow key"
   },
-
-  "new_messages_1_3_6": { "message": "" },
   "jumpTo": {
     "message": "<u>S</u>pring ± dagen",
     "description": "user can enter a day after/before currently selected day"
@@ -516,15 +481,10 @@
     "message": "Ga dit aantal dagen voor- of achteruit",
     "description": "tooltip"
   },
-
-
-  "new_messages_1_4": { "message": "" },
-
   "pick_pageEvents": {
     "message": "Gebeurtenissen",
     "description": "showing Feast and Holy Days"
   },
-
   "specialDaysTitle": {
     "message": "Feesten en heilige dagen in {bYear}",
     "description": ""
@@ -549,7 +509,6 @@
     "message": "Begin van de Badí' Dag",
     "description": "heading in Events listing"
   },
-
   "includeThese": {
     "message": "Toon",
     "description": "choosing what to include in the listing"
@@ -566,7 +525,6 @@
     "message": "Gebruikelijke begintijd: ",
     "description": "above Events listing"
   },
-
   "specialTime_1500S": {
     "message": "15:00 (Standaard Tijd)",
     "description": "First day of Ridvan"
@@ -587,7 +545,6 @@
     "message": "1:00 (Standaard Tijd)",
     "description": "Martyrdom of the Bab"
   },
-
   "eventTime": {
     "message": "{eventTime} {eventWeekdayShort} {eventDay} {eventMonthShort} {eventYear}",
     "description": "show start time in Events listing"
@@ -596,8 +553,6 @@
     "message": "{startingSunsetDesc} {frag1WeekdayShort} {frag1Day} {frag1MonthShort} {frag1Year}",
     "description": "show start time in Events listing"
   },
-
-
   "pick_pageFast": {
     "message": "Vasten",
     "description": ""
@@ -622,43 +577,349 @@
     "message": "{frag2WeekdayShort} {frag2Day} {frag2MonthShort} {frag2Year}",
     "description": "show start time in Events listing"
   },
-
   "ayyamIs0": {
     "message": "(J M D) 0 = Ayyám-i-Há",
     "description": "(updated) in Badi date picker area"
   },
-
-
-  "new_messages_1_5_3": { "message": "" },
   "keyToOpenInTab": {
     "message": "T",
     "description": "Press Shift+(this letter) to open into a tab"
   },
-
-  "new_messages_1_6_0": { "message": "" },
   "pick_pageCalWheel": {
     "message": "Rad",
     "description": "tab name"
   },
-
   "showPointer": {
     "message": "Toon huidige dag",
     "description": ""
   },
-
   "currentFocus": {
     "message": "Huidige dag",
     "description": "in wheel, points to today, or whatever day is currently selected"
   },
-
-  "new_messages_1_7_0": { "message": "" },
   "pick_pageCalGreg": {
     "message": "Gregoriaans jaar",
     "description": "tab name"
   },
-
-  "x": {
-    "message": "",
+  "noon": {
+    "message": "12:00 middag",
+    "description": "nice way to say noon"
+  },
+  "am": {
+    "message": "vm",
+    "description": "displayed in 'timeFormat12' if not using 24 hours clock"
+  },
+  "pm": {
+    "message": "nm",
+    "description": "displayed in 'timeFormat12' if not using 24 hours clock"
+  },
+  "browserMenuOpen": {
+    "message": "Open in een nieuw tabblad",
+    "description": "shown as menu item when right-clicking on the browser icon "
+  },
+  "pick_pageReminders": {
+    "message": "Herinneringen",
+    "description": "page tab name and page title"
+  },
+  "remindersDefined": {
+    "message": "Uw herinneringen",
+    "description": "title on right side"
+  },
+  "noReminders": {
+    "message": "Toon voorbeeld herinneringen",
+    "description": "shown if there are no reminders"
+  },
+  "reminderAddEdit": {
+    "message": "Stel een herinnering in of wijzig deze",
+    "description": "title on left side"
+  },
+  "reminderType": {
+    "message": "Gebeurtenis",
+    "description": "in front of the trigger selector"
+  },
+  "reminderSelectTrigger": {
+    "message": "Stel een herinnering in...",
+    "description": "in dropdown, when no trigger is selected"
+  },
+  "reminderShowAt": {
+    "message": "Laat zien om",
+    "description": "in front of time of day input"
+  },
+  "remindersScheduled": {
+    "message": "Vandaag uit te voeren tussen {time} en middernacht",
+    "description": "title on left side"
+  },
+  "reminderAlarm": {
+    "message": "Om {triggerTimeDisplay} --> {messageBody}",
+    "description": "used when showing list of alarms scheduled today"
+  },
+  "reminderTriggerGroup_time": {
+    "message": "Tijd van de dag",
+    "description": "a group of triggers - sunset sunrise noon midnight"
+  },
+  "reminderTriggerGroup_day": {
+    "message": "Bijzondere dagen",
+    "description": "a group of triggers - feast, holy day, Badi day"
+  },
+  "reminderTriggerGroup_load": {
+    "message": "Andere gebeurtenissen",
+    "description": "a group of triggers - for other types of events"
+  },
+  "reminderTrigger_sunrise": {
+    "message": "Zonsopkomst",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_sunset": {
+    "message": "Zonsondergang",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_noon": {
+    "message": "Middaguur",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_midnight": {
+    "message": "Middernacht",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_feast": {
+    "message": "19-Daagsfeestdag",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_holyday": {
+    "message": "Heilige dag",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_bday": {
+    "message": "Badí' dag",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_load": {
+    "message": "Bij het laden",
+    "description": "what this reminder is triggered on"
+  },
+  "btnReminderEdit": {
+    "message": "Wijzig",
+    "description": "shown next to each reminder. Click to edit the reminder."
+  },
+  "btnReminderSave": {
+    "message": "<u>O</u>pslaan",
+    "description": "Save the changes and close the edit area"
+  },
+  "btnReminderSaveNew": {
+    "message": "Opslaan als een nieuwe herinnering",
+    "description": "Save the changes as a new reminder and close the edit area. The original reminder is not affected."
+  },
+  "btnReminderCancel": {
+    "message": "Annuleer",
+    "description": "cancel changes and close the edit area"
+  },
+  "btnReminderTest": {
+    "message": "Nu testen",
+    "description": "show a sample of the reminder now"
+  },
+  "btnReminderDelete": {
+    "message": "Verwijder",
+    "description": "delete a reminder"
+  },
+  "reminderTagline": {
+    "message": "(getoond om {when})",
+    "description": "shown on the bottom of each reminder popoup"
+  },
+  "reminderTestTagline": {
+    "message": "(om te worden getoond om {when})",
+    "description": "shown on the bottom of popoup when tested"
+  },
+  "reminder_actions": {
+    "message": "Extra actie",
+    "description": "prompt for other actions"
+  },
+  "reminder_nullAction": {
+    "message": "Geen",
+    "description": "in dropdown list, for when no other action is chosen"
+  },
+  "reminderAction_speak": {
+    "message": "Lees voor",
+    "description": "in dropdown list, to choose to read the alert"
+  },
+  "iftttInfo": {
+    "message": "Voot details of om in te schrijven, zie <a href='https://ifttt.com/maker' target=ifttt>IFTTT Maker Channel</a>. De gebeurtenis bevat de volgende velden: title, body, tag",
+    "description": "info and link to ifttt page"
+  },
+  "zapierInfo": {
+    "message": "Voor details of om in te schrijven, zie <a href='https://zapier.com/zapbook/webhook/' target=zapier>Zapier Webhook</a>. De Zap zal de volgende velden omvatten: title, body, tag, time",
+    "description": "info and link to Zapier"
+  },
+  "actionSpeakDesc": {
+    "message": "De herinnering wordt hardop voorgelezen met deze Chrome stem:",
+    "description": "in edit area when asking for a relative time"
+  },
+  "reminderTimeInputStructure": {
+    "message": "Laat {num} {units} {delta} zien",
+    "description": "in edit area when asking for a relative time"
+  },
+  "reminderCalcType": {
+    "message": "laat herinnering {calcTypeInput} zien",
+    "description": "in edit area when asking when to show the reminder"
+  },
+  "reminderCalcTypeRelative": {
+    "message": "in relatie tot <span class=modelTriggerEcho></span>",
+    "description": "in dropdown"
+  },
+  "reminderCalcTypeAbsolute": {
+    "message": "op een bepaald tijdstip",
+    "description": "in dropdown"
+  },
+  "reminderNum_days": {
+    "message": "dag/dagen",
+    "description": "unknown number of days"
+  },
+  "reminderNum_days_1_more": {
+    "message": "dag;dagen",
+    "description": "single;plural"
+  },
+  "reminderNum_hours": {
+    "message": "uur/uren",
+    "description": ""
+  },
+  "reminderNum_hours_1_more": {
+    "message": "uur;uren",
+    "description": ""
+  },
+  "reminderNum_minutes": {
+    "message": "minuut/minuten",
+    "description": ""
+  },
+  "reminderNum_minutes_1_more": {
+    "message": "minuut;minuten",
+    "description": ""
+  },
+  "reminderNum_seconds": {
+    "message": "seconde/seconden",
+    "description": ""
+  },
+  "reminderNum_seconds_1_more": {
+    "message": "seconde;seconden",
+    "description": ""
+  },
+  "midnight": {
+    "message": "12:00 's nachts",
+    "description": "nice way to say midnight"
+  },
+  "reminderDayOfMonth": {
+    "message": "Op dag {num} van de Badí' maand",
+    "description": "in list of defined reminders"
+  },
+  "reminderDayWhen": {
+    "message": "When {num} day(s) {beforeAfter} each {event}",
+    "translation": "Not done",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_dayEvent": {
+    "message": "{num} dag(en) {deltaText}, om {triggerTimeRawDisplay}",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_bday": {
+    "message": "dag {num} om {triggerTimeRawDisplay}",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_onload": {
+    "message": "{num} {units} na",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_timeRelative": {
+    "message": "{num} {units} {deltaText}",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_timeAbsolute": {
+    "message": "kondig om {triggerTimeRawDisplay} aan",
+    "description": "in list of defined reminders"
+  },
+  "reminderTitle": {
+    "message": "{0} Herinnering",
+    "description": "displayed as the title of each reminder shown"
+  },
+  "reminderBefore": {
+    "message": "voor",
+    "description": ""
+  },
+  "reminderAfter": {
+    "message": "na",
+    "description": ""
+  },
+  "future_DeltaTime": {
+    "message": "zal over {numUnits} zijn om {time}",
+    "description": ""
+  },
+  "past_DeltaTime": {
+    "message": "was {numUnits} geleden om {time}",
+    "description": ""
+  },
+  "future_StartDeltaTime": {
+    "message": "zal over {numUnits} beginnen om {time}",
+    "description": ""
+  },
+  "past_StartDeltaTime": {
+    "message": "is {numUnits} geleden begonnen om time}",
+    "description": ""
+  },
+  "future_Delta": {
+    "message": "zal over {numUnits} zijn",
+    "description": ""
+  },
+  "past_Delta": {
+    "message": "was {numUnits} geleden",
+    "description": ""
+  },
+  "future_Time": {
+    "message": "zal om {time} zijn",
+    "description": ""
+  },
+  "past_Time": {
+    "message": "was om {time}",
+    "description": ""
+  },
+  "future_StartTime": {
+    "message": "zal om {time} beginnen",
+    "description": ""
+  },
+  "past_StartTime": {
+    "message": "begonnen om {time}",
+    "description": ""
+  },
+  "future_Day": {
+    "message": "begint om {time}",
+    "description": "shown in the eve of the day"
+  },
+  "past_Day": {
+    "message": "begonnen om {time}",
+    "description": "shown after midnight of the day"
+  },
+  "numUnits": {
+    "message": "{num} {units}",
+    "description": "eg. 5 days, 1 minute, 3 hours"
+  },
+  "messageBody": {
+    "message": "{triggerDisplayName} {desc}",
+    "description": ""
+  },
+  "reminderBDay": {
+    "message": "Dag {num} van de Badí' maand",
+    "description": "what this reminder is triggered on (left out the the apostrophe after Badí since it breaks when displayed)"
+  },
+  "reminderHolyDay": {
+    "message": "De Heilige dag \"{0}\"",
+    "description": ""
+  },
+  "reminderFeast": {
+    "message": "Het feest van {ar}, {meaning},",
+    "description": ""
+  },
+  "reminderDayDetails": {
+    "message": "{eventTime} op {eventWeekdayLong} {eventDay} {eventMonthLong}.",
+    "description": ""
+  },
+  "reminderDayDetailsTest": {
+    "message": "{eventTime} op {eventDay} {eventMonthShort}",
     "description": ""
   }
 }

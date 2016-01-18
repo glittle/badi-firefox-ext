@@ -403,6 +403,37 @@
           </div>
         </div>
       </div>
+      <div id="pageExporter" class="fullPage page">
+        <div>
+          <div>
+            <label>
+              Select what should be exported.
+            </label>
+            <ul class="exportOptionList"></ul>
+          </div>
+          <div class="exportOtherSettings">
+            <label for="exporterDateRange" data-msg="exporterDateRange,extractAccessKeyFor:exporterDateRange"></label>
+            <select id="exporterDateRange">
+              <option id="exportRange_Badi_0"></option>
+              <option id="exportRange_Badi_1"></option>
+              <option id="exportRange_Greg_0"></option>
+              <option id="exportRange_Greg_1"></option>
+            </select>
+            
+            <label for="exporterName" data-msg="exportName"></label>
+            <input id="exporterName" type="text"  />
+
+            <button type="button" class="button" id="btnExportAll" data-msg="exportAll"></button>
+            <button type="button" class="button" id="btnExportSome" data-msg="exportSome"></button>
+            <button type="button" class="button" id="btnExportGoogleSome" data-msg="exportGoogleSome"></button>
+            <button accesskey="A" type="button" class="button" id="btnExportTestAll">Export All test</button>
+            <button accesskey="S" type="button" class="button" id="btnExportTestSome" >Export Some test</button>
+            <div id="exporterTest">
+
+            </div>
+          </div>
+        </div>
+      </div>
       <div class=selectPages>
         <div class=buttons>
           <button data-page="pageDay" data-msg=pick_pageDay></button>
@@ -413,6 +444,7 @@
           <button data-page="pageFast" data-msg=pick_pageFast></button>
           <button data-page="pageLists" data-msg=pick_pageLists></button>
           <button data-page="pageReminders" data-msg=pick_pageReminders id="btnPageReminders"></button>
+          <button data-page="pageExporter" data-msg=pick_pageExporter></button>
         </div>
       </div>
     </div>
@@ -464,5 +496,6 @@
   <script src="calWheel.js"></script>
   <script src="calGreg.js"></script>
   <script src="pageReminders.js"></script>
+  <script src="pageExporter.js"></script>
 </body>
 </html>

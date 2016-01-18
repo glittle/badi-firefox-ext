@@ -13,6 +13,7 @@ var _cal1 = null;
 var _calWheel = null;
 var _calGreg = null;
 var _pageReminders = null;
+var _pageExporter = null;
 var _enableSampleKeys = true;
 var _enableDayKeysLR = true;
 var _enableDayKeysUD = true;
@@ -200,8 +201,9 @@ function showPage(id) {
   var pageLists = '#gDay, #show, .iconArea, #special';
   var pageFast = '#yearSelector, .iconArea';
   var pageReminders = '.iconArea, #otherPageTitle';
+  var pageExporter = '#yearSelector, .iconArea, #otherPageTitle';
 
-  $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageLists, pageFast, pageReminders].join(',')).hide();
+  $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageLists, pageFast, pageReminders, pageExporter].join(',')).hide();
 
   _currentPageId = id;
   btns.each(function (i, el) {
@@ -275,6 +277,13 @@ function showPage(id) {
       _enableDayKeysLR = false;
       _enableDayKeysUD = false;
       break;
+
+    case 'pageExporter':
+      $(pageExporter).show();
+      _enableSampleKeys = false;
+      _enableDayKeysLR = true;
+      _enableDayKeysUD = false;
+      break;
   }
 
   btns.removeClass('showing');
@@ -316,6 +325,10 @@ function updatePageContentWhenVisible(id, di) {
       if (_pageReminders) {
         _pageReminders.showReminders();
       }
+      break;
+
+    case 'pageExporter':
+      $('#otherPageTitle').html(getMessage('exporterTitle'));
       break;
   }
 
@@ -398,9 +411,14 @@ function updatePageContent(id, di) {
 
     case 'pageReminders':
       //if (_pageReminders) {
-      //  log('show reminders')
       //  _pageReminders.showReminders();
       //}
+      break;
+
+    case 'pageExporter':
+      if (_pageExporter) {
+        _pageExporter.updateYear(true);
+      }
       break;
   }
 }
@@ -808,7 +826,6 @@ function jumpToDate(ev) {
 
 function changeYear(ev, delta, targetYear) {
   delta = ev ? +$(ev.target).data('delta') : +delta;
-
 
   var year = targetYear ? targetYear : _di.bYear + delta;
   var gDate = holyDays.getGDate(year, _di.bMonth, _di.bDay, true);
@@ -1281,7 +1298,8 @@ function prepare2() {
 
   _pageReminders = PageReminders();
   $('#btnPageReminders').toggle(_remindersEnabled);
-  //log(_remindersEnabled);
+
+  _pageExporter = PageExporter();
 
   if (_currentPageId != 'pageDay') {
     adjustHeight();

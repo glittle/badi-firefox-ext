@@ -237,7 +237,7 @@
     "description": ""
   },
   "HolyDay_Ridvan12": {
-    "message": "Twelveth Day of Ridván",
+    "message": "Twelfth Day of Ridván",
     "description": ""
   },
   "HolyDay_AscBaha": {
@@ -771,7 +771,7 @@
     "translation": "required",
     "description": "shown if there are no reminders"
   },
-  
+
   "reminderAddEdit": {
     "message": "Add/Edit Reminder",
     "translation": "required",
@@ -950,7 +950,7 @@
     "translation": "required",
     "description": "info and link to Zapier"
   },
-  
+
   "actionSpeakDesc": {
     "message": "The reminder will be read aloud using this Chrome voice: ",
     "translation": "required",
@@ -1146,7 +1146,7 @@
     "translation": "required",
     "description": "eg. 5 days, 1 minute, 3 hours"
   },
-  
+
   "messageBody": {
     "message": "{triggerDisplayName} {desc}",
     "translation": "required",
@@ -1169,15 +1169,110 @@
     "translation": "required",
     "description": ""
   },
-   "reminderDayDetails": {
+  "reminderDayDetails": {
     "message": "{eventTime} on {eventWeekdayLong}, {eventMonthLong} {eventDay}.",
     "description": ""
   },
-   "reminderDayDetailsTest": {
+  "reminderDayDetailsTest": {
     "message": "{eventTime} on {eventMonthShort} {eventDay}",
     "description": ""
   },
 
+  "new_messages_1_9": { "message": "adding Exporter" },
+
+  "pick_pageExporter": {
+    "message": "Export",
+    "translation": "required",
+    "description": "page tab name and page title"
+  },
+  "exporterTitle": {
+    "message": "Badí' Calendar Exporter",
+    "description": "title on page"
+  },
+  "exportOption_Hd_Sun": {
+    "message": "Holy Days (from sunset to sunset)",
+    "description": ""
+  },
+  "exportOption_Hd_AllDay": {
+    "message": "Holy Days (all-day event from midnight)",
+    "description": ""
+  },
+  "exportOption_Hd_Start": {
+    "message": "Holy Days (event at recommended start time)",
+    "description": ""
+  },
+  "exportOption_Feast_Sun": {
+    "message": "Feasts (from sunset to sunset)",
+    "description": ""
+  },
+  "exportOption_Feast_AllDay": {
+    "message": "Feasts (all day event from midnight)",
+    "description": ""
+  },
+  "exportOption_Fast_Sun2": {
+    "message": "Fast Days (two events each day at sunrise and at sunset)",
+    "description": ""
+  },
+  "exportOption_Fast_Sun": {
+    "message": "Fast Days (event from sunrise to sunset)",
+    "description": ""
+  },
+  "exportOption_Date_AllDay": {
+    "message": "Badí' Days (all-day event at midnight)",
+    "description": ""
+  },
+  "exportOption_Date_Sun": {
+    "message": "Badí' Days (from sunset to sunset)",
+    "description": ""
+  },
+  "exportOtherSettings": {
+    "message": "Other Settings",
+    "description": ""
+  },
+  "exporterDateRange": {
+    "message": "<u>Y</u>ear to Export (based on active year)",
+    "description": ""
+  },
+  "exportRangeSampleOnly": {
+    "message": "Only export a few samples",
+    "description": ""
+  },
+  "exportName": {
+    "message": "Title for Exported Calendar",
+    "description": ""
+  },
+  "exportGregYear0": {
+    "message": "Active Gregorian year - {0} A.D.",
+    "description": ""
+  },
+  "exportBadiYear0": {
+    "message": "Active Badí' year - {0} B.E.",
+    "description": ""
+  },
+  "exportGregYear1": {
+    "message": "Next Gregorian year - {0} A.D.",
+    "description": ""
+  },
+  "exportBadiYear1": {
+    "message": "Next Badí' year - {0} B.E.",
+    "description": ""
+  },
+  "exportAll": {
+    "message": "Create complete file for entire year",
+    "description": ""
+  },
+  "exportSome": {
+    "message": "Create sample file with a few entries",
+    "description": ""
+  },
+  "exportGoogleSome": {
+    "message": "Add to Google Calendar - sample file with a few entries",
+    "description": ""
+  },
+  "9": {
+    "message": "",
+    "description": ""
+  },
 
 
 

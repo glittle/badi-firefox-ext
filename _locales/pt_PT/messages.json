@@ -2,13 +2,13 @@
   "translation": {
     "name": "Marco Oliveira",
     "email": "marco_oliv@yahoo.com",
-    "mostRecentVersion": "1.6.1",
+    "mostRecentVersion": "1.8.1",
     "message": "pt_PT",
-    "description": "(this is not shown in the tool)"
+    "nameInEnglish": "Portuguese"
   },
   "title": {
     "message": "Calendário Badí",
-    "description": "Título da Extensão. Mostrar em vários locais."
+    "description": "The title of the extension. Shown in a number of locations."
   },
   "titleDesc": {
     "message": "Mostrar a data de hoje no calendário Badí', o calendário official da Fé Bahá'í.",
@@ -20,26 +20,26 @@
   },
   "bYearInVahidMeaning": {
     "message": ",A,B,Pai,D,Porta,V,Eternidade,Generosidade,Esplendor,Amor,Deleite,Resposta,Único,Caridoso,Afecto,Início,Luminosidade,Mais Luminoso,Unidade",
-    "description": "Nome Vahid começados por... "
+    "description": "Vahid names, with leading , "
   },
   "bMonthMeaning": {
     "message": "Dias Intercalares,Esplendor,Glória,Beleza,Grandeza,Luz,Misericórdia,Palavras,Perfeição,Nomes,Potência,Vontade,Conhecimento,Poder,Discurso,Perguntas,Honra,Soberania,Domínio,Sublimidade",
-    "description": "Nomes dos dias/meses após Ayyam-i-ha"
+    "description": "Names of days/months, with first one being Ayyam-i-ha"
   },
   "bWeekDayMeaning": {
     "message": ",Glória,Beleza,Perfeição,Graça,Justiça,Majestade,Independência",
-    "description": "Inicia-se no Sábado"
+    "description": "start with Saturday"
   },
   "gWeekdayLong": {
     "message": "Domingo,Segunda-feira,Terça-feira,Quarta-feira,Quinta-feira,Sexta-feira,Sábado",
-    "description": "Inicia-se no Domingo"
+    "description": "start with Sunday"
   },
   "gWeekdayShort": {
     "message": "Dom,Seg,Ter,Qua,Qui,Sex,Sab",
-    "description": "Inicia-se no Dom"
+    "description": "start with Sun"
   },
   "gMonthLong": {
-    "message": "Janeiro,Fevereiro,Março,Abril,Maio,Junho,Julho,Agosto,Setembro,Outubo,Novembro,Dezembro",
+    "message": "Janeiro,Fevereiro,Março,Abril,Maio,Junho,Julho,Agosto,Setembro,Outubro,Novembro,Dezembro",
     "description": ""
   },
   "gMonthShort": {
@@ -51,7 +51,7 @@
     "description": ""
   },
   "endingWithSunset": {
-    "message": "Termina ao pôr-do-so às {0}",
+    "message": "Termina ao pôr-do-sol às {0}",
     "description": ""
   },
   "eraLong": {
@@ -80,7 +80,7 @@
   },
   "pressToCopy": {
     "message": "Prima uma tecla para copiar data formatada para a área de transferência:",
-    "description": "Prima botão do rato ou tecla correspondente"
+    "description": "Can click button with mouse, or press matching key on keyboard"
   },
   "afterSunset": {
     "message": "noite - após pôr-do-sol",
@@ -151,12 +151,9 @@
     "message": "Version {0}",
     "description": ""
   },
-
-
-  "new_messages_1_1_2": { "message": "" },
   "formatIconToolTip": {
     "message": "{bDay} {bMonthNameAr} {bYear}",
-    "description": "texto com rato sobre icone da extensão"
+    "description": "text when mouse is over the extension icon"
   },
   "formatIconClick": {
     "message": "(clique para mais detalhes)",
@@ -172,15 +169,15 @@
   },
   "facebook": {
     "message": "Facebook",
-    "description": "ALT para icone na parte inferior da página"
+    "description": "ALT for icon at bottom of page"
   },
   "googlePlus": {
     "message": "Google+",
-    "description": "ALT para icone na parte inferior da página"
+    "description": "ALT for icon at bottom of page"
   },
   "shoghiExample": {
     "message": "Este é o dia {bDayNameAr}, da semana {bWeekdayNameAr}, do mês {bMonthNameAr}, do ano {bYearInVahidNameAr}, do {bVahidOrdinalName} Váhid, do {bKullishayOrdinalName} Kull-i-<u>Sh</u>ay’.",
-    "description": "Exemplo dado por Shoghi Effendi"
+    "description": "Example given by Shoghi Effendi"
   },
   "example2": {
     "message": "{bMonthNameAr} {bDay} {dayStartedLower} ao pôr-do-sol (about {startingSunsetDesc}) em {frag1WeekdayLong}, {frag1MonthShort} {frag1Day} and {dayEndedLower} ao pôr-do-sol (about {endingSunsetDesc}) <span class=nobreak>em {frag2WeekdayLong}, {frag2MonthShort} {frag2Day}.</span>",
@@ -188,30 +185,23 @@
   },
   "pressKeyOrClick": {
     "message": "Clique no botão ou prima {0}.",
-    "description": "Ajuda nos botões para exemplos de formato de. O {0} receberá a letra a copiar "
+    "description": "tooltip on buttons for sample date formats. The {0} will get the letter to press"
   },
   "copied": {
     "message": "Copiado!",
-    "description": "mensagem curta que substitui botão de formatação de texto quando o carregar no botão "
-  },
-
-
-  "new_messages_1_1_3": { "message": "" },
-  "use24HourClock": {
-    "message": "false",
-    "description": "use 'true' or 'false' to use 24 hour or 12 hour (am/pm) clock"
+    "description": "short message that replaces sample format button text when button is clicked"
   },
   "noLocationName": {
     "message": "(Localização Actual)",
-    "description": "Se a Internet não estiver disponível, para obter o nome da localização actual."
+    "description": "If the internet is not available, to get the name of the current location."
   },
   "noLocationAvailable": {
     "message": "(Localização desconhecida - 6:30pm hora de nascer-do-sol)",
-    "description": "Se o sistema não identificara localização deste computador."
+    "description": "If the system does not know the location of this computer."
   },
   "locationError": {
     "message": "Impossível identificar localização actual .\n\nA extensão irá usar 6:30pm como hora de pôr-do-sol em todos os dias.",
-    "description": "Se o sistema não conseguir identificar a localização, isto é mostrado numa janela de aviso."
+    "description": "If the system cannot determine the location, this is shown in an alert window."
   },
   "HolyDay_NawRuz": {
     "message": "Naw Rúz",
@@ -250,7 +240,7 @@
     "description": ""
   },
   "HolyDay_Covenant": {
-    "message": "Dia do Convénio ",
+    "message": "Dia da Aliança",
     "description": ""
   },
   "HolyDay_AscAbdul": {
@@ -267,19 +257,19 @@
   },
   "FeastOf": {
     "message": "Festa de {0}",
-    "description": "O nome identificado da Festa será colocado em {0}"
+    "description": "The localized name of the Feast will be put into {0}"
   },
   "Tonight": {
     "message": "Hoje à noite",
-    "description": "Mostrar área"
+    "description": "Shown in the upcoming dates area"
   },
   "Ended": {
     "message": "Terminado",
-    "description": "Mostrar área"
+    "description": "Shown in the upcoming dates area"
   },
   "Now": {
     "message": "Agora",
-    "description": "Mostrar área"
+    "description": "Shown in the upcoming dates area"
   },
   "1day": {
     "message": "dentro de {0} dia",
@@ -289,14 +279,6 @@
     "message": "dentro de {0} dias",
     "description": ""
   },
-
-
-  "new_messages_1_1_4": { "message": "" },
-  "sampleGroupTranslationHelp": {
-    "message": "",
-    "description": "Samples usually don't need translating. If needed, copy from the 'en' file and modify. When creating samples, can use any of the properties shown when _di is shown when inspecting the popup"
-  },
-
   "DayOfWeek": {
     "message": "Dia da Semana",
     "description": ""
@@ -357,97 +339,82 @@
     "message": "{bKullishay}",
     "description": ""
   },
-
   "bTopDayDisplay": {
     "message": "{bDay} {bMonthNameAr} {bYear}",
-    "description": "canto superior direito"
+    "description": "top right corner"
   },
   "gTopDayDisplay": {
     "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear} {currentRelationToSunset}",
-    "description": "canto superior direito"
+    "description": "top right corner"
   },
   "gregorianDateDisplay": {
     "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear}",
-    "description": "no painel à esquerda"
+    "description": "in left panel"
   },
   "upcomingDateFormat": {
     "message": "{bMonthNameAr} {bDay} ({gCombined})",
-    "description": "lista seguinte"
+    "description": "upcoming list"
   },
-
   "nextRefreshAlarm": {
     "message": "Próximo refrescamento previsto para após {0}: {1}",
-    "description": " para mostrar apenas na consola de debug"
+    "description": "only shown in the debug console"
   },
-
-
-  "new_messages_1_1_5": { "message": "" },
-
   "gMonthDayYear": {
     "message": "{bMonthNameAr} {bDay}, {bYear}",
     "description": ""
   },
-
   "gCombined_1": {
     "message": "{frag1MonthShort} {frag1Day}/{frag2Day}",
-    "description": "dia do mesmo mês gregoriano"
+    "description": "day in same gregorian month"
   },
   "gCombinedY_1": {
     "message": "{frag1MonthShort} {frag1Day}/{frag2Day}, {frag1Year}",
-    "description": "com o ano"
+    "description": "with year"
   },
   "gCombined_2": {
     "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}",
-    "description": "dia que abrande diferentes meses gregorianos "
+    "description": "day spanning different gregorian months"
   },
   "gCombinedY_2": {
     "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}, {frag1Year}",
-    "description": "com o ano"
+    "description": "with year"
   },
   "gCombined_3": {
     "message": "{frag1MonthShort} {frag1Day}/{frag2MonthShort} {frag2Day}",
-    "description": "dia que abrange diferentes anos gregorianos"
+    "description": "day spanning different gregorian years"
   },
   "gCombinedY_3": {
     "message": "{frag1MonthShort} {frag1Day}, {frag1Year}/{frag2MonthShort} {frag2Day}, {frag2Year}",
-    "description": "com o ano"
+    "description": "with year"
   },
-
-
-  "new_messages_1_1_8": { "message": "" },
   "bDatePickerTitle": {
     "message": "Escolher Data <u>B</u>adí'",
-    "description": "adicionado <u></u> - deve ter apenas uma letra entre <u> e </u>"
+    "description": "added <u></u> - should have one letter between <u> and </u>"
   },
-
-
-  "new_messages_1_2_0": { "message": "" },
   "weekDayNames": {
     "message": "Nomes Dias da Semana",
-    "description": "na página 2 - titulo tabela"
+    "description": "on List page - table caption"
   },
   "monthNames": {
     "message": "Nomes Dia/Mês",
-    "description": "na página 2 - titulo tabela"
+    "description": "on List page - table caption"
   },
   "num": {
     "message": "#",
-    "description": "na página 2 - titulo tabela"
+    "description": "on List page - table heading"
   },
   "arabic": {
     "message": "Nome",
-    "description": "na página 2 - titulo tabela"
+    "description": "on List page - table heading"
   },
   "meaning": {
     "message": "Significado",
-    "description": "na página 2 - titulo tabela"
+    "description": "on List page - table heading"
   },
   "equiv": {
     "message": "Equivalente",
-    "description": "na página 2 - titulo tabela"
+    "description": "on List page - table heading"
   },
-
-  "new_messages_1_3": { "message": "" },
   "pick_pageDay": {
     "message": "Dia",
     "description": ""
@@ -462,11 +429,11 @@
   },
   "elements": {
     "message": "Fogo,Ar,Água,Terra",
-    "description": " designações do Bab's , encontradas em https://books.google.ca/books?id=XTfoaK15t64C&pg=PA394&lpg=PA394&dq=get+of+the+heart+nader+bab&source=bl&ots=vyF-pWLAr8&sig=ruiuoE48sGWWgaB_AFKcSfkHvqw&hl=en&sa=X&ei=hbp0VfGwIon6oQSTk4Mg&ved=0CDAQ6AEwAw#v=snippet&q=%22air%20of%20eternity%22&f=false' "
+    "description": "the Bab's designations, found in 'https://books.google.ca/books?id=XTfoaK15t64C&pg=PA394&lpg=PA394&dq=get+of+the+heart+nader+bab&source=bl&ots=vyF-pWLAr8&sig=ruiuoE48sGWWgaB_AFKcSfkHvqw&hl=en&sa=X&ei=hbp0VfGwIon6oQSTk4Mg&ved=0CDAQ6AEwAw#v=snippet&q=%22air%20of%20eternity%22&f=false' "
   },
   "tips": {
     "message": "Sugestões",
-    "description": "sugestões para uso desta ferramenta"
+    "description": "hints of how to use the tool"
   },
   "tipsText": {
     "message": "Usar teclas PgUp/PgDn para seleccionar paineis.\nUsar setas Esquerda/Direita para mudar os dias.\nUsar / para alternar entre antes/depois do pôr-do-sol.",
@@ -477,28 +444,22 @@
     "message": "Prima esta combinação de teclas para abrir o calendário em qualquer área do Chrome.",
     "description": ""
   },
-
-
-  "new_messages_1_3_3": { "message": "" },
   "prevYear": {
     "message": "Ano ant",
-    "description": "prima Shift e a seta Esquerda"
+    "description": "hold Shift and press left arrow key"
   },
   "nextYear": {
     "message": "Ano seg",
-    "description": "prima Shift e a seta Direita"
+    "description": "hold Shift and press right arrow key"
   },
   "prevYearTitle": {
     "message": "Prima Shift + seta Esquerda para ver ano anterior ",
-    "description": "prima Shift e seta Esquerda"
+    "description": "hold Shift and press left arrow key"
   },
   "nextYearTitle": {
     "message": "Prima Shift + Seta Direita para ver ano seguinte",
-    "description": "prima Shift e seta Direita"
+    "description": "hold Shift and press right arrow key"
   },
-
-
-  "new_messages_1_3_6": { "message": "" },
   "jumpTo": {
     "message": "<u>M</u>over ± dias",
     "description": "user can enter a day after/before currently selected day"
@@ -511,88 +472,78 @@
     "message": "Mover para a frente ou para trás este número de dias",
     "description": "tooltip"
   },
-
-
-  "new_messages_1_4": { "message": "" },
-
   "pick_pageEvents": {
     "message": "Eventos",
-    "description": "Mostrar Festas e Dias Sagrados"
+    "description": "showing Feast and Holy Days"
   },
-
   "specialDaysTitle": {
     "message": "Festas e Dis Sagrados em {bYear}",
     "description": ""
   },
   "dateHeading": {
     "message": "Dia",
-    "description": " na Lista de Eventos "
+    "description": "heading in Events listing"
   },
   "suspendWorkHeading": {
     "message": "Suspensão de trabalho",
-    "description": "na lista de Eventos"
+    "description": "heading in Events listing"
   },
   "eventTimeHeading1": {
     "message": "Hora normal do encontro ",
-    "description": "na Lista de Eventos (se não mostrar Dias Sagrados)"
+    "description": "heading in Events listing (if not showing Holy Days)"
   },
   "eventTimeHeading2": {
     "message": "Hora excepcional do encontro",
-    "description": "na lista de Eventos (se não mostrar Dias Sagrados)"
+    "description": "heading in Events listing (if showing Holy Days)"
   },
   "sunsetHeading": {
     "message": "Início do Dia Badí'",
-    "description": "na Lista de Eventos "
+    "description": "heading in Events listing"
   },
-
   "includeThese": {
     "message": "Mostrar",
-    "description": "escolher o que quer incluir na lista"
+    "description": "choosing what to include in the listing"
   },
   "includeFeasts": {
     "message": "<u>F</u>estas",
-    "description": "escolher o que quer incluir na Lista"
+    "description": "choosing what to include in the listing"
   },
   "includeHolyDays": {
     "message": "<u>D</u>ias Sagrados",
-    "description": "escolher o que quer incluir na lista"
+    "description": "choosing what to include in the listing"
   },
   "startTimeOption": {
     "message": "Hora normal da reunião: ",
-    "description": "na lista de Eventos"
+    "description": "above Events listing"
   },
-
   "specialTime_1500S": {
     "message": "15H00  (GMT)",
-    "description": "Primeiro Dia Ridvan"
+    "description": "First day of Ridvan"
   },
   "specialTime_SS2": {
     "message": "Duas horas após pôr-do-sol",
-    "description": "Declaração do Bab"
+    "description": "Declaration of the Bab"
   },
   "specialTime_0300S": {
     "message": "03H00 (GMT)",
-    "description": "Ascensão de Baha'u'llah"
+    "description": "Ascension of Baha'u'llah"
   },
   "specialTime_1200S": {
     "message": "Meio-Dia (GMT)",
-    "description": "Martírio do Bab"
+    "description": "Martyrdom of the Bab"
   },
   "specialTime_0100S": {
     "message": "01H00 (GMT)",
-    "description": "Martírio do Bab"
+    "description": "Martyrdom of the Bab"
   },
-
   "eventTime": {
     "message": "{eventTime} {eventWeekdayShort} {eventMonthShort} {eventDay}, {eventYear}",
-    "description": "mostrar Hora de início na lista de Eventos"
+    "description": "show start time in Events listing"
   },
   "evePartOfDay": {
     "message": "{startingSunsetDesc} {frag1WeekdayShort} {frag1MonthShort} {frag1Day}, {frag1Year}",
-    "description": "mostrar hora de início  lista de Eventos "
+    "description": "show start time in Events listing"
   },
-
-
   "pick_pageFast": {
     "message": "Jejum",
     "description": ""
@@ -603,60 +554,348 @@
   },
   "sunriseFastHeading": {
     "message": "Nascer do Sol",
-    "description": "na lista dos Dias de Jejum"
+    "description": "heading in Fast days listing"
   },
   "sunsetFastHeading": {
     "message": "Pôr-do-Sol",
-    "description": "na lista dos Dias de Jejum"
+    "description": "heading in Fast days listing"
   },
   "fastGDate": {
     "message": "Data",
-    "description": "na Lista dos dias de Jejum"
+    "description": "heading in Fast days listing"
   },
   "mainPartOfDay": {
     "message": "{frag2WeekdayShort} {frag2MonthShort} {frag2Day}, {frag2Year}",
-    "description": "Mostrar hora de início na lista de Eventos "
+    "description": "show start time in Events listing"
   },
-
   "ayyamIs0": {
     "message": "(Y M D) 0 = Ayyám-i-Há",
     "translation": "required - initials for Year Month Day",
-    "description": "(actualizado) na área de escolha de data Badi "
+    "description": "(updated) in Badi date picker area"
   },
-
-
-
-  "new_messages_1_5_3": { "message": "" },
   "keyToOpenInTab": {
     "message": "T",
-    "description": "Press Shift+(letra) para abri num separador"
+    "description": "Press Shift+(this letter) to open into a tab"
   },
-
-  "new_messages_1_6_0": { "message": "" },
   "pick_pageCalWheel": {
     "message": "Roda",
-    "description": "Nome Separadortab name"
+    "description": "tab name"
   },
-
   "showPointer": {
     "message": "mostrar ponteiro",
     "description": ""
   },
-
   "currentFocus": {
     "message": "Dia Actual",
-    "description": "na roda aponta para hoje ou para o dia seleccionado"
+    "description": "in wheel, points to today, or whatever day is currently selected"
   },
-
-  "new_messages_1_7_0": { "message": "" },
   "pick_pageCalGreg": {
     "message": "Ano Gregoriano",
     "translation": "done by email",
     "description": "tab name"
   },
-
-  "x": {
-    "message": "",
+  "noon": {
+    "message": "meio-dia",
+    "description": "nice way to say noon"
+  },
+  "am": {
+    "message": "am",
+    "description": "displayed in 'timeFormat12' if not using 24 hours clock"
+  },
+  "pm": {
+    "message": "pm",
+    "description": "displayed in 'timeFormat12' if not using 24 hours clock"
+  },
+  "new_messages_1_7_9": {
+    "message": "Adicionar menu para abrir num novo tabulador",
+    "description": ""
+  },
+  "browserMenuOpen": {
+    "message": "Abrir num tabulador",
+    "description": "shown as menu item when right-clicking on the browser icon "
+  },
+  "new_messages_1_8_0": {
+    "message": "Adicionar Lembretes",
+    "description": ""
+  },
+  "pick_pageReminders": {
+    "message": "Lembretes",
+    "description": "page tab name and page title"
+  },
+  "remindersDefined": {
+    "message": "Os seus Lembretes",
+    "description": "title on right side"
+  },
+  "noReminders": {
+    "message": "Adicionar Lembretes Exemplo ",
+    "description": "shown if there are no reminders"
+  },
+  "reminderAddEdit": {
+    "message": "Adicionar/Editar Lembrete",
+    "description": "title on left side"
+  },
+  "reminderType": {
+    "message": "Evento",
+    "description": "in front of the trigger selector"
+  },
+  "reminderSelectTrigger": {
+    "message": "Adicionar Lembrete",
+    "description": "in dropdown, when no trigger is selected"
+  },
+  "reminderShowAt": {
+    "message": "Mostrar em ",
+    "description": "in front of time of day input"
+  },
+  "remindersScheduled": {
+    "message": "Marcar hoje até à meia-noite",
+    "description": "title on left side"
+  },
+  "reminderAlarm": {
+    "message": "às",
+    "description": "used when showing list of alarms scheduled today"
+  },
+  "reminderTriggerGroup_time": {
+    "message": "Hora do Dia",
+    "description": "a group of triggers - sunset sunrise noon midnight"
+  },
+  "reminderTriggerGroup_day": {
+    "message": "Dias Especiais",
+    "description": "a group of triggers - feast, holy day, Badi day"
+  },
+  "reminderTriggerGroup_load": {
+    "message": "Outros Eventos",
+    "description": "a group of triggers - for other types of events"
+  },
+  "reminderTrigger_sunrise": {
+    "message": "Nascer-do-Sol",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_sunset": {
+    "message": "Pôr-do-Sol",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_noon": {
+    "message": "Meio-Dia",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_midnight": {
+    "message": "Meia-Noite",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_feast": {
+    "message": "Dia de Festa",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_holyday": {
+    "message": "Dia Sagrado",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_bday": {
+    "message": "Dia Badi'",
+    "description": "what this reminder is triggered on"
+  },
+  "reminderTrigger_load": {
+    "message": "A Carregar",
+    "description": "what this reminder is triggered on"
+  },
+  "btnReminderEdit": {
+    "message": "Editar",
+    "description": "shown next to each reminder. Click to edit the reminder."
+  },
+  "btnReminderSave": {
+    "message": "<u>G</u>ravar",
+    "description": "Save the changes and close the edit area"
+  },
+  "btnReminderSaveNew": {
+    "message": "Gravar como novo Lembrete",
+    "description": "Save the changes as a new reminder and close the edit area. The original reminder is not affected."
+  },
+  "btnReminderCancel": {
+    "message": "Cancelar",
+    "description": "cancel changes and close the edit area"
+  },
+  "btnReminderTest": {
+    "message": "Testar Agora",
+    "description": "show a sample of the reminder now"
+  },
+  "btnReminderDelete": {
+    "message": "Apagar",
+    "description": "delete a reminder"
+  },
+  "reminder_actions": {
+    "message": "Adicionar Acção",
+    "description": "prompt for other actions"
+  },
+  "reminder_nullAction": {
+    "message": "Nenhuma",
+    "description": "in dropdown list, for when no other action is chosen"
+  },
+  "reminderAction_speak": {
+    "message": "Ler em voz alta",
+    "description": "in dropdown list, to choose to read the alert"
+  },
+  "iftttKey": {
+    "message": "Fazer Chave Canal IFTTT",
+    "description": "Key' for IFTTT Maker channel"
+  },
+  "iftttEvent": {
+    "message": "Nome Evento IFTTT",
+    "description": "name of 'Event' for IFTTT Maker channel"
+  },
+  "reminderTimeInputStructure": {
+    "message": "Mostrar {num} {units} {delta}",
+    "description": "in edit area when asking for a relative time"
+  },
+  "reminderCalcType": {
+    "message": "Mostrar lembrete {calcTypeInput}",
+    "description": "in edit area when asking when to show the reminder"
+  },
+  "reminderCalcTypeRelative": {
+    "message": "relativo a <span class=modelTriggerEcho></span>",
+    "description": "in dropdown"
+  },
+  "reminderCalcTypeAbsolute": {
+    "message": "numa hora específica",
+    "description": "in dropdown"
+  },
+  "reminderNum_days": {
+    "message": "Dia(s)",
+    "description": "unknown number of days"
+  },
+  "reminderNum_days_1_more": {
+    "message": "dia; dias",
+    "description": "single;plural"
+  },
+  "reminderNum_hours": {
+    "message": "hora(s)",
+    "description": ""
+  },
+  "reminderNum_hours_1_more": {
+    "message": "hora; horas",
+    "description": ""
+  },
+  "reminderNum_minutes": {
+    "message": "minuto(s)",
+    "description": ""
+  },
+  "reminderNum_minutes_1_more": {
+    "message": "minuto; minutos",
+    "description": ""
+  },
+  "reminderNum_seconds": {
+    "message": "segundo(s)",
+    "description": ""
+  },
+  "reminderNum_seconds_1_more": {
+    "message": "segundo; segundos",
+    "description": ""
+  },
+  "midnight": {
+    "message": "12:00 meia-noite",
+    "description": "nice way to say midnight"
+  },
+  "reminderDayOfMonth": {
+    "message": "No dia {num} do mês Badí'",
+    "description": "in list of defined reminders"
+  },
+  "reminderDayWhen": {
+    "message": "Quando {num} dia(s) {beforeAfter} cada {event}",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_dayEvent": {
+    "message": "{num} dia(s) {deltaText}, às {triggerTimeRawDisplay}",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_bday": {
+    "message": "dia {num} às {triggerTimeRawDisplay}",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_onload": {
+    "message": "{num} {units} após",
+    "description": "in list of defined reminders"
+  },
+  "reminderList_timeAbsolute": {
+    "message": "anunciado às {triggerTimeRawDisplay}",
+    "description": "in list of defined reminders"
+  },
+  "reminderTitle": {
+    "message": "anunciado às {triggerTimeRawDisplay}",
+    "description": "displayed as the title of each reminder shown"
+  },
+  "reminderBefore": {
+    "message": "antes",
+    "description": ""
+  },
+  "reminderAfter": {
+    "message": "após",
+    "description": ""
+  },
+  "future_DeltaTime": {
+    "message": "realiza-se em {numUnits} às {time}",
+    "description": ""
+  },
+  "past_DeltaTime": {
+    "message": "realizou-se {numUnits} às {time}",
+    "description": ""
+  },
+  "future_StartDeltaTime": {
+    "message": "inicia-se dentro de {numUnits} às {time}",
+    "description": ""
+  },
+  "past_StartDeltaTime": {
+    "message": "iniciou-se {numUnits} às {time}",
+    "description": ""
+  },
+  "future_Delta": {
+    "message": "realiza-se em {numUnits}",
+    "description": ""
+  },
+  "past_Delta": {
+    "message": "realizou-se {numUnits}",
+    "description": ""
+  },
+  "future_Time": {
+    "message": "será às {time}",
+    "description": ""
+  },
+  "past_Time": {
+    "message": "foi às {time}",
+    "description": ""
+  },
+  "future_StartTime": {
+    "message": "inicia-se às {time}",
+    "description": ""
+  },
+  "past_StartTime": {
+    "message": "iniciou-se às {time}",
+    "description": ""
+  },
+  "future_Day": {
+    "message": "inicia-se às {time}",
+    "description": "shown in the eve of the day"
+  },
+  "past_Day": {
+    "message": "iniciou-se às {time}",
+    "description": "shown after midnight of the day"
+  },
+  "reminderBDay": {
+    "message": "Dia {num} do mês Badí'",
+    "description": "what this reminder is triggered on (left out the the apostrophe after Badí since it breaks when displayed)"
+  },
+  "reminderHolyDay": {
+    "message": "O Dia Sagrado, \"{0}\",",
+    "description": ""
+  },
+  "reminderFeast": {
+    "message": "A Festa de {ar}, {meaning},",
+    "description": ""
+  },
+  "reminderDayDetails": {
+    "message": "{eventTime} no {eventWeekdayLong}, {eventMonthLong} {eventDay}.",
+    "description": ""
+  },
+  "reminderDayDetailsTest": {
+    "message": "{eventTime} no {eventMonthShort} {eventDay}",
     "description": ""
   }
 }

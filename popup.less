@@ -55,7 +55,7 @@ body {
     flex-direction: column;
 }
 
-#pageDay, #pageEvents, #pageFast, #pageLists, #pageCal1, #pageReminders {
+#pageDay, #pageEvents, #pageFast, #pageLists, #pageCal1, #pageReminders, #pageExporter {
     display: flex;
     justify-content: flex-end;
     width: 100%;
@@ -212,6 +212,73 @@ body {
         margin-right: 20px;
         background: coral;
         border-color: coral;
+    }
+}
+
+#pageExporter {
+    > div {
+        border: 1px solid @green;
+        border-radius: 3px;
+        margin-left: 4px;
+        justify-content: flex-end;
+        flex: 0 1 100%;
+        display: flex;
+
+        > div {
+            margin-left: 4px;
+            justify-content: flex-end;
+            flex: 0 1 100%;
+            padding: 5px 10px 10px 10px;
+        }
+    }
+
+    .exportOtherSettings {
+        input, select {
+            margin-left: 20px;
+        }
+
+        button {
+            display: block;
+            margin: 5px 0;
+        }
+
+        #exporterTest {
+            background-color: #eee;
+            overflow-y: auto;
+            overflow-x: hidden;
+            white-space: nowrap;
+            max-height: 200px;
+        }
+    }
+
+    label {
+        display: block;
+        margin: 5px 0 3px 0;
+    }
+
+    ul.exportOptionList {
+        margin: 0;
+        -webkit-padding-start: 15px;
+        list-style: none;
+
+        li {
+            color: #000;
+            font-weight: bold;
+
+            &.group {
+                margin-top: 7px;
+            }
+
+            label {
+                display: inline;
+                margin: 0;
+            }
+
+            span.comment {
+                font-weight: 700;
+                color: #000;
+            }
+        }
     }
 }
 
@@ -1038,7 +1105,7 @@ input.bYearPicker {
         display: none !important;
     }
 
-    #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageReminders {
+    #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageReminders, #pageExporter {
         border: none;
         padding: 20px 0 0 0;
     }

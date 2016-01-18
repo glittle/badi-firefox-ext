@@ -45,7 +45,8 @@
 #pageFast,
 #pageLists,
 #pageCal1,
-#pageReminders {
+#pageReminders,
+#pageExporter {
   display: flex;
   justify-content: flex-end;
   width: 100%;
@@ -174,6 +175,59 @@
   margin-right: 20px;
   background: coral;
   border-color: coral;
+}
+#pageExporter > div {
+  border: 1px solid #77b55a;
+  border-radius: 3px;
+  margin-left: 4px;
+  justify-content: flex-end;
+  flex: 0 1 100%;
+  display: flex;
+}
+#pageExporter > div > div {
+  margin-left: 4px;
+  justify-content: flex-end;
+  flex: 0 1 100%;
+  padding: 5px 10px 10px 10px;
+}
+#pageExporter .exportOtherSettings input,
+#pageExporter .exportOtherSettings select {
+  margin-left: 20px;
+}
+#pageExporter .exportOtherSettings button {
+  display: block;
+  margin: 5px 0;
+}
+#pageExporter .exportOtherSettings #exporterTest {
+  background-color: #eee;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: nowrap;
+  max-height: 200px;
+}
+#pageExporter label {
+  display: block;
+  margin: 5px 0 3px 0;
+}
+#pageExporter ul.exportOptionList {
+  margin: 0;
+  -webkit-padding-start: 15px;
+  list-style: none;
+}
+#pageExporter ul.exportOptionList li {
+  color: #000;
+  font-weight: bold;
+}
+#pageExporter ul.exportOptionList li.group {
+  margin-top: 7px;
+}
+#pageExporter ul.exportOptionList li label {
+  display: inline;
+  margin: 0;
+}
+#pageExporter ul.exportOptionList li span.comment {
+  font-weight: 700;
+  color: #000;
 }
 #pageDay > div {
   margin-left: 4px;
@@ -848,7 +902,8 @@ input.bYearPicker {
   #pageLists,
   #pageCal1,
   #pageCalWheel,
-  #pageReminders {
+  #pageReminders,
+  #pageExporter {
     border: none;
     padding: 20px 0 0 0;
   }
