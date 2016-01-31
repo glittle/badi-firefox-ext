@@ -406,12 +406,37 @@
       <div id="pageExporter" class="fullPage page">
         <div>
           <div>
-            <label>
-              Select what should be exported.
-            </label>
-            <ul class="exportOptionList"></ul>
+            <label data-msg="exportWhatTitle"></label>
+            <div class="exportOptionList"></div>
+
           </div>
           <div class="exportOtherSettings">
+            <p data-msg="exportIntro"></p>
+
+            <div class="QuickPickTitle" data-msg="exportQuickPicks"></div>
+            <div class="QuickPickDesc" data-msg="exportQuickDesc"></div>
+            <div class="QuickPicks">
+              <div>
+                <button type="button" class="button" data-msg="exportQuickPick1" id="btnQuickPick1"></button>
+                <span data-msg="exportQuickPick1text"></span>
+              </div>
+              <div>
+                <button type="button" class="button" data-msg="exportQuickPick2" id="btnQuickPick2"></button>
+                <span data-msg="exportQuickPick2text"></span>
+              </div>
+              <div>
+                <button type="button" class="button" data-msg="exportQuickPick3" id="btnQuickPick3"></button>
+                <span data-msg="exportQuickPick3text"></span>
+              </div>
+              <div>
+                <button type="button" class="button" data-msg="exportQuickPickClear" id="btnQuickPickClear"></button>
+                <span data-msg="exportQuickPickCleartext"></span>
+              </div>
+            </div>
+
+            <label for="exporterName" data-msg="exportName"></label>
+            <input id="exporterName" type="text" />
+
             <label for="exporterDateRange" data-msg="exporterDateRange,extractAccessKeyFor:exporterDateRange"></label>
             <select id="exporterDateRange">
               <option id="exportRange_Badi_0"></option>
@@ -419,17 +444,23 @@
               <option id="exportRange_Greg_0"></option>
               <option id="exportRange_Greg_1"></option>
             </select>
-            
-            <label for="exporterName" data-msg="exportName"></label>
-            <input id="exporterName" type="text"  />
 
-            <button type="button" class="button" id="btnExportAll" data-msg="exportAll"></button>
-            <button type="button" class="button" id="btnExportSome" data-msg="exportSome"></button>
-            <button type="button" class="button" id="btnExportGoogleSome" data-msg="exportGoogleSome"></button>
-            <button accesskey="A" type="button" class="button" id="btnExportTestAll">Export All test</button>
-            <button accesskey="S" type="button" class="button" id="btnExportTestSome" >Export Some test</button>
-            <div id="exporterTest">
+            <label data-msg="exportWhatToInclude"></label>
+            <div>
+              <input id="exporterIncludeAlert" type="checkbox" value="location" /><span data-msg="exportIncludeAlert"></span>
+              <select id="exporterIncludeAlertMin"></select>
+            </div>
 
+            <div class="exportNum">
+              <span data-msg="exportNumToInclude"></span>
+              <span id="exportNum"></span>
+            </div>
+
+            <div class="exporterButtons">
+              <button type="button" class="button" id="btnExportFile" data-msg="exportFile"></button>
+              <button type="button" class="button" id="btnHideSample" data-msg="exportHideTest"></button>
+              <button accesskey="S" type="button" class="button" id="btnExportTest" data-msg="exportTest"></button>
+              <textarea id="exporterTest"></textarea>
             </div>
           </div>
         </div>
@@ -497,5 +528,6 @@
   <script src="calGreg.js"></script>
   <script src="pageReminders.js"></script>
   <script src="pageExporter.js"></script>
+  <script src="misc/moment-timezone-with-data.min.js"></script>
 </body>
 </html>

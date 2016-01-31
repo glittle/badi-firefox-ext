@@ -472,7 +472,9 @@ var BackgroundReminderEngine = function () {
 
     localStorage.removeItem(alarmName);
 
-    setAlarmsForRestOfToday();
+    if(!isTest){
+      setAlarmsForRestOfToday();
+    }
   }
 
 
@@ -584,9 +586,10 @@ var BackgroundReminderEngine = function () {
               });
             },
             error: function (request, error) {
-              var msg = "Request: " + JSON.stringify(request);
-              log(msg);
-              alert(msg);
+              log(JSON.stringify(request));
+              log(JSON.stringify(error));
+              
+              alert(request.statusText);
             }
           });
 

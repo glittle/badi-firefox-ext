@@ -190,44 +190,75 @@
   flex: 0 1 100%;
   padding: 5px 10px 10px 10px;
 }
-#pageExporter .exportOtherSettings input,
-#pageExporter .exportOtherSettings select {
+#pageExporter .exportNum {
+  margin: 10px 0;
+}
+#pageExporter em {
+  color: #999;
+}
+#pageExporter .exportItemTitle {
+  font-weight: bold;
+  margin-top: 6px;
+}
+#pageExporter .exportItemTitle em {
+  font-weight: normal;
+}
+#pageExporter .exporterButtons label {
+  margin: 15px 0 0 0;
+}
+#pageExporter .exporterButtons label input {
+  margin: 0;
+}
+#pageExporter input,
+#pageExporter select {
   margin-left: 20px;
-}
-#pageExporter .exportOtherSettings button {
-  display: block;
-  margin: 5px 0;
-}
-#pageExporter .exportOtherSettings #exporterTest {
-  background-color: #eee;
-  overflow-y: auto;
-  overflow-x: hidden;
-  white-space: nowrap;
-  max-height: 200px;
 }
 #pageExporter label {
   display: block;
-  margin: 5px 0 3px 0;
+  margin: 5px 0 2px 0;
 }
-#pageExporter ul.exportOptionList {
+#pageExporter label select {
+  margin-left: 0;
+}
+#pageExporter .exportOtherSettings button {
+  display: inline-block;
+  margin: 5px 0 0 15px;
+}
+#pageExporter .exportOtherSettings #exporterTest {
+  display: none;
+  background-color: #eee;
+  height: 100px;
+  width: 350px;
+  white-space: pre-line;
+  font-size: 85%;
+  font-family: sans-serif;
+}
+#pageExporter .exportOtherSettings #btnHideSample {
+  display: none;
+  float: right;
+  margin-right: 15px;
+}
+#pageExporter .exportOptionList label {
   margin: 0;
-  -webkit-padding-start: 15px;
-  list-style: none;
 }
-#pageExporter ul.exportOptionList li {
-  color: #000;
-  font-weight: bold;
-}
-#pageExporter ul.exportOptionList li.group {
-  margin-top: 7px;
-}
-#pageExporter ul.exportOptionList li label {
-  display: inline;
-  margin: 0;
-}
-#pageExporter ul.exportOptionList li span.comment {
+#pageExporter .exportOptionList span.comment {
   font-weight: 700;
   color: #000;
+}
+#pageExporter .QuickPickTitle {
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 6px;
+}
+#pageExporter .QuickPicks div {
+  display: flex;
+  margin-left: 10px;
+  align-items: flex-start;
+}
+#pageExporter .QuickPicks button {
+  margin: 1px 4px 0 0;
+  flex-shrink: 0;
+  display: block;
 }
 #pageDay > div {
   margin-left: 4px;

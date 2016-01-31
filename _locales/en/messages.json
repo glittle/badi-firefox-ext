@@ -2,7 +2,7 @@
   "translation": {
     "name": "Glen Little",
     "email": "glen.little@gmail.com",
-    "mostRecentVersion": "1.8.0",
+    "mostRecentVersion": "1.9.0",
     "message": "en",
     "description": "(this is not shown in the tool)"
   },
@@ -923,7 +923,7 @@
   "iftttKey": {
     "message": "IFTTT Maker Channel Key",
     "translation": "required",
-    "description": "'Key' for IFTTT Maker channel"
+    "description": "Key' for IFTTT Maker channel"
   },
   "iftttEvent": {
     "message": "IFTTT Event Name",
@@ -1189,40 +1189,60 @@
     "message": "Badí' Calendar Exporter",
     "description": "title on page"
   },
-  "exportOption_Hd_Sun": {
-    "message": "Holy Days (from sunset to sunset)",
+  "exportIntro": {
+    "message": "Important! See <a target=\"sitesExport\" href=\"https://sites.google.com/site/badicalendartools/home/chrome-extension/exporting\">this web page</a> for information and cautions!",
+    "description": "Be sure the URL remains in English, to find the webpage!"
+  },
+  "exportCalendarDescription": {
+    "message": "Dates in the Badí' Calendar for {location}",
+    "description": "title on page"
+  },
+  "exportOption_Date": {
+    "message": "Badí' Days <em>(365/366 days)</em>",
     "description": ""
   },
-  "exportOption_Hd_AllDay": {
-    "message": "Holy Days (all-day event from midnight)",
+  "exportOption_Hd": {
+    "message": "Holy Days <em>(11 days)</em>",
     "description": ""
   },
-  "exportOption_Hd_Start": {
-    "message": "Holy Days (event at recommended start time)",
+  "exportOption_Feast": {
+    "message": "Feasts <em>(19 days)</em>",
     "description": ""
   },
-  "exportOption_Feast_Sun": {
-    "message": "Feasts (from sunset to sunset)",
+  "exportOption_Fast": {
+    "message": "Fast Days <em>(19 days)</em>",
     "description": ""
   },
-  "exportOption_Feast_AllDay": {
-    "message": "Feasts (all day event from midnight)",
+  "exportOption_Sun": {
+    "message": "From sunset to sunset <em>(about 24 hours)</em>",
     "description": ""
   },
-  "exportOption_Fast_Sun2": {
-    "message": "Fast Days (two events each day at sunrise and at sunset)",
+  "exportOption_AllDay": {
+    "message": "'All-day' event from midnight <em>(1 day long)</em>",
     "description": ""
   },
-  "exportOption_Fast_Sun": {
-    "message": "Fast Days (event from sunrise to sunset)",
+  "exportOption_Start": {
+    "message": "Event at designated observation time or usual meeting time",
     "description": ""
   },
-  "exportOption_Date_AllDay": {
-    "message": "Badí' Days (all-day event at midnight)",
+  "exportOption_Usual": {
+    "message": "Event at usual meeting time (see Events page)",
     "description": ""
   },
-  "exportOption_Date_Sun": {
-    "message": "Badí' Days (from sunset to sunset)",
+  "exportOption_BeginningSunset": {
+    "message": "At beginning sunset only",
+    "description": ""
+  },
+  "exportOption_Sunrise": {
+    "message": "At sunrise only",
+    "description": ""
+  },
+  "exportOption_Sunset": {
+    "message": "At sunset only",
+    "description": ""
+  },
+  "exportOption_SunriseToSunset": {
+    "message": "Event from sunrise to sunset <em>(about 12 hours)</em>",
     "description": ""
   },
   "exportOtherSettings": {
@@ -1230,50 +1250,170 @@
     "description": ""
   },
   "exporterDateRange": {
-    "message": "<u>Y</u>ear to Export (based on active year)",
+    "message": "<u>R</u>ange of dates to Export (based on currently selected year)",
     "description": ""
   },
-  "exportRangeSampleOnly": {
-    "message": "Only export a few samples",
+  "exportRangeFullRange": {
+    "message": "Export all calendar entries. (If not checked, only export a sample set.)",
     "description": ""
   },
   "exportName": {
-    "message": "Title for Exported Calendar",
+    "message": "Title for Exported Calendar (may not be used)",
     "description": ""
   },
   "exportGregYear0": {
-    "message": "Active Gregorian year - {0} A.D.",
+    "message": "Gregorian year - {0} A.D.",
     "description": ""
   },
   "exportBadiYear0": {
-    "message": "Active Badí' year - {0} B.E.",
+    "message": "Badí' year - {0} B.E.",
     "description": ""
   },
   "exportGregYear1": {
-    "message": "Next Gregorian year - {0} A.D.",
+    "message": "Gregorian year - {0} A.D.",
     "description": ""
   },
   "exportBadiYear1": {
-    "message": "Next Badí' year - {0} B.E.",
+    "message": "Badí' year - {0} B.E.",
     "description": ""
   },
-  "exportAll": {
-    "message": "Create complete file for entire year",
+  "exportWhatToInclude": {
+    "message": "Options",
     "description": ""
   },
-  "exportSome": {
-    "message": "Create sample file with a few entries",
+  "exportIncludeLocation": {
+    "message": "Location Information",
     "description": ""
   },
-  "exportGoogleSome": {
-    "message": "Add to Google Calendar - sample file with a few entries",
+  "exportFile": {
+    "message": "Download iCalendar file (.ics)",
     "description": ""
   },
-  "9": {
-    "message": "",
+  "exportTest": {
+    "message": "Display for copying",
     "description": ""
   },
-
+  "exportHideTest": {
+    "message": "Hide",
+    "description": ""
+  },
+  "exporterFastUntil": {
+    "message": "Fast until {endingSunsetDesc}",
+    "description": ""
+  },
+  "exportDayFromSunset": {
+    "message": "Start of {0}",
+    "description": ""
+  },
+  "exporterFastStart": {
+    "message": "Fast Starts",
+    "description": "when the fast starts at sunrise"
+  },
+  "exporterFastEnd": {
+    "message": "Fast Ends",
+    "description": "when the fast ends at sunset"
+  },
+  "exporterItemDescDay": {
+    "message": "A day in the Badí' calendar.",
+    "description": "Included as the description in every calendar entry"
+  },
+  "exporterItemDescFast": {
+    "message": "Times for the annual Bahá'í Fast.",
+    "description": "Included as the description in every calendar entry"
+  },
+  "exporterItemDescSpecialTime": {
+    "message": "{SpecialTime}.",
+    "description": "For when a Holy Day as a particular time"
+  },
+  "exporterItemDescGeneralTime": {
+    "message": "Gathering may start at any time on this Badí' day.",
+    "description": "For when a Holy Day as a particular time"
+  },
+  "exporterItemDescShared": {
+    "message": "Sunrise or sunset times shown are for {location}. Generated using http://bit.ly/BadiChrome.",
+    "description": "Be sure the URL is not translated!"
+  },
+  "exportIncludeAlert": {
+    "message": "Add an alert to each event",
+    "description": ""
+  },
+  "exportWhatTitle": {
+    "message": "Select what should be exported.",
+    "description": ""
+  },
+  "exportNumToInclude": {
+    "message": "Number of calendar entries that will be created (approximately):",
+    "description": ""
+  },
+  "exportAlert_B0": {
+    "message": "When it starts",
+    "description": ""
+  },
+  "exportAlert_B1": {
+    "message": "1 minute before",
+    "description": ""
+  },
+  "exportAlert_B5": {
+    "message": "5 minutes before",
+    "description": ""
+  },
+  "exportAlert_B10": {
+    "message": "10 minutes before",
+    "description": ""
+  },
+  "exportAlert_B15": {
+    "message": "15 minutes before",
+    "description": ""
+  },
+  "exportAlert_B30": {
+    "message": "30 minutes before",
+    "description": ""
+  },
+  "exportAlert_B60": {
+    "message": "60 minutes before",
+    "description": ""
+  },
+  "exportQuickPicks": {
+    "message": "Recommended sets of Events",
+    "description": ""
+  },
+  "exportQuickDesc": {
+    "message": "Export each set, then load them all into the same calendar!",
+    "description": ""
+  },
+  "exportQuickPick1": {
+    "message": "1. Full Calendar",
+    "description": ""
+  },
+  "exportQuickPick1Text": {
+    "message": "Display each Badí' day, along with Holy Days and Feast times. No alerts.",
+    "description": ""
+  },
+  "exportQuickPick2": {
+    "message": "2. Fast Time - Morning",
+    "description": ""
+  },
+  "exportQuickPick2Text": {
+    "message": "Sunrise, with an alert just before it.",
+    "description": ""
+  },
+  "exportQuickPick3": {
+    "message": "3. Fast Time - Evening",
+    "description": ""
+  },
+  "exportQuickPick3Text": {
+    "message": "Sunset, with an alert.",
+    "description": ""
+  },
+  "exportQuickPickClear": {
+    "message": "Reset",
+    "description": ""
+  },
+  "exportQuickPickClearText": {
+    "message": "Reset options",
+    "description": ""
+  },
+  
 
 
 

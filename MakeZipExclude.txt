@@ -4,3 +4,4 @@ MakeZip*
 .git
 .settings
 Readme.md
+.vscode

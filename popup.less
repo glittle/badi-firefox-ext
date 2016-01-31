@@ -232,52 +232,98 @@ body {
         }
     }
 
-    .exportOtherSettings {
-        input, select {
-            margin-left: 20px;
-        }
+    .exportNum {
+        margin: 10px 0;
+    }
 
-        button {
-            display: block;
-            margin: 5px 0;
-        }
+    em {
+        color: #999;
+    }
 
-        #exporterTest {
-            background-color: #eee;
-            overflow-y: auto;
-            overflow-x: hidden;
-            white-space: nowrap;
-            max-height: 200px;
+    .exportItemTitle {
+        font-weight: bold;
+        margin-top: 6px;
+
+        em {
+            font-weight: normal;
         }
+    }
+
+    .exporterButtons {
+        label {
+            margin: 15px 0 0 0;
+
+            input {
+                margin: 0;
+            }
+        }
+    }
+
+    input, select {
+        margin-left: 20px;
     }
 
     label {
         display: block;
-        margin: 5px 0 3px 0;
+        margin: 5px 0 2px 0;
+
+        select {
+            margin-left: 0;
+        }
     }
 
-    ul.exportOptionList {
-        margin: 0;
-        -webkit-padding-start: 15px;
-        list-style: none;
+    .exportOtherSettings {
 
-        li {
+        button {
+            display: inline-block;
+            margin: 5px 0 0 15px;
+        }
+
+        #exporterTest {
+            display: none;
+            background-color: #eee;
+            height: 100px;
+            width: 350px;
+            white-space: pre-line;
+            font-size: 85%;
+            font-family: sans-serif;
+        }
+
+        #btnHideSample {
+            display: none;
+            float: right;
+            margin-right: 15px;
+        }
+    }
+
+    .exportOptionList {
+        label {
+            margin: 0;
+        }
+
+        span.comment {
+            font-weight: 700;
             color: #000;
-            font-weight: bold;
+        }
+    }
 
-            &.group {
-                margin-top: 7px;
-            }
+    .QuickPickTitle {
+        font-weight: bold;
+        font-style: italic;
+        margin-top: 6px;
+    }
 
-            label {
-                display: inline;
-                margin: 0;
-            }
+    .QuickPicks {
+        div {
+            display: flex;
+            margin-left: 10px;
+            align-items: flex-start;
+        }
 
-            span.comment {
-                font-weight: 700;
-                color: #000;
-            }
+        button {
+            margin: 1px 4px 0 0;
+            flex-shrink: 0;
+            display: block;
         }
     }
 }
@@ -1131,11 +1177,9 @@ input.bYearPicker {
 }
 
 @media (min-width: 900px) {
-
     /*body {
         background: url('Sea of Fog.jpg') #fff no-repeat center;
     }*/
-
     .selectPages .buttons {
         width: auto;
         align-items: flex-start;
