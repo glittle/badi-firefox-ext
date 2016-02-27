@@ -1,36 +1,36 @@
 @green: #77b55a;
 
 body {
-    margin: 0;
-    font-family: Geneva, 'Segoe UI';
-    font-size: 9pt;
-    overflow: hidden;
+  margin: 0;
+  font-family: Geneva, 'Segoe UI';
+  font-size: 9pt;
+  overflow: hidden;
 }
 
 #mainBody {
-    margin: 0 auto;
-    width: 800px;
-    font-family: Geneva, 'Segoe UI';
+  margin: 0 auto;
+  width: 800px;
+  font-family: Geneva, 'Segoe UI';
 }
 
 #initialCover {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 100%;
-    background-color: white;
-    z-index: 99999;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-color: white;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .initialMsgArea {
-    color: green;
-    width: 700px;
-    text-align: center;
-    font-size: 12pt;
+  color: green;
+  width: 700px;
+  text-align: center;
+  font-size: 12pt;
 }
 
 #loadingMsg {
@@ -40,1102 +40,1103 @@ body {
 }
 
 .mainTop {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .mainMiddle {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .mainBottom {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #pageDay, #pageEvents, #pageFast, #pageLists, #pageCal1, #pageReminders, #pageExporter {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageCalGreg {
-    border: 1px solid @green;
-    border-radius: 3px;
+  border: 1px solid @green;
+  border-radius: 3px;
 }
 
 #pageCalWheel, #pageCalGreg {
-    width: 100%;
+  width: 100%;
 }
 
 .alarms {
-    li {
-        padding: 1px 0;
-        list-style-type: none;
-        margin-left: -20px;
+  li {
+    padding: 1px 0;
+    list-style-type: none;
+    margin-left: -20px;
 
-        &.inEdit {
-            background: #eee;
-        }
-
-        &.tempHover {
-            background: #dfd;
-        }
+    &.inEdit {
+      background: #eee;
     }
+
+    &.tempHover {
+      background: #dfd;
+    }
+  }
 }
 
 #pageReminders {
+  > div {
+    border: 1px solid @green;
+    border-radius: 3px;
+    margin-left: 4px;
+    justify-content: flex-end;
+    flex: 0 1 100%;
+    padding: 5px 10px 10px 10px;
+
+    &::first {
+      border-color: rgba(0, 3, 255, 0.67);
+    }
+  }
+
+  .reminderEditInputs {
+    margin-left: 10px;
+  }
+
+  #reminderTrigger {
+    margin-bottom: 9px;
+  }
+
+  .reminderEdit {
+    margin: 0 5px 25px 10px;
+    position: relative;
+
+    .reminder_num {
+      width: 3em;
+    }
+
+    textarea {
+      display: block;
+      margin-left: 20px;
+      width: 80%;
+    }
+
+    div {
+      margin: 3px 0 3px 10px;
+    }
+  }
+
+  .reminderModel {
+    display: none;
+    margin: 1px 0 1px 20px;
+  }
+
+  div.reminderShared {
+    margin: 20px 0 5px -10px;
+  }
+
+  .reminders {
     > div {
-        border: 1px solid @green;
-        border-radius: 3px;
-        margin-left: 4px;
-        justify-content: flex-end;
-        flex: 0 1 100%;
-        padding: 5px 10px 10px 10px;
+      padding: 1px 0;
+      display: flex;
 
-        &::first {
-            border-color: rgba(0, 3, 255, 0.67);
-        }
-    }
-
-    .reminderEditInputs {
-        margin-left: 10px;
-    }
-
-    #reminderTrigger {
-        margin-bottom: 9px;
-    }
-
-    .reminderEdit {
-        margin: 0 5px 25px 10px;
-        position: relative;
-
-        .reminder_num {
-            width: 3em;
-        }
-
-        textarea {
-            display: block;
-            margin-left: 20px;
-            width: 80%;
-        }
-
-        div {
-            margin: 3px 0 3px 10px;
-        }
-    }
-
-    .reminderModel {
-        display: none;
-        margin: 1px 0 1px 20px;
-    }
-
-    div.reminderShared {
-        margin: 20px 0 5px -10px;
-    }
-
-    .reminders {
-        > div {
-            padding: 1px 0;
-            display: flex;
-
-            button {
-                padding-left: 3px;
-                padding-right: 3px;
-                display: block;
-                flex-shrink: 0;
-                align-self: baseline;
-            }
-
-            &.inEdit {
-                background: #eee;
-            }
-
-            &.tempHover {
-                background: #dfd;
-            }
-
-            > div {
-                display: block;
-                margin-left: 7px;
-            }
-        }
-    }
-
-    .reminder_iftttEvent {
-        width: 10em;
-    }
-
-    #reminderAction_ifttt {
-        border: 1px solid #ddd;
-        background-color: #eee;
-        padding: 1px 5px;
-        margin-left: 10px;
-    }
-
-    div.reminderComment {
-        margin-left: 20px;
-    }
-
-    .reminderAction {
-        display: none;
-    }
-
-    .reminderNum {
-        min-width: 15px;
-        margin-right: 5px;
+      button {
+        padding-left: 3px;
+        padding-right: 3px;
         display: block;
-        text-align: right;
-    }
+        flex-shrink: 0;
+        align-self: baseline;
+      }
 
-    #btnReminderSave {
-        display: none;
-    }
+      &.inEdit {
+        background: #eee;
+      }
 
-    #btnReminderDelete {
-        background-image: url('data:image/png;base64,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') /*imagesForReminders/bday.png*/;
-        position: absolute;
-        background: red;
-        border-color: red;
-        right: 2px;
-        margin-top: 3px;
-    }
+      &.tempHover {
+        background: #dfd;
+      }
 
-    div.reminderSaveBtns {
-        margin: 10px 30px 0 0;
-        line-height: 21px; // for when they wrap
+      > div {
+        display: block;
+        margin-left: 7px;
+      }
     }
+  }
 
-    #btnReminderCancel {
-        margin-right: 20px;
-        background: coral;
-        border-color: coral;
-    }
+  .reminder_iftttEvent {
+    width: 10em;
+  }
+
+  #reminderAction_ifttt {
+    border: 1px solid #ddd;
+    background-color: #eee;
+    padding: 1px 5px;
+    margin-left: 10px;
+  }
+
+  div.reminderComment {
+    margin-left: 20px;
+  }
+
+  .reminderAction {
+    display: none;
+  }
+
+  .reminderNum {
+    min-width: 15px;
+    margin-right: 5px;
+    display: block;
+    text-align: right;
+  }
+
+  #btnReminderSave {
+    display: none;
+  }
+
+  #btnReminderDelete {
+    background-image: url('data:image/png;base64,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') /*imagesForReminders/bday.png*/;
+    position: absolute;
+    background: red;
+    border-color: red;
+    right: 2px;
+    margin-top: 3px;
+  }
+
+  div.reminderSaveBtns {
+    margin: 10px 30px 0 0;
+    line-height: 21px; // for when they wrap
+  }
+
+  #btnReminderCancel {
+    margin-right: 20px;
+    background: coral;
+    border-color: coral;
+  }
 }
 
 #pageExporter {
+  > div {
+    border: 1px solid @green;
+    border-radius: 3px;
+    margin-left: 4px;
+    justify-content: flex-end;
+    flex: 0 1 100%;
+    display: flex;
+
     > div {
-        border: 1px solid @green;
-        border-radius: 3px;
-        margin-left: 4px;
-        justify-content: flex-end;
-        flex: 0 1 100%;
-        display: flex;
-
-        > div {
-            margin-left: 4px;
-            justify-content: flex-end;
-            flex: 0 1 100%;
-            padding: 5px 10px 10px 10px;
-        }
+      margin-left: 4px;
+      justify-content: flex-end;
+      flex: 0 1 100%;
+      padding: 5px 10px 10px 10px;
     }
+  }
 
-    .exportNum {
-        margin: 10px 0;
-    }
+  .exportNum {
+    margin: 10px 0;
+  }
+
+  em {
+    color: #999;
+  }
+
+  .exportItemTitle {
+    font-weight: bold;
+    margin-top: 6px;
 
     em {
-        color: #999;
+      font-weight: normal;
     }
+  }
 
-    .exportItemTitle {
-        font-weight: bold;
-        margin-top: 6px;
-
-        em {
-            font-weight: normal;
-        }
-    }
-
-    .exporterButtons {
-        label {
-            margin: 15px 0 0 0;
-
-            input {
-                margin: 0;
-            }
-        }
-    }
-
-    input, select {
-        margin-left: 20px;
-    }
-
+  .exporterButtons {
     label {
-        display: block;
-        margin: 5px 0 2px 0;
+      margin: 15px 0 0 0;
 
-        select {
-            margin-left: 0;
-        }
+      input {
+        margin: 0;
+      }
+    }
+  }
+
+  input, select {
+    margin-left: 20px;
+  }
+
+  label {
+    display: block;
+    margin: 5px 0 2px 0;
+
+    select {
+      margin-left: 0;
+    }
+  }
+
+  .exportOtherSettings {
+
+    button {
+      display: inline-block;
+      margin: 5px 0 0 15px;
     }
 
-    .exportOtherSettings {
-
-        button {
-            display: inline-block;
-            margin: 5px 0 0 15px;
-        }
-
-        #exporterTest {
-            display: none;
-            background-color: #eee;
-            height: 100px;
-            width: 350px;
-            white-space: pre-line;
-            font-size: 85%;
-            font-family: sans-serif;
-        }
-
-        #btnHideSample {
-            display: none;
-            float: right;
-            margin-right: 15px;
-        }
+    #exporterTest {
+      display: none;
+      background-color: #eee;
+      height: 100px;
+      width: 350px;
+      white-space: pre-line;
+      font-size: 85%;
+      font-family: sans-serif;
     }
 
-    .exportOptionList {
-        label {
-            margin: 0;
-        }
+    #btnHideSample {
+      display: none;
+      float: right;
+      margin-right: 15px;
+    }
+  }
 
-        span.comment {
-            font-weight: 700;
-            color: #000;
-        }
+  .exportOptionList {
+    label {
+      margin: 0;
     }
 
-    .QuickPickTitle {
-        font-weight: bold;
-        font-style: italic;
-        margin-top: 6px;
+    span.comment {
+      font-weight: 700;
+      color: #000;
+    }
+  }
+
+  .QuickPickTitle {
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 6px;
+  }
+
+  .QuickPicks {
+    div {
+      display: flex;
+      margin-left: 10px;
+      align-items: flex-start;
     }
 
-    .QuickPicks {
-        div {
-            display: flex;
-            margin-left: 10px;
-            align-items: flex-start;
-        }
-
-        button {
-            margin: 1px 4px 0 0;
-            flex-shrink: 0;
-            display: block;
-        }
+    button {
+      margin: 1px 4px 0 0;
+      flex-shrink: 0;
+      display: block;
     }
+  }
 }
 
 #pageDay {
-    > div {
-        margin-left: 4px;
-        justify-content: flex-end;
-        flex: 0 1 100%;
-    }
+  > div {
+    margin-left: 4px;
+    justify-content: flex-end;
+    flex: 0 1 100%;
+  }
 }
 
 #pageEvents {
-    display: flex;
-    align-items: flex-start;
-    max-height: 500px;
-    overflow: auto;
+  display: flex;
+  align-items: flex-start;
+  max-height: 500px;
+  overflow: auto;
 }
 
 body.inTab #pageEvents {
-    max-height: none;
+  max-height: none;
 }
 
 #pageCalWheel {
-    height: 500px;
+  height: 500px;
 }
 
 #show {
-    /*width: 340px;*/
-    /*display: table-cell;*/
-    white-space: nowrap;
-    font-size: 12pt;
-    /*font-family: Geneva;*/
-    text-align: center;
+  /*width: 340px;*/
+  /*display: table-cell;*/
+  white-space: nowrap;
+  font-size: 12pt;
+  /*font-family: Geneva;*/
+  text-align: center;
 }
 
 #day {
-    font-size: 13.5pt;
-    display: inline-block;
-    margin-top: 14px;
-    margin-bottom: 9px;
+  font-size: 13.5pt;
+  display: inline-block;
+  margin-top: 14px;
+  margin-bottom: 9px;
 }
 
 #day.withSpecial {
-    margin-top: 1px;
-    margin-bottom: 0;
+  margin-top: 1px;
+  margin-bottom: 0;
 }
 
 body[data-pageid=pageCal1] #day {
-    margin-top: 1px;
-    margin-bottom: 2px;
+  margin-top: 1px;
+  margin-bottom: 2px;
 }
 
 body[data-pageid=pageCal1] #day.withSpecial {
-    margin-top: 1px;
-    margin-bottom: 2px;
+  margin-top: 1px;
+  margin-bottom: 2px;
 }
 
 #special {
-    margin-top: -1px;
+  margin-top: -1px;
 }
 
 #special1 {
-    font-size: 12.75pt;
-    color: blue;
-    display: none;
+  font-size: 12.75pt;
+  color: blue;
+  display: none;
 }
 
 #special2 {
-    font-size: 12pt;
-    color: blue;
-    display: none;
+  font-size: 12pt;
+  color: blue;
+  display: none;
 }
 
 body.ta #sunset {
-    font-size: 9.75pt;
+  font-size: 9.75pt;
 }
 
 div.selectPages {
-    width: 20px;
-    z-index: 9;
+  width: 20px;
+  z-index: 9;
 }
 
 .selectPages .buttons {
-    padding-top: 4px;
-    width: 20px;
-    display: flex;
-    flex-direction: column;
+  padding-top: 4px;
+  width: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .selectPages .buttons.fakeHover,
 .selectPages .buttons:hover {
-    align-items: flex-end;
-    width: auto;
+  align-items: flex-end;
+  width: auto;
 }
 
 .selectPages .buttons button {
-    background-color: #b5775a;
-    border-radius: 2px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border: none;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    display: block;
-    outline: none;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 8.5pt;
-    padding: 2px 2px 2px 0;
-    box-sizing: border-box;
-    overflow: hidden;
-    width: 20px;
-    margin: -1px 0 0 0;
-    transition: width 0.2s ease-out;
-    text-decoration: none;
-    white-space: nowrap;
-    position: relative;
+  background-color: #b5775a;
+  border-radius: 2px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border: none;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  display: block;
+  outline: none;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 8.5pt;
+  padding: 2px 2px 2px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 20px;
+  margin: -1px 0 0 0;
+  transition: width 0.2s ease-out;
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
 }
 
 .selectPages .buttons button.showing {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-    background-color: @green;
-    margin-left: -2px;
-    padding-left: 2px;
-    width: 22px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  background-color: @green;
+  margin-left: -2px;
+  padding-left: 2px;
+  width: 22px;
 }
 
 .selectPages .buttons:hover button.showing:hover {
-    background-color: @green;
+  background-color: @green;
 }
 
 .selectPages .buttons.fakeHover button,
 .selectPages .buttons:hover button {
-    border-radius: 2px;
-    padding: 2px 6px 2px 7px;
-    width: auto;
+  border-radius: 2px;
+  padding: 2px 6px 2px 7px;
+  width: auto;
 }
 
 .selectPages .buttons:hover button:hover {
-    background-color: rgb(187, 137, 114);
+  background-color: rgb(187, 137, 114);
 }
 
 .selectPages .buttons button:after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    pointer-events: none;
-    background-image: linear-gradient(to right, rgba(255,255,255, 0), rgba(255,255,255, 1) 100%);
-    height: 100%;
-    width: 9px;
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to right, rgba(255,255,255, 0), rgba(255,255,255, 1) 100%);
+  height: 100%;
+  width: 9px;
 }
 
 .selectPages .buttons.fakeHover button:after,
 .selectPages .buttons:hover button:after {
-    z-index: -1;
+  z-index: -1;
 }
 
 #ayyamIs0 {
-    text-align: right;
-    padding-right: 9px;
+  text-align: right;
+  padding-right: 9px;
 }
 
 #shortcutKeys {
-    font-size: 8.25pt;
-    color: #999;
-    position: absolute;
-    right: 25px;
-    bottom: 7px;
+  font-size: 8.25pt;
+  color: #999;
+  position: absolute;
+  right: 25px;
+  bottom: 7px;
 }
 
 
 #btnOpen,
 #btnPrint {
-    display: none;
-    width: 26px;
-    height: 22px;
-    margin-left: 60px;
+  display: none;
+  width: 26px;
+  height: 22px;
+  margin-left: 60px;
 }
 
 #tips {
-    position: absolute;
-    left: 2px;
-    bottom: 7px;
-    font-size: 8.25pt;
-    color: #999;
+  position: absolute;
+  left: 2px;
+  bottom: 7px;
+  font-size: 8.25pt;
+  color: #999;
 }
 
 #locationErrorHolder {
-    display: none;
-    background: #ad0000;
-    color: white;
-    padding: 2px 2px 3px 2px;
-    margin: 6px 1px -11px 3px;
-    white-space: normal;
-    font-size: 9pt;
-    border-radius: 3px;
+  display: none;
+  background: #ad0000;
+  color: white;
+  padding: 2px 2px 3px 2px;
+  margin: 6px 1px -11px 3px;
+  white-space: normal;
+  font-size: 9pt;
+  border-radius: 3px;
 }
 
 #locationError {
-    margin-left: 30px;
-    display: block;
-    text-align: left;
+  margin-left: 30px;
+  display: block;
+  text-align: left;
 }
 
 #btnRetry {
-    background: url(./ajax-loader-img.gif) no-repeat;
-    cursor: pointer;
-    border: none;
-    width: 16px;
-    height: 16px;
-    float: left;
-    margin-top: 5px;
-    margin-left: 5px;
+  background: url(./ajax-loader-img.gif) no-repeat;
+  cursor: pointer;
+  border: none;
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-top: 5px;
+  margin-left: 5px;
 }
 
 #btnRetry.active {
-    background: url(./ajax-loader.gif) no-repeat;
+  background: url(./ajax-loader.gif) no-repeat;
 }
 
-.place, #gDay {
-    font-size: 8.25pt;
-    color: gray;
+.place {
+  font-size: 8.25pt;
+  color: gray;
 }
 
 #gDay {
-    margin-bottom: 3px;
+  font-size: 8.25pt;
+  margin-bottom: 3px;
 }
 
 #showUpcoming {
 }
 
 tr.M {
-    color: darkgoldenrod;
+  color: darkgoldenrod;
 }
 
 tr.HS {
-    color: darkblue;
+  color: darkblue;
 }
 
 tr.OtherRange {
-    color: gray;
+  color: gray;
 }
 
 #dayDetails {
-    border: 1px solid rgba(0, 3, 255, 0.67);
-    border-radius: 3px;
-    padding: 5px;
-    /*display: table-cell;*/
-    vertical-align: top;
+  border: 1px solid rgba(0, 3, 255, 0.67);
+  border-radius: 3px;
+  padding: 5px;
+  /*display: table-cell;*/
+  vertical-align: top;
 }
 
 
 dl {
-    text-align: left;
-    margin: 0;
-    width: 160px;
+  text-align: left;
+  margin: 0;
+  width: 160px;
 }
 
 dt {
-    color: green;
-    opacity: 0.7;
-    white-space: nowrap;
+  color: green;
+  opacity: 0.7;
+  white-space: nowrap;
 }
 
 dd {
-    margin-left: 9px;
-    margin-bottom: .4em;
+  margin-left: 9px;
+  margin-bottom: .4em;
 }
 
 .comment {
-    color: green;
-    opacity: 0.6;
-    font-size: 8.25pt;
+  color: green;
+  opacity: 0.6;
+  font-size: 8.25pt;
 }
 
 
 #samples {
-    font-size: 9pt;
-    border: 1px solid green;
-    border-radius: 3px;
-    padding: 5px;
-    position: relative;
-    /*display: table-cell;*/
-    vertical-align: top;
-    white-space: nowrap;
+  font-size: 9pt;
+  border: 1px solid green;
+  border-radius: 3px;
+  padding: 5px;
+  position: relative;
+  /*display: table-cell;*/
+  vertical-align: top;
+  white-space: nowrap;
 }
 
 #samplesList div {
-    margin: 2px auto;
+  margin: 2px auto;
 }
 
 #sampleTitle {
-    color: green;
-    opacity: 0.7;
-    width: 370px;
-    white-space: normal;
+  color: green;
+  opacity: 0.7;
+  width: 370px;
+  white-space: normal;
 }
 
 body.pt_PT #sampleTitle {
-    width: 410px;
+  width: 410px;
 }
 
 #sampleFootnote {
-    color: green;
-    opacity: 0.7;
-    margin-top: 5px;
-    padding-left: 3px;
+  color: green;
+  opacity: 0.7;
+  margin-top: 5px;
+  padding-left: 3px;
 }
 
 #sampleCopy {
-    position: absolute;
-    top: -500px;
+  position: absolute;
+  top: -500px;
 }
 
 #pageLists {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #pageLists table {
-    border-spacing: 0;
-    border-collapse: collapse;
-    display: inline-block;
-    margin: 2px 15px 5px 15px;
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: inline-block;
+  margin: 2px 15px 5px 15px;
 }
 
 #pageLists table caption {
-    color: green;
-    opacity: .7;
-    text-align: left;
+  color: green;
+  opacity: .7;
+  text-align: left;
 }
 
 #pageLists table th {
-    text-align: left;
+  text-align: left;
 }
 
 #pageLists table th,
 #pageLists table td {
-    padding: 0 6px 0 4px;
+  padding: 0 6px 0 4px;
 }
 
 #pageLists table tr td:first-child,
 #pageLists table tr th:first-child {
-    text-align: right;
+  text-align: right;
 }
 
 #pageLists table tr.selectedDay td {
-    color: blue;
+  color: blue;
 }
 
 #pageLists table tr.selectedDay {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 #pageLists table #monthListBody tr.selected {
-    background-color: #ddd;
-    color: green;
+  background-color: #ddd;
+  color: green;
 }
 
 #pageLists table #yearListBody tr.selected {
-    background-color: #ddd;
-    color: #9a710c;
+  background-color: #ddd;
+  color: #9a710c;
 }
 
 #otherPageTitle {
-    display: none;
-    font-size: 13.5pt;
-    text-align: center;
-    margin: 10px 0 10px 0;
+  display: none;
+  font-size: 13.5pt;
+  text-align: center;
+  margin: 10px 0 10px 0;
 }
 
 #specialDaysTitle {
-    display: none;
-    font-size: 13.5pt;
-    text-align: center;
-    margin: 0 50px 0 0;
+  display: none;
+  font-size: 13.5pt;
+  text-align: center;
+  margin: 0 50px 0 0;
 }
 
 #specialLists {
-    padding: 4px;
-    white-space: nowrap;
-    overflow: auto;
-    margin: 0 auto;
+  padding: 4px;
+  white-space: nowrap;
+  overflow: auto;
+  margin: 0 auto;
 }
 
 #specialListsTable {
-    width: 99.9%;
-    border-spacing: 1px 0px;
-    border-collapse: collapse;
+  width: 99.9%;
+  border-spacing: 1px 0px;
+  border-collapse: collapse;
 }
 
 #specialListsTable tbody tr {
-    display: none;
+  display: none;
 }
 
 #specialListsTable.Feasts tbody tr.M {
-    display: table-row;
+  display: table-row;
 }
 
 #specialListsTable.HolyDays tbody tr.H {
-    display: table-row;
-    background-color: rgb(250, 250, 250);
+  display: table-row;
+  background-color: rgb(250, 250, 250);
 }
 
 #specialListsTable .forHD {
-    display: none;
+  display: none;
 }
 
 #specialListsTable.HolyDays .forHD {
-    display: table-cell;
+  display: table-cell;
 }
 
 #specialListsTable.HolyDays .forFeast {
-    display: none;
+  display: none;
 }
 
 
 #specialListsTable td.eventTime {
-    white-space: normal;
+  white-space: normal;
 }
 
 #specialListsTable tr.SpecialTime td.eventTime {
-    color: blue;
-    font-style: italic;
-    padding-left: 20px;
+  color: blue;
+  font-style: italic;
+  padding-left: 20px;
 }
 
 #specialListsTable .forHD.time {
-    font-style: normal;
-    margin-left: -20px;
-    display: block;
+  font-style: normal;
+  margin-left: -20px;
+  display: block;
 }
 
 #specialListsTable th {
-    text-align: left;
+  text-align: left;
 }
 
 #specialListsTable td {
-    vertical-align: top;
+  vertical-align: top;
 }
 
 #specialListsTable caption {
-    color: green;
-    text-align: left;
-    font-size: 12pt;
-    margin: -2px 0px 2px 2px;
+  color: green;
+  text-align: left;
+  font-size: 12pt;
+  margin: -2px 0px 2px 2px;
 }
 
 #specialListsTable TD {
-    color: black;
-    border-top: solid 1px #ddd;
+  color: black;
+  border-top: solid 1px #ddd;
 }
 
 #specialListsTable .HS td {
-    color: black;
+  color: black;
 }
 
 #specialListsTable td.name {
-    white-space: normal;
+  white-space: normal;
 }
 
 #specialListsTable .HS .name {
-    color: blue;
-    background-image: url(./star12c.gif);
-    background-repeat: no-repeat;
-    background-position: 2px 3px;
-    padding-left: 18px;
+  color: blue;
+  background-image: url(./star12c.gif);
+  background-repeat: no-repeat;
+  background-position: 2px 3px;
+  padding-left: 18px;
 }
 
 #specialListsTable .HO td {
-    color: black;
+  color: black;
 }
 
 #specialListsTable .HO .name {
-    color: blue;
-    background: url(star12b.gif);
-    background-repeat: no-repeat;
-    background-position: 2px 3px;
-    padding-left: 17px;
+  color: blue;
+  background: url(star12b.gif);
+  background-repeat: no-repeat;
+  background-position: 2px 3px;
+  padding-left: 17px;
 }
 
 #specialListsTable .Today {
-    color: #070;
+  color: #070;
 }
 
 #specialListsTable tr.Default td.eventTime {
-    color: #777;
+  color: #777;
 }
 
 #eventStartHolder {
-    float: right;
-    margin: 0 0 10px 0;
+  float: right;
+  margin: 0 0 10px 0;
 }
 
 body.ta #eventStartHolder {
-    position: relative;
-    float: right;
+  position: relative;
+  float: right;
 }
 
 #eventStartHolder select {
-    font-size: 9pt;
+  font-size: 9pt;
 }
 
 #includeWhat {
-    margin-right: 20px;
-    display: inline-block;
+  margin-right: 20px;
+  display: inline-block;
 }
 
 #fastList {
-    font-size: 9pt;
-    padding: 5px;
-    position: relative;
-    vertical-align: top;
-    white-space: nowrap;
-    width: 100%;
+  font-size: 9pt;
+  padding: 5px;
+  position: relative;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 100%;
 }
 
 #fastListTable {
-    /*border-spacing: 15px 2px;*/
-    border-collapse: collapse;
-    margin: 0 auto 5px auto;
+  /*border-spacing: 15px 2px;*/
+  border-collapse: collapse;
+  margin: 0 auto 5px auto;
 }
 
 #fastListTable th {
-    text-align: left;
+  text-align: left;
 }
 
 #fastListTable td,
 #fastListTable th {
-    padding: 2px 9px;
+  padding: 2px 9px;
 }
 
 
 #fastListTable caption {
-    color: green;
-    font-size: 12pt;
+  color: green;
+  font-size: 12pt;
 }
 
 tr.FastSat td {
-    border-top: solid 1px #ddd;
+  border-top: solid 1px #ddd;
 }
 
 h2 {
-    color: green;
-    font-size: 12pt;
-    margin: 0 0 6px 0;
-    font-weight: normal;
+  color: green;
+  font-size: 12pt;
+  margin: 0 0 6px 0;
+  font-weight: normal;
 }
 
 button.button {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @green), color-stop(1, #72b352));
-    background-color: @green;
-    border-radius: 4px;
-    border: 1px solid #4b8f29;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    font-family: Geneva, 'Segoe UI';
-    font-size: 8.25pt;
-    line-height: 14px;
-    transition: color 0.4s ease-out;
-    padding: 1px 2px;
-    text-decoration: none;
-    min-width: 15px;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @green), color-stop(1, #72b352));
+  background-color: @green;
+  border-radius: 4px;
+  border: 1px solid #4b8f29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Geneva, 'Segoe UI';
+  font-size: 8.25pt;
+  line-height: 14px;
+  transition: color 0.4s ease-out;
+  padding: 1px 2px;
+  text-decoration: none;
+  min-width: 15px;
 }
 
 #btnEveOrDay {
-    display: block;
-    margin: 3px auto 0 auto;
+  display: block;
+  margin: 3px auto 0 auto;
 }
 
 button.today.notToday {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
-    background-color: #b5775a;
-    border: 1px solid #8f4b29;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
+  background-color: #b5775a;
+  border: 1px solid #8f4b29;
 }
 
 #samples button {
-    vertical-align: text-bottom;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @green), color-stop(1, #72b352));
-    background-color: @green;
-    border-radius: 4px;
-    border: 1px solid #4b8f29;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    /*font-family: Geneva;*/
-    font-size: 6.75pt;
-    transition: color 0.4s ease-out;
-    padding: 1px 2px;
-    text-decoration: none;
-    min-width: 15px;
+  vertical-align: text-bottom;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @green), color-stop(1, #72b352));
+  background-color: @green;
+  border-radius: 4px;
+  border: 1px solid #4b8f29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  /*font-family: Geneva;*/
+  font-size: 6.75pt;
+  transition: color 0.4s ease-out;
+  padding: 1px 2px;
+  text-decoration: none;
+  min-width: 15px;
 }
 
 #samples button:hover {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, @green));
-    background: -webkit-linear-gradient(top, #72b352 5%, @green 100%);
-    background: linear-gradient(to bottom, #72b352 5%, @green 100%);
-    background-color: #72b352;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, @green));
+  background: -webkit-linear-gradient(top, #72b352 5%, @green 100%);
+  background: linear-gradient(to bottom, #72b352 5%, @green 100%);
+  background-color: #72b352;
 }
 
 #samples button:active {
-    position: relative;
-    top: 1px;
+  position: relative;
+  top: 1px;
 }
 
 #samples div.copied button {
-    background: #b2f392;
-    color: #4b8f29;
-    transition: color 0.4s ease-out;
+  background: #b2f392;
+  color: #4b8f29;
+  transition: color 0.4s ease-out;
 }
 
 #samples div.copied button:hover {
-    background: #b2f392;
-    color: #4b8f29;
+  background: #b2f392;
+  color: #4b8f29;
 }
 
 .iconArea {
-    margin: 3px 0 0 0;
-    text-align: center;
-    position: relative;
-    clear: both;
+  margin: 3px 0 0 0;
+  text-align: center;
+  position: relative;
+  clear: both;
 }
 
 #googlePlus img {
-    margin: 0 0 3px 5px;
+  margin: 0 0 3px 5px;
 }
 
 #facebook img {
-    margin: 0 5px 3px 0;
+  margin: 0 5px 3px 0;
 }
 
 #logo {
-    width: 22px;
-    height: 24px;
+  width: 22px;
+  height: 24px;
 }
 
 .explains {
-    text-align: center;
-    clear: both;
+  text-align: center;
+  clear: both;
 }
 
 .centered {
-    text-align: center;
+  text-align: center;
 }
 
 #explain {
-    margin: 6px 6px 0 0;
+  margin: 6px 6px 0 0;
 }
 
 #explain2 {
-    margin: 3px 6px 15px 0;
+  margin: 3px 6px 15px 0;
 }
 
 #gDatePicker {
-    border: 1px solid #daaaaa;
-    border-radius: 3px;
-    padding: 5px;
+  border: 1px solid #daaaaa;
+  border-radius: 3px;
+  padding: 5px;
 }
 
 #gDatePickerTitle {
-    color: green;
-    opacity: 0.7;
-    width: 150px;
+  color: green;
+  opacity: 0.7;
+  width: 150px;
 }
 
 #gDatePickerTitle2 {
-    color: green;
-    opacity: 0.7;
-    margin: 6px 0 0 0;
+  color: green;
+  opacity: 0.7;
+  margin: 6px 0 0 0;
 }
 
 #bDatePickerTitle {
-    color: green;
-    opacity: 0.7;
-    margin: 6px 0 0 0;
+  color: green;
+  opacity: 0.7;
+  margin: 6px 0 0 0;
 }
 
 #bDatePickerTitleTip {
-    float: right;
-    color: #999;
-    margin: 6px 0 0 0;
-    font-size: 8.25pt;
+  float: right;
+  color: #999;
+  margin: 6px 0 0 0;
+  font-size: 8.25pt;
 }
 
 #upcomingTitle {
-    color: green;
-    text-decoration: underline;
+  color: green;
+  text-decoration: underline;
 }
 
 body.ta #upcomingTitle {
 }
 
 #upcoming {
-    width: 100%;
-    border-spacing: 1px 0px;
+  width: 100%;
+  border-spacing: 1px 0px;
 }
 
 #upcoming td {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .gDateButtons {
-    text-align: center;
+  text-align: center;
 }
 
 #gDate {
-    margin: 0 3px 0 9px;
-    white-space: nowrap;
+  margin: 0 3px 0 9px;
+  white-space: nowrap;
 }
 
 #gDateDesc {
-    margin: 0 3px 0 9px;
+  margin: 0 3px 0 9px;
 }
 
 #datePicker {
-    display: block;
-    margin: 0 auto 2px auto;
-    text-align: center;
-    font-family: Geneva, 'Segoe UI';
-    font-size: 8.25pt;
+  display: block;
+  margin: 0 auto 2px auto;
+  text-align: center;
+  font-family: Geneva, 'Segoe UI';
+  font-size: 8.25pt;
 }
 
 .textLink {
-    color: darkblue;
-    vertical-align: top;
-    display: inline-block;
-    margin: 3px 9px 0 6px;
+  color: darkblue;
+  vertical-align: top;
+  display: inline-block;
+  margin: 3px 9px 0 6px;
 }
 
 a.textLink {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a.textLink:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .bDatePickerInputs {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .bDatePickerInputs input {
-    font-size: 8.25pt;
-    font-family: Geneva, 'Segoe UI';
-    text-align: center;
-    margin: 0;
-    width: 33px;
+  font-size: 8.25pt;
+  font-family: Geneva, 'Segoe UI';
+  text-align: center;
+  margin: 0;
+  width: 33px;
 }
 
 input.bYearPicker {
-    width: 50px;
+  width: 50px;
 }
 
 
 #yearSelector {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #yearSelector > div {
-    margin: 2px 5px;
-    background-color: rgb(237, 246, 233);
-    padding: 2px;
-    border-radius: 5px;
-    border: 1px solid rgb(237, 246, 233);
+  margin: 2px 5px;
+  background-color: rgb(237, 246, 233);
+  padding: 2px;
+  border-radius: 5px;
+  border: 1px solid rgb(237, 246, 233);
 }
 
 #yearSelector input {
-    font-size: 8.25pt;
-    font-family: Geneva, 'Segoe UI';
-    text-align: center;
-    margin: 0;
+  font-size: 8.25pt;
+  font-family: Geneva, 'Segoe UI';
+  text-align: center;
+  margin: 0;
 }
 
 .JumpDays {
-    display: block;
-    text-align: center;
+  display: block;
+  text-align: center;
 }
 
 .yearPicker {
 }
 
 #yearSelector input.jumpTo {
-    width: 45px;
-    text-align: right;
+  width: 45px;
+  text-align: right;
 }
 
 .bVahidPicker, .bYearInVahidPicker {
-    width: 40px;
+  width: 40px;
 }
 
 .vahidInputs {
-    text-align: center;
-    display: block;
+  text-align: center;
+  display: block;
 }
 
 .vahidInputs > div {
-    display: inline-block;
+  display: inline-block;
 }
 
 .vahidInputs > div > span {
-    display: block;
+  display: block;
 }
 
 .pageHeader {
-    font-size: 12pt;
-    text-align: center;
+  font-size: 12pt;
+  text-align: center;
 }
 
 
@@ -1143,75 +1144,75 @@ input.bYearPicker {
 
 
 .nobreak {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 @media print {
-    #yearSelector, .selectPages, .iconArea {
-        display: none !important;
-    }
+  #yearSelector, .selectPages, .iconArea {
+    display: none !important;
+  }
 
-    #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageReminders, #pageExporter {
-        border: none;
-        padding: 20px 0 0 0;
-    }
+  #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageReminders, #pageExporter {
+    border: none;
+    padding: 20px 0 0 0;
+  }
 
-    #includeWhat {
-        display: none;
-    }
+  #includeWhat {
+    display: none;
+  }
 
-    #eventStart {
-        -webkit-appearance: none;
-        border: none;
-        padding: 0;
-        margin: 0;
-    }
+  #eventStart {
+    -webkit-appearance: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
 
-    #specialDaysTitle {
-        margin: 0;
-    }
+  #specialDaysTitle {
+    margin: 0;
+  }
 
-    #fastListTable caption {
-        margin-bottom: 20px;
-    }
+  #fastListTable caption {
+    margin-bottom: 20px;
+  }
 }
 
 @media (min-width: 900px) {
-    /*body {
+  /*body {
         background: url('Sea of Fog.jpg') #fff no-repeat center;
     }*/
-    .selectPages .buttons {
-        width: auto;
-        align-items: flex-start;
-    }
+  .selectPages .buttons {
+    width: auto;
+    align-items: flex-start;
+  }
 
-    .selectPages .buttons button:after {
-        z-index: -1;
-    }
+  .selectPages .buttons button:after {
+    z-index: -1;
+  }
 
-    .selectPages .buttons:hover {
-        align-items: flex-start;
-        width: auto;
-    }
+  .selectPages .buttons:hover {
+    align-items: flex-start;
+    width: auto;
+  }
 
 
-    .selectPages .buttons button {
-        border-radius: 2px;
-        padding: 2px 6px 2px 3px;
-        width: auto;
-    }
+  .selectPages .buttons button {
+    border-radius: 2px;
+    padding: 2px 6px 2px 3px;
+    width: auto;
+  }
 
-    .selectPages .buttons:hover button {
-        border-radius: 2px;
-        padding: 2px 6px 2px 3px;
-    }
+  .selectPages .buttons:hover button {
+    border-radius: 2px;
+    padding: 2px 6px 2px 3px;
+  }
 
-    .selectPages .buttons button.showing {
-        width: auto;
-        border-top-left-radius: 2px;
-        border-bottom-left-radius: 2px;
-        background-color: @green;
-        margin-left: -2px;
-        padding-left: 5px;
-    }
+  .selectPages .buttons button.showing {
+    width: auto;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    background-color: @green;
+    margin-left: -2px;
+    padding-left: 5px;
+  }
 }

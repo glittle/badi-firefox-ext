@@ -775,7 +775,10 @@ function toggleEveOrDay(toEve) {
     _focusTime.setHours(12, 0, 0, 0);
   }
 
-  tracker.sendEvent('toggleEveDay', toEve ? 'Eve' : 'Day');
+  setStorage('focusTimeIsEve', toEve);
+  if (tracker) {
+    tracker.sendEvent('toggleEveDay', toEve ? 'Eve' : 'Day');
+  }
 
   refreshDateInfo();
   showInfo(_di);
@@ -1014,7 +1017,8 @@ function BuildSpecialDaysTable(di) {
 
     if (dayInfo.Type === 'Fast') {
       var sunrise = targetDi.frag2SunTimes.sunrise;
-      dayInfo.Sunrise = sunrise ? sunrise.showTime() : '?';
+      dayInfo.FastSunrise = sunrise ? sunrise.showTime() : '?';
+      dayInfo.FastSunset = sunrise ? targetDi.frag2SunTimes.sunset.showTime() : '?';
       dayInfo.FastDay = getMessage('mainPartOfDay', targetDi);
       if (targetDi.frag2Weekday == 6) {
         dayInfo.RowClass = 'FastSat';
@@ -1089,8 +1093,8 @@ function BuildSpecialDaysTable(di) {
   var fastRowTemplate = [];
   fastRowTemplate.push('<tr class="{RowClass}">');
   fastRowTemplate.push('<td>{D}</td>');
-  fastRowTemplate.push('<td class=centered>{Sunrise}</td>');
-  fastRowTemplate.push('<td class=centered>{Sunset}</td>');
+  fastRowTemplate.push('<td class=centered>{FastSunrise}</td>');
+  fastRowTemplate.push('<td class=centered>{FastSunset}</td>');
   fastRowTemplate.push('<td>{FastDay}</td>');
   fastRowTemplate.push('</tr>');
 
@@ -1200,9 +1204,17 @@ function prepare1() {
   .attr('dir', _languageDir);
 
   recallFocus();
+
   updateLoadProgress();
 
   refreshDateInfo();
+
+  var isEve = getStorage('focusTimeIsEve', 'x');
+  if (isEve !== 'x' && isEve !== _di.bNow.eve) {
+    toggleEveOrDay(isEve);
+    highlightGDay();
+  }
+
   updateLoadProgress();
 
   localizeHtml();

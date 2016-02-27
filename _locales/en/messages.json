@@ -95,11 +95,11 @@
     "description": "Can click button with mouse, or press matching key on keyboard"
   },
   "afterSunset": {
-    "message": "evening - after sunset",
+    "message": "Evening - After sunset",
     "description": ""
   },
   "beforeSunset": {
-    "message": "day - before sunset",
+    "message": "Day - Before sunset",
     "description": ""
   },
   "dayStartedFuture": {
@@ -427,7 +427,7 @@
     "description": "top right corner"
   },
   "gTopDayDisplay": {
-    "message": "{currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear} {currentRelationToSunset}",
+    "message": "{currentRelationToSunset} - {currentWeekdayShort}, {currentDay} {currentMonthLong} {currentYear}",
     "description": "top right corner"
   },
   "gregorianDateDisplay": {
@@ -529,11 +529,11 @@
     "description": "the Bab's designations, found in 'https://books.google.ca/books?id=XTfoaK15t64C&pg=PA394&lpg=PA394&dq=get+of+the+heart+nader+bab&source=bl&ots=vyF-pWLAr8&sig=ruiuoE48sGWWgaB_AFKcSfkHvqw&hl=en&sa=X&ei=hbp0VfGwIon6oQSTk4Mg&ved=0CDAQ6AEwAw#v=snippet&q=%22air%20of%20eternity%22&f=false' "
   },
   "tips": {
-    "message": "Tips",
+    "message": "Tips &amp; Keys",
     "description": "hints of how to use the tool"
   },
   "tipsText": {
-    "message": "Use PgUp/PgDn keys to select panels.\nUse Right/Left arrow keys to change days.\nUse / to switch before/after sunset.",
+    "message": "Press PgUp/PgDn keys to select panels.\nPress Right/Left arrow keys to change days.\nPress / to switch before/after sunset.\nPress Home to return to today!",
     "description": ""
   },
   "shortcutKeyTitle": {

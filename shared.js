@@ -450,6 +450,7 @@ function noLocation(err) {
 function recallFocus() {
   var storedAsOf = +getStorage('focusTimeAsOf');
   if (!storedAsOf) {
+    setStorage('focusTimeIsEve', null);
     return;
   }
   var focusTimeAsOf = new Date(storedAsOf);
@@ -467,18 +468,17 @@ function recallFocus() {
     if (stored) {
       var time = new Date(stored);
 
-      if (!isNaN(time) && now.toDateString() != time.toDateString()) {
+      if (!isNaN(time)) {
+        var changing = now.toDateString() !== time.toDateString();
 
         log('reuse focus time: ' + time);
 
         setFocusTime(time);
+
         timeSet = true;
 
-        if (typeof $().effect !== 'undefined') {
-          setTimeout(function () {
-            // effective when called in popup
-            $('#day,#gDay').effect("highlight", 6000);
-          }, 150);
+        if (changing) {
+          highlightGDay();
         }
       }
     }
@@ -488,7 +488,13 @@ function recallFocus() {
   }
 }
 
-
+function highlightGDay() {
+  if (typeof $().effect !== 'undefined') {
+    setTimeout(function () {
+      $('#day,#gDay').effect("highlight", 6000);
+    }, 150);
+  }
+}
 
 function refreshDateInfoAndShow(resetToNow) {
   // also called from alarm, to update to the next day
@@ -647,7 +653,7 @@ String.prototype.filledWith = function () {
           var toEscape = values[token];
           //value = typeof toEscape == 'undefined' || toEscape === null ? '' : ('' + toEscape).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;').replace(/{/g, '&#123;');
           //Never escape HTML in this Chrome Extension
-          value = toEscape || '';
+          value = toEscape === 0 ? 0 : (toEscape || '');
         }
       }
 

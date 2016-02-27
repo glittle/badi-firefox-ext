@@ -445,12 +445,12 @@ div.selectPages {
 #btnRetry.active {
   background: url(ajax-loader.gif) no-repeat;
 }
-.place,
-#gDay {
+.place {
   font-size: 8.25pt;
   color: gray;
 }
 #gDay {
+  font-size: 8.25pt;
   margin-bottom: 3px;
 }
 tr.M {
