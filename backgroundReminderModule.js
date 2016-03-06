@@ -708,16 +708,6 @@ var BackgroundReminderEngine = function () {
     });
   }
 
-  function shallowCloneOf(obj) {
-    var clone = {};
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        clone[key] = obj[key];
-      }
-    }
-    return clone;
-  }
-
   function storeReminders() {
     chrome.storage.local.set({
       reminders: _remindersDefined

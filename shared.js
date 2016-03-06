@@ -18,7 +18,7 @@ var _focusTime = null;
 var holyDays = HolyDays();
 var knownDateInfos = {};
 var _di = {};
-var _initialDi;
+var _initialDiStamp;
 var _firstLoad = true;
 var _firstPopup = false;
 
@@ -47,7 +47,7 @@ function refreshDateInfo() {
 }
 
 
-function getDateInfo(currentTime) {
+function getDateInfo(currentTime, onlyStamp) {
   if (isNaN(currentTime)) {
     //debugger;
   }
@@ -69,6 +69,12 @@ function getDateInfo(currentTime) {
   }
 
   var bNow = holyDays.getBDate(currentTime);
+  if (onlyStamp) {
+    return {
+      stamp: JSON.stringify(bNow)
+    };
+  }
+
   // split the Baha'i day to be "Eve" - sunset to midnight; 
   // and "Morn" - from midnight through to sunset
   var frag1Noon = new Date(currentTime.getTime());
@@ -126,8 +132,11 @@ function getDateInfo(currentTime) {
 
     bEraLong: getMessage('eraLong'),
     bEraAbbrev: getMessage('eraAbbrev'),
-    bEraShort: getMessage('eraShort')
+    bEraShort: getMessage('eraShort'),
+
+    stamp: JSON.stringify(bNow)// used to compare to other dates and for developer reference 
   };
+
 
   di.bKullishay = Math.floor(1 + (di.bVahid - 1) / 19);
   di.bVahid = di.bVahid - (di.bKullishay - 1) * 19;
@@ -202,7 +211,6 @@ function getDateInfo(currentTime) {
     }
   di.nearestSunset = getMessage(bNow.eve ? "nearestSunsetEve" : "nearestSunsetDay", di);
 
-  di.stamp = JSON.stringify(di.bNow);// used to compare to other dates and for developer reference 
   di.stampDay = '{y}.{m}.{d}'.filledWith(di.bNow); // ignore eve/day
 
   //if (!skipUpcoming) {
@@ -247,7 +255,7 @@ function showIcon() {
   tipLines.push(dateInfo.nearestSunset);
   tipLines.push('');
   tipLines.push(getMessage('formatIconClick'));
-  
+
   chrome.browserAction.setTitle({ title: tipLines.join('\n') });
   chrome.browserAction.setIcon({
     imageData: draw(dateInfo.bMonthNameAr, dateInfo.bDay, 'center')
@@ -306,7 +314,7 @@ function getUpcoming(di) {
   di.special2 = null;
 
   dayInfos.forEach(function (dayInfo, i) {
-    var targetDi = getDateInfo(dayInfo.GDate, true);
+    var targetDi = getDateInfo(dayInfo.GDate);
     if (dayInfo.Type === 'M') {
       dayInfo.A = getMessage('FeastOf').filledWith(targetDi.bMonthMeaning);
     } else
@@ -508,7 +516,6 @@ function refreshDateInfoAndShow(resetToNow) {
   var di = refreshDateInfo();
   _di = di;
   _firstLoad = false;
-  setStorage('originalStamp', di.stamp);
 
   showIcon();
   if (typeof showInfo !== 'undefined') {
@@ -573,6 +580,10 @@ function setStorage(key, value) {
   /// <summary>Save this value in the browser's local storage. Dates do NOT get returned as full dates!</summary>
   /// <param name="key" type="string">The key to use</param>
   /// <param name="value" type="string">The value to store. Can be a simple or complex object.</param>
+  if (value === null) {
+    localStorage.removeItem(key);
+    return;
+  }
   if (typeof value === 'object' || typeof value === 'boolean') {
     var strObj = JSON.stringify(value);
     value = ObjectConstant + strObj;
@@ -648,12 +659,15 @@ String.prototype.filledWith = function () {
         }
         else if (testDoNotEscapeHtml.test(token)) {
           value = values[token.substring(1)];
-        }
-        else {
+        } else {
+          //if (values.hasOwnProperty(token)) {
           var toEscape = values[token];
           //value = typeof toEscape == 'undefined' || toEscape === null ? '' : ('' + toEscape).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;').replace(/{/g, '&#123;');
           //Never escape HTML in this Chrome Extension
           value = toEscape === 0 ? 0 : (toEscape || '');
+          //} else {
+          //  value = '{' + token + '}';
+          //}
         }
       }
 
@@ -724,7 +738,7 @@ function getMessage(key, obj, defaultValue) {
       before = msg;
       repeats++;
     }
-    return 
+    return msg;
   }
 }
 
@@ -851,6 +865,16 @@ function timeNow(msg) {
   var now = new Date();
   var time = now.getMilliseconds() / 1000 + now.getSeconds();
   log(time + ' ' + msg);
+}
+
+function shallowCloneOf(obj) {
+  var clone = {};
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      clone[key] = obj[key];
+    }
+  }
+  return clone;
 }
 
 function log() {

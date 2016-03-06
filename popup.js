@@ -2,7 +2,7 @@
 /* global getStorage */
 /* global getMessage */
 /* global di */
-/* global _initialDi */
+/* global _initialDiStamp */
 /* global chrome */
 /* global _languageCode */
 /* global $ */
@@ -14,6 +14,7 @@ var _calWheel = null;
 var _calGreg = null;
 var _pageReminders = null;
 var _pageExporter = null;
+var _pageCustom = null;
 var _enableSampleKeys = true;
 var _enableDayKeysLR = true;
 var _enableDayKeysUD = true;
@@ -202,6 +203,7 @@ function showPage(id) {
   var pageFast = '#yearSelector, .iconArea';
   var pageReminders = '.iconArea, #otherPageTitle';
   var pageExporter = '#yearSelector, .iconArea, #otherPageTitle';
+  var pageCustom = '#yearSelector, .JumpDays, #show, #gDay, .iconArea, #otherPageTitle';
 
   $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageLists, pageFast, pageReminders, pageExporter].join(',')).hide();
 
@@ -284,6 +286,13 @@ function showPage(id) {
       _enableDayKeysLR = true;
       _enableDayKeysUD = false;
       break;
+
+    case 'pageCustom':
+      $(pageCustom).show();
+      _enableSampleKeys = false;
+      _enableDayKeysLR = true;
+      _enableDayKeysUD = true;
+      break;
   }
 
   btns.removeClass('showing');
@@ -330,6 +339,10 @@ function updatePageContentWhenVisible(id, di) {
     case 'pageExporter':
       $('#otherPageTitle').html(getMessage('exporterTitle'));
       break;
+
+    case 'pageCustom':
+      $('#otherPageTitle').html(getMessage('customTitle'));
+      break;
   }
 
 }
@@ -362,7 +375,7 @@ function updatePageContent(id, di) {
 
       $('#gDate').html(getMessage('gregorianDateDisplay', di));
       $('#gDateDesc').html('({^currentRelationToSunset})'.filledWith(di));
-      $('button.today').toggleClass('notToday', di.stamp !== getStorage('originalStamp'));
+      $('button.today').toggleClass('notToday', di.stamp !== _initialDiStamp);
       $('#datePicker').val(di.currentDateString);
 
       addSamples(di);
@@ -418,6 +431,12 @@ function updatePageContent(id, di) {
     case 'pageExporter':
       if (_pageExporter) {
         _pageExporter.updateYear(true);
+      }
+      break;
+
+    case 'pageCustom':
+      if (_pageCustom) {
+        _pageCustom.updateDate();
       }
       break;
   }
@@ -562,36 +581,33 @@ function addSamples(di) {
   // prepare samples
   clearSamples();
 
-  var showFootnote = false;
   var msg;
   var notInMessagesJson = '_$$$_';
 
-  for (var sampleGroupNum = 1; sampleGroupNum < 9; sampleGroupNum++) {
-    var test = 'sampleGroup{0}_1'.filledWith(sampleGroupNum);
-    msg = getMessage(test, null, notInMessagesJson);
+  var sampleGroupNum = 1;
+  for (var sampleNum = 1; sampleNum < 99; sampleNum++) {
+    var key = 'sampleGroup{0}_{1}'.filledWith(sampleGroupNum, sampleNum);
+    msg = getMessage(key, di, notInMessagesJson);
     if (msg === notInMessagesJson) {
       continue;
     }
-    if (sampleGroupNum === 2) {
-      showFootnote = true;
-    }
 
-    for (var sampleNum = 1; sampleNum < 99; sampleNum++) {
-      var key = 'sampleGroup{0}_{1}'.filledWith(sampleGroupNum, sampleNum);
-      msg = getMessage(key, di, notInMessagesJson);
-      if (msg === notInMessagesJson) {
-        continue;
-      }
-
-      addSample(msg, sampleGroupNum);
-    }
+    addSample(msg, sampleGroupNum);
+  }
+  if (_pageCustom) {
+    _pageCustom.updateFirstPage();
   }
 
-  $('#sampleFootnote').toggle(showFootnote);
+  //$('#sampleFootnote').toggle(showFootnote);
+  //<div id=sampleFootnote data-msg="_id_"></div>
 }
 
 function keyPressed(ev) {
   if (ev.altKey) {
+    return;
+  }
+  if (ev.target.tagName === 'INPUT' && ev.target.type === 'text') {
+    //don't intercept
     return;
   }
   var key = String.fromCharCode(ev.which) || '';
@@ -602,46 +618,50 @@ function keyPressed(ev) {
     case 37: //left
       if (ev.shiftKey) {
         changeYear(null, -1);
+        ev.preventDefault();
       } else {
         if (ev.ctrlKey) {
           changeDay(null, -7);
+          ev.preventDefault();
         } else {
           if (_enableDayKeysLR) {
             changeDay(null, -1);
+            ev.preventDefault();
           }
         }
       }
-      ev.preventDefault();
       return;
     case 39: //right
       if (ev.shiftKey) {
         changeYear(null, 1);
+        ev.preventDefault();
       } else {
         if (ev.ctrlKey) {
           changeDay(null, 7);
+          ev.preventDefault();
         } else {
           if (_enableDayKeysLR) {
             changeDay(null, 1);
+            ev.preventDefault();
           }
         }
       }
-      ev.preventDefault();
       return;
 
     case 38: //up
       if (_enableDayKeysUD) {
         if (_upDownKeyDelta) {
           changeDay(null, 0 - _upDownKeyDelta);
+          ev.preventDefault();
         }
-        ev.preventDefault();
       }
       return;
     case 40: //down
       if (_enableDayKeysUD) {
         if (_upDownKeyDelta) {
           changeDay(null, _upDownKeyDelta);
+          ev.preventDefault();
         }
-        ev.preventDefault();
       }
       return;
 
@@ -733,6 +753,7 @@ function addSample(info, group) {
     $.extend(sample, info);
   }
   sample.currentNote = sample.currentTime ? ' *' : '';
+  // also in pageCustom
   $('#samples').find('#sampleList' + group)
     .append(('<div><button title="{tooltip}"'
     + ' type=button data-letter={letter} id="key{letter}">{letter}{currentNote}</button>'
@@ -743,7 +764,7 @@ function clearSamples() {
   sampleNum = 0;
   var samplesDiv = $('#samples');
   samplesDiv.find('#sampleList1').text('');
-  samplesDiv.find('#sampleList2').text('');
+  //samplesDiv.find('#sampleList2').text('');
 }
 
 function copySample(ev) {
@@ -845,6 +866,7 @@ function changeDay(ev, delta) {
   delta = ev ? +$(ev.target).data('delta') : +delta;
   if (delta === 0) {
     // reset to real time
+    setStorage('focusTimeIsEve', null);
     setFocusTime(new Date());
   } else {
     var time = getFocusTime();
@@ -857,6 +879,10 @@ function changeDay(ev, delta) {
   }
 
   refreshDateInfo();
+
+  if (_di.stamp === _initialDiStamp) {
+    setStorage('focusTimeIsEve', null);
+  }
 
   if (_di.bNow.eve) {
     _focusTime.setHours(23, 59, 0, 0);
@@ -950,7 +976,6 @@ var _lastSpecialDaysYear = 0;
 
 function BuildSpecialDaysTable(di) {
   var year = di.bNow.y;
-
   if (_lastSpecialDaysYear === year) {
     return;
   }
@@ -971,7 +996,7 @@ function BuildSpecialDaysTable(di) {
   //todayShown = true; // decided not to include 'today' in the listing
   //dayInfos.forEach(function (dayInfo, i) {
   //  if (!todayShown) {
-  //    var targetDi = getDateInfo(dayInfo.GDate, true);
+  //    var targetDi = getDateInfo(dayInfo.GDate);
   //    if (targetDi.currentTime > di.currentTime) {
   //      dayInfos.splice(i, 0, {
   //        GDate: di.currentTime,
@@ -994,11 +1019,19 @@ function BuildSpecialDaysTable(di) {
   var defaultEventStart = $('#eventStart').val();
   dayInfos.forEach(function (dayInfo, i) {
     var targetDi = getDateInfo(dayInfo.GDate);
+    var tempDate = null;
 
     dayInfo.di = targetDi;
     dayInfo.D = targetDi.bMonthNameAr + ' ' + targetDi.bDay;
     dayInfo.G = getMessage('evePartOfDay', targetDi);
     dayInfo.Sunset = getMessage('startingSunsetDesc', targetDi);
+    dayInfo.StartTime = null;
+    dayInfo.EventTime = null;
+    dayInfo.ST = null;
+    dayInfo.STClass = null;
+    dayInfo.NoWork = null;
+    dayInfo.TypeShort = null;
+    dayInfo.DefaultTimeClass = null;
 
     var targetTime = dayInfo.Time || defaultEventStart;
 
@@ -1026,13 +1059,13 @@ function BuildSpecialDaysTable(di) {
     }
 
     if (targetTime == 'SS2') {
-      var date = new Date(dayInfo.di.frag1SunTimes.sunset.getTime());
-      date.setHours(date.getHours() + 2);
+      tempDate = new Date(dayInfo.di.frag1SunTimes.sunset.getTime());
+      tempDate.setHours(tempDate.getHours() + 2);
       // about 2 hours after sunset
-      var minutes = date.getMinutes();
+      var minutes = tempDate.getMinutes();
       minutes = minutes > 30 ? 30 : 0; // start 1/2 hour before
-      date.setMinutes(minutes);
-      dayInfo.Event = { time: date };
+      tempDate.setMinutes(minutes);
+      dayInfo.Event = { time: tempDate };
     }
     else if (targetTime) {
       var adjustDTtoST = 0;
@@ -1040,20 +1073,20 @@ function BuildSpecialDaysTable(di) {
         targetTime = targetTime.slice(0, 4);
         adjustDTtoST = targetDi.frag1.inStandardTime() ? 0 : 1;
       }
-      date = new Date(dayInfo.di.frag1.getTime());
+      tempDate = new Date(dayInfo.di.frag1.getTime());
       var timeHour = +targetTime.slice(0, 2);
       var timeMin = targetTime.slice(-2);
-      date.setHours(timeHour + adjustDTtoST);
-      date.setMinutes(timeMin);
+      tempDate.setHours(timeHour + adjustDTtoST);
+      tempDate.setMinutes(timeMin);
 
 
-      if (targetDi.frag1SunTimes.sunset.getTime() < date.getTime()) {
+      if (targetDi.frag1SunTimes.sunset.getTime() < tempDate.getTime()) {
         //dayInfo.isEve = " *";
       } else {
-        date.setHours(date.getHours() + 24);
+        tempDate.setHours(tempDate.getHours() + 24);
       }
 
-      dayInfo.Event = { time: date };
+      dayInfo.Event = { time: tempDate };
 
       dayInfo.StartTime = dayInfo.Event.time.showTime();
       addEventTime(dayInfo.Event);
@@ -1061,7 +1094,7 @@ function BuildSpecialDaysTable(di) {
     }
 
     if (dayInfo.Time) {
-      if (dayInfo.Type != 'Today') {
+      if (dayInfo.Type !== 'Today') {
         dayInfo.ST = getMessage('specialTime_' + dayInfo.Time);
         dayInfo.STClass = ' SpecialTime';
       }
@@ -1079,7 +1112,7 @@ function BuildSpecialDaysTable(di) {
   var rowTemplate = [];
   rowTemplate.push('<tr class="{Type}{TypeShort}{DefaultTimeClass}{STClass}">');
   rowTemplate.push('<td>{D}</td>');
-  rowTemplate.push('<td class=name {STColSpan}>{A}</td>');
+  rowTemplate.push('<td class=name>{A}</td>'); //{STColSpan}
   rowTemplate.push('<td class=forHD>{NoWork}</td>');
   rowTemplate.push('<td class=eventTime><div class="forHD time">{ST} {SpecialTime}</div>{EventTime}{isEve}</td>');
   rowTemplate.push('<td>{G}</td>');
@@ -1203,6 +1236,8 @@ function prepare1() {
   .attr('lang', _languageCode)
   .attr('dir', _languageDir);
 
+  _initialDiStamp = getDateInfo(new Date(), true).stamp;
+
   recallFocus();
 
   updateLoadProgress();
@@ -1212,12 +1247,14 @@ function prepare1() {
   var isEve = getStorage('focusTimeIsEve', 'x');
   if (isEve !== 'x' && isEve !== _di.bNow.eve) {
     toggleEveOrDay(isEve);
-    highlightGDay();
   }
 
   updateLoadProgress();
 
   localizeHtml();
+  updateLoadProgress();
+
+  _pageCustom = PageCustom();
   updateLoadProgress();
 
   showInfo(_di);
@@ -1289,6 +1326,7 @@ function prepare2() {
     setTimeout(finishFirstPopup, 4000);
   }
 
+
   prepareDefaults();
 
   fillEventStart();
@@ -1297,7 +1335,6 @@ function prepare2() {
 
   localizeHtml('#pageLists');
 
-  _initialDi = $.extend(true, {}, _di);
 
   _cal1 = Cal1(_di);
   _cal1.showCalendar(_di);
@@ -1313,11 +1350,15 @@ function prepare2() {
 
   _pageExporter = PageExporter();
 
+
   if (_currentPageId != 'pageDay') {
     adjustHeight();
     $('#initialCover').hide();
   }
 
+  if (_di.stamp !== _initialDiStamp) {
+    highlightGDay();
+  }
 }
 
 function updateLoadProgress() {

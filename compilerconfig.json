@@ -5,22 +5,17 @@
   },
   {
     "outputFile": "calWheel.css",
-    "inputFile": "calWheel.less"
+    "inputFile": "calWheel.less",
+    "options": { "sourceMap": true }
   },
   {
     "outputFile": "popup.css",
-    "inputFile": "popup.less"
+    "inputFile": "popup.less",
+    "options": { "sourceMap": true }
   },
   {
     "outputFile": "calGreg.css",
-    "inputFile": "calGreg.less"
-  },
-  {
-    "outputFile": "reminders.css",
-    "inputFile": "reminders.less"
-  },
-  {
-    "outputFile": "options.css",
-    "inputFile": "options.less"
+    "inputFile": "calGreg.less",
+    "options": { "sourceMap": true }
   }
 ]

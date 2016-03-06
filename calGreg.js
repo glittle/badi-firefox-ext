@@ -246,21 +246,20 @@ var CalGreg = function (di, host) {
       thisDayInfo.zIndex = 35 - gDay;
 
       if (!outside) {
-        week.push(['<div class="{classesOuter}" id=i{cellId}><div class="dayCell {classesInner}">'
-          , '<div class="morn bMonth{bMonth} bDay{bDay}" style="height:{mornSize}px">'
-             + '<span class=bDay>{^holyDayAftStar}{bDay}</span>'
-             + '<span class="gDay">{frag2Day}</span></div>'
-          , '<div class="aft bMonth{bMonth} bDay{bDay}" style="height:{aftSize}px">'
-             + '{^sunriseDesc}'
-             + '{^holyDayAftName}'
-             + '<div>'
-                + '<span class="monthName {isFirst}">{^monthName}</span>'
-                + '<span class=sunset>{endingSunsetDesc}</span>'
-             + '</div>'
-          , '</div><div class="eve bMonth{tomorrowMonth} bDay{tomorrowDay}" style="height:{eveSize}px; z-index:{zIndex}">'
-            + '<span class="bDay{hdEveClass}">{^holyDayEveStar}{tomorrowDay}</span>'
-            + '</div>'
-          , '</div></div>'].join('').filledWith(thisDayInfo))
+        week.push([
+          '<div class="{classesOuter}" id=i{cellId}><div class="dayCell {classesInner}">', '<div class="morn bMonth{bMonth} bDay{bDay}" style="height:{mornSize}px">'
+          + '<span class=bDay>{^holyDayAftStar}{bDay}</span>'
+          + '<span class=gDay>{frag2Day}</span></div>' 
+          + '<div class="aft bMonth{bMonth} bDay{bDay}" style="height:{aftSize}px">'
+          + '{^sunriseDesc}'
+          + '{^holyDayAftName}'
+          + '<div>'
+          + '<span class="monthName {isFirst}">{^monthName}</span>'
+          + '<span class=sunset>{endingSunsetDesc}</span>'
+          + '</div>', '</div><div class="eve bMonth{tomorrowMonth} bDay{tomorrowDay}" style="height:{eveSize}px; z-index:{zIndex}">'
+          + '<span class="bDay">{^holyDayEveStar}{tomorrowDay}</span>'
+          + '</div>', '</div></div>'
+        ].join('').filledWith(thisDayInfo));
       } else {
         thisDayInfo.outsideHeight = total.toFixed(3);
         week.push(['<div class="outside" id=o{cellId}><div style="height:{outsideHeight}px">'

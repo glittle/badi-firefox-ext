@@ -36,6 +36,8 @@ var PageExporter = function () {
       if (what != lastWhat) {
         item.title = '<div class=exportItemTitle>{0}</div>'.filledWith(getMessage('exportOption_' + what));
         lastWhat = what;
+      } else {
+        item.title = '';
       }
     });
 

@@ -96,7 +96,6 @@
         <div id=samples>
           <div id=sampleTitle data-msg="pressToCopy"></div>
           <div id=sampleList1></div>
-          <div id=sampleFootnote data-msg="_id_"></div>
           <div id=sampleList2></div>
         </div>
       </div>
@@ -387,9 +386,9 @@
               <div class="reminderSaveBtns">
                 <button type="submit" class="button" id="btnReminderSave" data-msg="_id_,extractAccessKeyFor:btnReminderSave"></button>
                 <button type="submit" class="button" id="btnReminderSaveNew" data-msg="_id_"></button>
-                <button type="button" class="button" id="btnReminderCancel" data-msg="_id_"></button>
+                <button type="button" class="button btnCancel" id="btnReminderCancel" data-msg="_id_"></button>
                 <button type="submit" class="button" id="btnReminderTest" data-msg="_id_"></button>
-                <button type="button" class="button" id="btnReminderDelete" data-msg="_id_"></button>
+                <button type="button" class="button btnDelete" id="btnReminderDelete" data-msg="_id_"></button>
               </div>
             </div>
           </form>
@@ -428,10 +427,6 @@
                 <button type="button" class="button" data-msg="exportQuickPick3" id="btnQuickPick3"></button>
                 <span data-msg="exportQuickPick3text"></span>
               </div>
-              <div>
-                <button type="button" class="button" data-msg="exportQuickPickClear" id="btnQuickPickClear"></button>
-                <span data-msg="exportQuickPickCleartext"></span>
-              </div>
             </div>
 
             <label for="exporterName" data-msg="exportName"></label>
@@ -451,6 +446,11 @@
               <select id="exporterIncludeAlertMin"></select>
             </div>
 
+            <div>
+              <button type="button" class="button" data-msg="exportQuickPickClear" id="btnQuickPickClear"></button>
+              <span data-msg="exportQuickPickCleartext"></span>
+            </div>
+
             <div class="exportNum">
               <span data-msg="exportNumToInclude"></span>
               <span id="exportNum"></span>
@@ -465,6 +465,57 @@
           </div>
         </div>
       </div>
+      <div id="pageCustom" class="fullPage page">
+        <div>
+          <h2 data-msg="customPartsList">Date Parts</h2>
+          <div id=partsList></div>
+        </div>
+        <div>
+          <h2 data-msg="customBuilder"></h2>
+          <div id=customBuilder>
+            <p data-msg="customBuilderIntro"></p>
+            <div id=customBuilderInputDiv>
+              <input id="customBuilderInput" />
+            </div>
+
+            <p data-msg="customBuilderEcho"></p>
+            <div id=customBuilderEcho></div>
+
+            <div class=customBuilderButtons>
+              <button id=btnCustomBuilderSave type=button class=button data-msg="btnReminderSave,extractAccessKeyFor:btnReminderSave"></button>
+              <button id=btnCustomBuilderCancel type=button class="button btnCancel" data-msg="btnReminderCancel"></button>
+              <button id=btnCustomBuilderDelete type=button class="button btnDelete" data-msg="btnReminderDelete"></button>
+            </div>
+          </div>
+
+          <div class="customDefinedTitleDiv">
+            <h2 data-msg="customDefined"></h2>
+            <div class="customIntroSelectSome"></div>
+          </div>
+          <div class="customFormats">
+          </div>
+        </div>
+        <div id="customSampleTemplate">
+          <div class="customFormatDiv">
+            <div class=customFormatsButtons>
+              <button class="button btnEdit" type=button data-msg="btnReminderEdit"></button>
+            </div>
+            <div class="customSampleContent">
+              <div class=customSample data-part="{f}"></div>
+              <div class=customFormat>{f}</div>
+            </div>
+            <div class="customFormatInfo">
+              <label class="customIsSample">
+                <span></span>
+                <input class="cbIsSample" type="checkbox" value="Y" data-x="" />
+              </label>
+              <button class="button btnCopy" type=button data-msg="customBtnCopy"></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       <div class=selectPages>
         <div class=buttons>
           <button data-page="pageDay" data-msg=pick_pageDay></button>
@@ -476,6 +527,7 @@
           <button data-page="pageLists" data-msg=pick_pageLists></button>
           <button data-page="pageReminders" data-msg=pick_pageReminders id="btnPageReminders"></button>
           <button data-page="pageExporter" data-msg=pick_pageExporter></button>
+          <button data-page="pageCustom" data-msg=pick_pageCustom></button>
         </div>
       </div>
     </div>
@@ -528,6 +580,8 @@
   <script src="calGreg.js"></script>
   <script src="pageReminders.js"></script>
   <script src="pageExporter.js"></script>
+  <script src="pageExporter.js"></script>
+  <script src="pageCustom.js"></script>
   <script src="misc/moment-timezone-with-data.min.js"></script>
 </body>
 </html>

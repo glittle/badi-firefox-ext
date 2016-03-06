@@ -15,7 +15,7 @@
     "description": "Used in the manifest"
   },
   "browserActionTitle": {
-    "message": "Loading...",
+    "message": "Loading",
     "description": "Shown until the dynamic tip is created"
   },
   "bMonthNameAr": {
@@ -1218,7 +1218,7 @@
     "description": ""
   },
   "exportOption_AllDay": {
-    "message": "'All-day' event from midnight <em>(1 day long)</em>",
+    "message": "All-day' event from midnight <em>(1 day long)</em>",
     "description": ""
   },
   "exportOption_Start": {
@@ -1413,7 +1413,69 @@
     "message": "Reset options",
     "description": ""
   },
-  
+
+  "new_messages_1_10": { "message": "adding Custom Builder" },
+
+  "pick_pageCustom": {
+    "message": "Custom",
+    "translation": "required",
+    "description": "page tab name and page title"
+  },
+
+  "customTitle": {
+    "message": "Date Format Builder",
+    "translation": "required",
+    "description": ""
+  },
+
+  "customPartsList": {
+    "message": "Available Date Parts",
+    "translation": "required",
+    "description": ""
+  },
+  "customBuilderIntro": {
+    "message": "Type the format into this box. At any time, click 'Add' in the Available Date Parts to add that date part!",
+    "translation": "required",
+    "description": ""
+  },
+  "customBuilder": {
+    "message": "Build a Custom Date Format",
+    "translation": "required",
+    "description": ""
+  },
+  "customBuilderEcho": {
+    "message": "Results for currently selected day:",
+    "translation": "required",
+    "description": ""
+  },
+  "customDefined": {
+    "message": "Custom Date Formats",
+    "translation": "required",
+    "description": ""
+  },
+  "customUseAsSample": {
+    "message": "Use as Sample?",
+    "translation": "required",
+    "description": ""
+  },
+  "customSelectForFrontPage": {
+    "message": "Show on {0} page?",
+    "translation": "required",
+    "description": ""
+  },
+  "customBtnCopy": {
+    "message": "Copy",
+    "translation": "required",
+    "description": ""
+  },
+  "x3": {
+    "message": "",
+    "translation": "required",
+    "description": ""
+  },
+
+
+
 
 
 
