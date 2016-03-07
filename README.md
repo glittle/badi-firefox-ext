@@ -3,7 +3,8 @@
 
 ### To be done ###
 
-* Translate into more languages!
+* Do you have ideas or suggestions? Please let me know.
+* Feel free to make a Pull Request with improvements!
 
 ### Current Features ###
 
