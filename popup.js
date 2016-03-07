@@ -1032,6 +1032,7 @@ function BuildSpecialDaysTable(di) {
     dayInfo.NoWork = null;
     dayInfo.TypeShort = null;
     dayInfo.DefaultTimeClass = null;
+    dayInfo.RowClass = null;
 
     var targetTime = dayInfo.Time || defaultEventStart;
 
@@ -1114,7 +1115,7 @@ function BuildSpecialDaysTable(di) {
   rowTemplate.push('<td>{D}</td>');
   rowTemplate.push('<td class=name>{A}</td>'); //{STColSpan}
   rowTemplate.push('<td class=forHD>{NoWork}</td>');
-  rowTemplate.push('<td class=eventTime><div class="forHD time">{ST} {SpecialTime}</div>{EventTime}{isEve}</td>');
+  rowTemplate.push('<td class=eventTime><div class="forHD time">{ST}</div>{EventTime}</td>'); // {isEve}
   rowTemplate.push('<td>{G}</td>');
   rowTemplate.push('</tr>');
 
@@ -1276,10 +1277,10 @@ function prepare1() {
   updateLoadProgress();
 
   // delay if viewing first page
-  setTimeout(prepare2, _currentPageId == 'pageDay' ? 1000 : 0);
+  setTimeout(prepare2, _currentPageId === 'pageDay' ? 1000 : 0);
 
   // if viewing first page, show now
-  if (_currentPageId == 'pageDay') {
+  if (_currentPageId === 'pageDay') {
     adjustHeight();
     $('#initialCover').hide();
   }
@@ -1317,6 +1318,7 @@ function prepare2() {
   _initialStartupDone = true;
 
   prepareAnalytics();
+  updateLoadProgress();
 
   if (getStorage('firstPopup', false)) {
     // first time popup is opened after upgrading to newest version
@@ -1326,30 +1328,36 @@ function prepare2() {
     setTimeout(finishFirstPopup, 4000);
   }
 
-
   prepareDefaults();
+  updateLoadProgress();
 
   fillEventStart();
+  updateLoadProgress();
 
   fillStatic();
+  updateLoadProgress();
 
   localizeHtml('#pageLists');
-
+  updateLoadProgress();
 
   _cal1 = Cal1(_di);
   _cal1.showCalendar(_di);
+  updateLoadProgress();
 
   _calWheel = CalWheel();
   _calWheel.showCalendar(_di);
+  updateLoadProgress();
 
   _calGreg = CalGreg();
   _calGreg.showCalendar(_di);
+  updateLoadProgress();
 
   _pageReminders = PageReminders();
   $('#btnPageReminders').toggle(_remindersEnabled);
+  updateLoadProgress();
 
   _pageExporter = PageExporter();
-
+  updateLoadProgress();
 
   if (_currentPageId != 'pageDay') {
     adjustHeight();

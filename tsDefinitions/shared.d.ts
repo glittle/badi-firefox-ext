@@ -4,6 +4,7 @@ declare function addSamples(di:any): void;
 // shared
 declare var _di: any;
 declare var tracker: any;
+declare var _nextFilledWithEach_UsesExactMatchOnly: boolean;
 
 declare function shallowCloneOf(a: any): any;
 declare function log(a: any): void;

@@ -442,13 +442,15 @@
 
             <label data-msg="exportWhatToInclude"></label>
             <div>
-              <input id="exporterIncludeAlert" type="checkbox" value="location" /><span data-msg="exportIncludeAlert"></span>
+              <label class="exportIncludeAlert">
+                <input id="exporterIncludeAlert" type="checkbox" value="location" />
+                <span data-msg="exportIncludeAlert"></span>
+              </label>
               <select id="exporterIncludeAlertMin"></select>
             </div>
 
             <div>
-              <button type="button" class="button" data-msg="exportQuickPickClear" id="btnQuickPickClear"></button>
-              <span data-msg="exportQuickPickCleartext"></span>
+              <button type="button" class="button" data-msg="exportQuickPickCleartext" id="btnQuickPickClear"></button>
             </div>
 
             <div class="exportNum">
@@ -467,7 +469,7 @@
       </div>
       <div id="pageCustom" class="fullPage page">
         <div>
-          <h2 data-msg="customPartsList">Date Parts</h2>
+          <h2 data-msg="customPartsList"></h2>
           <div id=partsList></div>
         </div>
         <div>
@@ -482,15 +484,18 @@
             <div id=customBuilderEcho></div>
 
             <div class=customBuilderButtons>
-              <button id=btnCustomBuilderSave type=button class=button data-msg="btnReminderSave,extractAccessKeyFor:btnReminderSave"></button>
-              <button id=btnCustomBuilderCancel type=button class="button btnCancel" data-msg="btnReminderCancel"></button>
+              <button id=btnCustomBuilderSave type=button class=button data-msg="btnReminderSave,extractAccessKeyFor:btnCustomBuilderSave"></button>
+              <button id=btnCustomBuilderCancel type=button class="button btnCancel" data-msg="btnCustomBuilderCancel"></button>
               <button id=btnCustomBuilderDelete type=button class="button btnDelete" data-msg="btnReminderDelete"></button>
             </div>
           </div>
 
           <div class="customDefinedTitleDiv">
             <h2 data-msg="customDefined"></h2>
-            <div class="customIntroSelectSome"></div>
+            <div class="customIntroSelectSome">
+              <div class="customIntroClick" data-msg="customIntroClick"></div>
+              <div class="customSelect"></div>
+            </div>
           </div>
           <div class="customFormats">
           </div>

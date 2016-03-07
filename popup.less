@@ -234,6 +234,17 @@ body {
     color: #999;
   }
 
+  .exportIncludeAlert{
+    display: inline-flex;
+    vertical-align: top;
+    margin-top: -2px;
+  }
+
+  #exporterIncludeAlertMin{
+    display: block;
+    margin: 0 0 0 35px;
+  }
+
   .exportItemTitle {
     font-weight: bold;
     margin-top: 6px;
@@ -250,6 +261,9 @@ body {
       input {
         margin: 0;
       }
+    }
+    #btnExportTest{
+      float: right;
     }
   }
 
@@ -356,7 +370,7 @@ body {
       position: absolute;
       text-align: right;
       font-size: 90%;
-      max-width: 35%;
+      max-width: 50%;
       bottom: 0;
       right: 0;
     }
@@ -407,7 +421,6 @@ body {
     .customPart {
       display: table-cell;
       vertical-align: top;
-      width: 160px;
       text-align: right;
       padding-right: 2px;
       white-space: nowrap;
@@ -427,12 +440,12 @@ body {
 
   .customFormats {
     clear: both;
-    max-height: calc("~100% - " 280px);
+    max-height: 330px;
     overflow: auto;
 
     .customFormatDiv {
       margin: 1px 0;
-      border: 1px solid #ccc;
+      border-top: 1px solid #eee;
       border-radius: 3px;
       padding: 1px 3px;
       display: flex;
@@ -445,6 +458,7 @@ body {
 
       .customFormatInfo {
         text-align: right;
+        white-space: nowrap;
       }
     }
 
@@ -458,8 +472,13 @@ body {
       padding: 0 3px;
     }
 
-    .customFormat {
+    .customSample{
       background-color: #eee;
+      display: inline-block;
+      padding: 0 4px 2px 3px;
+    }
+    .customFormat {
+      color: #999;
       padding: 0 4px 2px 2px;
       margin: 0 30px 2px 0;
       display: inline-block;
@@ -467,10 +486,6 @@ body {
 
     .customIsSample {
       display: inline-block;
-      //position: absolute;
-      //top: 1px;
-      //right: 5px;
-      //text-align: right;
       input {
         vertical-align: text-top;
       }

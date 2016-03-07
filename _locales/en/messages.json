@@ -1334,7 +1334,7 @@
     "description": "Be sure the URL is not translated!"
   },
   "exportIncludeAlert": {
-    "message": "Add an alert to each event",
+    "message": "Add an alert to each event (may not load into Google calendar)",
     "description": ""
   },
   "exportWhatTitle": {
@@ -1405,10 +1405,6 @@
     "message": "Sunset, with an alert.",
     "description": ""
   },
-  "exportQuickPickClear": {
-    "message": "Reset",
-    "description": ""
-  },
   "exportQuickPickClearText": {
     "message": "Reset options",
     "description": ""
@@ -1434,7 +1430,7 @@
     "description": ""
   },
   "customBuilderIntro": {
-    "message": "Type the format into this box. At any time, click 'Add' in the Available Date Parts to add that date part!",
+    "message": "Type the format into this box. Click any 'Add' in the Available Date Parts to add that date part in the current location.",
     "translation": "required",
     "description": ""
   },
@@ -1459,7 +1455,7 @@
     "description": ""
   },
   "customSelectForFrontPage": {
-    "message": "Show on {0} page?",
+    "message": "Tick box to show on {0} page.",
     "translation": "required",
     "description": ""
   },
@@ -1468,8 +1464,13 @@
     "translation": "required",
     "description": ""
   },
-  "x3": {
-    "message": "",
+  "btnCustomBuilderCancel": {
+    "message": "Cancel / New",
+    "translation": "required",
+    "description": ""
+  },
+  "customIntroClick": {
+    "message": "Click Copy to copy formatted date to the clipboard.",
     "translation": "required",
     "description": ""
   },

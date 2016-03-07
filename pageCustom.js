@@ -46,7 +46,9 @@ var PageCustom = () => {
     function updateActive() {
         var rawSource = $('#customBuilderInput');
         var rawText = rawSource.val();
+        _nextFilledWithEach_UsesExactMatchOnly = true;
         var converted = rawText.filledWith(_di);
+        _nextFilledWithEach_UsesExactMatchOnly = false;
         var echo = $('#customBuilderEcho');
         echo.html(converted || '&nbsp;');
         var hasError = converted.search(/{/) !== -1 || converted.search(/}/) !== -1;
@@ -77,10 +79,13 @@ var PageCustom = () => {
             checked: _currentUseForSample ? 'checked' : ''
         };
         var templateDiv = getCustomSample();
+        _nextFilledWithEach_UsesExactMatchOnly = true;
         var newDiv = $(templateDiv.filledWith(data));
+        _nextFilledWithEach_UsesExactMatchOnly = false;
         var sample = newDiv.find('.customSample');
         sample.html(data.f.filledWith(_di));
         if (!_currentEditId) {
+            newDiv.addClass('inEdit');
             $('.customFormats').append(newDiv);
             _currentEditId = renumberSamples();
         }
@@ -132,8 +137,10 @@ var PageCustom = () => {
     }
     function updateEditButtons() {
         var notEditing = !_currentEditId;
+        var notEditingAndBlank = notEditing && $('#customBuilderInput').val() === '';
+        $('#btnCustomBuilderSave').prop('disabled', notEditingAndBlank);
         $('#btnCustomBuilderDelete').prop('disabled', notEditing);
-        $('#btnCustomBuilderCancel').prop('disabled', notEditing && $('#customBuilderInput').val() === '');
+        $('#btnCustomBuilderCancel').prop('disabled', notEditingAndBlank);
         //var boxes = $('.cbIsSample');
         //var checked = boxes.filter(':checked').length;
         //if (checked >= _maxToUseAsSamples) {
@@ -185,6 +192,7 @@ var PageCustom = () => {
             });
             nextItemNumber++;
         });
+        _nextFilledWithEach_UsesExactMatchOnly = true;
         var host = $('#samples').find('#sampleList2');
         host.html(('<div><button title="{tooltip}"'
             + ' type=button data-letter={letter} id="key{letter}">{letter}{currentNote}</button>'
@@ -261,11 +269,13 @@ var PageCustom = () => {
                 //log(el);
             });
             var templateDiv = getCustomSample();
+            _nextFilledWithEach_UsesExactMatchOnly = true;
             var result = templateDiv.filledWithEach(formats);
+            _nextFilledWithEach_UsesExactMatchOnly = false;
             $('.customFormats').html(result);
             addSamplesToFirstPage();
             renumberSamples();
-            //showForCurrentDate();
+            showForCurrentDate();
             updateEditButtons();
         }
     }
@@ -290,7 +300,7 @@ var PageCustom = () => {
         preparePartsList();
         loadFormatsFromSync();
         attachHandlers();
-        $('.customIntroSelectSome').html(getMessage('customSelectForFrontPage').filledWith(getMessage('pick_pageDay')));
+        $('.customSelect').html(getMessage('customSelectForFrontPage').filledWith(getMessage('pick_pageDay')));
     }
     startup();
     return {

@@ -9,6 +9,7 @@ var settings = {
   rememberFocusTimeMinutes: 5
 };
 
+var _nextFilledWithEach_UsesExactMatchOnly = false;
 var _languageCode = getMessage('translation');
 var _languageDir = ',fa'.search(_languageCode) != -1 ? 'rtl' : 'ltr';
 
@@ -660,14 +661,20 @@ String.prototype.filledWith = function () {
         else if (testDoNotEscapeHtml.test(token)) {
           value = values[token.substring(1)];
         } else {
-          //if (values.hasOwnProperty(token)) {
-          var toEscape = values[token];
-          //value = typeof toEscape == 'undefined' || toEscape === null ? '' : ('' + toEscape).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;').replace(/{/g, '&#123;');
-          //Never escape HTML in this Chrome Extension
-          value = toEscape === 0 ? 0 : (toEscape || '');
-          //} else {
-          //  value = '{' + token + '}';
-          //}
+          if (values.hasOwnProperty(token)) {
+            var toEscape = values[token];
+            //value = typeof toEscape == 'undefined' || toEscape === null ? '' : ('' + toEscape).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;').replace(/{/g, '&#123;');
+            //Never escape HTML in this Chrome Extension
+            value = toEscape === 0 ? 0 : (toEscape || '');
+          } else {
+            if (_nextFilledWithEach_UsesExactMatchOnly) {
+              value = '{' + token + '}';
+            } else {
+              log('missing property for filledWith: ' + token);
+              //debugger;
+              value = '';
+            }
+          }
         }
       }
 
@@ -719,6 +726,7 @@ String.prototype.filledWithEach = function (arr) {
   for (var i = 0, max = arr.length; i < max; i++) {
     result[result.length] = this.filledWith(arr[i]);
   }
+  _nextFilledWithEach_UsesExactMatchOnly = false;
   return result.join('');
 };
 
