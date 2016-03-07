@@ -147,13 +147,6 @@ var PageCustom = () => {
         $('#btnCustomBuilderSave').prop('disabled', notEditingAndBlank);
         $('#btnCustomBuilderDelete').prop('disabled', notEditing);
         $('#btnCustomBuilderCancel').prop('disabled', notEditingAndBlank);
-        //var boxes = $('.cbIsSample');
-        //var checked = boxes.filter(':checked').length;
-        //if (checked >= _maxToUseAsSamples) {
-        //  boxes.filter(':not(:checked)').prop('disabled', true);
-        //} else {
-        //  boxes.prop('disabled', false);
-        //}
     }
     function cancelEditing() {
         $('.customFormats .customFormatDiv').removeClass('inEdit');
@@ -192,13 +185,16 @@ var PageCustom = () => {
             var div = $(el);
             var span = div.find('.customIsSample span');
             var checked = div.find('.customIsSample input').is(':checked');
+            if (nextItemNumber > 26) {
+                div.find('.customIsSample input').prop('checked', false);
+                checked = false;
+            }
             if (!checked) {
                 span.html('');
                 return;
             }
             var letter = String.fromCharCode(64 + nextItemNumber);
             span.html(letter);
-            //log(letter);
             selected.push({
                 currentNote: '',
                 letter: letter,
