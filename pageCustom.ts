@@ -174,6 +174,15 @@ var PageCustom = () => {
     updateEditButtons();
   }
 
+  function loadCustom(ev) {
+    cancelEditing();
+
+    var btn = $(ev.target);
+    $('#customBuilderInput').val(btn.data('format')).trigger('change');
+
+    updateEditButtons();
+  }
+
   function updateEditButtons() {
     var notEditing = !_currentEditId;
     var notEditingAndBlank = notEditing && $('#customBuilderInput').val() === '';
@@ -200,6 +209,17 @@ var PageCustom = () => {
     updateEditButtons();
   }
 
+  function addFromFirstPage(letter: string, format: string) {
+    var button = '<button type=button class="button btnLoadCustom" data-format="'
+      + format
+      + '">' + letter + '</button>';
+    $('.customLettersFromFirstPage').append(button);
+  }
+
+  function clearFromFirstPage() {
+    $('.customLettersFromFirstPage').html('');
+  }
+
   function updateFirstPageSamples(forceRefresh?: boolean) {
     if (!_samplesAddedToFirstPage || forceRefresh) {
       addSamplesToFirstPage();
@@ -219,7 +239,7 @@ var PageCustom = () => {
       addSamples(_di);
       return;
     }
-     
+
     $('.customFormats .customFormatDiv').each(function (i, el) {
       var div = $(el);
       var span = div.find('.customIsSample span');
@@ -337,9 +357,11 @@ var PageCustom = () => {
 
       $('.customFormats').html(result);
 
-      addSamplesToFirstPage();
+      setTimeout(() => {
+        addSamplesToFirstPage();
+        showForCurrentDate();
+      }, 0);
       renumberSamples();
-      showForCurrentDate();
       updateEditButtons();
     }
   };
@@ -355,6 +377,7 @@ var PageCustom = () => {
     $('.customFormats').on('click', '.btnCopy', copySample);
     $('.customFormats').on('click', '.btnEdit', editSample);
     $('.customFormats').on('change', '.cbIsSample', isSampleChanged);
+    $('#pageCustom').on('click', '.btnLoadCustom', loadCustom);
     $('#btnCustomBuilderSave').on('click', saveEdits);
     $('#btnCustomBuilderCancel').on('click', cancelEditing);
     $('#btnCustomBuilderDelete').on('click', deleteSample);
@@ -372,6 +395,8 @@ var PageCustom = () => {
 
   return {
     updateDate: showForCurrentDate,
-    updateFirstPage: updateFirstPageSamples
+    updateFirstPage: updateFirstPageSamples,
+    clearFromFirstPage: clearFromFirstPage,
+    addFromFirstPage: addFromFirstPage
   };
 }

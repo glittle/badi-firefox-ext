@@ -135,6 +135,12 @@ var PageCustom = () => {
         $('#customBuilderInput').val(div.find('.customFormat').html()).trigger('change');
         updateEditButtons();
     }
+    function loadCustom(ev) {
+        cancelEditing();
+        var btn = $(ev.target);
+        $('#customBuilderInput').val(btn.data('format')).trigger('change');
+        updateEditButtons();
+    }
     function updateEditButtons() {
         var notEditing = !_currentEditId;
         var notEditingAndBlank = notEditing && $('#customBuilderInput').val() === '';
@@ -156,6 +162,15 @@ var PageCustom = () => {
         $('#customBuilderInput').val('').removeClass('hasError');
         $('#customBuilderEcho').html('&nbsp;');
         updateEditButtons();
+    }
+    function addFromFirstPage(letter, format) {
+        var button = '<button type=button class="button btnLoadCustom" data-format="'
+            + format
+            + '">' + letter + '</button>';
+        $('.customLettersFromFirstPage').append(button);
+    }
+    function clearFromFirstPage() {
+        $('.customLettersFromFirstPage').html('');
     }
     function updateFirstPageSamples(forceRefresh) {
         if (!_samplesAddedToFirstPage || forceRefresh) {
@@ -273,9 +288,11 @@ var PageCustom = () => {
             var result = templateDiv.filledWithEach(formats);
             _nextFilledWithEach_UsesExactMatchOnly = false;
             $('.customFormats').html(result);
-            addSamplesToFirstPage();
+            setTimeout(() => {
+                addSamplesToFirstPage();
+                showForCurrentDate();
+            }, 0);
             renumberSamples();
-            showForCurrentDate();
             updateEditButtons();
         }
     }
@@ -290,6 +307,7 @@ var PageCustom = () => {
         $('.customFormats').on('click', '.btnCopy', copySample);
         $('.customFormats').on('click', '.btnEdit', editSample);
         $('.customFormats').on('change', '.cbIsSample', isSampleChanged);
+        $('#pageCustom').on('click', '.btnLoadCustom', loadCustom);
         $('#btnCustomBuilderSave').on('click', saveEdits);
         $('#btnCustomBuilderCancel').on('click', cancelEditing);
         $('#btnCustomBuilderDelete').on('click', deleteSample);
@@ -305,7 +323,9 @@ var PageCustom = () => {
     startup();
     return {
         updateDate: showForCurrentDate,
-        updateFirstPage: updateFirstPageSamples
+        updateFirstPage: updateFirstPageSamples,
+        clearFromFirstPage: clearFromFirstPage,
+        addFromFirstPage: addFromFirstPage
     };
 };
 //# sourceMappingURL=pageCustom.js.map

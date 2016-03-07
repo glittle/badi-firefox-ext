@@ -584,6 +584,10 @@ function addSamples(di) {
   var msg;
   var notInMessagesJson = '_$$$_';
 
+  if (_pageCustom) {
+    _pageCustom.clearFromFirstPage();
+  }
+
   var sampleGroupNum = 1;
   for (var sampleNum = 1; sampleNum < 99; sampleNum++) {
     var key = 'sampleGroup{0}_{1}'.filledWith(sampleGroupNum, sampleNum);
@@ -591,8 +595,7 @@ function addSamples(di) {
     if (msg === notInMessagesJson) {
       continue;
     }
-
-    addSample(msg, sampleGroupNum);
+    addSample(msg, getMessage(key), sampleGroupNum);
   }
   if (_pageCustom) {
     _pageCustom.updateFirstPage();
@@ -714,9 +717,8 @@ function keyPressed(ev) {
       }
 
       if (ev.target.tagName !== 'INPUT' && ev.target.tagName !== 'TEXTAREA') {
-
         var pageNum = +key;
-        var validPagePicker = key == pageNum;
+        var validPagePicker = key == pageNum; // don't use ===
 
         if (!validPagePicker && (key >= 'a' && key <= 'i')) {
           pageNum = key.charCodeAt(0) - 96;
@@ -724,6 +726,9 @@ function keyPressed(ev) {
         }
 
         if (validPagePicker) {
+          if (pageNum === 0) {
+            pageNum = 10;
+          }
           var pageButtons = $('.selectPages button').filter(':visible');
           if (pageNum > 0 && pageNum <= pageButtons.length) {
             var id = pageButtons.eq(pageNum - 1).data('page');
@@ -736,10 +741,10 @@ function keyPressed(ev) {
   }
 }
 
-function addSample(info, group) {
+function addSample(info, format, group) {
   sampleNum++;
-  var letter = String.fromCharCode(64 + sampleNum);
 
+  var letter = String.fromCharCode(64 + sampleNum);
   var sample = {
     value: '',
     currentTime: false,
@@ -753,6 +758,11 @@ function addSample(info, group) {
     $.extend(sample, info);
   }
   sample.currentNote = sample.currentTime ? ' *' : '';
+
+  if (_pageCustom) {
+    _pageCustom.addFromFirstPage(letter, format);
+  }
+
   // also in pageCustom
   $('#samples').find('#sampleList' + group)
     .append(('<div><button title="{tooltip}"'

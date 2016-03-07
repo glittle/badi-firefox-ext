@@ -1430,7 +1430,7 @@
     "description": ""
   },
   "customBuilderIntro": {
-    "message": "Type the format into this box. Click any 'Add' in the Available Date Parts to add that date part in the current location.",
+    "message": "Type the format into this box. Click any 'Add' in the Available Date Parts to add that date part in the current location. Hints: 'frag1' = sunset to midnight; 'frag2' = midnight to sunset.",
     "translation": "required",
     "description": ""
   },
@@ -1440,7 +1440,7 @@
     "description": ""
   },
   "customBuilderEcho": {
-    "message": "Results for currently selected day:",
+    "message": "Results (for currently selected day - see Tips & Keys to change day)",
     "translation": "required",
     "description": ""
   },
@@ -1471,6 +1471,11 @@
   },
   "customIntroClick": {
     "message": "Click Copy to copy formatted date to the clipboard.",
+    "translation": "required",
+    "description": ""
+  },
+  "customLoadLetters": {
+    "message": "Click to start from a standard format: ",
     "translation": "required",
     "description": ""
   },

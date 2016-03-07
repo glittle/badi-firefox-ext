@@ -234,13 +234,13 @@ body {
     color: #999;
   }
 
-  .exportIncludeAlert{
+  .exportIncludeAlert {
     display: inline-flex;
     vertical-align: top;
     margin-top: -2px;
   }
 
-  #exporterIncludeAlertMin{
+  #exporterIncludeAlertMin {
     display: block;
     margin: 0 0 0 35px;
   }
@@ -262,7 +262,8 @@ body {
         margin: 0;
       }
     }
-    #btnExportTest{
+
+    #btnExportTest {
       float: right;
     }
   }
@@ -344,9 +345,18 @@ body {
     justify-content: flex-end;
     flex: 0 1 60%;
     padding: 2px 6px;
+  }
 
-    &:first-child {
-      flex: 0 1 40%;
+  .customPartsListDiv {
+    flex: 0 1 40%;
+
+    h2 {
+      text-align: center;
+    }
+
+    button.button {
+      background: transparent;
+      color: green;
     }
   }
 
@@ -354,6 +364,15 @@ body {
     display: none;
   }
 
+  .customLoadLettersDiv {
+    margin: 5px 0 0 5px;
+
+    button {
+      margin: 0 1px;
+      background: transparent;
+      color: green;
+    }
+  }
 
   p {
     margin: 0;
@@ -370,7 +389,7 @@ body {
       position: absolute;
       text-align: right;
       font-size: 90%;
-      max-width: 50%;
+      max-width: 60%;
       bottom: 0;
       right: 0;
     }
@@ -472,11 +491,12 @@ body {
       padding: 0 3px;
     }
 
-    .customSample{
+    .customSample {
       background-color: #eee;
       display: inline-block;
       padding: 0 4px 2px 3px;
     }
+
     .customFormat {
       color: #999;
       padding: 0 4px 2px 2px;
@@ -486,6 +506,7 @@ body {
 
     .customIsSample {
       display: inline-block;
+
       input {
         vertical-align: text-top;
       }
