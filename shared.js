@@ -253,6 +253,10 @@ function showIcon() {
     }
   }
 
+  if (dateInfo.bMonth === 19) {
+    tipLines.push(getMessage('sunriseFastHeading') + ' - ' + dateInfo.frag2SunTimes.sunrise.showTime());
+  }
+
   tipLines.push(dateInfo.nearestSunset);
   tipLines.push('');
   tipLines.push(getMessage('formatIconClick'));
