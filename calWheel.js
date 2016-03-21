@@ -50,8 +50,8 @@ var CalWheel = function () {
         var inner = slice.find('.innerSlice');
         slice.removeAttr('id');
         slice.css({
-          transform: 'rotate(' + angle + 'deg)'
-          //transformOrigin: x + ' ' + y
+          transform: 'rotate(' + angle + 'deg)',
+          transformOrigin: '39px 335px'//x + ' ' + y
         });
 
         inner.attr('id', 'slice' + bm);

@@ -26,14 +26,10 @@
     ]
   },
   "permissions": [
-    "alarms",
     "storage",
-    "notifications",
     "geolocation",
     "contextMenus",
-    "clipboardWrite",
-    "tts",
-    "https://maker.ifttt.com/"
+    "clipboardWrite"
   ],
   "browser_action": {
     "default_popup": "popup.html",
