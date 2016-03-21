@@ -735,7 +735,15 @@ String.prototype.filledWithEach = function (arr) {
 };
 
 function getMessage(key, obj, defaultValue) {
-  var rawMsg = chrome.i18n.getMessage(key);
+  var rawMsg;
+  try {
+    rawMsg = chrome.i18n.getMessage(key);
+  } catch (e) {
+    //log('Failed to find key: ' + key);
+  }
+  if (rawMsg === '??') {
+    rawMsg = null;
+  }
   var msg = rawMsg || defaultValue || '{' + key + '}';
   if (typeof obj === 'undefined') {
     return msg;

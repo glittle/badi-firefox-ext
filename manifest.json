@@ -3,13 +3,17 @@
   "version": "2.0.1",
   "version_name": "2.0.1",
   "description": "__MSG_titleDesc__",
+  "applications": {
+    "gecko": {
+      "id": "glen.little.ffBadi@gmail.com"
+    }
+  },
   "default_locale": "en",
   "icons": {
     "48": "badi19a-48.png",
     "128": "badi19a-128.png"
   },
   "background": {
-    "persistent": false,
     "scripts": [
       "jquery-2.1.3.min.js",
       "google-analytics-bundle.js",
@@ -28,7 +32,7 @@
     "geolocation",
     "contextMenus",
     "clipboardWrite",
-    "tts",    
+    "tts",
     "https://maker.ifttt.com/"
   ],
   "browser_action": {
@@ -38,7 +42,7 @@
       "48": "badi19a-48.png"
     }
   },
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self",
   "author": "Glen Little",
   "short_name": "BadiCal",
   "manifest_version": 2,

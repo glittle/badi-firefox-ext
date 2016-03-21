@@ -68,7 +68,7 @@ var BackgroundModule = function () {
 
     chrome.alarms.clearAll();
     chrome.alarms.onAlarm.addListener(alarmHandler);
-    chrome.runtime.onInstalled.addListener(installed);
+    //chrome.runtime.onInstalled.addListener(installed); //NOT IN FIREFOX
 
     chrome.contextMenus.create({
       'id': 'openInTab',
@@ -90,54 +90,54 @@ var BackgroundModule = function () {
 
         case 'openInTab':
           var url = chrome.extension.getURL('popup.html');
-          chrome.tabs.query({ url: url }, function (foundTabs) {
+          //chrome.tabs.query({ url: url }, function (foundTabs) {
 
-            var makeTab = function () {
-              chrome.tabs.create({ url: url }, function (newTab) {
-                setStorage('tabId', newTab.id);
-              });
-            };
+          var makeTab = function () {
+            chrome.tabs.create({ url: url }, function (newTab) {
+              setStorage('tabId', newTab.id);
+            });
+          };
 
-            var afterUpdate = function (updatedTab) {
-              if (!updatedTab) {
-                makeTab();
-              }
-              if (chrome.runtime.lastError) {
-                log(chrome.runtime.lastError.message);
-              }
-            };
-
-            switch (foundTabs.length) {
-              case 1:
-                // resuse
-                chrome.tabs.update(foundTabs[0].id, {
-                  active: true
-                }, afterUpdate);
-                break;
-
-              case 0:
-                makeTab();
-                break;
-
-              default:
-                // bug in March 2016 - all tabs returned!
-
-                var oldTabId = +getStorage('tabId', 0);
-                if (oldTabId) {
-                  chrome.tabs.update(oldTabId, {
-                    active: true
-                  }, afterUpdate);
-                } else {
-                  makeTab();
-                }
-                break;
+          var afterUpdate = function (updatedTab) {
+            if (!updatedTab) {
+              makeTab();
             }
-
-            if (tracker) {
-              // not working?...
-              tracker.sendEvent('openInTabContextMenu');
+            if (chrome.runtime.lastError) {
+              log(chrome.runtime.lastError.message);
             }
-          });
+          };
+
+          //switch (foundTabs.length) {
+          //  case 1:
+          //    // resuse
+          //    chrome.tabs.update(foundTabs[0].id, {
+          //      active: true
+          //    }, afterUpdate);
+          //    break;
+
+          //  case 0:
+          makeTab();
+          //    break;
+
+          //  default:
+          //    // bug in March 2016 - all tabs returned!
+
+          //    var oldTabId = +getStorage('tabId', 0);
+          //    if (oldTabId) {
+          //      chrome.tabs.update(oldTabId, {
+          //        active: true
+          //      }, afterUpdate);
+          //    } else {
+          //      makeTab();
+          //    }
+          //    break;
+          //}
+
+          if (tracker) {
+            // not working?...
+            tracker.sendEvent('openInTabContextMenu');
+          }
+          //});
 
           break;
       }

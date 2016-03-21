@@ -646,7 +646,7 @@ var PageReminders = function () {
   }
 
   function startup() {
-    loadVoices();
+    //loadVoices();
     establishPortToBackground();
     getAndShowReminders();
     attachHandlers();

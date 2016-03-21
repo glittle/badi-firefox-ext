@@ -103,7 +103,7 @@ var CalWheel = function () {
       var keyframes = '@-webkit-keyframes spinner {from {-webkit-transform:rotateZ(' + _lastAngle + 'deg)} '
         + ' to {-webkit-transform:rotateZ(' + offsetAngle + 'deg)}}';
 
-      wheel.css({ transform: 'rotate({0}deg)'.filledWith(_lastAngle) })
+      wheel.css({ transform: 'rotate({0}deg)'.filledWith(_lastAngle) });
       wheel.removeClass('rotating');
 
       s.html(keyframes);

@@ -6,15 +6,16 @@
 // delta -->  + is future (event is after trigger),  - is past (event is before trigger)   (delta * offset --> new time in future or past)
 var _notificationsEnabled = true; // set to false to disable
 
-if (_notificationsEnabled) {
-  // check to see...
-  chrome.notifications.getPermissionLevel(function (level) {
-    // ensure flag is off if user has disabled them
-    if (level !== 'granted') {
-      _notificationsEnabled = false;
-    }
-  });
-}
+//NOT IN FIREFOX
+//if (_notificationsEnabled) {
+//  // check to see...
+//  chrome.notifications.getPermissionLevel(function (level) {
+//    // ensure flag is off if user has disabled them
+//    if (level !== 'granted') {
+//      _notificationsEnabled = false;
+//    }
+//  });
+//}
 
 
 var BackgroundReminderEngine = function () {
@@ -472,7 +473,7 @@ var BackgroundReminderEngine = function () {
 
     localStorage.removeItem(alarmName);
 
-    if(!isTest){
+    if (!isTest) {
       setAlarmsForRestOfToday();
     }
   }
@@ -588,7 +589,7 @@ var BackgroundReminderEngine = function () {
             error: function (request, error) {
               log(JSON.stringify(request));
               log(JSON.stringify(error));
-              
+
               alert(request.statusText);
             }
           });
@@ -717,18 +718,35 @@ var BackgroundReminderEngine = function () {
         log(chrome.runtime.lastError);
       }
     });
-    chrome.storage.sync.set({
-      reminders: _remindersDefined
-    }, function () {
-      log('stored reminders with sync');
-      if (chrome.runtime.lastError) {
-        log(chrome.runtime.lastError);
-      }
-    });
+    //chrome.storage.sync.set({
+    //  reminders: _remindersDefined
+    //}, function () {
+    //  log('stored reminders with sync');
+    //  if (chrome.runtime.lastError) {
+    //    log(chrome.runtime.lastError);
+    //  }
+    //});
   }
 
   function loadReminders() {
-    chrome.storage.sync.get({
+    //chrome.storage.sync.get({
+    //  reminders: []
+    //}, function (items) {
+    //  if (chrome.runtime.lastError) {
+    //    log(chrome.runtime.lastError);
+    //  }
+
+    //  if (items.reminders) {
+    //    log('reminders loaded from sync: ' + items.reminders.length);
+    //    _remindersDefined = items.reminders || [];
+    //  }
+
+    //  if (_remindersDefined.length != 0) {
+    //    setAlarmsForRestOfToday(true);
+
+    //  } else {
+
+    chrome.storage.local.get({
       reminders: []
     }, function (items) {
       if (chrome.runtime.lastError) {
@@ -736,31 +754,14 @@ var BackgroundReminderEngine = function () {
       }
 
       if (items.reminders) {
-        log('reminders loaded from sync: ' + items.reminders.length);
+        log('reminders loaded from local: ' + items.reminders.length);
         _remindersDefined = items.reminders || [];
       }
 
-      if (_remindersDefined.length != 0) {
-        setAlarmsForRestOfToday(true);
-
-      } else {
-
-        chrome.storage.local.get({
-          reminders: []
-        }, function (items) {
-          if (chrome.runtime.lastError) {
-            log(chrome.runtime.lastError);
-          }
-
-          if (items.reminders) {
-            log('reminders loaded from local: ' + items.reminders.length);
-            _remindersDefined = items.reminders || [];
-          }
-
-          setAlarmsForRestOfToday(true);
-        });
-      }
+      setAlarmsForRestOfToday(true);
     });
+    //    }
+    //  });
   }
 
   function makeSamples() {

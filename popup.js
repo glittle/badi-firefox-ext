@@ -12,7 +12,7 @@ var _currentPageNum = 0;
 var _cal1 = null;
 var _calWheel = null;
 var _calGreg = null;
-var _pageReminders = null;
+//var _pageReminders = null;
 var _pageExporter = null;
 var _pageCustom = null;
 var _enableSampleKeys = true;
@@ -27,7 +27,7 @@ var _inTab = false;
 var _pageIdList = [];
 var _inPopupPage = true;
 
-var _remindersEnabled = true; // local copy of background var
+var _remindersEnabled = false; // local copy of background var
 
 function attachHandlers() {
   $('#samples').on('click', 'button', copySample);
@@ -329,12 +329,12 @@ function updatePageContentWhenVisible(id, di) {
       }
       break;
 
-    case 'pageReminders':
-      $('#otherPageTitle').html(getMessage('pick_pageReminders'));
-      if (_pageReminders) {
-        _pageReminders.showReminders();
-      }
-      break;
+    //case 'pageReminders':
+    //  $('#otherPageTitle').html(getMessage('pick_pageReminders'));
+    //  if (_pageReminders) {
+    //    _pageReminders.showReminders();
+    //  }
+    //  break;
 
     case 'pageExporter':
       $('#otherPageTitle').html(getMessage('exporterTitle'));
@@ -1222,17 +1222,17 @@ function openInTab() {
   }
   var url = chrome.extension.getURL('popup.html');
 
-  chrome.tabs.query({ url: url }, function (foundTabs) {
-    if (foundTabs[0]) {
-      chrome.tabs.update(foundTabs[0].id, {
-        active: true
-      });
-    } else {
-      chrome.tabs.create({ url: url });
-    }
-    window.close();
-    tracker.sendEvent('openInTab');
-  });
+  //chrome.tabs.query({ url: url }, function (foundTabs) {
+  //  if (foundTabs[0]) {
+  //    chrome.tabs.update(foundTabs[0].id, {
+  //      active: true
+  //    });
+  //  } else {
+  chrome.tabs.create({ url: url });
+  //}
+  window.close();
+  tracker.sendEvent('openInTab');
+  //});
 
 }
 
@@ -1362,9 +1362,9 @@ function prepare2() {
   _calGreg.showCalendar(_di);
   updateLoadProgress();
 
-  _pageReminders = PageReminders();
-  $('#btnPageReminders').toggle(_remindersEnabled);
-  updateLoadProgress();
+  //_pageReminders = PageReminders();
+  //$('#btnPageReminders').toggle(_remindersEnabled);
+  //updateLoadProgress();
 
   _pageExporter = PageExporter();
   updateLoadProgress();
@@ -1382,6 +1382,7 @@ function prepare2() {
 function updateLoadProgress() {
   _loadingNum++;
   $('#loadingCount').text(new Array(_loadingNum + 1).join('.'));
+  log('loading ' + _loadingNum);
 }
 
 // must be set immediately for tab managers to see this name

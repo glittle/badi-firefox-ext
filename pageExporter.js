@@ -106,7 +106,11 @@ var PageExporter = function () {
     addLine('');
   };
   var addEntries = function () {
-    var range = $('#exporterDateRange').val();
+    var ddl = $('#exporterDateRange');
+    if (!ddl.val()) {
+      ddl[0].selectedIndex = 0;
+    }
+    var range = ddl.val();
     var rangeType = range.substr(0, 4);
     var year = +range.substr(4);
     var date = null;
