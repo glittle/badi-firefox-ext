@@ -624,7 +624,7 @@ String.prototype.filledWith = function () {
 
   var values = typeof arguments[0] === 'object' && arguments.length === 1 ? arguments[0] : arguments;
 
-  //var testForFunc = /^#/; // simple test for "#"
+  var testForFunc = /^#/; // simple test for "#"
   var testForElementAttribute = /^\*/; // simple test for "#"
   var testDoNotEscapeHtml = /^\^/; // simple test for "^"
   var testDoNotEscpaeHtmlButToken = /^-/; // simple test for "-"
@@ -646,6 +646,8 @@ String.prototype.filledWith = function () {
         }
         //else if (testForFunc.test(token)) {
         //  try {
+        //    debugger;
+        //    log('eval... ' + token);
         //    value = eval(token.substring(1));
         //  }
         //  catch (e) {
