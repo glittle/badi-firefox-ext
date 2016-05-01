@@ -899,4 +899,3 @@ var BackgroundReminderEngine = function () {
     }
   }
 }
-
