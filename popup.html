@@ -65,7 +65,7 @@
         <div class="normal place"></div>
         <!--<div id=gDayWithSunset></div>-->
         <div id=locationErrorHolder>
-          <button id=btnRetry></button>
+          <button class=btnRetry><span class="btnRetryImg"></span></button>
           <span id=locationError data-msg="_id_"></span>
         </div>
       </div>
@@ -84,12 +84,20 @@
             <button type=button class="button btnChangeDay" data-delta="1" data-msg="next"></button>
             <button type=button id="btnEveOrDay" class="button" data-msg="_id_"></button>
           </div>
-          <div id=bDatePickerTitle data-msg="_id_,extractAccessKeyFor:bYearPicker"></div>
+          <div class=DatePickerTitle data-msg="bDatePickerTitle,extractAccessKeyFor:bYearPicker"></div>
           <div class=bDatePickerInputs>
             <input class=bYearPicker id="bYearPicker" type=number max=1000 min=1>
             <input id=bMonthPicker type=number max=19 min=0>
             <input id=bDayPicker type=number max=19 min=1>
-            <div class=comment id=ayyamIs0 data-msg="_id_"></div>
+            <div class=comment id=ayyamIs0></div>
+          </div>
+
+          <div class=DatePickerTitle data-msg="rbDefLangText"></div>
+          <div class="setupLangOption">
+            <input type="radio" name="language" value="Local" id="rbDefLang_Local" /> <label for="rbDefLang_Local" data-msg="rbDefLang_Local"></label>
+        </div>
+          <div class="setupLangOption">
+            <input type="radio" name="language" value="Ar" id="rbDefLang_Ar" /> <label for="rbDefLang_Ar" data-msg="rbDefLang_Ar"></label>
           </div>
         </div>
         <div id=dayDetails></div>
@@ -236,7 +244,7 @@
           <!--<line x1="65" y1="0" x2="65" y2="470" stroke="black" stroke-width="1" />-->
         </svg>
       </div>
-    <!--  <div id="pageReminders" class="fullPage page">
+      <div id="pageReminders" class="fullPage page">
         <div>
           <h2 data-msg="reminderAddEdit"></h2>
           <form class="reminderEdit">
@@ -394,7 +402,7 @@
           <div class="reminders">
           </div>
         </div>
-      </div> -->
+      </div>
       <div id="pageExporter" class="fullPage page">
         <div>
           <div>
@@ -517,6 +525,25 @@
         </div>
 
       </div>
+      <!--<div id="pageSetup" class="fullPage page">
+        <div>
+          <h2 data-msg="setupAbout"></h2>
+          <p data-msg="setupAbout1"></p>
+          <p data-msg="setupAbout2"></p>
+          <p data-msg="setupAbout3"></p>
+          <p data-msg="setupAbout4"></p>
+        </div>
+        <div>
+          <h2 data-msg="setupSetup"></h2>
+          <div class="setupItems">
+            <div>
+              <h3>Location</h3>
+              <div class="place"></div>
+              <button class="btnRetry button"><span class="btnRetryImg"></span><span class="text" data-msg="btnRetry2"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>-->
 
       <div class=selectPages>
         <div class=buttons>
@@ -527,7 +554,7 @@
           <button data-page="pageCalWheel" data-msg=pick_pageCalWheel></button>
           <button data-page="pageFast" data-msg=pick_pageFast></button>
           <button data-page="pageLists" data-msg=pick_pageLists></button>
-          <!--<button data-page="pageReminders" data-msg=pick_pageReminders id="btnPageReminders"></button>-->
+          <button data-page="pageReminders" data-msg=pick_pageReminders id="btnPageReminders"></button>
           <button data-page="pageExporter" data-msg=pick_pageExporter></button>
           <button data-page="pageCustom" data-msg=pick_pageCustom></button>
         </div>
@@ -538,28 +565,27 @@
       <div id=explain2 class="explains"></div>
       <textarea id=sampleCopy></textarea>
       <div class="iconArea">
-        <span id=tips data-msg="tips,title:tipsText"></span>
+        <div id=tips>
+          <span data-msg="tips,title:tipsText"></span>
+          <span data-msg="tipsAbout,title:tipsAboutText"></span>
+        </div>
 
+        <a id=version class=textLink href="" target="version"></a>
 
-        <span id=version class=textLink></span>
-
-        <a id=facebook href="https://www.facebook.com/BadiCalendarTools"
-           rel="publisher" target="_top" style="text-decoration: none;">
+        <a id=facebook target="fb" href="https://www.facebook.com/BadiCalendarTools"
+           rel="publisher" style="text-decoration: none;">
           <img src="fb-16.png" data-msg="alt:facebook" style="border: 0; width: 16px; height: 16px;" />
         </a>
 
+        <a id="linkWebStore" href="" target="webstore"><img id=logo data-msg="alt:webstore,title:webstore" src="badi19a-22.png"></a>
 
-        <a href="https://chrome.google.com/webstore/detail/bad%C3%AD-calendar/egekinjjpolponbbfjimifpgfdmphomp/"
-           target="_top"><img id=logo data-msg="alt:webstore,title:webstore" src="badi19a-22.png"></a>
-
-        <a id=googlePlus href="http://plus.google.com/u/0/111984989420723537597?prsrc=3"
-           rel="publisher" target="_top" style="text-decoration: none;">
+        <a id=googlePlus target="gp" href="http://plus.google.com/u/0/111984989420723537597?prsrc=3"
+           rel="publisher" style="text-decoration: none;">
           <img src="gplus-16.png" data-msg="alt:googlePlus" style="border: 0; width: 16px; height: 16px;" />
         </a>
 
 
-        <a class="textLink" href="https://chrome.google.com/webstore/detail/bad%C3%AD-calendar/egekinjjpolponbbfjimifpgfdmphomp/support"
-           target="_top" data-msg="suggestions,title:suggestionsTitle"></a>
+        <a id="linkWebStoreSupport" class="textLink" href="" target="webstore" data-msg="suggestions,title:suggestionsTitle"></a>
 
 
         <img id="btnOpen" src="popout.png" />
@@ -580,7 +606,7 @@
   <script src="cal1.js"></script>
   <script src="calWheel.js"></script>
   <script src="calGreg.js"></script>
-  <!--<script src="pageReminders.js"></script>-->
+  <script src="pageReminders.js"></script>
   <script src="pageExporter.js"></script>
   <script src="pageExporter.js"></script>
   <script src="pageCustom.js"></script>

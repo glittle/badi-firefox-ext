@@ -205,7 +205,7 @@ END:VEVENT
   var addEntryDate = function (type, di, variation) {
     addLine('BEGIN:VEVENT');
 
-    var dayInfo = '{bDay} {bMonthNameAr} {bYear}'.filledWith(di);
+    var dayInfo = '{bDay} {bMonthNamePri} {bYear}'.filledWith(di);
 
     switch (variation) {
       case 'AllDay':
@@ -591,7 +591,11 @@ END:VEVENT
       cb.prop('checked', getStorage('exporter_' + cb.val(), false));
     });
     $('#exporterName').val(getStorage('exporter_exporterName', getMessage('title')));
-    $('#exporterDateRange').val(getStorage('exporter_exporterDateRange'));
+    var ddlRange = $('#exporterDateRange');
+    ddlRange.val(getStorage('exporter_exporterDateRange'));
+    if (!ddlRange.val()) {
+      ddlRange[0].selectedIndex = 0;
+    }
     $('#exporterIncludeAlertMin').val(getStorage('exporter_alertMin', 'B0'));
   };
   var refreshAlert = function () {

@@ -611,6 +611,10 @@ var PageReminders = function () {
   }
 
   function loadVoices() {
+    if (browserHostType !== browser.Chrome) {
+      return;
+    }
+
     chrome.tts.getVoices(
           function (voices) {
             var options = [];
@@ -646,7 +650,7 @@ var PageReminders = function () {
   }
 
   function startup() {
-    //loadVoices();
+    loadVoices();
     establishPortToBackground();
     getAndShowReminders();
     attachHandlers();

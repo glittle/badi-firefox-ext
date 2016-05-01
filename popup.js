@@ -1,6 +1,7 @@
 /* Code by Glen Little */
 /* global getStorage */
 /* global getMessage */
+/* global knownDateInfos */
 /* global di */
 /* global _initialDiStamp */
 /* global chrome */
@@ -12,7 +13,7 @@ var _currentPageNum = 0;
 var _cal1 = null;
 var _calWheel = null;
 var _calGreg = null;
-//var _pageReminders = null;
+var _pageReminders = null;
 var _pageExporter = null;
 var _pageCustom = null;
 var _enableSampleKeys = true;
@@ -27,7 +28,7 @@ var _inTab = false;
 var _pageIdList = [];
 var _inPopupPage = true;
 
-var _remindersEnabled = false; // local copy of background var
+var _remindersEnabled = browserHostType === browser.Chrome;
 
 function attachHandlers() {
   $('#samples').on('click', 'button', copySample);
@@ -44,18 +45,17 @@ function attachHandlers() {
   $('#datePicker').on('change', jumpToDate);
   $('#eventStart').on('change', function () {
     setStorage('eventStart', $(this).val());
-
-    _lastSpecialDaysYear = null;
+    _lastSpecialDaysYear = 0;
     BuildSpecialDaysTable(_di);
     $('.eventTime').effect("highlight", 1000);
   });
   $('.includeThis').on('change, click', SetFiltersForSpecialDaysTable);
 
-  $('#btnRetry').on('click', function () {
-    $('#btnRetry').addClass('active');
+  $('.btnRetry').on('click', function () {
+    $('.btnRetry').addClass('active');
     startGettingLocation();
     setTimeout(function () {
-      $('#btnRetry').removeClass('active');
+      $('.btnRetry').removeClass('active');
     }, 1000);
   });
   $('#datePicker').on('keydown', function (ev) {
@@ -63,9 +63,9 @@ function attachHandlers() {
   });
   $('.selectPages').on('click', 'button', changePage);
   $(document).on('keydown', keyPressed);
-  $('.iconArea a').click(function () {
-    chrome.tabs.create({ active: true, url: this.href });
-  });
+  //$('#btnOpen').click(function () {
+  //  chrome.tabs.create({ active: true, url: this.href });
+  //});
 
   $('#cbShowPointer').on('change', function () {
     setStorage('showPointer', $(this).prop('checked'));
@@ -83,7 +83,20 @@ function attachHandlers() {
   $('#btnPrint').click(function () {
     window.print();
   });
+  $('input:radio[name=language]').click(function (ev) {
+    settings.useArNames = ev.target.value === 'Ar';
+    ApplyLanguage();
+  });
 }
+
+function ApplyLanguage() {
+  UpdateLanguageBtn();
+  setStorage('useArNames', settings.useArNames);
+  knownDateInfos = {};
+  resetForLanguageChange();
+  refreshDateInfoAndShow();
+}
+
 var sampleNum = 0;
 var showInfoDelay = null;
 
@@ -97,15 +110,23 @@ function showInfo(di) {
 
   updateSharedContent(di);
 
-  //showInfoDelay = setTimeout(function () {
-  //  $.each(_pageIdList, function (i, id) {
-  //    if (id != _currentPageId) {
-  //      updatePageContent(id, di);
-  //    }
-  //  });
-  //}, 500);
+  showInfoDelay = setTimeout(function () {
+    $.each(_pageIdList, function (i, id) {
+      if (id !== _currentPageId) {
+        updatePageContent(id, di);
+      }
+    });
+  }, 0);
 
   _showingInfo = false;
+}
+
+function resetForLanguageChange() {
+  setupLanguageChoice();
+  _lastSpecialDaysYear = 0;
+  $.each(_pageIdList, function (i, id) {
+    resetPageForLanguageChange(id);
+  });
 }
 
 function updateSharedContent(di) {
@@ -293,6 +314,8 @@ function showPage(id) {
       _enableDayKeysLR = true;
       _enableDayKeysUD = true;
       break;
+
+
   }
 
   btns.removeClass('showing');
@@ -319,6 +342,10 @@ function showPage(id) {
 
 function updatePageContentWhenVisible(id, di) {
   switch (id) {
+    case 'pageCal1':
+      $('#otherPageTitle').html(getMessage('yearWithEra', di));
+      break;
+
     case 'pageDay':
       adjustHeight();
       break;
@@ -329,12 +356,12 @@ function updatePageContentWhenVisible(id, di) {
       }
       break;
 
-    //case 'pageReminders':
-    //  $('#otherPageTitle').html(getMessage('pick_pageReminders'));
-    //  if (_pageReminders) {
-    //    _pageReminders.showReminders();
-    //  }
-    //  break;
+    case 'pageReminders':
+      $('#otherPageTitle').html(getMessage('pick_pageReminders'));
+      if (_pageReminders) {
+        _pageReminders.showReminders();
+      }
+      break;
 
     case 'pageExporter':
       $('#otherPageTitle').html(getMessage('exporterTitle'));
@@ -343,23 +370,45 @@ function updatePageContentWhenVisible(id, di) {
     case 'pageCustom':
       $('#otherPageTitle').html(getMessage('customTitle'));
       break;
+
   }
 
+}
+
+function resetPageForLanguageChange(id) {
+  switch (id) {
+    case 'pageCal1':
+      if (_cal1) {
+        _cal1.resetPageForLanguageChange();
+      }
+      break;
+    case 'pageCalWheel':
+      if (_calWheel) {
+        _calWheel.resetPageForLanguageChange();
+      }
+      break;
+    case 'pageCalGreg':
+      if (_calGreg) {
+        _calGreg.resetPageForLanguageChange();
+      }
+      break;
+
+  }
 }
 
 function updatePageContent(id, di) {
   switch (id) {
     case 'pageDay':
-      var makeObj = function (key) {
-        return { name: getMessage(key), value: getMessage(key + 'Format', di) };
+      var makeObj = function (key, name) {
+        return { name: name || getMessage(key, di), value: getMessage(key + 'Format', di) };
       };
       var dayDetails = [
          makeObj('DayOfWeek')
        , makeObj('DayOfMonth')
        , { name: getMessage('Month'), value: getMessage(di.bMonth ? 'MonthFormatNormal' : "MonthFormatAyyam", di) }
        , makeObj('YearOfVahid')
-       , makeObj('Vahid')
-       , makeObj('Kullishay')
+       , makeObj('Vahid', di.VahidLabelPri)
+       , makeObj('Kullishay', di.KullishayLabelPri)
        , makeObj('YearOfEra')
       ];
       var explain1 = getMessage('shoghiExample', di);
@@ -370,7 +419,7 @@ function updatePageContent(id, di) {
 
       $('#explain').html(explain1);
       $('#explain2').html(explain2);
-
+      $('#ayyamIs0').html(getMessage('ayyamIs0').filledWith(bMonthNamePri[0]));
       $('#dayDetails').html('<dl>' + '<dt>{^name}</dt><dd>{^value}</dd>'.filledWithEach(dayDetails) + '</dl>');
 
       $('#gDate').html(getMessage('gregorianDateDisplay', di));
@@ -615,6 +664,13 @@ function keyPressed(ev) {
   }
   var key = String.fromCharCode(ev.which) || '';
   switch (ev.which) {
+    case 65: // Ctrl+Shift+A -- change lang to/from Arabic - mostly for during development and demos, not translatable
+      if (ev.shiftKey && ev.ctrlKey) {
+        settings.useArNames = !settings.useArNames;
+        ApplyLanguage();
+      }
+      break;
+
     case 18:
       return; // 08 (ALT) causes a crashes
 
@@ -690,7 +746,7 @@ function keyPressed(ev) {
     default:
       //log(ev.which);
 
-      if (_enableSampleKeys) {
+      if (_enableSampleKeys && !ev.ctrlKey) {
         try {
           var sample = $('#key' + key);
           if (sample.length) {
@@ -719,10 +775,16 @@ function keyPressed(ev) {
       if (ev.target.tagName !== 'INPUT' && ev.target.tagName !== 'TEXTAREA') {
         var pageNum = +key;
         var validPagePicker = key == pageNum; // don't use ===
-
-        if (!validPagePicker && (key >= 'a' && key <= 'i')) {
-          pageNum = key.charCodeAt(0) - 96;
-          validPagePicker = true;
+        if (!validPagePicker) {
+          if (key >= 'a' && key <= 'i') {
+            pageNum = key.charCodeAt(0) - 96;
+            validPagePicker = true;
+          }
+          if (ev.which === 189) {
+            // -  (next after 8,9,0...)
+            pageNum = 11;
+            validPagePicker = true;
+          }
         }
 
         if (validPagePicker) {
@@ -905,7 +967,8 @@ function changeDay(ev, delta) {
 
 function fillStatic() {
   var nameList = [];
-  for (var i = 1; i < bMonthNameAr.length; i++) {
+  var i;
+  for (i = 1; i < bMonthNameAr.length; i++) {
     nameList.push({
       num: i,
       arabic: bMonthNameAr[i],
@@ -975,7 +1038,6 @@ function SetFiltersForSpecialDaysTable(ev) {
 
   }
 
-
   setStorage('includeFeasts', includeFeasts);
   setStorage('includeHolyDays', includeHolyDays);
   $('#specialListsTable')
@@ -1032,7 +1094,7 @@ function BuildSpecialDaysTable(di) {
     var tempDate = null;
 
     dayInfo.di = targetDi;
-    dayInfo.D = targetDi.bMonthNameAr + ' ' + targetDi.bDay;
+    dayInfo.D = targetDi.bMonthNamePri + ' ' + targetDi.bDay;
     dayInfo.G = getMessage('evePartOfDay', targetDi);
     dayInfo.Sunset = getMessage('startingSunsetDesc', targetDi);
     dayInfo.StartTime = null;
@@ -1047,7 +1109,7 @@ function BuildSpecialDaysTable(di) {
     var targetTime = dayInfo.Time || defaultEventStart;
 
     if (dayInfo.Type === 'M') {
-      dayInfo.A = getMessage('FeastOf').filledWith(targetDi.bMonthMeaning);
+      dayInfo.A = getMessage('FeastOf').filledWith(targetDi.bMonthNameSec);
     }
     if (dayInfo.Type.slice(0, 1) === 'H') {
       dayInfo.A = getMessage(dayInfo.NameEn);
@@ -1200,7 +1262,6 @@ function adjustHeight() {
 function prepareDefaults() {
   var feasts = getStorage('includeFeasts');
   var holyDays = getStorage('includeHolyDays');
-
   if (typeof (feasts) === 'undefined' && typeof (holyDays) === 'undefined') {
     feasts = false;
     holyDays = true;
@@ -1214,6 +1275,11 @@ function prepareDefaults() {
     showPointer = true;
   }
   $('#cbShowPointer').prop('checked', showPointer);
+
+}
+
+function UpdateLanguageBtn() {
+  $('#rbDefLang_' + (settings.useArNames ? 'Ar' : 'Local')).prop('checked', true);
 }
 
 function openInTab() {
@@ -1222,18 +1288,23 @@ function openInTab() {
   }
   var url = chrome.extension.getURL('popup.html');
 
-  //chrome.tabs.query({ url: url }, function (foundTabs) {
-  //  if (foundTabs[0]) {
-  //    chrome.tabs.update(foundTabs[0].id, {
-  //      active: true
-  //    });
-  //  } else {
-  chrome.tabs.create({ url: url });
-  //}
-  window.close();
-  tracker.sendEvent('openInTab');
-  //});
-
+  if (browserHostType === browser.Chrome) {
+    chrome.tabs.query({ url: url }, function (foundTabs) {
+      if (foundTabs[0]) {
+        chrome.tabs.update(foundTabs[0].id, {
+          active: true
+        });
+      } else {
+        chrome.tabs.create({ url: url });
+      }
+      window.close();
+      tracker.sendEvent('openInTab');
+    });
+  } else {
+    chrome.tabs.create({ url: url });
+    window.close();
+    tracker.sendEvent('openInTab');
+  }
 }
 
 
@@ -1249,9 +1320,11 @@ function prepare1() {
 
   _initialDiStamp = getDateInfo(new Date(), true).stamp;
 
-  recallFocus();
+  recallFocusAndSettings();
 
   updateLoadProgress();
+
+  UpdateLanguageBtn();
 
   refreshDateInfo();
 
@@ -1266,6 +1339,9 @@ function prepare1() {
   updateLoadProgress();
 
   _pageCustom = PageCustom();
+  updateLoadProgress();
+
+  prepareDefaults();
   updateLoadProgress();
 
   showInfo(_di);
@@ -1338,9 +1414,6 @@ function prepare2() {
     setTimeout(finishFirstPopup, 4000);
   }
 
-  prepareDefaults();
-  updateLoadProgress();
-
   fillEventStart();
   updateLoadProgress();
 
@@ -1362,12 +1435,18 @@ function prepare2() {
   _calGreg.showCalendar(_di);
   updateLoadProgress();
 
-  //_pageReminders = PageReminders();
-  //$('#btnPageReminders').toggle(_remindersEnabled);
-  //updateLoadProgress();
+  if (_remindersEnabled) {
+    _pageReminders = PageReminders();
+    updateLoadProgress();
+  }
+  $('#btnPageReminders').toggle(_remindersEnabled);
 
   _pageExporter = PageExporter();
   updateLoadProgress();
+
+  $('#version').attr('href', getMessage(browserHostType + "_History"));
+  $('#linkWebStore').attr('href', getMessage(browserHostType + "_WebStore"));
+  $('#linkWebStoreSupport').attr('href', getMessage(browserHostType + "_WebStoreSupport"));
 
   if (_currentPageId != 'pageDay') {
     adjustHeight();
@@ -1382,7 +1461,6 @@ function prepare2() {
 function updateLoadProgress() {
   _loadingNum++;
   $('#loadingCount').text(new Array(_loadingNum + 1).join('.'));
-  log('loading ' + _loadingNum);
 }
 
 // must be set immediately for tab managers to see this name

@@ -1,1 +1,1 @@
-"%ProgramFiles%\7-Zip\7z" a -x@MakeZipExclude.txt extension.zip * -r
+"%ProgramFiles%\7-Zip\7z" a -x@MakeZipExclude.txt extension.xpi * -r

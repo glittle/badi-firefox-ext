@@ -347,6 +347,12 @@ body {
     padding: 2px 6px;
   }
 
+  .customHint {
+    margin-left: 10px;
+    color: #999;
+    font-size: 90%;
+  }
+
   .customPartsListDiv {
     flex: 0 1 40%;
 
@@ -536,6 +542,26 @@ body {
   }
 }
 
+#pageSetup {
+  > div {
+    border: 1px solid @green;
+    border-radius: 3px;
+    margin-left: 4px;
+    justify-content: flex-end;
+    flex: 0 1 100%;
+    padding: 5px 10px 10px 10px;
+  }
+
+  .setupItems {
+    > div {
+      margin: 0 0 10px 20px;
+    }
+
+    h3 {
+      margin-left: -20px;
+    }
+  }
+}
 
 #pageDay {
   > div {
@@ -710,10 +736,11 @@ div.selectPages {
 
 #btnOpen,
 #btnPrint {
-  display: none;
+  position: absolute;
   width: 26px;
   height: 22px;
-  margin-left: 60px;
+  right: 60px;
+  display: none;
 }
 
 #tips {
@@ -722,6 +749,10 @@ div.selectPages {
   bottom: 7px;
   font-size: 8.25pt;
   color: #999;
+
+  span {
+    margin-right: 30px;
+  }
 }
 
 #locationErrorHolder {
@@ -741,19 +772,38 @@ div.selectPages {
   text-align: left;
 }
 
-#btnRetry {
-  background: url(./ajax-loader-img.gif) no-repeat;
+.btnRetry {
   cursor: pointer;
   border: none;
-  width: 16px;
-  height: 16px;
   float: left;
   margin-top: 5px;
   margin-left: 5px;
+  position: relative;
+  padding: 0;
+
+  &.button {
+    background: #ad0000;
+    border-color: #ad0000;
+    margin-left: 0;
+  }
+
+  .text {
+    padding: 0 5px;
+  }
+
+  .btnRetryImg {
+    background: url(./ajax-loader-img.gif) no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: text-top;
+  }
 }
 
-#btnRetry.active {
-  background: url(./ajax-loader.gif) no-repeat;
+.btnRetry.active {
+  .btnRetryImg {
+    background: url(./ajax-loader.gif) no-repeat;
+  }
 }
 
 .place {
@@ -787,25 +837,26 @@ tr.OtherRange {
   padding: 5px;
   /*display: table-cell;*/
   vertical-align: top;
-}
 
 
-dl {
-  text-align: left;
-  margin: 0;
-  width: 160px;
+  dl {
+    text-align: left;
+    margin: 0;
+    width: 160px;
+  }
+
+  dt {
+    color: green;
+    opacity: 0.7;
+    white-space: nowrap;
+  }
+
+  dd {
+    margin-left: 9px;
+    margin-bottom: .4em;
+  }
 }
 
-dt {
-  color: green;
-  opacity: 0.7;
-  white-space: nowrap;
-}
-
-dd {
-  margin-left: 9px;
-  margin-bottom: .4em;
-}
 
 .comment {
   color: green;
@@ -1093,6 +1144,13 @@ h2 {
   font-weight: normal;
 }
 
+h3 {
+  color: green;
+  font-size: 10pt;
+  margin: 0 0 3px 0;
+  font-weight: normal;
+}
+
 button.button {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @green), color-stop(1, #72b352));
   background-color: @green;
@@ -1122,7 +1180,7 @@ button.button {
 
 #btnEveOrDay {
   display: block;
-  margin: 3px auto 0 auto;
+  margin: 3px 0 0 0;
 }
 
 button.today.notToday {
@@ -1226,10 +1284,18 @@ button.today.notToday {
   margin: 6px 0 0 0;
 }
 
-#bDatePickerTitle {
+.DatePickerTitle {
   color: green;
   opacity: 0.7;
   margin: 6px 0 0 0;
+}
+
+.setupLangOption {
+  margin-left: 10px;
+
+  input {
+    vertical-align: bottom;
+  }
 }
 
 #bDatePickerTitleTip {
@@ -1257,7 +1323,7 @@ body.ta #upcomingTitle {
 }
 
 .gDateButtons {
-  text-align: center;
+  margin-left: 11px;
 }
 
 #gDate {
@@ -1271,7 +1337,7 @@ body.ta #upcomingTitle {
 
 #datePicker {
   display: block;
-  margin: 0 auto 2px auto;
+  margin: 0 0 2px 10px;
   text-align: center;
   font-family: Geneva, 'Segoe UI';
   font-size: 8.25pt;
@@ -1379,7 +1445,7 @@ input.bYearPicker {
 
   #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageReminders, #pageExporter, #pageCustom {
     border: none;
-    padding: 20px 0 0 0;
+    padding: 10px 0 0 0;
   }
 
   #includeWhat, #askShowPointer {
@@ -1392,6 +1458,10 @@ input.bYearPicker {
     border: none;
     padding: 0;
     margin: 0;
+  }
+
+  #specialLists {
+    max-height: none;
   }
 
   #specialDaysTitle {
@@ -1441,4 +1511,8 @@ input.bYearPicker {
     margin-left: -2px;
     padding-left: 5px;
   }
+}
+
+* {
+  -webkit-print-color-adjust: exact;
 }

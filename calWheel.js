@@ -36,7 +36,7 @@ var CalWheel = function () {
     var wheel = $('#wheel');
 
     if (!sameYear) {
-      $('#wheelYear').html('{bYear} {bEraAbbrev}'.filledWith(di));
+      $('#wheelYear').html(getMessage('yearWithEra', di));
 
       wheel.find('.slice').remove();
 
@@ -46,19 +46,25 @@ var CalWheel = function () {
         var slice = $(template);
         var bm = i + 1;
         var angle = i * angle1;
+        var css = browserHostType === browser.Chrome ?
+        {
+          transform: 'rotate(' + angle + 'deg)',
+          transformOrigin: '39px 335px' //x + ' ' + y
+      } : {
+          transform: 'rotate(' + angle + 'deg)',
+          transformOrigin: '39px 335px' //x + ' ' + y
+        };
 
         var inner = slice.find('.innerSlice');
         slice.removeAttr('id');
-        slice.css({
-          transform: 'rotate(' + angle + 'deg)',
-          transformOrigin: '39px 335px'//x + ' ' + y
-        });
+        slice.css(css);
 
         inner.attr('id', 'slice' + bm);
 
         slice.find('.monthNum').text(bm);
-        slice.find('.monthNameAr').text(bMonthNameAr[bm]);
-        slice.find('.monthName').text(bMonthMeaning[bm]);
+        slice.find('.monthNameAr').text(bMonthNamePri[bm]);
+        //log(bMonthNamePri[bm] + ' - ' + settings.useArNames + ' - ' + bMonthNameSec[bm]);
+        slice.find('.monthName').text(bMonthNameSec[bm]);
 
         var gd = holyDays.getGDate(di.bYear, bm, 1, false);
 
@@ -72,7 +78,7 @@ var CalWheel = function () {
 
     var offsetAngle = 0;
     if (showPointer) {
-      $('#wheelDay').html('{bDay} {^bMonthNameAr}'.filledWith(di));
+      $('#wheelDay').html('{bDay} {^bMonthNamePri}'.filledWith(di));
 
       var dayOfYear = (di.bMonth - 1) * 19 + di.bDay - 1;
       if (di.bMonth === 0) {
@@ -162,6 +168,9 @@ var CalWheel = function () {
     showCalendar: showCalendar,
     gotoYear: gotoYear,
     rotateYear: rotateYear,
+    resetPageForLanguageChange: function () {
+      _yearShown = -1;
+    },
     stopRotation: function () {
       clearTimeout(_rotating);
     }

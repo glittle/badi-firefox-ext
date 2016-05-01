@@ -2,12 +2,20 @@
 /* global HolyDays */
 /* global moment */
 
-var tracker = null;
-
-var settings = {
-  // eventually move to a settings page?
-  rememberFocusTimeMinutes: 5
+var browser = {
+  Chrome: 'Chrome',
+  Firefox: 'Firefox',
+  Edge: 'Edge'
 };
+var browserHostType = browser.Chrome; // Chrome,Firefox,Edge
+
+var tracker = null;
+var settings = {
+  useArNames: true,
+  rememberFocusTimeMinutes: 5  // show on settings page?
+};
+
+var ObjectConstant = '$****$';
 
 var _nextFilledWithEach_UsesExactMatchOnly = false;
 var _languageCode = getMessage('translation');
@@ -23,14 +31,26 @@ var _initialDiStamp;
 var _firstLoad = true;
 var _firstPopup = false;
 
+settings.useArNames = getStorage('useArNames', true);
+
 // see messages.json for translations and local names
 var bMonthNameAr = getMessage("bMonthNameAr").split(',');
-var bWeekdayNameAr = getMessage("bWeekdayNameAr").split(','); // from Saturday
-var bYearInVahidNameAr = getMessage("bYearInVahidNameAr").split(',');
-
-var bYearInVahidMeaning = getMessage("bYearInVahidMeaning").split(',');
 var bMonthMeaning = getMessage("bMonthMeaning").split(',');
+
+var bWeekdayNameAr = getMessage("bWeekdayNameAr").split(','); // from Saturday
 var bWeekdayMeaning = getMessage("bWeekdayMeaning").split(',');
+
+var bYearInVahidNameAr = getMessage("bYearInVahidNameAr").split(',');
+var bYearInVahidMeaning = getMessage("bYearInVahidMeaning").split(',');
+
+var bMonthNamePri;
+var bMonthNameSec;
+var bWeekdayNamePri;
+var bWeekdayNameSec;
+var bYearInVahidNamePri;
+var bYearInVahidNameSec;
+
+setupLanguageChoice();
 
 var gWeekdayLong = getMessage("gWeekdayLong").split(',');
 var gWeekdayShort = getMessage("gWeekdayShort").split(',');
@@ -42,6 +62,16 @@ var ordinalNames = getMessage('ordinalNames').split(',');
 var elements = getMessage('elements').split(',');
 
 var use24HourClock = getMessage('use24HourClock') == 'true';
+
+
+function setupLanguageChoice() {
+  bMonthNamePri = settings.useArNames ? bMonthNameAr : bMonthMeaning;
+  bMonthNameSec = !settings.useArNames ? bMonthNameAr : bMonthMeaning;
+  bWeekdayNamePri = settings.useArNames ? bWeekdayNameAr : bWeekdayMeaning;
+  bWeekdayNameSec = !settings.useArNames ? bWeekdayNameAr : bWeekdayMeaning;
+  bYearInVahidNamePri = settings.useArNames ? bYearInVahidNameAr : bYearInVahidMeaning;
+  bYearInVahidNameSec = !settings.useArNames ? bYearInVahidNameAr : bYearInVahidMeaning;
+}
 
 function refreshDateInfo() {
   return _di = getDateInfo(getFocusTime());
@@ -138,14 +168,30 @@ function getDateInfo(currentTime, onlyStamp) {
     stamp: JSON.stringify(bNow)// used to compare to other dates and for developer reference 
   };
 
+  di.bDayNamePri = settings.useArNames ? di.bDayNameAr : di.bDayMeaning;
+  di.bDayNameSec = !settings.useArNames ? di.bDayNameAr : di.bDayMeaning;
+  di.bMonthNamePri = settings.useArNames ? di.bMonthNameAr : di.bMonthMeaning;
+  di.bMonthNameSec = !settings.useArNames ? di.bMonthNameAr : di.bMonthMeaning;
+
+  di.VahidLabelPri = settings.useArNames ? getMessage('vahid') : getMessage('vahidLocal');
+  di.VahidLabelSec = !settings.useArNames ? getMessage('vahid') : getMessage('vahidLocal');
+
+  di.KullishayLabelPri = settings.useArNames ? getMessage('kullishay') : getMessage('kullishayLocal');
+  di.KullishayLabelSec = !settings.useArNames ? getMessage('kullishay') : getMessage('kullishayLocal');
 
   di.bKullishay = Math.floor(1 + (di.bVahid - 1) / 19);
   di.bVahid = di.bVahid - (di.bKullishay - 1) * 19;
   di.bYearInVahid = di.bYear - (di.bVahid - 1) * 19 - (di.bKullishay - 1) * 19 * 19;
+
   di.bYearInVahidNameAr = bYearInVahidNameAr[di.bYearInVahid];
   di.bYearInVahidMeaning = bYearInVahidMeaning[di.bYearInVahid];
+  di.bYearInVahidNamePri = settings.useArNames ? di.bYearInVahidNameAr : di.bYearInVahidMeaning;
+  di.bYearInVahidNameSec = !settings.useArNames ? di.bYearInVahidNameAr : di.bYearInVahidMeaning;
+
   di.bWeekdayNameAr = bWeekdayNameAr[di.bWeekday];
   di.bWeekdayMeaning = bWeekdayMeaning[di.bWeekday];
+  di.bWeekdayNamePri = settings.useArNames ? di.bWeekdayNameAr : di.bWeekdayMeaning;
+  di.bWeekdayNameSec = !settings.useArNames ? di.bWeekdayNameAr : di.bWeekdayMeaning;
 
   di.element = elements[getElementNum(bNow.m) - 1];
 
@@ -263,7 +309,7 @@ function showIcon() {
 
   chrome.browserAction.setTitle({ title: tipLines.join('\n') });
   chrome.browserAction.setIcon({
-    imageData: draw(dateInfo.bMonthNameAr, dateInfo.bDay, 'center')
+    imageData: draw(dateInfo.bMonthNamePri, dateInfo.bDay, 'center')
   });
   //  chrome.browserAction.setBadgeBackgroundColor({color: bNow.eve ? '#ddd' : '#aaa'});
 }
@@ -301,7 +347,7 @@ function startGettingLocation() {
   var positionOptions = {
     enableHighAccuracy: false,
     maximumAge: Infinity,
-    timeout: 10000
+    timeout: 4000
   };
   navigator.geolocation.watchPosition(setLocation, noLocation, positionOptions); // this triggers immediately
 }
@@ -321,7 +367,7 @@ function getUpcoming(di) {
   dayInfos.forEach(function (dayInfo, i) {
     var targetDi = getDateInfo(dayInfo.GDate);
     if (dayInfo.Type === 'M') {
-      dayInfo.A = getMessage('FeastOf').filledWith(targetDi.bMonthMeaning);
+      dayInfo.A = getMessage('FeastOf').filledWith(targetDi.bMonthNameSec);
     } else
       if (dayInfo.Type.slice(0, 1) === 'H') {
         dayInfo.A = getMessage(dayInfo.NameEn);
@@ -430,7 +476,7 @@ function startGetLocationName() {
         showLocation();
       }
     }
-  }
+  };
   xhr.send();
 }
 
@@ -460,7 +506,8 @@ function noLocation(err) {
   refreshDateInfoAndShow();
 }
 
-function recallFocus() {
+function recallFocusAndSettings() {
+
   var storedAsOf = +getStorage('focusTimeAsOf');
   if (!storedAsOf) {
     setStorage('focusTimeIsEve', null);
@@ -515,7 +562,7 @@ function refreshDateInfoAndShow(resetToNow) {
     setFocusTime(new Date());
   } else {
     // will reset to now after a few minutes
-    recallFocus();
+    recallFocusAndSettings();
   }
   log('refreshDateInfoAndShow at ' + new Date());
   var di = refreshDateInfo();
@@ -579,7 +626,6 @@ function setAlarmForNextUpdate(currentTime, sunset, inEvening) {
 
 
 // based on code by Sunwapta Solutions Inc.
-var ObjectConstant = '$****$';
 
 function setStorage(key, value) {
   /// <summary>Save this value in the browser's local storage. Dates do NOT get returned as full dates!</summary>
@@ -644,17 +690,17 @@ String.prototype.filledWith = function () {
         else if (values === null) {
           value = '';
         }
-        //else if (testForFunc.test(token)) {
-        //  try {
-        //    debugger;
-        //    log('eval... ' + token);
-        //    value = eval(token.substring(1));
-        //  }
-        //  catch (e) {
-        //    // if the token cannot be executed, then pass it through intact
-        //    value = '{' + token + '}';
-        //  }
-        //}
+          //else if (testForFunc.test(token)) {
+          //  try {
+          //    debugger;
+          //    log('eval... ' + token);
+          //    value = eval(token.substring(1));
+          //  }
+          //  catch (e) {
+          //    // if the token cannot be executed, then pass it through intact
+          //    value = '{' + token + '}';
+          //  }
+          //}
         else if (testForElementAttribute.test(token)) {
           value = quoteattr(values[token.substring(1)]);
         }
@@ -737,15 +783,7 @@ String.prototype.filledWithEach = function (arr) {
 };
 
 function getMessage(key, obj, defaultValue) {
-  var rawMsg;
-  try {
-    rawMsg = chrome.i18n.getMessage(key);
-  } catch (e) {
-    //log('Failed to find key: ' + key);
-  }
-  if (rawMsg === '??') {
-    rawMsg = null;
-  }
+  var rawMsg = chrome.i18n.getMessage(key);
   var msg = rawMsg || defaultValue || '{' + key + '}';
   if (typeof obj === 'undefined') {
     return msg;
@@ -843,7 +881,7 @@ function localizeHtml(host, fnOnEach) {
         $.each(children, function (i, c) {
           var name = $(c).data('child');
           value = value.replace('{' + name + '}', c.outerHTML);
-        })
+        });
         el.html(value);
         localizeHtml(el);
         text = value;

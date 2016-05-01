@@ -1,8 +1,16 @@
 *.zip
+*.sln
+*.user
 *.xpi
 *.cmd
-MakeZip*
+*.ts
+*.map
+*.pdn
 .git
 .settings
+.vs
+.vscode
+MakeZip*
 Readme.md
 .vscode
+tsconfig*
