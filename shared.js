@@ -1,18 +1,19 @@
 /* Code by Glen Little */
 /* global HolyDays */
 /* global moment */
+var ObjectConstant = '$****$';
 
 var _notificationsEnabled = browserHostType === browser.Chrome; // set to false to disable
 
 var _iconPrepared = false;
 
-var tracker = null;
+//var tracker = null;
 var settings = {
   useArNames: true,
-  rememberFocusTimeMinutes: 5  // show on settings page?
+  rememberFocusTimeMinutes: 5, // show on settings page?
+  optedOutOfGoogleAnalytics: getStorage('optOutGa', -1)
 };
 
-var ObjectConstant = '$****$';
 
 var _nextFilledWithEach_UsesExactMatchOnly = false;
 var _languageCode = getMessage('translation');
@@ -203,6 +204,8 @@ function getDateInfo(currentTime, onlyStamp) {
   di.frag1Day00 = digitPad2(di.frag1Day);
   di.currentMonth01 = digitPad2(di.currentMonth1);
   di.frag2Day00 = digitPad2(di.frag2Day);
+  di.frag1Month00 = digitPad2(1 + di.frag1Month); // change from 0 based
+  di.frag2Month00 = digitPad2(1 + di.frag2Month); // change from 0 based
   di.bMonth00 = digitPad2(di.bMonth);
   di.bYearInVahid00 = digitPad2(di.bYearInVahid);
   di.bVahid00 = digitPad2(di.bVahid);
@@ -307,9 +310,9 @@ function showIcon() {
   chrome.browserAction.setTitle({ title: tipLines.join('\n') });
 
   try {
-  chrome.browserAction.setIcon({
-    imageData: draw(dateInfo.bMonthNamePri, dateInfo.bDay, 'center')
-  });
+    chrome.browserAction.setIcon({
+      imageData: draw(dateInfo.bMonthNamePri, dateInfo.bDay, 'center')
+    });
     _iconPrepared = true;
   } catch (e) {
     // fails in Firefox
@@ -646,7 +649,7 @@ function setStorage(key, value) {
   /// <param name="value" type="string">The value to store. Can be a simple or complex object.</param>
   if (value === null) {
     localStorage.removeItem(key);
-    return;
+    return null;
   }
   if (typeof value === 'object' || typeof value === 'boolean') {
     var strObj = JSON.stringify(value);
@@ -654,6 +657,8 @@ function setStorage(key, value) {
   }
 
   localStorage[key] = value + "";
+
+  return value;
 }
 
 
@@ -963,15 +968,96 @@ function log() {
   console.log.apply(console, a);
 }
 
-// google analytics
-function prepareAnalytics() {
-  if (typeof tracker !== 'undefined') {
-    var service = analytics.getService('BadiCal');
-    service.getConfig().addCallback(function (config) {
-      tracker.sendEvent('opened', getVersionInfo());
-    });
-    tracker = service.getTracker('UA-1312528-10');
-    tracker.set('appVersion', chrome.runtime.getManifest().version);
-    tracker.set('language', navigator.language);
+// google analytics using Measurement Protocol
+var trackerFunc = function () {
+  var baseParams = {
+    ds: 'app',
+    tid: 'UA-1312528-10',
+    v: 1,
+    cid: localStorage.uid || (localStorage.uid = createGuid()),
+    an: 'BadiWeb',
+    ul: navigator.language,
+    aid: browserHostType,
+    av: chrome.runtime.getManifest().version
+  };
+
+  var send = function (info) {
+    if (settings.optedOutOfGoogleAnalytics === true) {
+      log('opted out of analytics');
+      return;
+    }
+    var data = $.extend(info, baseParams);
+
+    var useDebug = false; // turn on during initial testing
+    if (useDebug) {
+      $.post('https://www.google-analytics.com/debug/collect', data);
+    } else {
+      $.post('https://www.google-analytics.com/collect', data);
+    }
+  };
+
+  var sendEvent = function (category, action) {
+    send({ t: 'event', ec: category, ea: action });
+  };
+  var sendAppView = function (id) {
+    send({ t: 'screenview', cd: id });
+  };
+  return {
+    sendEvent: sendEvent,
+    sendAppView: sendAppView
   }
+};
+
+var tracker;
+function prepareAnalytics() {
+  tracker = trackerFunc();
+
+  //  if (typeof tracker !== 'undefined') {
+  //    var service = analytics.getService('BadiCal');
+  //    service.getConfig().addCallback(function (config) {
+  //      tracker.sendEvent('opened', getVersionInfo());
+  //    });
+  //    tracker = service.getTracker('UA-1312528-10');
+  //    tracker.set('appVersion', chrome.runtime.getManifest().version);
+  //    tracker.set('language', navigator.language);
+  //  }
+}
+
+
+
+// polyfill
+if (!Array.prototype.includes) {
+  Array.prototype.includes = function (searchElement /*, fromIndex*/) {
+    'use strict';
+    var O = Object(this);
+    var len = parseInt(O.length) || 0;
+    if (len === 0) {
+      return false;
+    }
+    var n = parseInt(arguments[1]) || 0;
+    var k;
+    if (n >= 0) {
+      k = n;
+    } else {
+      k = len + n;
+      if (k < 0) { k = 0; }
+    }
+    var currentElement;
+    while (k < len) {
+      currentElement = O[k];
+      if (searchElement === currentElement ||
+         (searchElement !== searchElement && currentElement !== currentElement)) { // NaN !== NaN
+        return true;
+      }
+      k++;
+    }
+    return false;
+  };
+}
+
+function createGuid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 }

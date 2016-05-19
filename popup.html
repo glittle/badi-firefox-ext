@@ -525,25 +525,95 @@
         </div>
 
       </div>
-      <!--<div id="pageSetup" class="fullPage page">
-        <div>
-          <h2 data-msg="setupAbout"></h2>
-          <p data-msg="setupAbout1"></p>
-          <p data-msg="setupAbout2"></p>
-          <p data-msg="setupAbout3"></p>
-          <p data-msg="setupAbout4"></p>
+      <div id="pagePlanner" class="fullPage page">
+        <div class="plannerInputs">
+          <h2 data-msg="plannerTitle2"></h2>
+          <ol>
+            <li>
+              <div>
+                <span data-msg="plannerShowWhat"></span>
+                <select id="planWhat">
+                  <option value="event1" data-msg="plannerWhatOneEvent"></option>
+                  <option value="event2" data-msg="plannerWhatManyEvents"></option>
+                </select>
+              </div>
+              <div id="plannerWhatEventDiv">
+                <span data-msg="plannerWhatEvent"></span>
+                <div class="plannerWhatHelpers">
+                  <button type="button" class="button" id="btnPlannerHelperHD1" data-msg="_id_"></button>
+                  <button type="button" class="button" id="btnPlannerHelperHD2" data-msg="_id_"></button>
+                  <button type="button" class="button" id="btnPlannerHelperRid" data-msg="_id_"></button>
+                  <button type="button" class="button" id="btnPlannerHelperTHB" data-msg="_id_"></button>
+                  <button type="button" class="button" id="btnPlannerHelperFeasts" data-msg="_id_"></button>
+                  <button type="button" class="button" id="btnPlannerHelperNone" data-msg="_id_"></button>
+                </div>
+                <select id="plannerWhatEvents">
+                  <optgroup label="Holy Days" id="planWhatHdGroup"></optgroup>
+                  <optgroup label="Feasts" id="planWhatFeastGroup"></optgroup>
+                </select>
+              </div>
+            </li>
+            <li>
+              <span data-msg="planFromWhen"></span>
+              <select id="planFromWhen">
+                <option value="today" data-msg="planFromWhenToday"></option>
+                <option value="by0" data-msg="planFromWhenThisYear"></option>
+                <option value="by1" data-msg="planFromWhenNextYear"></option>
+              </select>
+            </li>
+            <li>
+              <div>
+                <span data-msg="planUntilWhen"></span>
+                <select id="planUntilNum"></select>
+                <select id="planUntilUnits">
+                  <option value="y" data-msg="planUntilUnitsYears"></option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <span data-msg="planIncludeWhat"></span>
+              <select id="plannerShowWhat">
+                <option value="frag2" data-msg="planIncludeWhatDay"></option>
+                <option value="both" data-msg="planIncludeWhatBoth"></option>
+                <option value="frag1" data-msg="planIncludeWhatEve"></option>
+              </select>
+            </li>
+          </ol>
+          <!--<button class="button" type="button" id="btnPlanGenerate">Refresh</button>-->
+
         </div>
         <div>
-          <h2 data-msg="setupSetup"></h2>
-          <div class="setupItems">
-            <div>
-              <h3>Location</h3>
-              <div class="place"></div>
-              <button class="btnRetry button"><span class="btnRetryImg"></span><span class="text" data-msg="btnRetry2"></span></button>
-            </div>
+          <div class="plannerResultButtons">
+            <button class="button" type="button" id="btnPlannerExportCsv" data-msg="_id_"></button>
+            <!--<button class="button" type="button" id="btnPlannerExportICal" data-msg="_id_"></button>-->
+          </div>
+          <h2 class="NoPrint" data-msg="plannerResults"></h2>
+          <div id="plannerResultsDiv">
+            <table class="plannerResults">
+              <thead id="plannerResultsHead"></thead>
+              <tbody id="plannerResultsBody"></tbody>
+            </table>
           </div>
         </div>
-      </div>-->
+      </div>
+
+      <div id="pageSetup" class="fullPage page">
+        <div>
+          <h3 data-msg="setupAboutTitle"></h3>
+          <p data-msg="setupAboutPara"></p>
+          <p data-msg="tipsAboutText"></p>
+        </div>
+        <div>
+          <h3 data-msg="setupOptOutTitle"></h3>
+          <p data-msg="setupOptOutPara"></p>
+          <div>
+            <label>
+              <span data-msg="setupOptOut"></span>
+              <input type="checkbox" id="setupOptOut" />
+            </label>
+          </div>
+        </div>
+      </div>
 
       <div class=selectPages>
         <div class=buttons>
@@ -555,8 +625,10 @@
           <button data-page="pageFast" data-msg=pick_pageFast></button>
           <button data-page="pageLists" data-msg=pick_pageLists></button>
           <button data-page="pageReminders" data-msg=pick_pageReminders id="btnPageReminders"></button>
+          <button data-page="pagePlanner" data-msg=pick_pagePlanner></button>
           <button data-page="pageExporter" data-msg=pick_pageExporter></button>
           <button data-page="pageCustom" data-msg=pick_pageCustom></button>
+          <button data-page="pageSetup" data-msg=pick_pageSetup></button>
         </div>
       </div>
     </div>
@@ -608,7 +680,7 @@
   <script src="calWheel.js"></script>
   <script src="calGreg.js"></script>
   <script src="pageReminders.js"></script>
-  <script src="pageExporter.js"></script>
+  <script src="pagePlanner.js"></script>
   <script src="pageExporter.js"></script>
   <script src="pageCustom.js"></script>
   <script src="misc/moment-timezone-with-data.min.js"></script>

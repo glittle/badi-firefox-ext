@@ -4,7 +4,6 @@ body {
   margin: 0;
   font-family: Geneva, 'Segoe UI';
   font-size: 9pt;
-  overflow: hidden;
 }
 
 #mainBody {
@@ -55,7 +54,7 @@ body {
   flex-direction: column;
 }
 
-#pageDay, #pageEvents, #pageFast, #pageLists, #pageCal1, #pageReminders, #pageExporter, #pageCustom {
+#pageDay, #pageEvents, #pageFast, #pageLists, #pageCal1, #pageReminders, #pageExporter, #pageSetup, #pageCustom, #pagePlanner {
   display: flex;
   justify-content: flex-end;
   width: 100%;
@@ -206,6 +205,17 @@ body {
 
   #btnReminderCancel {
     margin-right: 20px;
+  }
+}
+
+#pageSetup {
+  > div {
+    border: 1px solid @green;
+    border-radius: 3px;
+    margin-left: 4px;
+    justify-content: flex-end;
+    flex: 0 1 100%;
+    padding: 10px;
   }
 }
 
@@ -540,7 +550,7 @@ body {
   }
 }
 
-#pageSetup {
+#pagePlanner {
   > div {
     border: 1px solid @green;
     border-radius: 3px;
@@ -550,13 +560,85 @@ body {
     padding: 5px 10px 10px 10px;
   }
 
-  .setupItems {
-    > div {
-      margin: 0 0 10px 20px;
+  .plannerInputs {
+    flex: 0 1;
+
+    select {
+      margin: 0 0 1px 0;
+      font-size: 9pt;
     }
 
-    h3 {
-      margin-left: -20px;
+    > ol {
+      -webkit-padding-start: 13px;
+
+      li {
+        margin: 0 0 5px 0;
+      }
+    }
+  }
+
+  #plannerResultsDiv {
+    max-height: 450px;
+    overflow: auto;
+  }
+
+  .plannerResultButtons {
+    float: right;
+    text-align: right;
+
+    button {
+      margin: 1px 0;
+    }
+  }
+
+  #btnPlanGenerate {
+    float: right;
+  }
+
+  .plannerResults {
+    td {
+      text-align: center;
+      vertical-align: top;
+
+      &:first-child {
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      &.plannerNewYear {
+        font-weight: bold;
+      }
+
+      &.plannerDate {
+        white-space: nowrap;
+      }
+    }
+
+    th {
+      vertical-align: bottom;
+
+      &:first-child {
+        text-align: left;
+      }
+    }
+
+    th.plannerThTitle {
+      border-bottom: 1px solid #ccc;
+    }
+
+    tbody {
+      tr:nth-child(even) {
+        background-color: #fafdff;
+      }
+    }
+  }
+
+  .plannerWhatHelpers {
+    .button {
+      font-size: 90%;
+      margin: 0 -2px 1px 0;
+      background: transparent;
+      color: green;
     }
   }
 }
@@ -1009,15 +1091,15 @@ body.pt_PT #sampleTitle {
   white-space: normal;
 }
 
-#specialListsTable tr.SpecialTime td.eventTime {
+/*#specialListsTable tr.SpecialTime td.eventTime {
   color: blue;
   font-style: italic;
   padding-left: 20px;
-}
+}*/
 
 #specialListsTable .forHD.time {
-  font-style: normal;
-  margin-left: -20px;
+  font-style: italic;
+  margin-left: 25px;
   display: block;
 }
 
@@ -1432,11 +1514,11 @@ input.bYearPicker {
 }
 
 @media print {
-  #yearSelector, .selectPages, .iconArea {
+  #yearSelector, .selectPages, .iconArea, .NoPrint {
     display: none !important;
   }
 
-  #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageReminders, #pageExporter, #pageCustom {
+  #pageEvents, #pageFast, #pageLists, #pageCal1, #pageCalWheel, #pageReminders, #pageExporter, #pageCustom, #pagePlanner {
     border: none;
     padding: 10px 0 0 0;
   }
@@ -1463,6 +1545,27 @@ input.bYearPicker {
 
   #fastListTable caption {
     margin-bottom: 20px;
+  }
+
+  #pagePlanner {
+    > div {
+      border: none;
+      margin: 0 auto;
+    }
+
+    .plannerInputs {
+      display: none;
+    }
+
+    .plannerResultButtons {
+      display: none;
+    }
+  }
+
+  body.Chrome {
+    * {
+      -webkit-print-color-adjust: exact;
+    }
   }
 }
 
@@ -1506,11 +1609,6 @@ input.bYearPicker {
   }
 }
 
-body.Chrome {
-  * {
-    -webkit-print-color-adjust: exact;
-  }
-}
 
 body.Firefox {
   #btnPageReminders {

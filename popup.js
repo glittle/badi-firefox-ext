@@ -15,6 +15,7 @@ var _calWheel = null;
 var _calGreg = null;
 var _pageReminders = null;
 var _pageExporter = null;
+var _pagePlanner = null;
 var _pageCustom = null;
 var _enableSampleKeys = true;
 var _enableDayKeysLR = true;
@@ -92,6 +93,7 @@ function attachHandlers() {
 function ApplyLanguage() {
   UpdateLanguageBtn();
   setStorage('useArNames', settings.useArNames);
+  tracker.sendEvent('useArabic', settings.useArNames);
   knownDateInfos = {};
   resetForLanguageChange();
   refreshDateInfoAndShow();
@@ -224,9 +226,11 @@ function showPage(id) {
   var pageFast = '#yearSelector, .iconArea';
   var pageReminders = '.iconArea, #otherPageTitle';
   var pageExporter = '#yearSelector, .iconArea, #otherPageTitle';
+  var pagePlanner = '.iconArea, #otherPageTitle';
   var pageCustom = '#yearSelector, .JumpDays, #show, #gDay, .iconArea, #otherPageTitle';
+  var pageSetup = '#show, #gDay, .iconArea';
 
-  $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageLists, pageFast, pageReminders, pageExporter].join(',')).hide();
+  $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageLists, pageFast, pageReminders, pageExporter, pagePlanner, pageSetup].join(',')).hide();
 
   _currentPageId = id;
   btns.each(function (i, el) {
@@ -308,11 +312,25 @@ function showPage(id) {
       _enableDayKeysUD = false;
       break;
 
+    case 'pagePlanner':
+      $(pagePlanner).show();
+      _enableSampleKeys = false;
+      _enableDayKeysLR = false;
+      _enableDayKeysUD = false;
+      break;
+
     case 'pageCustom':
       $(pageCustom).show();
       _enableSampleKeys = false;
       _enableDayKeysLR = true;
       _enableDayKeysUD = true;
+      break;
+
+    case 'pageSetup':
+      $(pageSetup).show();
+      _enableSampleKeys = false;
+      _enableDayKeysLR = false;
+      _enableDayKeysUD = false;
       break;
 
 
@@ -371,6 +389,10 @@ function updatePageContentWhenVisible(id, di) {
       $('#otherPageTitle').html(getMessage('exporterTitle'));
       break;
 
+    case 'pagePlanner':
+      $('#otherPageTitle').html(getMessage('plannerTitle'));
+      break;
+
     case 'pageCustom':
       $('#otherPageTitle').html(getMessage('customTitle'));
       break;
@@ -394,6 +416,11 @@ function resetPageForLanguageChange(id) {
     case 'pageCalGreg':
       if (_calGreg) {
         _calGreg.resetPageForLanguageChange();
+      }
+      break;
+    case 'pagePlanner':
+      if (_pagePlanner) {
+        _pagePlanner.resetPageForLanguageChange();
       }
       break;
 
@@ -484,6 +511,12 @@ function updatePageContent(id, di) {
     case 'pageExporter':
       if (_pageExporter) {
         _pageExporter.updateYear(true);
+      }
+      break;
+
+    case 'pagePlanner':
+      if (_pagePlanner) {
+        //_pagePlanner.updateYear(true);
       }
       break;
 
@@ -672,6 +705,7 @@ function keyPressed(ev) {
       if (ev.shiftKey && ev.ctrlKey) {
         settings.useArNames = !settings.useArNames;
         ApplyLanguage();
+        return;
       }
       break;
 
@@ -746,65 +780,85 @@ function keyPressed(ev) {
       toggleEveOrDay(!_di.bNow.eve);
       ev.preventDefault();
       return;
-
-    default:
-      //log(ev.which);
-
-      if (_enableSampleKeys && !ev.ctrlKey) {
-        try {
-          var sample = $('#key' + key);
-          if (sample.length) {
-            sample.trigger('click'); // effective if a used letter is typed
-            ev.preventDefault();
-          }
-        } catch (ex) {
-          // ignore jquery error
-        }
-      }
-
-      if (_currentPageId == 'pageEvents') {
-        // don't require ALT...
-        try {
-          $('input[accessKey=' + key + ']', '#pageEvents').click();
-          $('select[accessKey=' + key + ']', '#pageEvents').click();
-        } catch (e) {
-          // key may have odd symbol in it
-        }
-      }
-
-      if (key == getMessage('keyToOpenInTab') && ev.shiftKey) {
-        openInTab();
-      }
-
-      if (ev.target.tagName !== 'INPUT' && ev.target.tagName !== 'TEXTAREA') {
-        var pageNum = +key;
-        var validPagePicker = key == pageNum; // don't use ===
-        if (!validPagePicker) {
-          if (key >= 'a' && key <= 'i') {
-            pageNum = key.charCodeAt(0) - 96;
-            validPagePicker = true;
-          }
-          if (ev.which === 189) {
-            // -  (next after 8,9,0...)
-            pageNum = 11;
-            validPagePicker = true;
-          }
-        }
-
-        if (validPagePicker) {
-          if (pageNum === 0) {
-            pageNum = 10;
-          }
-          var pageButtons = $('.selectPages button').filter(':visible');
-          if (pageNum > 0 && pageNum <= pageButtons.length) {
-            var id = pageButtons.eq(pageNum - 1).data('page');
-            showPage(id);
-          }
-        }
-      }
-
-      return;
   }
+
+  //log(ev.which);
+  if (_enableSampleKeys && !ev.ctrlKey) {
+    try {
+      var sample = $('#key' + key);
+      if (sample.length) {
+        sample.trigger('click'); // effective if a used letter is typed
+        ev.preventDefault();
+      }
+    } catch (ex) {
+      // ignore jquery error
+    }
+  }
+
+  if (_currentPageId == 'pageEvents') {
+    // don't require ALT...
+    try {
+      $('input[accessKey=' + key + ']', '#pageEvents').click();
+      $('select[accessKey=' + key + ']', '#pageEvents').click();
+    } catch (e) {
+      // key may have odd symbol in it
+    }
+  }
+
+  if (key == getMessage('keyToOpenInTab') && ev.shiftKey) {
+    openInTab();
+  }
+
+  if (ev.target.tagName !== 'INPUT' && ev.target.tagName !== 'TEXTAREA') {
+    var pageNum = +key;
+    var validPagePicker = key == pageNum; // don't use ===
+    if (!validPagePicker) {
+      if (key >= 'a' && key <= 'i') {
+        pageNum = key.charCodeAt(0) - 96;
+        validPagePicker = true;
+      }
+
+      var extraKeys;
+      switch (browserHostType) {
+        case browser.Chrome:
+          extraKeys = {
+            dash: 189,
+            equal: 187
+          };
+          break;
+        case browser.Firefox:
+          extraKeys = {
+            dash: 173,
+            equal: 61
+          };
+          break;
+      }
+      if (ev.which === extraKeys.dash) {
+        // -  (next after 8,9,0...)
+        pageNum = 11;
+        validPagePicker = true;
+      }
+      if (ev.which === extraKeys.equal) {
+        // =  (next after 8,9,0...)
+        pageNum = 12;
+        validPagePicker = true;
+      }
+      //log(ev.which);
+    }
+
+    if (validPagePicker) {
+      if (pageNum === 0) {
+        pageNum = 10;
+      }
+      var pageButtons = $('.selectPages button').filter(':visible');
+      if (pageNum > 0 && pageNum <= pageButtons.length) {
+        var id = pageButtons.eq(pageNum - 1).data('page');
+        showPage(id);
+      }
+    }
+  }
+
+  return;
 }
 
 function addSample(info, format, group) {
@@ -969,6 +1023,24 @@ function changeDay(ev, delta) {
   showInfo(_di);
 }
 
+function fillSetup() {
+  var optedOut = settings.optedOutOfGoogleAnalytics === true;
+  var cb = $('#setupOptOut');
+  cb.prop('checked', optedOut);
+  cb.on('change', function () {
+    var optingOut = cb.prop('checked');
+    if (optingOut) {
+      tracker.sendEvent('optOut', optingOut);
+    }
+    setStorage('optOutGa', optingOut);
+    settings.optedOutOfGoogleAnalytics = optingOut;
+
+    if (!optingOut) {
+      tracker.sendEvent('optOut', optingOut);
+    }
+  });
+}
+
 function fillStatic() {
   var nameList = [];
   var i;
@@ -1048,6 +1120,7 @@ function SetFiltersForSpecialDaysTable(ev) {
     .toggleClass('Feasts', includeFeasts)
     .toggleClass('HolyDays', includeHolyDays);
 }
+
 var _lastSpecialDaysYear = 0;
 
 function BuildSpecialDaysTable(di) {
@@ -1069,7 +1142,7 @@ function BuildSpecialDaysTable(di) {
     }
   });
 
-  var defaultEventStart = $('#eventStart').val();
+  var defaultEventStart = $('#eventStart').val() || getStorage('eventStart');
 
   dayInfos.forEach(function (dayInfo, i) {
     var targetDi = getDateInfo(dayInfo.GDate);
@@ -1086,7 +1159,6 @@ function BuildSpecialDaysTable(di) {
     dayInfo.TypeShort = null;
     dayInfo.DefaultTimeClass = null;
     dayInfo.RowClass = null;
-
     var targetTime = dayInfo.Time || defaultEventStart;
 
     if (dayInfo.Type === 'M') {
@@ -1141,7 +1213,6 @@ function BuildSpecialDaysTable(di) {
       }
 
       dayInfo.Event = { time: tempDate };
-
       dayInfo.StartTime = showTime(dayInfo.Event.time);
       addEventTime(dayInfo.Event);
       dayInfo.EventTime = getMessage('eventTime', dayInfo.Event);
@@ -1168,10 +1239,9 @@ function BuildSpecialDaysTable(di) {
   rowTemplate.push('<td>{D}</td>');
   rowTemplate.push('<td class=name>{A}</td>'); //{STColSpan}
   rowTemplate.push('<td class=forHD>{NoWork}</td>');
-  rowTemplate.push('<td class=eventTime><div class="forHD time">{ST}</div>{EventTime}</td>'); // {isEve}
+  rowTemplate.push('<td class=eventTime>{EventTime}<div class="forHD time">{ST}</div></td>'); // {isEve}
   rowTemplate.push('<td>{G}</td>');
   rowTemplate.push('</tr>');
-  //log('test');
   $('#specialListBody').html(rowTemplate.join('').filledWithEach(dayInfos.filter(function (el) { return el.Type !== 'Fast' })));
 
   $('#specialDaysTitle').html(getMessage('specialDaysTitle', di));
@@ -1309,7 +1379,7 @@ function prepare1() {
   UpdateLanguageBtn();
 
   if (_iconPrepared) {
-  refreshDateInfo();
+    refreshDateInfo();
   } else {
     refreshDateInfoAndShow();
   }
@@ -1392,6 +1462,9 @@ function prepare2() {
   prepareAnalytics();
   updateLoadProgress();
 
+  tracker.sendEvent('opened');
+  tracker.sendAppView(_currentPageId);
+
   if (getStorage('firstPopup', false)) {
     // first time popup is opened after upgrading to newest version
     $('.buttons')
@@ -1404,6 +1477,9 @@ function prepare2() {
   updateLoadProgress();
 
   fillStatic();
+  updateLoadProgress();
+
+  fillSetup();
   updateLoadProgress();
 
   localizeHtml('#pageLists');
@@ -1428,6 +1504,7 @@ function prepare2() {
   $('#btnPageReminders').toggle(_remindersEnabled);
 
   _pageExporter = PageExporter();
+  _pagePlanner = PagePlanner();
   updateLoadProgress();
 
   $('#version').attr('href', getMessage(browserHostType + "_History"));
@@ -1453,10 +1530,5 @@ function updateLoadProgress() {
 $('#windowTitle').text(getMessage('title'));
 
 $(function () {
-  if (browserHostType === browser.Firefox) {
-//    openInTab();
   prepare1();
-  } else {
-    prepare1();
-  }
 });
