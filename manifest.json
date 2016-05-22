@@ -1,6 +1,6 @@
 {
   "name": "__MSG_title__",
-  "version": "2.2.1.1",
+  "version": "2.2.2.1",
   "description": "__MSG_titleDesc__",
   "applications": {
     "gecko": {
@@ -26,6 +26,7 @@
   },
   "permissions": [
     "storage",
+    "geolocation",
     "contextMenus"
   ],
   "browser_action": {
