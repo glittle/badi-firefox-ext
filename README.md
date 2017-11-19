@@ -1,4 +1,4 @@
-# Badí' Calendar Chrome Extension #
+# Badí' Calendar Firefox Extension #
 
 
 ### To be done ###

@@ -15,7 +15,7 @@ var BackgroundModule = function () {
 
   var alarmHandler = function (alarm) {
     if (alarm.name.startsWith('refresh')) {
-      log('ALARM: ' + alarm.name);
+      console.log('ALARM: ' + alarm.name);
       refreshDateInfoAndShow();
       _backgroundReminderEngine.setAlarmsForRestOfToday();
     }
@@ -30,7 +30,7 @@ var BackgroundModule = function () {
         var newVersion = chrome.runtime.getManifest().version;
         var oldVersion = localStorage.updateVersion;
         if (newVersion != oldVersion) {
-          log(oldVersion + ' --> ' + newVersion);
+          console.log(oldVersion + ' --> ' + newVersion);
           localStorage.updateVersion = newVersion;
           chrome.tabs.create({
             url: getMessage(browserHostType + '_History') + '?{0}:{1}'.filledWith(
@@ -43,26 +43,26 @@ var BackgroundModule = function () {
           try {
             tracker.sendEvent('updated', getVersionInfo());
           } catch (e) {
-            log(e);
+            console.log(e);
           }
         } else {
-          log(newVersion);
+          console.log(newVersion);
         }
       }, 1000);
     } else {
-      log(info);
+      console.log(info);
     }
   }
 
   //  function messageHandler(request, sender, sendResponse) {
   //    //log(request, sender, sendResponse);
-  //    log('message received: ' + request.code);
+  //    console.log('message received: ' + request.code);
   //  }
 
   function showErrors() {
     var msg = chrome.runtime.lastError;
     if (msg) {
-      log(msg);
+      console.log(msg);
     }
   }
 
@@ -87,9 +87,22 @@ var BackgroundModule = function () {
 
     if (browserHostType === browser.Firefox) {
       chrome.browserAction.onClicked.addListener(function () {
-        chrome.tabs.create({
-          "url": popupUrl
-        });
+        var oldTabId = +getStorage('tabId', 0);
+        if (oldTabId) {
+          chrome.tabs.update(oldTabId, {
+            active: true
+          }, function (updatedTab) {
+            if (!updatedTab) {
+              makeTab();
+            }
+            if (chrome.runtime.lastError) {
+              console.log(chrome.runtime.lastError.message);
+            }
+          });
+        } else {
+          makeTab();
+        }
+
       });
     }
 
@@ -100,14 +113,14 @@ var BackgroundModule = function () {
     }, showErrors);
     //chrome.contextMenus.create({
     //  'id': 'paste',
-    //  'title': 'Insert Badí Date',
+    //  'title': 'Insert Bad? Date',
     //  'contexts': ['editable']
     //}, showErrors);
 
     chrome.contextMenus.onClicked.addListener(function (info, tab) {
       switch (info.menuItemId) {
         //case 'paste':
-        //  log(info, tab);
+        //  console.log(info, tab);
         //  chrome.tabs.executeScript(tab.id, {code: 'document.targetElement.value = "help"'}, showErrors);
         //  break;
 
@@ -117,7 +130,7 @@ var BackgroundModule = function () {
               makeTab();
             }
             if (chrome.runtime.lastError) {
-              log(chrome.runtime.lastError.message);
+              console.log(chrome.runtime.lastError.message);
             }
           };
 
@@ -172,7 +185,7 @@ var BackgroundModule = function () {
       }
     });
 
-    log('prepared background');
+    console.log('prepared background');
 
     if (browserHostType === browser.Firefox) {
       makeTab();
@@ -180,7 +193,8 @@ var BackgroundModule = function () {
   }
 
   return {
-    prepare: prepare
+    prepare: prepare,
+    makeTab: makeTab
   };
 }
 

@@ -1,0 +1,4 @@
+extension.*.zip
+*.suo
+*.zip
+*.user

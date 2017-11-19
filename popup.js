@@ -12,6 +12,7 @@ var _showingInfo = false;
 var _changingBDate = false;
 var _currentPageNum = 0;
 var _cal1 = null;
+var _cal2 = null;
 var _calWheel = null;
 var _calGreg = null;
 var _pageReminders = null;
@@ -21,10 +22,12 @@ var _pageCustom = null;
 var _enableSampleKeys = true;
 var _enableDayKeysLR = true;
 var _enableDayKeysUD = true;
-var _upDownKeyDelta = 0;
+var _upDownKeyDelta = null;
 var _pageHitTimeout = null;
 var _initialStartupDone = false;
 var _loadingNum = 0;
+var _lastLoadingTime = null;
+var _lastLoadingComment = null;
 var _inTab = false;
 var _pageIdList = [];
 var _inPopupPage = true;
@@ -37,6 +40,9 @@ function attachHandlers() {
   $('.btnChangeYear').on('click', changeYear);
 
   $('.btnJumpTo').on('click', moveDays);
+  $('.btnJumpToday').on('click', function () {
+    changeDay(null, 0);
+  });
   $('.jumpTo').val(getStorage('jumpTo', '90'));
 
   $('.bDatePickerInputs input, .bYearPicker').on('change paste keydown keypress', changeToBDate);
@@ -53,11 +59,10 @@ function attachHandlers() {
   $('.includeThis').on('change, click', SetFiltersForSpecialDaysTable);
 
   $('.btnRetry').on('click', function () {
-    $('.btnRetry').addClass('active');
+    $('.setupPlace .place').text(''); //blank the copy on the setup page
+    $('.btnRetry').addClass('active').blur();
     startGettingLocation();
-    setTimeout(function () {
-      $('.btnRetry').removeClass('active');
-    }, 1000);
+
   });
   $('#datePicker').on('keydown', function (ev) {
     ev.stopPropagation();
@@ -74,9 +79,9 @@ function attachHandlers() {
   });
 
   //chrome.alarms.onAlarm.addListener(function (alarm) {
-  //  log(alarm.name);
-  //  log(new Date(alarm.scheduledTime));
-  //  chrome.alarms.clear(alarm.name, function (wasCleared) { log(wasCleared); });
+  //  console.log(alarm.name);
+  //  console.log(new Date(alarm.scheduledTime));
+  //  chrome.alarms.clear(alarm.name, function (wasCleared) { console.log(wasCleared); });
   //  refreshDateInfoAndShow();
   //});
 
@@ -84,10 +89,17 @@ function attachHandlers() {
   $('#btnPrint').click(function () {
     window.print();
   });
+
+  $('.setupPlace')
+    .on('paste keydown keypress', 'input', function () { updateLocation(false) })
+    .on('change', 'input', function () { updateLocation(true) });
+
   $('input:radio[name=language]').click(function (ev) {
     settings.useArNames = ev.target.value === 'Ar';
     ApplyLanguage();
   });
+
+  $('#setupLang').on('change', langSelectChanged);
 }
 
 function ApplyLanguage() {
@@ -109,8 +121,10 @@ var showInfoDelay = null;
 
 function showInfo(di) {
   _showingInfo = true;
-
   clearTimeout(showInfoDelay);
+
+  getUpcoming(di);
+  updateSpecial(di);
 
   // show current page first, then the others
   updatePageContent(_currentPageId, di);
@@ -123,7 +137,9 @@ function showInfo(di) {
         updatePageContent(id, di);
       }
     });
-  }, 0);
+  }, 500);
+
+  $('#day, #gDay').toggleClass('notToday', _di.stamp !== _initialDiStamp.stamp);
 
   _showingInfo = false;
 }
@@ -136,20 +152,7 @@ function resetForLanguageChange() {
   });
 }
 
-function updateSharedContent(di) {
-  $('#day').html(getMessage('bTopDayDisplay', di));
-  $('#sunset').html(di.nearestSunset);
-  $('#gDay').html(getMessage('gTopDayDisplay', di));
-
-  if (!_changingBDate) {
-    $('.bYearPicker').val(di.bYear);
-    $('#bMonthPicker').val(di.bMonth);
-    $('#bDayPicker').val(di.bDay);
-    $('.bKullishayPicker').val(di.bKullishay);
-    $('.bVahidPicker').val(di.bVahid);
-    $('.bYearInVahidPicker').val(di.bYearInVahid);
-  }
-
+function updateSpecial(di) {
   $('#special1').hide();
   $('#special2').hide();
   if (di.special1) {
@@ -160,6 +163,21 @@ function updateSharedContent(di) {
     }
   } else {
     $('#day').removeClass('withSpecial');
+  }
+}
+
+function updateSharedContent(di) {
+  $('#day').html(getStorage('formatTopDay', getMessage('bTopDayDisplay')).filledWith(di));
+  $('#sunset').html(di.nearestSunset);
+  $('#gDay').html(getMessage('gTopDayDisplay', di));
+
+  if (!_changingBDate) {
+    $('.bYearPicker').val(di.bYear);
+    $('#bMonthPicker').val(di.bMonth);
+    $('#bDayPicker').val(di.bDay);
+    $('.bKullishayPicker').val(di.bKullishay);
+    $('.bVahidPicker').val(di.bVahid);
+    $('.bYearInVahidPicker').val(di.bYearInVahid);
   }
 
   var manifest = chrome.runtime.getManifest();
@@ -177,10 +195,6 @@ function updateSharedContent(di) {
 }
 
 function changePage(ev, delta) {
-
-  // opens in a regular tab
-  // var url = 'chrome-extension://' + getMessage('@@extension_id') + '/popup.html';
-  // chrome.tabs.create({url: url});
 
   if (ev) {
     var btn = $(ev.target);
@@ -224,18 +238,19 @@ function showPage(id) {
   var other = '.vahidInputs'; // don't fit on any page... likely need to remove it
   var pageDay = '#gDay, #showUpcoming, .explains, .normal, #show, .iconArea, #special';
   var pageEvents = '#yearSelector, .iconArea, #specialDaysTitle';
-  var pageCal1 = '#yearSelector, .JumpDays, #show, #gDay';
+  var pageCal1 = '#yearSelector, .JumpDays, #show, #gDay, #special';
   var pageCalWheel = '#yearSelector, #show, #gDay, #special, .iconArea';
-  var pageCalGreg = '#yearSelector, .JumpDays, #show, #gDay, #special, .iconArea';
+  var pageCalGreg = '#yearSelector, .JumpDays, #show, #gDay, #special, .iconArea, .monthNav';
+  var pageCal2 = '#yearSelector, .JumpDays, #show, #gDay, #special, .iconArea, .monthNav';
   var pageLists = '#gDay, #show, .iconArea, #special';
   var pageFast = '#yearSelector, .iconArea';
   var pageReminders = '.iconArea, #otherPageTitle';
   var pageExporter = '#yearSelector, .iconArea, #otherPageTitle';
   var pagePlanner = '.iconArea, #otherPageTitle';
-  var pageCustom = '#yearSelector, .JumpDays, #show, #gDay, .iconArea, #otherPageTitle';
-  var pageSetup = '#show, #gDay, .iconArea';
+  var pageCustom = '#yearSelector, .JumpDays, #show, #gDay, .iconArea, #special';
+  var pageSetup = '#otherPageTitle, .iconArea';
 
-  $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageLists, pageFast, pageReminders, pageExporter, pagePlanner, pageSetup].join(',')).hide();
+  $([other, pageDay, pageEvents, pageCal1, pageCalWheel, pageCalGreg, pageCal2, pageLists, pageFast, pageReminders, pageExporter, pagePlanner, pageSetup].join(',')).hide();
 
   _currentPageId = id;
   btns.each(function (i, el) {
@@ -271,7 +286,7 @@ function showPage(id) {
       _enableSampleKeys = false;
       _enableDayKeysLR = true;
       _enableDayKeysUD = true;
-      _upDownKeyDelta = 19;
+      _upDownKeyDelta = function () { return 19; }
       break;
 
     case 'pageCalWheel':
@@ -286,7 +301,57 @@ function showPage(id) {
       _enableSampleKeys = false;
       _enableDayKeysLR = true;
       _enableDayKeysUD = true;
-      _upDownKeyDelta = 7;
+      _upDownKeyDelta = function () { return 7; }
+      break;
+
+    case 'pageCal2':
+      $(pageCal2).show();
+      _enableSampleKeys = false;
+      _enableDayKeysLR = true;
+      _enableDayKeysUD = true;
+      _upDownKeyDelta = function (direction) {
+        var bDay = _di.bDay;
+        var bMonth = _di.bMonth;
+        if (bMonth === 0) {
+          if (direction === -1) {
+            return 6;
+          }
+          //log(holyDays.daysInAyyamiHa(_di.bYear));
+          return holyDays.daysInAyyamiHa(_di.bYear) - (bDay > 3 ? (1 + holyDays.daysInAyyamiHa(_di.bYear) - bDay) : 0);
+        }
+        switch (direction) {
+          case -1: // up
+            if (bDay <= 3) {
+              if (bMonth === 19) {
+                return holyDays.daysInAyyamiHa(_di.bYear);
+              }
+              return 6;
+            }
+            if (bDay <= 6) {
+              return 3;
+            }
+            if (bDay <= 11) {
+              return 4;
+            }
+            if (bDay <= 12) {
+              return 5;
+            }
+            return 6;
+
+          case 1: // down
+            if (bDay <= 3) {
+              return 3;
+            }
+            if (bDay <= 7) {
+              return 4;
+            }
+            if (bDay <= 16) {
+              return 6;
+            }
+            return (19 + (bMonth === 18 ? holyDays.daysInAyyamiHa(_di.bYear) : 3)) - bDay;
+        }
+        return 0;
+      }
       break;
 
     case 'pageLists':
@@ -383,6 +448,12 @@ function updatePageContentWhenVisible(id, di) {
       }
       break;
 
+    case 'pageCal2':
+      if (_cal2) {
+        _cal2.scrollToMonth(di.bMonth, true);
+      }
+      break;
+
     case 'pageReminders':
       $('#otherPageTitle').html(getMessage('pick_pageReminders'));
       if (_pageReminders) {
@@ -398,9 +469,12 @@ function updatePageContentWhenVisible(id, di) {
       $('#otherPageTitle').html(getMessage('plannerTitle'));
       break;
 
-    case 'pageCustom':
-      $('#otherPageTitle').html(getMessage('customTitle'));
+    case 'pageSetup':
+      $('#otherPageTitle').html(getMessage('pick_pageSetup'));
       break;
+
+    //        case 'pageCustom':
+    //            break;
 
   }
 
@@ -423,6 +497,11 @@ function resetPageForLanguageChange(id) {
         _calGreg.resetPageForLanguageChange();
       }
       break;
+    case 'pageCal2':
+      if (_cal2) {
+        _cal2.resetPageForLanguageChange();
+      }
+      break;
     case 'pagePlanner':
       if (_pagePlanner) {
         _pagePlanner.resetPageForLanguageChange();
@@ -439,18 +518,17 @@ function updatePageContent(id, di) {
         return { name: name || getMessage(key, di), value: getMessage(key + 'Format', di) };
       };
       var dayDetails = [
-         makeObj('DayOfWeek')
-       , makeObj('DayOfMonth')
-       , { name: getMessage('Month'), value: getMessage(di.bMonth ? 'MonthFormatNormal' : "MonthFormatAyyam", di) }
-       , makeObj('YearOfVahid')
-       , makeObj('Vahid', di.VahidLabelPri)
-       , makeObj('Kullishay', di.KullishayLabelPri)
-       , makeObj('YearOfEra')
+        makeObj('DayOfWeek')
+        , makeObj('DayOfMonth')
+        , { name: getMessage('Month'), value: getMessage(di.bMonth ? 'MonthFormatNormal' : "MonthFormatAyyam", di) }
+        , makeObj('YearOfVahid')
+        , makeObj('Vahid', di.VahidLabelPri)
+        , makeObj('Kullishay', di.KullishayLabelPri)
+        , makeObj('YearOfEra')
       ];
       var explain1 = getMessage('shoghiExample', di);
       var explain2 = getMessage('example2', di);
 
-      getUpcoming(di);
       $('#upcoming').html(di.upcomingHtml);
 
       $('#explain').html(explain1);
@@ -460,7 +538,7 @@ function updatePageContent(id, di) {
 
       $('#gDate').html(getMessage('gregorianDateDisplay', di));
       $('#gDateDesc').html('({^currentRelationToSunset})'.filledWith(di));
-      $('button.today').toggleClass('notToday', di.stamp !== _initialDiStamp);
+      $('button.today').toggleClass('notToday', di.stamp !== _initialDiStamp.stamp);
       $('#datePicker').val(di.currentDateString);
 
       addSamples(di);
@@ -486,6 +564,12 @@ function updatePageContent(id, di) {
     case 'pageCalGreg':
       if (_calGreg) {
         _calGreg.showCalendar(di);
+      }
+      break;
+
+    case 'pageCal2':
+      if (_cal2) {
+        _cal2.showCalendar(di);
       }
       break;
 
@@ -662,7 +746,7 @@ function changeToBDate(ev) {
     _changingBDate = false;
 
   } catch (error) {
-    log(error);
+    console.log(error);
   }
 
 }
@@ -754,7 +838,7 @@ function keyPressed(ev) {
     case 38: //up
       if (_enableDayKeysUD) {
         if (_upDownKeyDelta) {
-          changeDay(null, 0 - _upDownKeyDelta);
+          changeDay(null, 0 - _upDownKeyDelta(-1));
           ev.preventDefault();
         }
       }
@@ -762,7 +846,7 @@ function keyPressed(ev) {
     case 40: //down
       if (_enableDayKeysUD) {
         if (_upDownKeyDelta) {
-          changeDay(null, _upDownKeyDelta);
+          changeDay(null, _upDownKeyDelta(1));
           ev.preventDefault();
         }
       }
@@ -892,8 +976,8 @@ function addSample(info, format, group) {
   // also in pageCustom
   $('#samples').find('#sampleList' + group)
     .append(('<div><button title="{tooltip}"'
-    + ' type=button data-letter={letter} id="key{letter}">{letter}{currentNote}</button>'
-    + ' <span>{^value}</span></div>').filledWith(sample));
+      + ' type=button data-letter={letter} id="key{letter}">{letter}{currentNote}</button>'
+      + ' <span>{^value}</span></div>').filledWith(sample));
 }
 
 function clearSamples() {
@@ -927,7 +1011,7 @@ function toggleEveOrDay(toEve) {
   setFocusTime(getFocusTime());
   toEve = typeof toEve === 'boolean' ? toEve : !_di.bNow.eve;
   if (toEve) {
-    _focusTime.setHours(23, 59, 0, 0);
+    _focusTime.setHours(23, 55, 0, 0);
   } else {
     _focusTime.setHours(12, 0, 0, 0);
   }
@@ -968,7 +1052,7 @@ function moveDays(ev) {
     return;
   }
   var target = new Date(_di.currentTime);
-  target.setTime(target.getTime() + days * 86400000);
+  target.setTime(target.getTime() + days * 864e5);
   setFocusTime(target);
   refreshDateInfo();
   showInfo(_di);
@@ -998,14 +1082,19 @@ function changeYear(ev, delta, targetYear) {
 }
 
 function changeDay(ev, delta) {
-
   delta = ev ? +$(ev.target).data('delta') : +delta;
+
   if (delta === 0) {
     // reset to real time
     setStorage('focusTimeIsEve', null);
     setFocusTime(new Date());
   } else {
     var time = getFocusTime();
+    if (_di.bNow.eve) {
+      time.setHours(23, 55, 0, 0);
+    } else {
+      time.setHours(12, 0, 0, 0);
+    }
     time.setDate(time.getDate() + delta);
     setFocusTime(time);
   }
@@ -1016,17 +1105,28 @@ function changeDay(ev, delta) {
 
   refreshDateInfo();
 
-  if (_di.stamp === _initialDiStamp) {
+  if (_di.stamp === _initialDiStamp.stamp) {
     setStorage('focusTimeIsEve', null);
   }
 
   if (_di.bNow.eve) {
-    _focusTime.setHours(23, 59, 0, 0);
+    _focusTime.setHours(23, 55, 0, 0);
   } else {
     _focusTime.setHours(12, 0, 0, 0);
   }
 
   showInfo(_di);
+
+  if (delta === 0) {
+    showWhenResetToNow();
+  }
+}
+
+function showWhenResetToNow() {
+  _initialDiStamp = getDateInfo(new Date(), true);
+  if (_cal2) {
+    _cal2.showTodayTime();
+  }
 }
 
 function fillSetup() {
@@ -1045,6 +1145,168 @@ function fillSetup() {
       tracker.sendEvent('optOut', optingOut);
     }
   });
+
+  // var langInput = $('#setupLang');
+  // startFillingLanguageInput(langInput);
+  // console.log('finished call to start filling')
+
+  var colorInput = $('#setupColor');
+  colorInput.val(settings.iconTextColor);
+  colorInput.on('change', function () {
+    var newColor = colorInput.val();
+    setStorage('iconTextColor', newColor);
+    settings.iconTextColor = newColor;
+    showIcon();
+  });
+
+  $('#inputLat').val(localStorage.lat);
+  $('#inputLng').val(localStorage.long);
+
+}
+
+function startFillingLanguageInput(select) {
+  var langs = [];
+  // getMessage('languageList')
+  //   .split(splitSeparator)
+  //   .forEach(function (s) {
+  //     // console.log(s)
+  //     var parts = s.split(':', 2);
+  //     // console.log(parts)
+  //     langs[parts[0]] = parts[parts.length - 1];
+  //   });
+  // // console.log(langs);
+
+  chrome.runtime.getPackageDirectoryEntry(function (directoryEntry) {
+    // console.log('got directory')
+    directoryEntry.getDirectory('_locales', {}, function (subDirectoryEntry) {
+      // console.log('got subdirectory list')
+      var directoryReader = subDirectoryEntry.createReader();
+      directoryReader.readEntries(function (entries) {
+        // console.log('got entries')
+        for (var i = 0; i < entries.length; ++i) {
+          var langToLoad = entries[i].name;
+
+          var url = "/_locales/" + langToLoad + "/messages.json";
+          $.ajax({
+            dataType: "json",
+            url: url,
+            isLocal: true,
+            async: false
+          })
+            .done(function (messages) {
+              // console.log(langToLoad, messages);
+              var msg = messages.rbDefLang_Local;
+              var name = msg ? msg.message : langToLoad;
+              langs.push({
+                code: langToLoad,
+                name: name || '',
+                pct: Math.round(Object.keys(messages).length / _numMessagesEn * 100)
+              });
+            })
+            .fail(function () {
+            });
+        }
+
+        var options = [];
+        langs.sort(function (a, b) {
+          return (a.name || a.code) > (b.name || b.code) ? 1 : -1;
+        });
+        for (i = 0; i < langs.length; i++) {
+          var info = langs[i];
+          options.push('<option value={0}>{1} ... {0} ... {2}%</option>'.filledWith(info.code, info.name, info.pct))
+        }
+        select.html(options.join(''))
+        // console.log('lang list filled')
+
+        select.val(_languageCode);
+
+        if (select[0].selectedIndex === -1) {
+          // code was not in the list
+          select.val('en');
+        }
+
+        var pctSpan = $('#setupLangPct');
+        if (select.val() === 'en') {
+          pctSpan.hide();
+        } else {
+          var msg = _rawMessageTranslationPct === 100
+            ? getMessage('setupLangPct100')
+            : getMessage('setupLangPct').filledWith(_rawMessageTranslationPct);
+          pctSpan.html(msg).show();
+        }
+
+        langSelectChanged();
+      });
+    });
+  });
+
+}
+
+function langSelectChanged() {
+  var select = $('#setupLang');
+  var lang = select.val();
+
+  setStorage('lang', lang);
+
+  if (lang === _languageCode) {
+    return;
+  }
+
+  // reload to apply new language
+  // location.reload(false);
+  location.href = location.href;
+}
+
+var updateLocationTimer = null;
+function updateLocation(immediately) {
+  if (!immediately) {
+    clearTimeout(updateLocationTimer);
+    updateLocationTimer = setTimeout(function () {
+      updateLocation(true);
+    }, 1000);
+    return;
+  }
+
+  var inputLat = $('#inputLat');
+  var lat = +inputLat.val();
+
+  var inputLng = $('#inputLng');
+  var lng = +inputLng.val();
+
+  if (lat === 0 || Math.abs(lat) > 85) {
+    inputLat.addClass('error');
+    lat = 0;
+  }
+  if (lng === 0 || Math.abs(lng) > 180) {
+    inputLng.addClass('error');
+    lng = 0;
+  }
+  if (lat === 0 || lng === 0) {
+    return;
+  }
+  inputLat.removeClass('error');
+  inputLng.removeClass('error');
+
+  var changed = false;
+  if (_locationLat !== lat) {
+    localStorage.lat = _locationLat = lat;
+    changed = true;
+  }
+  if (_locationLong !== lng) {
+    localStorage.long = _locationLong = lng;
+    changed = true;
+  }
+
+  if (changed) {
+    knownDateInfos = {};
+    setStorage('locationKnown', true);
+    setStorage('locationNameKnown', false);
+    localStorage.locationName = getMessage('browserActionTitle'); // temp until we get it
+
+    startGetLocationName();
+
+    refreshDateInfoAndShow();
+  }
 }
 
 function fillStatic() {
@@ -1266,7 +1528,7 @@ function BuildSpecialDaysTable(di) {
 
   $('#fastListBody')
     .html(fastRowTemplate.join('')
-    .filledWithEach(dayInfos.filter(function (el) { return el.Type === 'Fast' })));
+      .filledWithEach(dayInfos.filter(function (el) { return el.Type === 'Fast' })));
 
   $('#fastDaysTitle').html(getMessage('fastDaysTitle', di));
 }
@@ -1373,19 +1635,23 @@ function prepare1() {
 
   var langCode = _languageCode.slice(0, 2);
   $('body')
-  .addClass(_languageCode)
-  .addClass(langCode)
-  .addClass(browserHostType)
-  .attr('lang', _languageCode)
-  .attr('dir', _languageDir);
+    .addClass(_languageCode)
+    .addClass(_languageDir)
+    .addClass(langCode)
+    .addClass(browserHostType)
+    .attr('lang', _languageCode)
+    .attr('dir', _languageDir);
 
-  _initialDiStamp = getDateInfo(new Date(), true).stamp;
+  _initialDiStamp = getDateInfo(new Date(), true);
 
   recallFocusAndSettings();
 
-  updateLoadProgress();
+  updateLoadProgress('refresh date info');
 
   UpdateLanguageBtn();
+
+  updateLoadProgress('defaults');
+  prepareDefaults();
 
   if (_iconPrepared) {
     refreshDateInfo();
@@ -1398,37 +1664,33 @@ function prepare1() {
     toggleEveOrDay(isEve);
   }
 
-  updateLoadProgress();
-
+  updateLoadProgress('localize');
   localizeHtml();
-  updateLoadProgress();
 
+  updateLoadProgress('page custom');
   _pageCustom = PageCustom();
-  updateLoadProgress();
 
-  prepareDefaults();
-  updateLoadProgress();
-
+  updateLoadProgress('showInfo');
   showInfo(_di);
-  updateLoadProgress();
 
+  updateLoadProgress('showPage');
   showPage();
-  updateLoadProgress();
 
+  updateLoadProgress('shortcut keys');
   showShortcutKeys();
-  updateLoadProgress();
 
+  updateLoadProgress('handlers');
   attachHandlers();
-  updateLoadProgress();
 
+  updateLoadProgress('btn open');
   showBtnOpen();
-  updateLoadProgress();
 
+  updateLoadProgress('tab names');
   updateTabNames();
-  updateLoadProgress();
 
-  // delay if viewing first page
-  setTimeout(prepare2, _currentPageId === 'pageDay' ? 1000 : 0);
+  updateLoadProgress('prepare2 soon');
+
+  setTimeout(prepare2, 0);
 
   // if viewing first page, show now
   if (_currentPageId === 'pageDay') {
@@ -1468,9 +1730,10 @@ function prepare2() {
 
   _initialStartupDone = true;
 
+  updateLoadProgress('prepare2 start');
   prepareAnalytics();
-  updateLoadProgress();
 
+  updateLoadProgress('send event');
   tracker.sendEvent('opened');
   tracker.sendAppView(_currentPageId);
 
@@ -1482,40 +1745,45 @@ function prepare2() {
     setTimeout(finishFirstPopup, 4000);
   }
 
+  updateLoadProgress('fill eventStart');
   fillEventStart();
-  updateLoadProgress();
 
+  updateLoadProgress('fill static');
   fillStatic();
-  updateLoadProgress();
 
+  updateLoadProgress('fill setup');
   fillSetup();
-  updateLoadProgress();
 
+  updateLoadProgress('localize');
   localizeHtml('#pageLists');
-  updateLoadProgress();
 
+  updateLoadProgress('cal1');
   _cal1 = Cal1(_di);
   _cal1.showCalendar(_di);
-  updateLoadProgress();
 
+  updateLoadProgress('calWheel');
   _calWheel = CalWheel();
   _calWheel.showCalendar(_di);
-  updateLoadProgress();
 
+  updateLoadProgress('calGreg');
   _calGreg = CalGreg();
   _calGreg.showCalendar(_di);
-  updateLoadProgress();
+
+  updateLoadProgress('cal2');
+  _cal2 = Cal2();
+  _cal2.showCalendar(_di);
 
   if (_remindersEnabled) {
+    updateLoadProgress('reminders');
     _pageReminders = PageReminders();
-    updateLoadProgress();
   }
   $('#btnPageReminders').toggle(_remindersEnabled);
 
+  updateLoadProgress('export & planner');
   _pageExporter = PageExporter();
   _pagePlanner = PagePlanner();
-  updateLoadProgress();
 
+  updateLoadProgress('finish');
   $('#version').attr('href', getMessage(browserHostType + "_History"));
   $('#linkWebStore').attr('href', getMessage(browserHostType + "_WebStore"));
   $('#linkWebStoreSupport').attr('href', getMessage(browserHostType + "_WebStoreSupport"));
@@ -1525,13 +1793,22 @@ function prepare2() {
     $('#initialCover').hide();
   }
 
-  if (_di.stamp !== _initialDiStamp) {
+  if (_di.stamp !== _initialDiStamp.stamp) {
     highlightGDay();
   }
 }
 
-function updateLoadProgress() {
+function updateLoadProgress(comment) {
   _loadingNum++;
+  //  var time = new Date().getTime();
+  //  if (_lastLoadingTime) {
+  //    var elapsed = `${_lastLoadingComment} (${time - _lastLoadingTime})`;
+  //
+  //    console.log(_loadingNum, elapsed);
+  //  }
+  //  _lastLoadingTime = new Date().getTime();
+  //  _lastLoadingComment = comment;
+
   $('#loadingCount').text(new Array(_loadingNum + 1).join('.'));
 }
 
