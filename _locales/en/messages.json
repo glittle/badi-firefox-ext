@@ -462,11 +462,11 @@
     "description": "about page"
   },
   "Firefox_WebStore": {
-    "message": "https://addons.mozilla.org/en-US/firefox/addon/bad%C3%AD-calendar/",
+    "message": "https://addons.mozilla.org/en-US/firefox/addon/wondrous-calendar/",
     "description": "link to Webstore when running in Firefox"
   },
   "Firefox_WebStoreSupport": {
-    "message": "https://addons.mozilla.org/en-US/firefox/addon/bad%C3%AD-calendar/",
+    "message": "https://addons.mozilla.org/en-US/firefox/addon/wondrous-calendar/",
     "description": "link to Webstore support link when running in Firefox"
   },
   "formatIconClick": {
