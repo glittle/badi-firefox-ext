@@ -219,11 +219,13 @@ body.rtl {
   margin: 0 0 2px 0;
 }
 #pageSetup div.setupPlace .place {
+  display: block;
+  margin: -15px 10px 0px 15px;
+  padding: 0 4px;
   font-size: 100%;
   color: #000;
   vertical-align: middle;
   border-bottom: 1px solid #ccc;
-  padding: 0 4px;
   font-style: italic;
 }
 #pageSetup div.setupPlace input {
