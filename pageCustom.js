@@ -120,7 +120,7 @@ var PageCustom = () => {
         var btn = $(ev.target);
         var div = btn.closest('.customFormatDiv');
         var format = div.find('.customFormat').html();
-        tracker.sendEvent('customSample', format);
+        // tracker.sendEvent('customSample', format);
         var text = div.find('.customSample').html();
         $('#sampleCopy').val(text).focus().select();
         document.execCommand('copy');

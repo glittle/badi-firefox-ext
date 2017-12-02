@@ -40,11 +40,11 @@ var BackgroundModule = function () {
 
           setStorage('firstPopup', true);
 
-          try {
-            tracker.sendEvent('updated', getVersionInfo());
-          } catch (e) {
-            console.log(e);
-          }
+          // try {
+          //   tracker.sendEvent('updated', getVersionInfo());
+          // } catch (e) {
+          //   console.log(e);
+          // }
         } else {
           console.log(newVersion);
         }
@@ -125,6 +125,7 @@ var BackgroundModule = function () {
         //  break;
 
         case 'openInTab':
+        console.log('open in tab')
           var afterUpdate = function (updatedTab) {
             if (!updatedTab) {
               makeTab();
@@ -163,10 +164,10 @@ var BackgroundModule = function () {
                     break;
                 }
 
-                if (tracker) {
-                  // not working?...
-                  tracker.sendEvent('openInTabContextMenu');
-                }
+                // if (tracker) {
+                //   // not working?...
+                //   tracker.sendEvent('openInTabContextMenu');
+                // }
               });
 
               break;
@@ -174,10 +175,10 @@ var BackgroundModule = function () {
             default:
               makeTab();
 
-              if (tracker) {
-                // not working?...
-                tracker.sendEvent('openInTabContextMenu');
-              }
+              // if (tracker) {
+              //   // not working?...
+              //   tracker.sendEvent('openInTabContextMenu');
+              // }
               break;
           }
 

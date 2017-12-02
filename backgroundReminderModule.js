@@ -504,13 +504,13 @@ var BackgroundReminderEngine = function () {
         //  break;
     }
 
-    try {
-      prepareAnalytics();
+    // try {
+    //   prepareAnalytics();
 
-      tracker.sendEvent('showReminder', alarmInfo.trigger, alarmInfo.delta * alarmInfo.num + ' ' + alarmInfo.units + ' ' + api);
-    } catch (e) {
-            console.log(e);
-    }
+    //   tracker.sendEvent('showReminder', alarmInfo.trigger, alarmInfo.delta * alarmInfo.num + ' ' + alarmInfo.units + ' ' + api);
+    // } catch (e) {
+    //         console.log(e);
+    // }
 
     if (alarmInfo.action) {
       doAdditionalActions(alarmInfo);
@@ -519,23 +519,23 @@ var BackgroundReminderEngine = function () {
 
   function doAdditionalActions(alarmInfo) {
     switch (alarmInfo.action) {
-      case 'speak':
-        var options = {
-          //'lang': _languageCode,
-          'voiceName': alarmInfo.speakVoice,
-          'enqueue': true
-        };
-                console.log(options);
-        chrome.tts.speak(
-          '{title}.\n\n {messageBody}'.filledWith(alarmInfo),
-          options,
-          function () {
-            if (chrome.runtime.lastError) {
-                          console.log('Error: ' + chrome.runtime.lastError);
-            }
-          });
+      // case 'speak':
+      //   var options = {
+      //     //'lang': _languageCode,
+      //     'voiceName': alarmInfo.speakVoice,
+      //     'enqueue': true
+      //   };
+      //   console.log(options);
+      //   chrome.tts.speak(
+      //     '{title}.\n\n {messageBody}'.filledWith(alarmInfo),
+      //     options,
+      //     function () {
+      //       if (chrome.runtime.lastError) {
+      //                     console.log('Error: ' + chrome.runtime.lastError);
+      //       }
+      //     });
 
-        break;
+      //   break;
       case 'ifttt':
         var url = 'https://maker.ifttt.com/trigger/{iftttEvent}/with/key/{iftttKey}'.filledWith(alarmInfo);
         var content = {

@@ -18,7 +18,7 @@ var _iconPrepared = false;
 var settings = {
   useArNames: true,
   rememberFocusTimeMinutes: 5, // show on settings page?
-  optedOutOfGoogleAnalytics: getStorage('optOutGa', -1),
+  // optedOutOfGoogleAnalytics: getStorage('optOutGa', -1),
   //  integrateIntoGoogleCalendar: getStorage('enableGCal', true),
   iconTextColor: getStorage('iconTextColor', 'black')
 };
@@ -1126,60 +1126,60 @@ function shallowCloneOf(obj) {
 // }
 
 // google analytics using Measurement Protocol
-var trackerFunc = function () {
-  var baseParams = {
-    ds: 'app',
-    tid: 'UA-1312528-10',
-    v: 1,
-    cid: localStorage.uid || (localStorage.uid = createGuid()),
-    an: 'BadiWeb',
-    ul: navigator.language,
-    aid: browserHostType,
-    av: chrome.runtime.getManifest().version
-  };
+// var trackerFunc = function () {
+  // var baseParams = {
+  //   ds: 'app',
+  //   tid: 'UA-1312528-10',
+  //   v: 1,
+  //   cid: localStorage.uid || (localStorage.uid = createGuid()),
+  //   an: 'BadiWeb',
+  //   ul: navigator.language,
+  //   aid: browserHostType,
+  //   av: chrome.runtime.getManifest().version
+  // };
 
-  var send = function (info) {
-    if (settings.optedOutOfGoogleAnalytics === true) {
-      console.log('opted out of analytics');
-      return;
-    }
-    var data = $.extend(info, baseParams);
+  // var send = function (info) {
+  //   if (settings.optedOutOfGoogleAnalytics === true) {
+  //     console.log('opted out of analytics');
+  //     return;
+  //   }
+  //   var data = $.extend(info, baseParams);
 
-    var useDebug = false; // turn on during initial testing
-    if (useDebug) {
-      $.post('https://www.google-analytics.com/debug/collect', data);
-    } else {
-      $.post('https://www.google-analytics.com/collect', data);
-    }
-  };
+  //   var useDebug = false; // turn on during initial testing
+  //   if (useDebug) {
+  //     $.post('https://www.google-analytics.com/debug/collect', data);
+  //   } else {
+  //     $.post('https://www.google-analytics.com/collect', data);
+  //   }
+  // };
 
-  var sendEvent = function (category, action) {
-    send({ t: 'event', ec: category, ea: action });
-  };
-  var sendAppView = function (id) {
-    send({ t: 'screenview', cd: id });
-  };
-  return {
-    sendEvent: sendEvent,
-    sendAppView: sendAppView
-  };
-};
+  // var sendEvent = function (category, action) {
+  //   send({ t: 'event', ec: category, ea: action });
+  // };
+  // var sendAppView = function (id) {
+  //   send({ t: 'screenview', cd: id });
+  // };
+  // return {
+  //   sendEvent: sendEvent,
+  //   sendAppView: sendAppView
+  // };
+// };
 
-var tracker;
+// var tracker;
 
-function prepareAnalytics() {
-  tracker = trackerFunc();
+// function prepareAnalytics() {
+//   tracker = trackerFunc();
 
-  //  if (typeof tracker !== 'undefined') {
-  //    var service = analytics.getService('BadiCal');
-  //    service.getConfig().addCallback(function (config) {
-  //      tracker.sendEvent('opened', getVersionInfo());
-  //    });
-  //    tracker = service.getTracker('UA-1312528-10');
-  //    tracker.set('appVersion', chrome.runtime.getManifest().version);
-  //    tracker.set('language', navigator.language);
-  //  }
-}
+//   //  if (typeof tracker !== 'undefined') {
+//   //    var service = analytics.getService('BadiCal');
+//   //    service.getConfig().addCallback(function (config) {
+//   //      tracker.sendEvent('opened', getVersionInfo());
+//   //    });
+//   //    tracker = service.getTracker('UA-1312528-10');
+//   //    tracker.set('appVersion', chrome.runtime.getManifest().version);
+//   //    tracker.set('language', navigator.language);
+//   //  }
+// }
 
 
 // polyfill

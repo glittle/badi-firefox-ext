@@ -1154,18 +1154,6 @@
     "message": "Icoonkleur",
     "description": "on setup page"
   },
-  "setupOptOut": {
-    "message": "Uitschrijven?",
-    "description": "label for checkbox"
-  },
-  "setupOptOutPara": {
-    "message": "Om te begrijpen hoe deze extensie gebruikt word worden er statistieken geregistreerd wanneer je tussen pagina's switcht of bij andere belangrijke acties. Dit is anoniem, en de gerelateerde rapporten kunnen door Glen Little worden gezien. Als je dit uit wil zetten en hier niet aan mee wilt doen, klik dit vakje aan:",
-    "description": "explanation of opting out of Google Analytics"
-  },
-  "setupOptOutTitle": {
-    "message": "Analytics",
-    "description": "title for setup section about opting out of Google Analytics"
-  },
   "shoghiExample": {
     "message": "Deze dag heet {bWeekdayNamePri}, de dag {bDayNamePri} van de maand {bMonthNamePri}, van het jaar {bYearInVahidNamePri}, van de {bVahidOrdinalName} {VahidLabelPri}, van de {bKullishayOrdinalName} {KullishayLabelPri}.",
     "description": "Example given by Shoghi Effendi"

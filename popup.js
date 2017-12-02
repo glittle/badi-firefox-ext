@@ -105,7 +105,7 @@ function attachHandlers() {
 function ApplyLanguage() {
   UpdateLanguageBtn();
   setStorage('useArNames', settings.useArNames);
-  tracker.sendEvent('useArabic', settings.useArNames);
+  // tracker.sendEvent('useArabic', settings.useArNames);
   knownDateInfos = {};
   resetForLanguageChange();
   refreshDateInfoAndShow();
@@ -421,11 +421,11 @@ function showPage(id) {
   clearTimeout(_pageHitTimeout);
 
   // delay a bit, to ensure we are not just moving past this page
-  if (tracker) {
-    _pageHitTimeout = setTimeout(function () {
-      tracker.sendAppView(id);
-    }, 500);
-  }
+  // if (tracker) {
+  //   _pageHitTimeout = setTimeout(function () {
+  //     tracker.sendAppView(id);
+  //   }, 500);
+  // }
 }
 
 function updatePageContentWhenVisible(id, di) {
@@ -702,7 +702,7 @@ function changeInVahid(ev) {
     bKullishay = maxKullishay;
   }
 
-  tracker.sendEvent('changeInVahid', bKullishay + '-' + bVahid + '-' + bYearInVahid);
+  // tracker.sendEvent('changeInVahid', bKullishay + '-' + bVahid + '-' + bYearInVahid);
 
   var year = Math.min(1000, 19 * 19 * (bKullishay - 1) + 19 * (bVahid - 1) + bYearInVahid);
   changeYear(null, null, year);
@@ -732,7 +732,7 @@ function changeToBDate(ev) {
   var bDay = $('#bDayPicker').val();
   if (bDay === '') return;
 
-  tracker.sendEvent('changeToBDate', bYear + '.' + bMonth + '.' + bDay);
+  // tracker.sendEvent('changeToBDate', bYear + '.' + bMonth + '.' + bDay);
 
   try {
     var gDate = holyDays.getGDate(+bYear, +bMonth, +bDay, true);
@@ -990,7 +990,7 @@ function clearSamples() {
 function copySample(ev) {
   var btn = $(ev.target);
   var letter = btn.text();
-  tracker.sendEvent('sample', letter);
+  // tracker.sendEvent('sample', letter);
 
   var div = btn.closest('div');
   var text = div.find('span').text();
@@ -1017,9 +1017,9 @@ function toggleEveOrDay(toEve) {
   }
 
   setStorage('focusTimeIsEve', toEve);
-  if (tracker) {
-    tracker.sendEvent('toggleEveDay', toEve ? 'Eve' : 'Day');
-  }
+  // if (tracker) {
+  //   tracker.sendEvent('toggleEveDay', toEve ? 'Eve' : 'Day');
+  // }
 
   refreshDateInfo();
   showInfo(_di);
@@ -1046,7 +1046,7 @@ function moveDays(ev) {
     }
   }
   setStorage('jumpTo', days);
-  tracker.sendEvent('jumpDays', days);
+  // tracker.sendEvent('jumpDays', days);
 
   if (!days) {
     return;
@@ -1075,7 +1075,7 @@ function changeYear(ev, delta, targetYear) {
   var gDate = holyDays.getGDate(year, _di.bMonth, _di.bDay, true);
   setFocusTime(gDate);
 
-  tracker.sendEvent('changeYear', delta);
+  // tracker.sendEvent('changeYear', delta);
 
   refreshDateInfo();
   showInfo(_di);
@@ -1099,9 +1099,9 @@ function changeDay(ev, delta) {
     setFocusTime(time);
   }
 
-  if (tracker) {
-    tracker.sendEvent('changeDay', delta);
-  }
+  // if (tracker) {
+  //   tracker.sendEvent('changeDay', delta);
+  // }
 
   refreshDateInfo();
 
@@ -1130,21 +1130,21 @@ function showWhenResetToNow() {
 }
 
 function fillSetup() {
-  var optedOut = settings.optedOutOfGoogleAnalytics === true;
-  var cb = $('#setupOptOut');
-  cb.prop('checked', optedOut);
-  cb.on('change', function () {
-    var optingOut = cb.prop('checked');
-    if (optingOut) {
-      tracker.sendEvent('optOut', optingOut);
-    }
-    setStorage('optOutGa', optingOut);
-    settings.optedOutOfGoogleAnalytics = optingOut;
+  // var optedOut = settings.optedOutOfGoogleAnalytics === true;
+  // var cb = $('#setupOptOut');
+  // cb.prop('checked', optedOut);
+  // cb.on('change', function () {
+  //   var optingOut = cb.prop('checked');
+  //   if (optingOut) {
+  //     tracker.sendEvent('optOut', optingOut);
+  //   }
+  //   setStorage('optOutGa', optingOut);
+  //   settings.optedOutOfGoogleAnalytics = optingOut;
 
-    if (!optingOut) {
-      tracker.sendEvent('optOut', optingOut);
-    }
-  });
+  //   if (!optingOut) {
+  //     tracker.sendEvent('optOut', optingOut);
+  //   }
+  // });
 
   // var langInput = $('#setupLang');
   // startFillingLanguageInput(langInput);
@@ -1620,12 +1620,12 @@ function openInTab() {
         chrome.tabs.create({ url: url });
       }
       window.close();
-      tracker.sendEvent('openInTab');
+      // tracker.sendEvent('openInTab');
     });
   } else {
     chrome.tabs.create({ url: url });
     window.close();
-    tracker.sendEvent('openInTab');
+    // tracker.sendEvent('openInTab');
   }
 }
 
@@ -1731,11 +1731,11 @@ function prepare2() {
   _initialStartupDone = true;
 
   updateLoadProgress('prepare2 start');
-  prepareAnalytics();
+  // prepareAnalytics();
 
   updateLoadProgress('send event');
-  tracker.sendEvent('opened');
-  tracker.sendAppView(_currentPageId);
+  // tracker.sendEvent('opened');
+  // tracker.sendAppView(_currentPageId);
 
   if (getStorage('firstPopup', false)) {
     // first time popup is opened after upgrading to newest version
