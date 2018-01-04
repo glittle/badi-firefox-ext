@@ -18,8 +18,7 @@ var BackgroundModule = function () {
       console.log('ALARM: ' + alarm.name);
       refreshDateInfoAndShow();
       _backgroundReminderEngine.setAlarmsForRestOfToday();
-    }
-    else if (alarm.name.startsWith('alarm_')) {
+    } else if (alarm.name.startsWith('alarm_')) {
       _backgroundReminderEngine.triggerAlarmNow(alarm.name);
     }
   };
@@ -67,7 +66,9 @@ var BackgroundModule = function () {
   }
 
   function makeTab() {
-    chrome.tabs.create({ url: popupUrl }, function (newTab) {
+    chrome.tabs.create({
+      url: popupUrl
+    }, function (newTab) {
       setStorage('tabId', newTab.id);
     });
   };
@@ -125,7 +126,7 @@ var BackgroundModule = function () {
         //  break;
 
         case 'openInTab':
-        console.log('open in tab')
+          console.log('open in tab')
           var afterUpdate = function (updatedTab) {
             if (!updatedTab) {
               makeTab();
@@ -137,7 +138,9 @@ var BackgroundModule = function () {
 
           switch (browserHostType) {
             case browser.Chrome:
-              chrome.tabs.query({ url: popupUrl }, function (foundTabs) {
+              chrome.tabs.query({
+                url: popupUrl
+              }, function (foundTabs) {
                 switch (foundTabs.length) {
                   case 1:
                     // resuse
@@ -188,9 +191,9 @@ var BackgroundModule = function () {
 
     console.log('prepared background');
 
-    if (browserHostType === browser.Firefox) {
-      makeTab();
-    }
+    //if (browserHostType === browser.Firefox) {
+    //    makeTab();
+    //}
   }
 
   return {

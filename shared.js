@@ -26,7 +26,9 @@ var settings = {
 function loadRawMessages(langCode, cb) {
   // load base English, then overwrite with base for language, then with full lang code
 
-  var rawLangCodes = { en: true };
+  var rawLangCodes = {
+    en: true
+  };
   if (langCode.length > 2) {
     rawLangCodes[langCode.slice(0, 2)] = true;
   }
@@ -43,11 +45,11 @@ function loadRawMessages(langCode, cb) {
     var url = "/_locales/" + langToLoad + "/messages.json";
 
     $.ajax({
-      dataType: "json",
-      url: url,
-      isLocal: true,
-      async: false
-    })
+        dataType: "json",
+        url: url,
+        isLocal: true,
+        async: false
+      })
       .done(function (messages) {
         // console.log(langToLoad, messages);
 
@@ -66,8 +68,7 @@ function loadRawMessages(langCode, cb) {
         });
 
       })
-      .fail(function () {
-      });
+      .fail(function () {});
   }
 
   _cachedMessages = {};
@@ -399,7 +400,9 @@ function showIcon() {
 
   tipLines.push(getMessage('formatIconClick'));
 
-  chrome.browserAction.setTitle({ title: tipLines.join('\n') });
+  chrome.browserAction.setTitle({
+    title: tipLines.join('\n')
+  });
 
   try {
     chrome.browserAction.setIcon({
@@ -441,9 +444,9 @@ function draw(line1, line2, line2Alignment) {
     case 'center':
       x = size / 2;
       break;
-    //    case 'end':
-    //      x = size;
-    //      break;
+      //    case 'end':
+      //      x = size;
+      //      break;
   }
   context.fillText(line2, x, size);
 
@@ -519,13 +522,13 @@ function showTime(d, use24) {
   var show24Hour = hoursType === 24;
   var hours24 = d.getHours();
   var pm = hours24 >= 12;
-  var hours = show24Hour
-    ? hours24
-    : hours24 > 12
-      ? hours24 - 12
-      : hours24 === 0
-        ? 12
-        : hours24;
+  var hours = show24Hour ?
+    hours24 :
+    hours24 > 12 ?
+    hours24 - 12 :
+    hours24 === 0 ?
+    12 :
+    hours24;
   var minutes = d.getMinutes();
   var time = hours + ':' + ('0' + minutes).slice(-2);
   if (!show24Hour) {
@@ -573,14 +576,20 @@ function startGetLocationName() {
     //    console.log('new state ' + xhr.readState);
     if (xhr.readyState === 4) {
       var data = JSON.parse(xhr.responseText);
+      var unknownLocation = getMessage('noLocationName');
+
       localStorage.locationName =
         findName('neighborhood', data.results, true) ||
         findName('locality', data.results) ||
         findName('political', data.results) ||
-        getMessage('noLocationName');
+        unknownLocation;
 
       setStorage('locationNameKnown', true);
       console.log(localStorage.locationName);
+
+      if (localStorage.locationName === unknownLocation) {
+        console.log(data);
+      }
 
       stopLoaderButton();
 
@@ -602,8 +611,20 @@ function stopLoaderButton() {
 }
 
 function setLocation(position) {
-  localStorage.lat = _locationLat = position.coords.latitude;
-  localStorage.long = _locationLong = position.coords.longitude;
+  // FF calls this constantly...
+  // on a stationary computer, the lat/lng changes on every call on at least the 4th decimal
+  var factor = 1e4;
+  var newLat = Math.round(position.coords.latitude * factor) / factor;
+  var newLong = Math.round(position.coords.longitude * factor) / factor;
+  if (_locationLat === newLat && _locationLong === newLong) {
+    return;
+  }
+
+  console.log('lat', _locationLat, newLat, position.coords.latitude);
+  console.log('lng', _locationLong, newLong, position.coords.longitude);
+
+  localStorage.lat = _locationLat = newLat;
+  localStorage.long = _locationLong = newLong;
   knownDateInfos = {};
 
   setStorage('locationKnown', true);
@@ -700,6 +721,8 @@ function refreshDateInfoAndShow(resetToNow) {
     recallFocusAndSettings();
   }
   console.log('refreshDateInfoAndShow at ' + new Date());
+  //var z = dummyToShowStackTrace / 0; // force dump of stack trace at this point
+
   var di = refreshDateInfo();
   _di = di;
   _firstLoad = false;
@@ -745,7 +768,9 @@ function setAlarmForNextUpdate(currentTime, sunset, inEvening) {
 
   refreshAlarms[whenTime] = true;
 
-  chrome.alarms.create(alarmName, { when: whenTime });
+  chrome.alarms.create(alarmName, {
+    when: whenTime
+  });
 
   // debug - show alarm that was set
   chrome.alarms.getAll(function (alarms) {
@@ -1127,42 +1152,42 @@ function shallowCloneOf(obj) {
 
 // google analytics using Measurement Protocol
 // var trackerFunc = function () {
-  // var baseParams = {
-  //   ds: 'app',
-  //   tid: 'UA-1312528-10',
-  //   v: 1,
-  //   cid: localStorage.uid || (localStorage.uid = createGuid()),
-  //   an: 'BadiWeb',
-  //   ul: navigator.language,
-  //   aid: browserHostType,
-  //   av: chrome.runtime.getManifest().version
-  // };
+// var baseParams = {
+//   ds: 'app',
+//   tid: 'UA-1312528-10',
+//   v: 1,
+//   cid: localStorage.uid || (localStorage.uid = createGuid()),
+//   an: 'BadiWeb',
+//   ul: navigator.language,
+//   aid: browserHostType,
+//   av: chrome.runtime.getManifest().version
+// };
 
-  // var send = function (info) {
-  //   if (settings.optedOutOfGoogleAnalytics === true) {
-  //     console.log('opted out of analytics');
-  //     return;
-  //   }
-  //   var data = $.extend(info, baseParams);
+// var send = function (info) {
+//   if (settings.optedOutOfGoogleAnalytics === true) {
+//     console.log('opted out of analytics');
+//     return;
+//   }
+//   var data = $.extend(info, baseParams);
 
-  //   var useDebug = false; // turn on during initial testing
-  //   if (useDebug) {
-  //     $.post('https://www.google-analytics.com/debug/collect', data);
-  //   } else {
-  //     $.post('https://www.google-analytics.com/collect', data);
-  //   }
-  // };
+//   var useDebug = false; // turn on during initial testing
+//   if (useDebug) {
+//     $.post('https://www.google-analytics.com/debug/collect', data);
+//   } else {
+//     $.post('https://www.google-analytics.com/collect', data);
+//   }
+// };
 
-  // var sendEvent = function (category, action) {
-  //   send({ t: 'event', ec: category, ea: action });
-  // };
-  // var sendAppView = function (id) {
-  //   send({ t: 'screenview', cd: id });
-  // };
-  // return {
-  //   sendEvent: sendEvent,
-  //   sendAppView: sendAppView
-  // };
+// var sendEvent = function (category, action) {
+//   send({ t: 'event', ec: category, ea: action });
+// };
+// var sendAppView = function (id) {
+//   send({ t: 'screenview', cd: id });
+// };
+// return {
+//   sendEvent: sendEvent,
+//   sendAppView: sendAppView
+// };
 // };
 
 // var tracker;
@@ -1184,7 +1209,7 @@ function shallowCloneOf(obj) {
 
 // polyfill
 if (!Array.prototype.includes) {
-  Array.prototype.includes = function (searchElement /*, fromIndex*/) {
+  Array.prototype.includes = function (searchElement /*, fromIndex*/ ) {
     'use strict';
     var o = Object(this);
     var len = parseInt(o.length) || 0;
@@ -1217,7 +1242,8 @@ if (!Array.prototype.includes) {
 function createGuid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
     function (c) {
-      var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+      var r = Math.random() * 16 | 0,
+        v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
 }
@@ -1226,7 +1252,7 @@ function createGuid() {
 chrome.runtime.onMessage.addListener(
   function (payload, sender, callback) {
     if (!callback) {
-      callback = function () { }; // make it optional
+      callback = function () {}; // make it optional
     }
     switch (payload.cmd) {
       case 'getInfo':
@@ -1237,7 +1263,7 @@ chrome.runtime.onMessage.addListener(
           label: getStorage('gCalLabel', '{bMonthNamePri} {bDay}').filledWith(di),
           title: getStorage('gCalTitle', '⇨ {endingSunsetDesc}\n{bYear}.{bMonth}.{bDay}\n{element}').filledWith(di),
           classes:
-          (di.bDay === 1 ? ' firstBDay' : '') + (' element' + di.elementNum)
+            (di.bDay === 1 ? ' firstBDay' : '') + (' element' + di.elementNum)
         });
         break;
 
@@ -1273,7 +1299,7 @@ chrome.runtime.onMessageExternal.addListener(
    */
   function (payload, sender, callback) {
     if (!callback) {
-      callback = function () { }; // make it optional
+      callback = function () {}; // make it optional
     }
     switch (payload.cmd) {
       case 'getInfo':
@@ -1312,4 +1338,3 @@ chrome.runtime.onMessageExternal.addListener(
         break;
     }
   });
-
