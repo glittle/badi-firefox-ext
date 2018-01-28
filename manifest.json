@@ -26,6 +26,7 @@
   },
   "permissions": [
     "alarms",
+    "tabs",
     "storage",
     "notifications",
     "geolocation",

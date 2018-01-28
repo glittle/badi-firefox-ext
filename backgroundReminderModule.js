@@ -331,14 +331,14 @@ console.log('build alarm 1', alarmInfo)
     var futurePast = alarmInfo.eventTime > showDate.getTime() ? 'Future' : 'Past';
     var messageKey = '{0}_{1}'.filledWith(futurePast, messageType);
 
-    var unitInfo = getMessage('reminderNum_{0}_1_more'.filledWith(units));
+    var unitInfo = units ? getMessage('reminderNum_{0}_1_more'.filledWith(units)) : '';
 
     var unitNames = unitInfo ? unitInfo.split(';') : ['?', '?'];
     var unitDisplay = alarmInfo.num == 1 ? unitNames[0] : unitNames[1];
 
     var bodyInfo = {
       numUnits: getMessage('numUnits', {
-        num: alarmInfo.num,
+        num: alarmInfo.num || 0,
         units: unitDisplay
       }),
       time: getFullTime(alarmInfo.eventTime, triggerDate)
@@ -725,7 +725,7 @@ console.log('build alarm 1', alarmInfo)
         console.log(chrome.runtime.lastError);
       }
     });
-    if (browserHostType === browser.Chrome) {
+    if (browserHostType === browser.Chrome || browserHostType === browser.Firefox) {
       chrome.storage.sync.set({
         reminders: _remindersDefined
       }, function () {
@@ -755,7 +755,7 @@ console.log('build alarm 1', alarmInfo)
       });
     }
 
-    if (browserHostType === browser.Chrome) {
+    if (browserHostType === browser.Chrome || browserHostType === browser.Firefox) {
       chrome.storage.sync.get({
         reminders: []
       }, function (items) {

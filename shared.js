@@ -780,7 +780,7 @@ function setAlarmForNextUpdate(currentTime, sunset, inEvening) {
     console.log('ignored attempt to set {0} alarm in the past'.filledWith(alarmName));
     return;
   }
-  console.log('alarm for', alarmName, whenTime)
+  console.log('alarm for', alarmName, moment(whenTime).format());
 
   refreshAlarms[whenTime] = true;
 

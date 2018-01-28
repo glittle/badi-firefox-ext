@@ -346,9 +346,9 @@ var PageReminders = function () {
     }
 
     function showActiveAlarms() {
-        if (browserHostType !== browser.Chrome) {
-            return;
-        }
+        // if (browserHostType !== browser.Chrome) {
+        //     return;
+        // }
 
         //update heading
         _page.find('#remindersScheduled').html(getMessage('remindersScheduled', {
@@ -358,8 +358,10 @@ var PageReminders = function () {
         // blank out the list
         var alarmList = _page.find('.alarms');
         alarmList.html('');
-
+        console.log('get alarms')
+        
         chrome.alarms.getAll(function (alarms) {
+            console.log('got alarms', alarms.length)
             alarms.sort(function (a, b) {
                 return a.scheduledTime < b.scheduledTime ? -1 : 1;
             });

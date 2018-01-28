@@ -46,11 +46,7 @@ var CalWheel = function () {
         var slice = $(template);
         var bm = i + 1;
         var angle = i * angle1;
-        var css = browserHostType === browser.Chrome ?
-        {
-          transform: 'rotate(' + angle + 'deg)',
-          transformOrigin: '39px 335px' //x + ' ' + y
-      } : {
+        var css = {
           transform: 'rotate(' + angle + 'deg)',
           transformOrigin: '39px 335px' //x + ' ' + y
         };
@@ -106,10 +102,12 @@ var CalWheel = function () {
         _lastAngle = offsetAngle;
       }
 
-      var keyframes = '@-webkit-keyframes spinner {from {-webkit-transform:rotateZ(' + _lastAngle + 'deg)} '
-        + ' to {-webkit-transform:rotateZ(' + offsetAngle + 'deg)}}';
+      var keyframes = '@-webkit-keyframes spinner {from {-webkit-transform:rotateZ(' + _lastAngle + 'deg)} ' +
+        ' to {-webkit-transform:rotateZ(' + offsetAngle + 'deg)}}';
 
-      wheel.css({ transform: 'rotate({0}deg)'.filledWith(_lastAngle) });
+      wheel.css({
+        transform: 'rotate({0}deg)'.filledWith(_lastAngle)
+      });
       wheel.removeClass('rotating');
 
       s.html(keyframes);
@@ -124,7 +122,9 @@ var CalWheel = function () {
 
     } else {
       _lastAngle = null;
-      wheel.css({ transform: 'rotate(0deg)' });
+      wheel.css({
+        transform: 'rotate(0deg)'
+      });
       wheel.removeClass('rotating');
     }
   }
@@ -133,9 +133,9 @@ var CalWheel = function () {
     return s.replace('<u>', '<tspan class=u>').replace('</u>', '</tspan>');
   }
 
-//  function toHex(d) {
-//    return ("0" + (Number(d).toString(16))).slice(-2).toUpperCase();
-//  }
+  //  function toHex(d) {
+  //    return ("0" + (Number(d).toString(16))).slice(-2).toUpperCase();
+  //  }
 
   function gotoYear(year) {
     year = year || 173;

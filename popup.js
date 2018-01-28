@@ -1625,7 +1625,7 @@ function openInTab() {
   }
   var url = chrome.extension.getURL('popup.html');
 
-  if (browserHostType === browser.Chrome) {
+  if (browserHostType === browser.Chrome || browserHostType === browser.Firefox) {
     chrome.tabs.query({
       url: url
     }, function (foundTabs) {

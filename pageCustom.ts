@@ -1,4 +1,7 @@
 ﻿/* global addSamples */
+
+// in VSCode, run "tsc -w" in terminal to have immediate recompile
+
 var PageCustom = () => {
 
   //var _maxToUseAsSamples: number = 3;
@@ -37,8 +40,8 @@ var PageCustom = () => {
     setTimeout(() => {
       showForCurrentDate();
     }, 0);
-  };
-
+  }
+  
   function showForCurrentDate() {
     $('#partsList .customPartSample, .customFormats .customSample').each(function (i, el) {
       var span = $(el);
@@ -306,7 +309,7 @@ var PageCustom = () => {
         console.log(chrome.runtime.lastError);
       }
     });
-    if (browserHostType === browser.Chrome) {
+    if (browserHostType === browser.Chrome || browserHostType === browser.Firefox) {
       chrome.storage.sync.set({
         customFormats: formats
       }, function () {
@@ -339,8 +342,8 @@ var PageCustom = () => {
         }
       });
     }
-
-    if (browserHostType === browser.Chrome) {
+   //HELLO 
+    if (browserHostType === browser.Chrome || browserHostType === browser.Firefox) {
 
       chrome.storage.sync.get({
         customFormats: []

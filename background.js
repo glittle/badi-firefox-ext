@@ -88,26 +88,26 @@ var BackgroundModule = function () {
     chrome.runtime.onInstalled.addListener(installed);
     // }
 
-    if (browserHostType === browser.Firefox) {
-      chrome.browserAction.onClicked.addListener(function () {
-        var oldTabId = +getStorage('tabId', 0);
-        if (oldTabId) {
-          chrome.tabs.update(oldTabId, {
-            active: true
-          }, function (updatedTab) {
-            if (!updatedTab) {
-              makeTab();
-            }
-            if (chrome.runtime.lastError) {
-              console.log(chrome.runtime.lastError.message);
-            }
-          });
-        } else {
-          makeTab();
-        }
+    // if (browserHostType === browser.Firefox) {
+    //   chrome.browserAction.onClicked.addListener(function () {
+    //     var oldTabId = +getStorage('tabId', 0);
+    //     if (oldTabId) {
+    //       chrome.tabs.update(oldTabId, {
+    //         active: true
+    //       }, function (updatedTab) {
+    //         if (!updatedTab) {
+    //           makeTab();
+    //         }
+    //         if (chrome.runtime.lastError) {
+    //           console.log(chrome.runtime.lastError.message);
+    //         }
+    //       });
+    //     } else {
+    //       makeTab();
+    //     }
 
-      });
-    }
+    //   });
+    // }
 
     chrome.contextMenus.create({
       'id': 'openInTab',
@@ -139,6 +139,7 @@ var BackgroundModule = function () {
 
           switch (browserHostType) {
             case browser.Chrome:
+            case browser.Firefox:
               chrome.tabs.query({
                 url: popupUrl
               }, function (foundTabs) {
