@@ -228,6 +228,7 @@ body.rtl {
 }
 #pageSetup div.setupPlace input {
   width: 95px;
+  box-shadow: none;
 }
 #pageSetup div.setupPlace input.error {
   border-color: red;
@@ -838,16 +839,6 @@ tr.OtherRange {
   opacity: 0.6;
   font-size: 8.25pt;
 }
-#samples {
-  font-size: 9pt;
-  border: 1px solid green;
-  border-radius: 3px;
-  padding: 5px;
-  position: relative;
-  /*display: table-cell;*/
-  vertical-align: top;
-  white-space: nowrap;
-}
 #samplesList div {
   margin: 2px auto;
 }
@@ -1098,6 +1089,15 @@ button.today.notToday {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5775a), color-stop(1, #b37252));
   background-color: #b5775a;
   border: 1px solid #8f4b29;
+}
+#samples {
+  font-size: 9pt;
+  border: 1px solid green;
+  border-radius: 3px;
+  padding: 5px;
+  position: relative;
+  vertical-align: top;
+  white-space: nowrap;
 }
 #samples button {
   vertical-align: text-bottom;
@@ -1400,20 +1400,6 @@ body[data-pageid="pageSetup"] #show {
     padding-left: 5px;
   }
 }
-body.Firefox #btnPageReminders {
-  display: none;
-}
-body.Firefox #samples button {
-  width: 16px;
-  padding: 0;
-}
-body.Firefox #sampleList1 > div {
-  margin: 1px 0 0 0;
-}
-body.Firefox .setupLangOption input {
-  vertical-align: bottom;
-}
 @page myLandscape {
   size: landscape;
-  background-color: red;
 }

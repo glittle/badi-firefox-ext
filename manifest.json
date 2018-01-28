@@ -1,6 +1,6 @@
 {
   "name": "__MSG_title__",
-  "version": "3.1.1.4",
+  "version": "3.1.1.5",
   "description": "__MSG_titleDesc__",
   "applications": {
     "gecko": {
@@ -40,7 +40,7 @@
       "48": "badi19a-48.png"
     }
   },
-  "content_security_policy": "default-src 'self' http://maps.googleapis.com/maps/api/geocode data:",
+  "content_security_policy": "script-src 'self' https://maps.googleapis.com/maps/api/geocode; object-src 'self'",
   "author": "Glen Little",
   "short_name": "BadiCal",
   "manifest_version": 2,

@@ -255,6 +255,7 @@ body {
         }
         input {
             width: 95px;
+            box-shadow: none; // for FF
             &.error {
                 border-color: red;
             }
@@ -932,17 +933,6 @@ tr.OtherRange {
     font-size: 8.25pt;
 }
 
-#samples {
-    font-size: 9pt;
-    border: 1px solid green;
-    border-radius: 3px;
-    padding: 5px;
-    position: relative;
-    /*display: table-cell;*/
-    vertical-align: top;
-    white-space: nowrap;
-}
-
 #samplesList div {
     margin: 2px auto;
 }
@@ -1249,44 +1239,51 @@ button.today.notToday {
     border: 1px solid #8f4b29;
 }
 
-#samples button {
-    vertical-align: text-bottom;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @green), color-stop(1, #72b352));
-    background-color: @green;
-    border-radius: 4px;
-    border: 1px solid #4b8f29;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    /*font-family: Geneva;*/
-    font-size: 6.75pt;
-    transition: color 0.4s ease-out;
-    padding: 1px 2px;
-    text-decoration: none;
-    min-width: 15px;
-}
-
-#samples button:hover {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, @green));
-    background: -webkit-linear-gradient(top, #72b352 5%, @green 100%);
-    background: linear-gradient(to bottom, #72b352 5%, @green 100%);
-    background-color: #72b352;
-}
-
-#samples button:active {
+#samples {
+    font-size: 9pt;
+    border: 1px solid green;
+    border-radius: 3px;
+    padding: 5px;
     position: relative;
-    top: 1px;
-}
-
-#samples div.copied button {
-    background: #b2f392;
-    color: #4b8f29;
-    transition: color 0.4s ease-out;
-}
-
-#samples div.copied button:hover {
-    background: #b2f392;
-    color: #4b8f29;
+    vertical-align: top;
+    white-space: nowrap;
+    button {
+        vertical-align: text-bottom;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @green), color-stop(1, #72b352));
+        background-color: @green;
+        border-radius: 4px;
+        border: 1px solid #4b8f29;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        /*font-family: Geneva;*/
+        font-size: 6.75pt;
+        transition: color 0.4s ease-out;
+        padding: 1px 2px;
+        text-decoration: none;
+        min-width: 15px;
+        &:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, @green));
+            background: -webkit-linear-gradient(top, #72b352 5%, @green 100%);
+            background: linear-gradient(to bottom, #72b352 5%, @green 100%);
+            background-color: #72b352;
+        }
+        &:active {
+            position: relative;
+            top: 1px;
+        }
+    }
+    div.copied {
+        button {
+            background: #b2f392;
+            color: #4b8f29;
+            transition: color 0.4s ease-out;
+            &:hover {
+                background: #b2f392;
+                color: #4b8f29;
+            }
+        }
+    }
 }
 
 .iconArea {
@@ -1607,22 +1604,10 @@ body[data-pageid="pageSetup"] {
 }
 
 body.Firefox {
-    #btnPageReminders {
-        display: none;
-    }
-    #samples button {
-        width: 16px;
-        padding: 0;
-    }
-    #sampleList1>div {
-        margin: 1px 0 0 0;
-    }
-    .setupLangOption input {
-        vertical-align: bottom;
-    }
+  // as of version 50? - no overrides needed
 }
 
 @page myLandscape {
     size: landscape;
-    background-color: red;
+    // background-color: red;
 }

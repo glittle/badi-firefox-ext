@@ -39,11 +39,11 @@ var BackgroundModule = function () {
 
           setStorage('firstPopup', true);
 
-          // try {
-          //   tracker.sendEvent('updated', getVersionInfo());
-          // } catch (e) {
-          //   console.log(e);
-          // }
+          try {
+            tracker.sendEvent('updated', getVersionInfo());
+          } catch (e) {
+            console.log(e);
+          }
         } else {
           console.log(newVersion);
         }
@@ -76,15 +76,17 @@ var BackgroundModule = function () {
   function prepare() {
     startGettingLocation();
 
+    console.log('background', _notificationsEnabled);
+
     if (_notificationsEnabled) {
       _backgroundReminderEngine = new BackgroundReminderEngine();
     }
 
-    if (browserHostType === browser.Chrome) {
-      chrome.alarms.clearAll();
-      chrome.alarms.onAlarm.addListener(alarmHandler);
-      chrome.runtime.onInstalled.addListener(installed);
-    }
+    // if (browserHostType === browser.Chrome) {
+    chrome.alarms.clearAll();
+    chrome.alarms.onAlarm.addListener(alarmHandler);
+    chrome.runtime.onInstalled.addListener(installed);
+    // }
 
     if (browserHostType === browser.Firefox) {
       chrome.browserAction.onClicked.addListener(function () {
@@ -126,7 +128,6 @@ var BackgroundModule = function () {
         //  break;
 
         case 'openInTab':
-          console.log('open in tab')
           var afterUpdate = function (updatedTab) {
             if (!updatedTab) {
               makeTab();
@@ -200,7 +201,7 @@ var BackgroundModule = function () {
     prepare: prepare,
     makeTab: makeTab
   };
-}
+};
 
 var _backgroundModule = new BackgroundModule();
 

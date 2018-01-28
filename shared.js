@@ -10,7 +10,7 @@ var _numMessagesEn = 0;
 var _cachedMessages = {};
 var _cachedMessageUseCount = 0;
 
-var _notificationsEnabled = browserHostType === browser.Chrome; // set to false to disable
+var _notificationsEnabled = true; // browserHostType === browser.Chrome; // set to false to disable
 
 var _iconPrepared = false;
 
@@ -453,7 +453,11 @@ function draw(line1, line2, line2Alignment) {
   return context.getImageData(0, 0, size, size);
 }
 
-function startGettingLocation() {
+function startGettingLocation(reset) {
+  if (reset) {
+    _locationLat = 0;
+  }
+
   // geo
   var positionOptions = {
     enableHighAccuracy: false,
@@ -568,8 +572,8 @@ function startGetLocationName() {
     console.log('xhr call in progress already ' + xhr.readyState);
     return;
   }
-  var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&language={2}'
-    .filledWith(localStorage.lat, localStorage.long, chrome.runtime.getManifest().current_locale);
+  var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&language={2}'
+    .filledWith(localStorage.lat, localStorage.long, _languageCode);
   xhr = new XMLHttpRequest();
   xhr.open("GET", url, true);
   xhr.onreadystatechange = function () {
@@ -612,16 +616,27 @@ function stopLoaderButton() {
 
 function setLocation(position) {
   // FF calls this constantly...
-  // on a stationary computer, the lat/lng changes on every call on at least the 4th decimal
-  var factor = 1e4;
-  var newLat = Math.round(position.coords.latitude * factor) / factor;
-  var newLong = Math.round(position.coords.longitude * factor) / factor;
-  if (_locationLat === newLat && _locationLong === newLong) {
+  // on a stationary computer, the lat/lng changes on every call on at least the 3th decimal
+
+  // on load, use the full lat/lng
+  // on subsequent calls, only refresh if the number has changed in the 2nd decimal
+  var newLat = position.coords.latitude;
+  var newLong = position.coords.longitude;
+
+  var change = Math.abs(newLat - _locationLat) + Math.abs(newLong - _locationLong);
+
+  // console.log('lat', _locationLat, newLat, _locationLat - newLat);
+  // console.log('lng', _locationLong, newLong, _locationLong - newLong);
+  // console.log('location changed?', change, change > 1, change > 0.01, change > 0.0003);
+
+  if (change < 0.001) {
     return;
   }
 
-  console.log('lat', _locationLat, newLat, position.coords.latitude);
-  console.log('lng', _locationLong, newLong, position.coords.longitude);
+  console.log('location changed');
+
+  // console.log('lat', _locationLat, newLat);
+  // console.log('lng', _locationLong, newLong);
 
   localStorage.lat = _locationLat = newLat;
   localStorage.long = _locationLong = newLong;
@@ -714,6 +729,8 @@ function highlightGDay() {
 
 function refreshDateInfoAndShow(resetToNow) {
   // also called from alarm, to update to the next day
+  console.trace();
+
   if (resetToNow) {
     setFocusTime(new Date());
   } else {
@@ -721,8 +738,6 @@ function refreshDateInfoAndShow(resetToNow) {
     recallFocusAndSettings();
   }
   console.log('refreshDateInfoAndShow at ' + new Date());
-  //var z = dummyToShowStackTrace / 0; // force dump of stack trace at this point
-
   var di = refreshDateInfo();
   _di = di;
   _firstLoad = false;
@@ -734,9 +749,9 @@ function refreshDateInfoAndShow(resetToNow) {
     showWhenResetToNow();
   }
 
-  if (browserHostType === browser.Chrome) {
-    setAlarmForNextUpdate(di.currentTime, di.frag2SunTimes.sunset, di.bNow.eve);
-  }
+  //if (browserHostType === browser.Chrome) {
+  setAlarmForNextUpdate(di.currentTime, di.frag2SunTimes.sunset, di.bNow.eve);
+  //}
 }
 
 var refreshAlarms = {};
@@ -765,6 +780,7 @@ function setAlarmForNextUpdate(currentTime, sunset, inEvening) {
     console.log('ignored attempt to set {0} alarm in the past'.filledWith(alarmName));
     return;
   }
+  console.log('alarm for', alarmName, whenTime)
 
   refreshAlarms[whenTime] = true;
 
@@ -870,8 +886,8 @@ String.prototype.filledWith = function () {
       } else if (testDoNotEscapeHtml.test(token)) {
         value = values[token.substring(1)];
       } else {
-        if (values.hasOwnProperty(token)) {
-          var toEscape = values[token];
+        var toEscape = values[token];
+        if (typeof toEscape !== 'undefined') {
           //value = typeof toEscape == 'undefined' || toEscape === null ? '' : ('' + toEscape).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;').replace(/{/g, '&#123;');
           //Never escape HTML in this Chrome Extension
           value = toEscape === 0 ? 0 : (toEscape || '');
@@ -881,6 +897,7 @@ String.prototype.filledWith = function () {
           } else {
             console.log('missing property for filledWith: ' + token);
             value = '';
+            console.trace()
           }
         }
       }
@@ -1135,78 +1152,6 @@ function shallowCloneOf(obj) {
   return clone;
 }
 
-// function console.log() {
-//   // add a timestamp to console log entries
-//   //  var a = ['%c'];
-//   //  a.push('display: block; text-align: right;');
-//   //  a.push(new moment().format('DD H:mm:ss'));
-//   //  a.push('\n');
-//   var a = ['\n'];
-//   for (var x in log.arguments) {
-//     if (log.arguments.hasOwnProperty(x)) {
-//       a.push(log.arguments[x]);
-//     }
-//   }
-//   console.log.apply(console, a);
-// }
-
-// google analytics using Measurement Protocol
-// var trackerFunc = function () {
-// var baseParams = {
-//   ds: 'app',
-//   tid: 'UA-1312528-10',
-//   v: 1,
-//   cid: localStorage.uid || (localStorage.uid = createGuid()),
-//   an: 'BadiWeb',
-//   ul: navigator.language,
-//   aid: browserHostType,
-//   av: chrome.runtime.getManifest().version
-// };
-
-// var send = function (info) {
-//   if (settings.optedOutOfGoogleAnalytics === true) {
-//     console.log('opted out of analytics');
-//     return;
-//   }
-//   var data = $.extend(info, baseParams);
-
-//   var useDebug = false; // turn on during initial testing
-//   if (useDebug) {
-//     $.post('https://www.google-analytics.com/debug/collect', data);
-//   } else {
-//     $.post('https://www.google-analytics.com/collect', data);
-//   }
-// };
-
-// var sendEvent = function (category, action) {
-//   send({ t: 'event', ec: category, ea: action });
-// };
-// var sendAppView = function (id) {
-//   send({ t: 'screenview', cd: id });
-// };
-// return {
-//   sendEvent: sendEvent,
-//   sendAppView: sendAppView
-// };
-// };
-
-// var tracker;
-
-// function prepareAnalytics() {
-//   tracker = trackerFunc();
-
-//   //  if (typeof tracker !== 'undefined') {
-//   //    var service = analytics.getService('BadiCal');
-//   //    service.getConfig().addCallback(function (config) {
-//   //      tracker.sendEvent('opened', getVersionInfo());
-//   //    });
-//   //    tracker = service.getTracker('UA-1312528-10');
-//   //    tracker.set('appVersion', chrome.runtime.getManifest().version);
-//   //    tracker.set('language', navigator.language);
-//   //  }
-// }
-
-
 // polyfill
 if (!Array.prototype.includes) {
   Array.prototype.includes = function (searchElement /*, fromIndex*/ ) {
@@ -1337,4 +1282,5 @@ chrome.runtime.onMessageExternal.addListener(
         callback();
         break;
     }
-  });
+  }
+);

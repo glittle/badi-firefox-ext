@@ -32,7 +32,7 @@ var _inTab = false;
 var _pageIdList = [];
 var _inPopupPage = true;
 
-var _remindersEnabled = browserHostType === browser.Chrome;
+var _remindersEnabled = true; // browserHostType === browser.Chrome;
 
 function attachHandlers() {
   $('#samples').on('click', 'button', copySample);
@@ -59,9 +59,9 @@ function attachHandlers() {
   $('.includeThis').on('change, click', SetFiltersForSpecialDaysTable);
 
   $('.btnRetry').on('click', function () {
-    $('.setupPlace .place').text(''); //blank the copy on the setup page
+    $('.setupPlace .place').html('<i>Getting...</i>'); //blank the copy on the setup page
     $('.btnRetry').addClass('active').blur();
-    startGettingLocation();
+    startGettingLocation(true);
 
   });
   $('#datePicker').on('keydown', function (ev) {
@@ -91,15 +91,19 @@ function attachHandlers() {
   });
 
   $('.setupPlace')
-    .on('paste keydown keypress', 'input', function () { updateLocation(false) })
-    .on('change', 'input', function () { updateLocation(true) });
+    .on('paste keydown keypress', 'input', function () {
+      updateLocation(false)
+    })
+    .on('change', 'input', function () {
+      updateLocation(true)
+    });
 
   $('input:radio[name=language]').click(function (ev) {
     settings.useArNames = ev.target.value === 'Ar';
     ApplyLanguage();
   });
 
-  $('#setupLang').on('change', langSelectChanged);
+  // $('#setupLang').on('change', langSelectChanged);
 }
 
 function ApplyLanguage() {
@@ -200,8 +204,7 @@ function changePage(ev, delta) {
     var btn = $(ev.target);
     var id = btn.data('page');
     showPage(id);
-  }
-  else {
+  } else {
     var pageButtons = $('.selectPages button').filter(':visible');
     var lastPageNum = pageButtons.length - 1;
     var num = _currentPageNum;
@@ -233,7 +236,9 @@ function showPage(id) {
   var btns = $('.selectPages button').filter(':visible');
   var thisPage = pages.filter('#' + id);
 
-  pages.css({ visibility: 'hidden' }); // reduce flicker?
+  pages.css({
+    visibility: 'hidden'
+  }); // reduce flicker?
 
   var other = '.vahidInputs'; // don't fit on any page... likely need to remove it
   var pageDay = '#gDay, #showUpcoming, .explains, .normal, #show, .iconArea, #special';
@@ -286,7 +291,9 @@ function showPage(id) {
       _enableSampleKeys = false;
       _enableDayKeysLR = true;
       _enableDayKeysUD = true;
-      _upDownKeyDelta = function () { return 19; }
+      _upDownKeyDelta = function () {
+        return 19;
+      }
       break;
 
     case 'pageCalWheel':
@@ -301,7 +308,9 @@ function showPage(id) {
       _enableSampleKeys = false;
       _enableDayKeysLR = true;
       _enableDayKeysUD = true;
-      _upDownKeyDelta = function () { return 7; }
+      _upDownKeyDelta = function () {
+        return 7;
+      }
       break;
 
     case 'pageCal2':
@@ -411,7 +420,9 @@ function showPage(id) {
 
   thisPage.show();
   pages.not(thisPage).hide();
-  pages.css({ visibility: 'visible' });
+  pages.css({
+    visibility: 'visible'
+  });
 
   updatePageContentWhenVisible(_currentPageId, _di);
 
@@ -473,8 +484,8 @@ function updatePageContentWhenVisible(id, di) {
       $('#otherPageTitle').html(getMessage('pick_pageSetup'));
       break;
 
-    //        case 'pageCustom':
-    //            break;
+      //        case 'pageCustom':
+      //            break;
 
   }
 
@@ -515,16 +526,17 @@ function updatePageContent(id, di) {
   switch (id) {
     case 'pageDay':
       var makeObj = function (key, name) {
-        return { name: name || getMessage(key, di), value: getMessage(key + 'Format', di) };
+        return {
+          name: name || getMessage(key, di),
+          value: getMessage(key + 'Format', di)
+        };
       };
       var dayDetails = [
-        makeObj('DayOfWeek')
-        , makeObj('DayOfMonth')
-        , { name: getMessage('Month'), value: getMessage(di.bMonth ? 'MonthFormatNormal' : "MonthFormatAyyam", di) }
-        , makeObj('YearOfVahid')
-        , makeObj('Vahid', di.VahidLabelPri)
-        , makeObj('Kullishay', di.KullishayLabelPri)
-        , makeObj('YearOfEra')
+        makeObj('DayOfWeek'), makeObj('DayOfMonth'), {
+          name: getMessage('Month'),
+          value: getMessage(di.bMonth ? 'MonthFormatNormal' : "MonthFormatAyyam", di)
+        },
+        makeObj('YearOfVahid'), makeObj('Vahid', di.VahidLabelPri), makeObj('Kullishay', di.KullishayLabelPri), makeObj('YearOfEra')
       ];
       var explain1 = getMessage('shoghiExample', di);
       var explain2 = getMessage('example2', di);
@@ -649,13 +661,11 @@ function changeInVahid(ev) {
       bKullishay--;
       if (bKullishay < 1) {
         bKullishay = 1;
-      }
-      else {
+      } else {
         bVahid = 19;
         bYearInVahid = 19;
       }
-    }
-    else {
+    } else {
       bYearInVahid = 19;
     }
   }
@@ -665,13 +675,11 @@ function changeInVahid(ev) {
       bKullishay++;
       if (bKullishay > maxKullishay) {
         bKullishay = maxKullishay;
-      }
-      else {
+      } else {
         bVahid = 1;
         bYearInVahid = 1;
       }
-    }
-    else {
+    } else {
       bYearInVahid = 1;
     }
   }
@@ -680,8 +688,7 @@ function changeInVahid(ev) {
     bKullishay--;
     if (bKullishay < 1) {
       bKullishay = 1;
-    }
-    else {
+    } else {
       bVahid = 19;
     }
   }
@@ -689,8 +696,7 @@ function changeInVahid(ev) {
     bKullishay++;
     if (bKullishay > maxKullishay) {
       bKullishay = maxKullishay;
-    }
-    else {
+    } else {
       bVahid = 1;
     }
   }
@@ -975,9 +981,9 @@ function addSample(info, format, group) {
 
   // also in pageCustom
   $('#samples').find('#sampleList' + group)
-    .append(('<div><button title="{tooltip}"'
-      + ' type=button data-letter={letter} id="key{letter}">{letter}{currentNote}</button>'
-      + ' <span>{^value}</span></div>').filledWith(sample));
+    .append(('<div><button title="{tooltip}"' +
+      ' type=button data-letter={letter} id="key{letter}">{letter}{currentNote}</button>' +
+      ' <span>{^value}</span></div>').filledWith(sample));
 }
 
 function clearSamples() {
@@ -1007,6 +1013,7 @@ function copySample(ev) {
     }
   }, 1000);
 }
+
 function toggleEveOrDay(toEve) {
   setFocusTime(getFocusTime());
   toEve = typeof toEve === 'boolean' ? toEve : !_di.bNow.eve;
@@ -1036,8 +1043,7 @@ function moveDays(ev) {
     if (days < min) {
       days = min;
       input.val(days);
-    }
-    else {
+    } else {
       var max = +input.attr('max');
       if (days > max) {
         days = max;
@@ -1164,100 +1170,101 @@ function fillSetup() {
 
 }
 
-function startFillingLanguageInput(select) {
-  var langs = [];
-  // getMessage('languageList')
-  //   .split(splitSeparator)
-  //   .forEach(function (s) {
-  //     // console.log(s)
-  //     var parts = s.split(':', 2);
-  //     // console.log(parts)
-  //     langs[parts[0]] = parts[parts.length - 1];
-  //   });
-  // // console.log(langs);
+// function startFillingLanguageInput(select) {
+//   var langs = [];
+//   // getMessage('languageList')
+//   //   .split(splitSeparator)
+//   //   .forEach(function (s) {
+//   //     // console.log(s)
+//   //     var parts = s.split(':', 2);
+//   //     // console.log(parts)
+//   //     langs[parts[0]] = parts[parts.length - 1];
+//   //   });
+//   // // console.log(langs);
 
-  chrome.runtime.getPackageDirectoryEntry(function (directoryEntry) {
-    // console.log('got directory')
-    directoryEntry.getDirectory('_locales', {}, function (subDirectoryEntry) {
-      // console.log('got subdirectory list')
-      var directoryReader = subDirectoryEntry.createReader();
-      directoryReader.readEntries(function (entries) {
-        // console.log('got entries')
-        for (var i = 0; i < entries.length; ++i) {
-          var langToLoad = entries[i].name;
+//   chrome.runtime.getPackageDirectoryEntry(function (directoryEntry) {
+//     // console.log('got directory')
+//     directoryEntry.getDirectory('_locales', {}, function (subDirectoryEntry) {
+//       // console.log('got subdirectory list')
+//       var directoryReader = subDirectoryEntry.createReader();
+//       directoryReader.readEntries(function (entries) {
+//         // console.log('got entries')
+//         for (var i = 0; i < entries.length; ++i) {
+//           var langToLoad = entries[i].name;
 
-          var url = "/_locales/" + langToLoad + "/messages.json";
-          $.ajax({
-            dataType: "json",
-            url: url,
-            isLocal: true,
-            async: false
-          })
-            .done(function (messages) {
-              // console.log(langToLoad, messages);
-              var msg = messages.rbDefLang_Local;
-              var name = msg ? msg.message : langToLoad;
-              langs.push({
-                code: langToLoad,
-                name: name || '',
-                pct: Math.round(Object.keys(messages).length / _numMessagesEn * 100)
-              });
-            })
-            .fail(function () {
-            });
-        }
+//           var url = "/_locales/" + langToLoad + "/messages.json";
+//           $.ajax({
+//             dataType: "json",
+//             url: url,
+//             isLocal: true,
+//             async: false
+//           })
+//             .done(function (messages) {
+//               // console.log(langToLoad, messages);
+//               var msg = messages.rbDefLang_Local;
+//               var name = msg ? msg.message : langToLoad;
+//               langs.push({
+//                 code: langToLoad,
+//                 name: name || '',
+//                 pct: Math.round(Object.keys(messages).length / _numMessagesEn * 100)
+//               });
+//             })
+//             .fail(function () {
+//             });
+//         }
 
-        var options = [];
-        langs.sort(function (a, b) {
-          return (a.name || a.code) > (b.name || b.code) ? 1 : -1;
-        });
-        for (i = 0; i < langs.length; i++) {
-          var info = langs[i];
-          options.push('<option value={0}>{1} ... {0} ... {2}%</option>'.filledWith(info.code, info.name, info.pct))
-        }
-        select.html(options.join(''))
-        // console.log('lang list filled')
+//         var options = [];
+//         langs.sort(function (a, b) {
+//           return (a.name || a.code) > (b.name || b.code) ? 1 : -1;
+//         });
+//         for (i = 0; i < langs.length; i++) {
+//           var info = langs[i];
+//           options.push('<option value={0}>{1} ... {0} ... {2}%</option>'.filledWith(info.code, info.name, info.pct))
+//         }
+//         select.html(options.join(''))
+//         // console.log('lang list filled')
 
-        select.val(_languageCode);
+//         select.val(_languageCode);
 
-        if (select[0].selectedIndex === -1) {
-          // code was not in the list
-          select.val('en');
-        }
+//         if (select[0].selectedIndex === -1) {
+//           // code was not in the list
+//           select.val('en');
+//         }
 
-        var pctSpan = $('#setupLangPct');
-        if (select.val() === 'en') {
-          pctSpan.hide();
-        } else {
-          var msg = _rawMessageTranslationPct === 100
-            ? getMessage('setupLangPct100')
-            : getMessage('setupLangPct').filledWith(_rawMessageTranslationPct);
-          pctSpan.html(msg).show();
-        }
+//         var pctSpan = $('#setupLangPct');
+//         if (select.val() === 'en') {
+//           pctSpan.hide();
+//         } else {
+//           var msg = _rawMessageTranslationPct === 100
+//             ? getMessage('setupLangPct100')
+//             : getMessage('setupLangPct').filledWith(_rawMessageTranslationPct);
+//           pctSpan.html(msg).show();
+//         }
 
-        langSelectChanged();
-      });
-    });
-  });
+//         langSelectChanged();
+//       });
+//     });
+//   });
 
-}
+// }
 
-function langSelectChanged() {
-  var select = $('#setupLang');
-  var lang = select.val();
+// function langSelectChanged() {
+//   var select = $('#setupLang');
+//   var lang = select.val();
 
-  setStorage('lang', lang);
+//   setStorage('lang', lang);
 
-  if (lang === _languageCode) {
-    return;
-  }
+//   if (lang === _languageCode) {
+//     return;
+//   }
 
-  // reload to apply new language
-  // location.reload(false);
-  location.href = location.href;
-}
+//   // reload to apply new language
+//   // location.reload(false);
+//   location.href = location.href;
+// }
 
 var updateLocationTimer = null;
+
 function updateLocation(immediately) {
   if (!immediately) {
     clearTimeout(updateLocationTimer);
@@ -1353,7 +1360,10 @@ function fillEventStart() {
   for (var h = 1800; h <= 2000; h += 100) {
     for (var m = 0; m <= 30; m += 30) {
       startTime.setHours(h / 100, m);
-      startTimes.push({ v: h + m, t: showTime(startTime) });
+      startTimes.push({
+        v: h + m,
+        t: showTime(startTime)
+      });
       if (h === 2000) {
         break; // to end at 8pm
       }
@@ -1459,13 +1469,14 @@ function BuildSpecialDaysTable(di) {
       var minutes = tempDate.getMinutes();
       minutes = minutes > 30 ? 30 : 0; // start 1/2 hour before
       tempDate.setMinutes(minutes);
-      dayInfo.Event = { time: tempDate };
+      dayInfo.Event = {
+        time: tempDate
+      };
 
       dayInfo.StartTime = showTime(dayInfo.Event.time);
       addEventTime(dayInfo.Event);
       dayInfo.EventTime = getMessage('eventTime', dayInfo.Event);
-    }
-    else if (targetTime) {
+    } else if (targetTime) {
       var adjustDTtoST = 0;
       if (targetTime.slice(-1) === 'S') {
         targetTime = targetTime.slice(0, 4);
@@ -1483,7 +1494,9 @@ function BuildSpecialDaysTable(di) {
         tempDate.setHours(tempDate.getHours() + 24);
       }
 
-      dayInfo.Event = { time: tempDate };
+      dayInfo.Event = {
+        time: tempDate
+      };
       dayInfo.StartTime = showTime(dayInfo.Event.time);
       addEventTime(dayInfo.Event);
       dayInfo.EventTime = getMessage('eventTime', dayInfo.Event);
@@ -1513,7 +1526,9 @@ function BuildSpecialDaysTable(di) {
   rowTemplate.push('<td class=eventTime>{EventTime}<div class="forHD time">{ST}</div></td>'); // {isEve}
   rowTemplate.push('<td>{G}</td>');
   rowTemplate.push('</tr>');
-  $('#specialListBody').html(rowTemplate.join('').filledWithEach(dayInfos.filter(function (el) { return el.Type !== 'Fast' })));
+  $('#specialListBody').html(rowTemplate.join('').filledWithEach(dayInfos.filter(function (el) {
+    return el.Type !== 'Fast'
+  })));
 
   $('#specialDaysTitle').html(getMessage('specialDaysTitle', di));
 
@@ -1528,7 +1543,9 @@ function BuildSpecialDaysTable(di) {
 
   $('#fastListBody')
     .html(fastRowTemplate.join('')
-      .filledWithEach(dayInfos.filter(function (el) { return el.Type === 'Fast' })));
+      .filledWithEach(dayInfos.filter(function (el) {
+        return el.Type === 'Fast'
+      })));
 
   $('#fastDaysTitle').html(getMessage('fastDaysTitle', di));
 }
@@ -1559,12 +1576,10 @@ function showCal1() {
   var iframe = $('#iFrameCal1');
   if (iframe.is(':visible')) {
     iframe.hide();
-  }
-  else {
+  } else {
     if (!iframe.attr('src')) {
       iframe.attr('src', 'cal1.html').fadeIn();
-    }
-    else {
+    } else {
       iframe.show();
     }
   }
@@ -1611,19 +1626,25 @@ function openInTab() {
   var url = chrome.extension.getURL('popup.html');
 
   if (browserHostType === browser.Chrome) {
-    chrome.tabs.query({ url: url }, function (foundTabs) {
+    chrome.tabs.query({
+      url: url
+    }, function (foundTabs) {
       if (foundTabs[0]) {
         chrome.tabs.update(foundTabs[0].id, {
           active: true
         });
       } else {
-        chrome.tabs.create({ url: url });
+        chrome.tabs.create({
+          url: url
+        });
       }
       window.close();
       // tracker.sendEvent('openInTab');
     });
   } else {
-    chrome.tabs.create({ url: url });
+    chrome.tabs.create({
+      url: url
+    });
     window.close();
     // tracker.sendEvent('openInTab');
   }
