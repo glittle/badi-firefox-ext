@@ -158,7 +158,7 @@ var PageReminders = function () {
                 var value = input.val();
                 if (input[0].type == 'hidden') {
                     value = input.data('default');
-                };
+                }
                 if (input.data('type') == 'num') {
                     value = +value;
                 }

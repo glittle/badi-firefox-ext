@@ -178,7 +178,7 @@ var CalWheel = function () {
       clearTimeout(_rotating);
     }
   };
-}
+};
 
 
 //var pageCalWheel = Cal2();

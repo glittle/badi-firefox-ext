@@ -50,24 +50,26 @@ function loadRawMessages(langCode, cb) {
         isLocal: true,
         async: false
       })
-      .done(function (messages) {
-        // console.log(langToLoad, messages);
+      .done(
+        /*jshint loopfunc: true */
+        function (messages) {
+          // console.log(langToLoad, messages);
 
-        var keys = Object.keys(messages);
-        console.log('loading', keys.length, 'keys from', langToLoad);
+          var keys = Object.keys(messages);
+          console.log('loading', keys.length, 'keys from', langToLoad);
 
-        if (langToLoad === 'en') {
-          _numMessagesEn = keys.length;
-        } else {
-          // this will be incorrect if the _locales folder does have folders for xx and xx-yy. None do currently.
-          numMessagesOther = keys.length;
-        }
+          if (langToLoad === 'en') {
+            _numMessagesEn = keys.length;
+          } else {
+            // this will be incorrect if the _locales folder does have folders for xx and xx-yy. None do currently.
+            numMessagesOther = keys.length;
+          }
 
-        keys.forEach(function (k) {
-          _rawMessages[k.toLowerCase()] = messages[k].message;
-        });
+          keys.forEach(function (k) {
+            _rawMessages[k.toLowerCase()] = messages[k].message;
+          });
 
-      })
+        })
       .fail(function () {});
   }
 
@@ -147,7 +149,7 @@ function setupLanguageChoice() {
 }
 
 function refreshDateInfo() {
-  return _di = getDateInfo(getFocusTime());
+  return (_di = getDateInfo(getFocusTime()));
 }
 
 
@@ -549,7 +551,7 @@ function showTime(d, use24) {
     }
   }
   return time;
-};
+}
 
 
 var findName = function (typeName, results, getLastMatch) {
@@ -1095,6 +1097,7 @@ function localizeHtml(host, fnOnEach) {
         }
         if (target === 'html') {
           $.each(children,
+            /*jshint loopfunc: true */
             function (i, c) {
               var name = $(c).data('child');
               value = value.replace('{' + name + '}', c.outerHTML);

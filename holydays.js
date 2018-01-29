@@ -18,7 +18,7 @@ var HolyDays = function () {
 
     var cached = _cachedDateInfos[bYear];
     if (cached) {
-      return _dateInfos = cached;
+      return (_dateInfos = cached);
     }
     //    console.log('prepare ' + bYear);
 
@@ -143,8 +143,8 @@ var HolyDays = function () {
       }
 
       dateInfo.gYear = 1843 +
-                      +bYear +
-                      +(dateInfo.GYearOffset || 0);
+                      (+bYear) +
+                      (+(dateInfo.GYearOffset || 0));
 
       if (!dateInfo.GDate) {
         dateInfo.GDate = getGDateYBDate(bYear, dateInfo.BMonthDay);
@@ -203,7 +203,7 @@ var HolyDays = function () {
     });
 
     //    setStorage('DateInfos' + bYear, _dateInfos);
-    return _cachedDateInfos[bYear] = _dateInfos;
+    return (_cachedDateInfos[bYear] = _dateInfos);
   }
 
   function getUpcoming(di, numToAdd) {
@@ -308,7 +308,7 @@ var HolyDays = function () {
     //{ Type: 'OtherDay', BDateCode: '2.13', NameEn: 'Annual Meeting and Election' },
     //{ Type: 'OtherDay', Special: 'JAN1', NameEn: 'Start of Gregorian Year ' }
     ];
-  };
+  }
 
   // date utilities //////////////////////////////////////////
   function splitToBMonthDay(code) {
@@ -320,13 +320,13 @@ var HolyDays = function () {
   function makeBMonthDay(month, day) {
     // combine numbers into object
     return { m: +month, d: +day };
-  };
+  }
   function getGDateYBDate(bYear, bMonthDay) {
     if (!bMonthDay || !bMonthDay.d) {
       return '?3?';
     }
     return getGregorianDate(bYear, bMonthDay.m, bMonthDay.d);
-  };
+  }
   function getGregorianDate(bYear, bMonth, bDay, autoFix) {
     // convert bDate to gDate
     if (bMonth < 0 || typeof bMonth == 'undefined') {
@@ -401,7 +401,7 @@ var HolyDays = function () {
     // answer has no time, and is for the frag2 part of the Badi day
 
     return answer;
-  };
+  }
 
 
   function daysInAyyamiHa(bYear) {
@@ -2177,7 +2177,7 @@ var HolyDays = function () {
       eveSunset.setHours(18, 30, 0, 0);
     }
     return nawRuz;
-  };
+  }
 
   // make these available to the browser
   return {
@@ -2193,22 +2193,22 @@ var HolyDays = function () {
 // helpers for holyDays
 function getNawRuzFromDate(d) {
   return holyDays.getNawRuz(d.getFullYear());
-};
+}
 function isAfterNawRuz(d) {
   return d.getTime() >= holyDays.getNawRuz(d.getFullYear()).getTime();
-};
+}
 function getBadiYear(d) {
   return d.getFullYear() - 1843 - (isAfterNawRuz(d) ? 0 : 1);
-};
+}
 function dayOfYear(d) {
   var j1 = new Date(d);
   j1.setMonth(0, 0);
   return Math.round((d - j1) / 8.64e7);
-};
+}
 function inStandardTime(d) {
   var jan = new Date(d.getFullYear(), 0, 1);
   return jan.getTimezoneOffset() === d.getTimezoneOffset();
-};
+}
 
 function copyAndAddDays(oldDate, daysOffset) {
   var d = new Date(oldDate);
@@ -2217,7 +2217,7 @@ function copyAndAddDays(oldDate, daysOffset) {
 }
 function daysBetween(d1, d2) {
   return 1 + Math.round(Math.abs((d1.getTime() - d2.getTime()) / 864e5));
-};
+}
 
 function addDays(d, days) {
   d.setDate(d.getDate() + days);

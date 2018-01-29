@@ -393,13 +393,14 @@ console.log('build alarm 1', alarmInfo)
     }
 
     // GDate is the 00:00 in the middle of the date, so start is the day before
-    var holyDayInfo = $.grep(specialDays, function (el, i) {
+    holyDayInfo = $.grep(specialDays, function (el, i) {
       return el.Type.substring(0, 1) == typeWanted && el.BDateCode == testDayDi.bDateCode;
     });
 
     if (holyDayInfo.length) {
       //log('LENGTH', holyDayInfo.length, holyDayInfo[0])
-      return specialDays.known[typeWanted + testDayDi.bDateCode] = holyDayInfo[0];
+
+      return (specialDays.known[typeWanted + testDayDi.bDateCode] = holyDayInfo[0]);
     }
     return null;
   }
