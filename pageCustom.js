@@ -243,7 +243,7 @@ var PageCustom = () => {
                 console.log(chrome.runtime.lastError);
             }
         });
-        if (browserHostType === browser.Chrome || browserHostType === browser.Firefox) {
+        if (browserHostType === browserType.Chrome || browserHostType === browserType.Firefox) {
             chrome.storage.sync.set({
                 customFormats: formats
             }, function () {
@@ -275,7 +275,7 @@ var PageCustom = () => {
             });
         };
         //HELLO 
-        if (browserHostType === browser.Chrome || browserHostType === browser.Firefox) {
+        if (browserHostType === browserType.Chrome || browserHostType === browserType.Firefox) {
             chrome.storage.sync.get({
                 customFormats: []
             }, function (info) {
@@ -411,4 +411,3 @@ var PageCustom = () => {
         addFromFirstPage: addFromFirstPage
     };
 };
-//# sourceMappingURL=pageCustom.js.map

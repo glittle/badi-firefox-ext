@@ -1,6 +1,6 @@
-var browser = {
-  Chrome: 'Chrome',
-  Firefox: 'Firefox',
-  Edge: 'Edge'
+var browserType = {
+    Chrome: 'Chrome',
+    Firefox: 'Firefox',
+    Edge: 'Edge'
 };
-var browserHostType = browser.Firefox;
+var browserHostType = browserType.Firefox;

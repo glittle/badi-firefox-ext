@@ -1,7 +1,7 @@
 @green: #77b55a;
 body {
     margin: 0;
-    font-family: Geneva, 'Segoe UI';
+    font-family: Arial;
     font-size: 9pt;
     &.rtl {
         direction: rtl;
@@ -11,7 +11,7 @@ body {
 #mainBody {
     margin: 0 auto;
     width: 800px;
-    font-family: Geneva, 'Segoe UI';
+    font-family: Arial;
 }
 
 #initialCover {
@@ -242,11 +242,11 @@ body {
             margin: 0 0 2px 0;
         }
         .place {
-            display: block;
-            margin: -15px 10px 0px 15px;
-            padding: 0 4px;
             font-size: 100%;
             color: #000;
+            vertical-align: middle;
+            border-bottom: 1px solid #ccc;
+            padding: 0 4px;
             font-style: italic;
         }
         input {
@@ -929,6 +929,17 @@ tr.OtherRange {
     font-size: 8.25pt;
 }
 
+#samples {
+    font-size: 9pt;
+    border: 1px solid green;
+    border-radius: 3px;
+    padding: 5px;
+    position: relative;
+    /*display: table-cell;*/
+    vertical-align: top;
+    white-space: nowrap;
+}
+
 #samplesList div {
     margin: 2px auto;
 }
@@ -1207,7 +1218,7 @@ button.button {
     display: inline-block;
     cursor: pointer;
     color: #ffffff;
-    font-family: Geneva, 'Segoe UI';
+    font-family: Arial;
     font-size: 8.25pt;
     line-height: 14px;
     transition: color 0.4s ease-out;
@@ -1235,15 +1246,7 @@ button.today.notToday {
     border: 1px solid #8f4b29;
 }
 
-#samples {
-    font-size: 9pt;
-    border: 1px solid green;
-    border-radius: 3px;
-    padding: 5px;
-    position: relative;
-    vertical-align: top;
-    white-space: nowrap;
-    button {
+#samples button {
         vertical-align: text-bottom;
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @green), color-stop(1, #72b352));
         background-color: @green;
@@ -1258,28 +1261,29 @@ button.today.notToday {
         padding: 1px 2px;
         text-decoration: none;
         min-width: 15px;
-        &:hover {
+}
+
+#samples button:hover {
             background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, @green));
             background: -webkit-linear-gradient(top, #72b352 5%, @green 100%);
             background: linear-gradient(to bottom, #72b352 5%, @green 100%);
             background-color: #72b352;
         }
-        &:active {
+
+#samples button:active {
             position: relative;
             top: 1px;
         }
-    }
-    div.copied {
-        button {
+
+#samples div.copied button {
             background: #b2f392;
             color: #4b8f29;
             transition: color 0.4s ease-out;
-            &:hover {
+}
+
+#samples div.copied button:hover {
                 background: #b2f392;
                 color: #4b8f29;
-            }
-        }
-    }
 }
 
 .iconArea {
@@ -1296,7 +1300,9 @@ button.today.notToday {
 #facebook img {
     margin: 0 5px 3px 0;
 }
-
+#linkWebStore{
+    text-decoration: none;
+}
 #logo {
     width: 22px;
     height: 24px;
@@ -1362,6 +1368,8 @@ button.today.notToday {
     text-decoration: underline;
 }
 
+body.ta #upcomingTitle {}
+
 #upcoming {
     width: 100%;
     border-spacing: 1px 0px;
@@ -1388,7 +1396,7 @@ button.today.notToday {
     display: block;
     margin: 0 0 2px 10px;
     text-align: center;
-    font-family: Geneva, 'Segoe UI';
+    font-family: Arial;
     font-size: 8.25pt;
 }
 
@@ -1413,7 +1421,7 @@ a.textLink:hover {
 
 .bDatePickerInputs input {
     font-size: 8.25pt;
-    font-family: Geneva, 'Segoe UI';
+    font-family: Arial;
     text-align: center;
     margin: 0;
     width: 33px;
@@ -1439,7 +1447,7 @@ input.bYearPicker {
 
 #yearSelector input {
     font-size: 8.25pt;
-    font-family: Geneva, 'Segoe UI';
+    font-family: Arial;
     text-align: center;
     margin: 0;
 }
@@ -1528,9 +1536,9 @@ body[data-pageid="pageSetup"] {
     #askShowPointer {
         display: none;
         z-index: 1;
-    }
+    } 
     #eventStart {
-        -webkit-appearance: none;
+        -moz-appearance: none;
         border: none;
         padding: 0;
         margin: 0;

@@ -1,59 +1,59 @@
 {
-  "name": "__MSG_title__",
-  "version": "3.1.1.5",
-  "description": "__MSG_titleDesc__",
-  "applications": {
-    "gecko": {
-      "id": "glen.little.ffBadi@gmail.com",
-      "strict_min_version": "57.0"
+    "name": "__MSG_title__",
+    "version": "3.1.2.1",
+    "description": "__MSG_titleDesc__",
+    "applications": {
+        "gecko": {
+            "id": "glen.little.ffBadi@gmail.com",
+            "strict_min_version": "57.0"
+        }
+    },
+    "default_locale": "en",
+    "icons": {
+        "128": "Badi19a-128.png"
+    },
+    "background": {
+        "scripts": [
+            "jquery-3.3.1.min.js",
+            "background.js",
+            "sharedBrowser.js",
+            "suncalc.js",
+            "holydays.js",
+            "moment.js",
+            "shared.js",
+            "backgroundReminderModule.js"
+        ]
+    },
+    "permissions": [
+        "alarms",
+        "tabs",
+        "storage",
+        "notifications",
+        "geolocation",
+        "contextMenus",
+        "clipboardWrite",
+        "https://maker.ifttt.com/"
+    ],
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_title": "__MSG_browserActionTitle__",
+        "default_icon": {
+            "48": "badi19a-48.png"
+        }
+    },
+    "content_security_policy": "script-src 'self'; object-src 'self'",
+    "author": "Glen Little",
+    "short_name": "BadiCal",
+    "manifest_version": 2,
+    "incognito": "spanning",
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "windows": "Ctrl+Shift+D",
+                "mac": "Command+Shift+D",
+                "chromeos": "Ctrl+Shift+D",
+                "linux": "Ctrl+Shift+D"
+            }
+        }
     }
-  },
-  "default_locale": "en",
-  "icons": {
-    "128": "Badi19a-128.png"
-  },
-  "background": {
-    "scripts": [
-      "jquery-3.2.1.min.js",
-      "background.js",
-      "sharedBrowser.js",
-      "suncalc.js",
-      "holydays.js",
-      "moment.js",
-      "shared.js",
-      "backgroundReminderModule.js"
-    ]
-  },
-  "permissions": [
-    "alarms",
-    "tabs",
-    "storage",
-    "notifications",
-    "geolocation",
-    "contextMenus",
-    "clipboardWrite",
-    "https://maker.ifttt.com/"
-  ],
-  "browser_action": {
-    "default_popup": "popup.html",
-    "default_title": "__MSG_browserActionTitle__",
-    "default_icon": {
-      "48": "badi19a-48.png"
-    }
-  },
-  "content_security_policy": "script-src 'self' https://maps.googleapis.com/maps/api/geocode; object-src 'self'",
-  "author": "Glen Little",
-  "short_name": "BadiCal",
-  "manifest_version": 2,
-  "incognito": "spanning",
-  "commands": {
-    "_execute_browser_action": {
-      "suggested_key": {
-        "windows": "Ctrl+Shift+D",
-        "mac": "Command+Shift+D",
-        "chromeos": "Ctrl+Shift+D",
-        "linux": "Ctrl+Shift+D"
-      }
-    }
-  }
 }

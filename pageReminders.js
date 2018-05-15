@@ -5,8 +5,9 @@
 //  "chrome_style":  true
 //},
 
+var _reminderModulePort = null;
 
-var PageReminders = function () {
+var PageReminders = function() {
     var _reminderPrefix = 'alarm_';
 
     var saveMode = {
@@ -16,7 +17,6 @@ var PageReminders = function () {
         saveFast: 4
     }
 
-    var _reminderModulePort = {};
     var _reminders = [];
 
     var BEFORE = -1;
@@ -26,7 +26,7 @@ var PageReminders = function () {
     var _currentEditId = 0;
 
     function editReminder(id) {
-        var matchingReminders = $.grep(_reminders, function (r, i) {
+        var matchingReminders = $.grep(_reminders, function(r, i) {
             return r.displayId == id;
         });
         if (!matchingReminders.length) {
@@ -87,7 +87,7 @@ var PageReminders = function () {
             case saveMode.save:
             case saveMode.saveFast:
                 // find and replace
-                $.each(_reminders, function (i, el) {
+                $.each(_reminders, function(i, el) {
                     if (el.displayId === r.displayId) {
                         _reminders[i] = r;
                         return false; // done
@@ -105,7 +105,7 @@ var PageReminders = function () {
                 break;
 
             case saveMode.test:
-                console.log('test', _reminderModulePort, r)
+                console.log('post test alarm', _reminderModulePort, r)
                 _reminderModulePort.postMessage({
                     code: "showTestAlarm",
                     reminder: r
@@ -137,16 +137,16 @@ var PageReminders = function () {
         };
 
         _page.find('#reminder_trigger, .reminderEditInputs *[id^="reminder_"]:input, .reminderEditInputs *[class*="reminder_"]:input')
-            .filter(function (i, el) {
+            .filter(function(i, el) {
                 return $(el).parent().is(':visible')
             })
-            .each(function (i, el) {
+            .each(function(i, el) {
                 var input = $(el);
                 var name = '';
                 if (el.id.startsWith('reminder_')) {
                     name = el.id;
                 } else {
-                    var classes = $.grep(el.className.split(' '), function (n, g) {
+                    var classes = $.grep(el.className.split(' '), function(n, g) {
                         return n.startsWith('reminder_');
                     });
                     if (classes.length) {
@@ -211,10 +211,10 @@ var PageReminders = function () {
     function updateEditArea(focusOnFirstInput) {
         // turn everything off
         _page.find('.reminderModel, .reminderEditInputs, .reminderAction, .reminderCalcType').hide();
-        _page.find('.reminderModel :input').each(function (i, input) {
+        _page.find('.reminderModel :input').each(function(i, input) {
             $(input).prop('disabled', true)
         });
-        _page.find('.reminderAction').find(':input').each(function (i, input) {
+        _page.find('.reminderAction').find(':input').each(function(i, input) {
             $(input).prop('disabled', true)
         });
 
@@ -230,13 +230,13 @@ var PageReminders = function () {
                 modelArea.find('#reminderCalcType' + calcType).show();
             }
 
-            modelArea.show().find(':input').each(function (i, input) {
+            modelArea.show().find(':input').each(function(i, input) {
                 $(input).prop('disabled', false)
             });
 
             // deal with Action area
             var action = $('#reminder_action').val();
-            _page.find('#reminderAction_{0}'.filledWith(action)).show().find(':input').each(function (i, input) {
+            _page.find('#reminderAction_{0}'.filledWith(action)).show().find(':input').each(function(i, input) {
                 $(input).prop('disabled', false)
             });
             switch (action) {
@@ -286,7 +286,7 @@ var PageReminders = function () {
         var displayId = 1;
         // console.log('show reminders');
         _reminders.sort(reminderSort);
-        $.each(_reminders, function (i, r) {
+        $.each(_reminders, function(i, r) {
             var lines = [];
 
             r.displayId = displayId;
@@ -346,44 +346,33 @@ var PageReminders = function () {
     }
 
     function showActiveAlarms() {
-        // if (browserHostType !== browser.Chrome) {
-        //     return;
-        // }
-
         //update heading
         _page.find('#remindersScheduled').html(getMessage('remindersScheduled', {
             time: showTime(new Date())
         }));
 
-        // blank out the list
+        var upcomingAlarms = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith(_reminderPrefix)) {
+                upcomingAlarms.push(getStorage(key));
+            }
+        }
+
+        upcomingAlarms.sort(function(a, b) {
+            return a.whenTime < b.whenTime ? -1 : 1;
+        });
+
         var alarmList = _page.find('.alarms');
         alarmList.html('');
-        console.log('get alarms')
-        
-        chrome.alarms.getAll(function (alarms) {
-            console.log('got alarms', alarms.length)
-            alarms.sort(function (a, b) {
-                return a.scheduledTime < b.scheduledTime ? -1 : 1;
-            });
 
-            for (var i = 0; i < alarms.length; i++) {
-                var alarm = alarms[i];
-                if (alarm.name.startsWith(_reminderPrefix)) {
-                    var alarmInfo = getStorage(alarm.name);
-                    if (!alarmInfo) {
-                        console.log('No alarmInfo for ' + alarm.name);
-                        continue;
-                    }
+        for (let i = 0; i < upcomingAlarms.length; i++) {
+            var info = upcomingAlarms[i];
 
-                    //log(alarmInfo);
-                    //alarmList.append('<li id=a_{2}>{0} --> {1} <button class=button data-id={2}>{3}</button></li>'.filledWith(alarmInfo.triggerTimeDisplay, alarmInfo.messageBody, alarmInfo.displayId, getMessage('btnReminderEdit')));
-
-                    alarmList.append('<li id=a_{1} class=alarmInfo><button class=button data-id={1}>{2}</button> {0}</li>'.filledWith(
-                        getMessage('reminderAlarm', alarmInfo),
-                        alarmInfo.displayId, getMessage('btnReminderEdit')));
-                }
-            }
-        });
+            alarmList.append('<li id=a_{1} class=alarmInfo><button class=button data-id={1}>{2}</button> {0}</li>'.filledWith(
+                getMessage('reminderAlarm', info),
+                info.displayId, getMessage('btnReminderEdit')));
+        }
     }
 
 
@@ -472,41 +461,41 @@ var PageReminders = function () {
 
 
     function attachHandlers() {
-        _page.on('submit', 'form', function (e) {
+        _page.on('submit', 'form', function(e) {
             //prevent the form from doing a real submit
             e.preventDefault();
             return false;
         });
 
-        _page.find('#btnReloadOptions').on('click', function () {
+        _page.find('#btnReloadOptions').on('click', function() {
             window.location.reload();
         });
 
-        _page.find('#reminder_trigger').on('change', function () {
+        _page.find('#reminder_trigger').on('change', function() {
             updateEditArea();
         });
 
-        _page.find('#reminder_action').on('change', function () {
+        _page.find('#reminder_action').on('change', function() {
             updateEditArea();
         });
 
-        _page.find('.reminder_calcType').on('change', function () {
+        _page.find('.reminder_calcType').on('change', function() {
             updateEditArea();
         });
 
         _page
-            .on('click', '.reminders button', function (ev) {
+            .on('click', '.reminders button', function(ev) {
                 editReminder(+$(ev.target).data('id'));
             })
-            .on('click', '.alarms button', function (ev) {
+            .on('click', '.alarms button', function(ev) {
                 editReminder(+$(ev.target).data('id'));
             })
-            .on('click', '#makeSamples', function (ev) {
+            .on('click', '#makeSamples', function(ev) {
                 _reminderModulePort.postMessage({
                     code: "makeSamples"
                 });
             })
-            .on('mouseover', '.alarmInfo, .reminderInfo', function (ev) {
+            .on('mouseover', '.alarmInfo, .reminderInfo', function(ev) {
                 $('.reminderInfo, .alarmInfo').removeClass('tempHover');
                 var id = $(ev.target).closest('.alarmInfo, .reminderInfo')[0].id;
                 var num = id.split('_')[1];
@@ -515,22 +504,22 @@ var PageReminders = function () {
                     matched.addClass('tempHover');
                 }
             })
-            .on('click', '#btnReminderSave', function () {
+            .on('click', '#btnReminderSave', function() {
                 save(saveMode.save);
             })
-            .on('click', '#btnReminderSaveNew', function () {
+            .on('click', '#btnReminderSaveNew', function() {
                 save(saveMode.saveNew);
             })
-            .on('click', '#btnReminderTest', function () {
+            .on('click', '#btnReminderTest', function() {
                 save(saveMode.test);
             })
-            .on('click', '#btnReminderCancel', function () {
+            .on('click', '#btnReminderCancel', function() {
                 resetInputs();
             })
-            .on('click', '#btnReminderDelete', function () {
+            .on('click', '#btnReminderDelete', function() {
                 if (_currentEditId) {
                     var deleted = false;
-                    $.each(_reminders, function (i, r) {
+                    $.each(_reminders, function(i, r) {
                         if (r.displayId === _currentEditId) {
                             _reminders.splice(i, 1);
                             deleted = true;
@@ -550,7 +539,7 @@ var PageReminders = function () {
     }
 
     function resetInputs() {
-        _page.find('*:input').each(function (i, el) {
+        _page.find('*:input').each(function(i, el) {
             var input = $(el);
             var defaultValue = input.data('default');
             if (typeof defaultValue !== 'undefined') {
@@ -567,7 +556,7 @@ var PageReminders = function () {
         _reminderModulePort = chrome.runtime.connect({
             name: "reminderModule"
         });
-        _reminderModulePort.onMessage.addListener(function (msg) {
+        _reminderModulePort.onMessage.addListener(function(msg) {
             console.log('received 1:', msg);
 
             // these are return call in response to our matching request
@@ -591,7 +580,7 @@ var PageReminders = function () {
                     showReminders();
 
                     // need to "edit" each of the samples to get all the settings!
-                    $.each(_reminders, function (i, r) {
+                    $.each(_reminders, function(i, r) {
                         editReminder(r.displayId);
                         _currentEditId = r.displayId;
                         save(saveMode.saveFast);
@@ -605,6 +594,9 @@ var PageReminders = function () {
 
 
         });
+
+        // once port is set, set the alarm
+        setAlarmForNextDayChange();
     }
 
     function determineTriggerTimeToday(reminder) {
@@ -629,15 +621,15 @@ var PageReminders = function () {
 
         // pre-select best match
         //full match
-        var match = $.grep(voices, function (v) {
+        var match = $.grep(voices, function(v) {
             return v.lang === _languageCode
         });
         if (match.length == 0) {
-            match = $.grep(voices, function (v) {
+            match = $.grep(voices, function(v) {
                 return v.lang && v.lang.startsWith(_languageCode);
             })
             if (match.length == 0) {
-                match = $.grep(voices, function (v) {
+                match = $.grep(voices, function(v) {
                     return v.lang && v.lang.startsWith('en');
                 })
             }
