@@ -61,7 +61,7 @@ function attachHandlers() {
     $('.btnRetry').on('click', function() {
         $('.setupPlace .place').text(''); //blank the copy on the setup page
         $('.btnRetry').addClass('active').blur();
-        startGettingLocation();
+        startGettingLocation(true);
 
     });
     $('#datePicker').on('keydown', function(ev) {

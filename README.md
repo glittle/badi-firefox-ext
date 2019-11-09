@@ -1,4 +1,4 @@
-# Badí' Calendar Firefox Extension #
+# Badíʿ Calendar Firefox Extension #
 
 
 ### To be done ###
